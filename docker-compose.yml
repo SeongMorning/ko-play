@@ -1,0 +1,18 @@
+# docker-compose.yml
+
+version: '3.3'
+
+services:
+  frontend:
+    build:
+      context: ./test/frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+
+  backend:
+    build:
+      context: ./test/backend
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8081"
