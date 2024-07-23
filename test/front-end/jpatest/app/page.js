@@ -7,17 +7,25 @@ import { useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState({});
-
+  const API_BASE_URL = 'http://localhost:8080/api/products';
+  const newProduct = {
+    name: 'Sample Product',
+    description: 'This is a sample product.',
+    price: 9.99,
+    stock: 100
+  };
   const handleGET = ()=> {
-    axios.get('')
+    axios.get(API_BASE_URL)
     .then((res)=>{
-      
-    })
-  }
+      console.log('All Products:', res.data);
+    }).catch ((error) =>
+      console.error('Error fetching all products:', error));
+  
+  }   
   const handlePOST = ()=> {
-    axios.post('', )
+    axios.post(API_BASE_URL, newProduct)
     .then((res)=>{
-      
+      console.log('Created Product:', res.data);
     })
   }
   
