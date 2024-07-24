@@ -17,7 +17,9 @@ COPY jpatest/ ./
 # 의존성 다운로드
 RUN ./gradlew dependencies
 
-# COPY . .
+
+#권한 변경
+RUN chmod +x gradlew
 
 # 애플리케이션 빌드
 RUN ./gradlew build --no-daemon
