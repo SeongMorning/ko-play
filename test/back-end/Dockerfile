@@ -1,18 +1,23 @@
 # 1. 빌드 단계
 FROM gradle:7.6-jdk17 AS build
 
+RUN mkdir -p /app
+
 WORKDIR /app
 
+
+# 소스 코드 복사
+COPY jpatest/ ./
+
 # Gradle 캐시를 활용하여 의존성 다운로드를 빠르게
-COPY build.gradle settings.gradle ./
-COPY gradle /gradle
-RUN gradle wrapper --gradle-version 7.6
+# COPY build.gradle settings.gradle ./
+# COPY gradle /gradle
+# RUN gradle wrapper --gradle-version 7.6
 
 # 의존성 다운로드
 RUN ./gradlew dependencies
 
-# 소스 코드 복사
-COPY . .
+# COPY . .
 
 # 애플리케이션 빌드
 RUN ./gradlew build --no-daemon
