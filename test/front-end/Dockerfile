@@ -14,7 +14,7 @@ RUN npm install
 RUN npm run build
 
 # 3. 배포 단계
-FROM base AS runner
+FROM base AS builder
 
 WORKDIR /app
 
