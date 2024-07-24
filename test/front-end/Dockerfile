@@ -7,11 +7,9 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-# COPY jpatest/package.json ./
-# COPY jpatest/package-lock.json ./
-COPY . ./app/
-
-RUN ls
+COPY jpatest/package.json ./
+COPY jpatest/package-lock.json ./
+COPY . ./
 
 RUN npm install
 
