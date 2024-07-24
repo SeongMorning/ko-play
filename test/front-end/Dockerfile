@@ -7,12 +7,13 @@ FROM node:20-alpine AS builder
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY jpatest/package*.json ./
+# COPY jpatest/package*.json ./
 
-RUN npm install
+# RUN npm install
 
 # 애플리케이션 코드 복사 및 빌드
 COPY jpatest/ ./
+RUN npm install
 RUN npm run build
 
 # 3. 배포 단계
@@ -40,5 +41,5 @@ USER nextjs
 EXPOSE 3000
 ENV PORT 3000
 
-CMD ["npx", "next", "start", "-p", "3000"]
-
+# CMD ["npx", "next", "start", "-p", "3000"]
+CMD["npm","start"]
