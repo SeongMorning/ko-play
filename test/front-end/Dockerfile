@@ -26,7 +26,7 @@ ENV NODE_ENV production
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-OPY --from=builder /app/public /app/public
+COPY --from=builder /app/public /app/public
 COPY --from=builder /app/.next /app/.next
 
 RUN chown -R nextjs:nodejs /app
