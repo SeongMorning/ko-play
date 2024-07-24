@@ -7,9 +7,7 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-COPY jpatest/package.json ./
-COPY jpatest/package-lock.json ./
-COPY . ./
+COPY jpatest/ ./
 
 RUN npm install
 
@@ -23,3 +21,4 @@ COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
+
