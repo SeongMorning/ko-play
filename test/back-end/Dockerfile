@@ -14,12 +14,11 @@ COPY jpatest/ ./
 # COPY gradle /gradle
 # RUN gradle wrapper --gradle-version 7.6
 
-# 의존성 다운로드
-RUN ./gradlew dependencies
-
-
 #권한 변경
 RUN chmod +x gradlew
+
+# 의존성 다운로드
+RUN ./gradlew dependencies
 
 # 애플리케이션 빌드
 RUN ./gradlew build --no-daemon
