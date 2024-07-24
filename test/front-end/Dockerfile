@@ -26,7 +26,6 @@ RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/server.js ./
 
 RUN mkdir -p .next
 RUN chown -R nextjs:nodejs .next
@@ -40,4 +39,4 @@ USER nextjs
 EXPOSE 3000
 ENV PORT 3000
 
-CMD HOSTNAME="0.0.0.0" node server.js
+CMD ["npx", "next", "start", "-p", "3000"]
