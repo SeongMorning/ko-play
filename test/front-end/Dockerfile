@@ -16,7 +16,7 @@ RUN npm run build
 # 2. 배포 단계
 FROM nginx:alpine
 
-COPY --from=build /app/build /usr/share/nginx/html
+COPY --from=build /app/.next /usr/share/nginx/html
 
 EXPOSE 80
 
