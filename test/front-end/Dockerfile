@@ -1,7 +1,7 @@
 # frontend/Dockerfile
 
 # 1. 빌드 단계
-FROM node:20-alpine AS base
+FROM node:20-alpine AS builder
 
 # 2. 종속성 설치 단계
 RUN mkdir -p /app
@@ -13,9 +13,7 @@ RUN npm install
 
 RUN npm run build
 
-
 # 3. 배포 단계
-FROM base AS builder
 
 WORKDIR /app
 
