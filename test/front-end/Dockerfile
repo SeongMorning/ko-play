@@ -15,6 +15,8 @@ RUN npm run build
 
 # 3. 배포 단계
 
+FROM node:20-alpine AS runner
+
 WORKDIR /app
 
 ENV NODE_ENV production
