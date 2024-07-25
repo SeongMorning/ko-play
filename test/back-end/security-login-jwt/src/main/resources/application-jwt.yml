@@ -1,0 +1,4 @@
+spring:
+  jwt:
+    secret: HopeEdu_SSAFY_Project_B302_secret_key
+    expires: 3600000
