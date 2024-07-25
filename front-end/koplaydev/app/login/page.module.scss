@@ -5,20 +5,7 @@
   width: 100vw;
   height: 100vh;
 }
-.promotionTitle {
-  /* display: flex; */
-  text-align: center; /* 텍스트 가운데 정렬 */
-  justify-content: center;
-  align-items: center;
-  width: 3vw;
-  color: white; /* 텍스트 색상 설정 */
-  width: 50vw; /* 원하는 너비로 조정 */
-  font-size: 1.1vw;
-  /* border: 1px solid white; */
-}
-.promotionTitle h1 {
-  margin-bottom: 0;
-}
+
 .logo {
   justify-content: center;
   align-items: center;
@@ -27,14 +14,8 @@
 .logo img {
   width: 24vw; /* 원하는 너비로 설정 */
   height: auto; /* 비율을 유지하면서 높이 자동 조정 */
+  z-index: 7;
 }
-/* .startButtons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px; /* 버튼 사이의 간격 조정 
-}*/
-
 .bottomBackGround {
   width: 100vw;
 }
@@ -67,4 +48,11 @@
   position: absolute;
   top: 20vh;
   left: 77vw;
+}
+.rocket {
+  width: 12vw;
+  z-index: 3;
+  position: absolute;
+  top: 0.1vh;
+  left: 27vw;
 }
