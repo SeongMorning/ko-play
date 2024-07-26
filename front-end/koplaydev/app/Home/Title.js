@@ -36,13 +36,13 @@ export default function Title() {
         animate="visible"
       >
         {title1.map((data, index) => {
-          return <motion.span variants={letterVariants}>{data}</motion.span>;
+          return <motion.span key={index} variants={letterVariants}>{data}</motion.span>;
         })}
       </motion.div>
       <motion.div className={styles.promotionTitle2}>
         {title2.map((data, index) =>
           index < 12 ? (
-            <motion.span
+            <motion.span key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 1.5 }}
@@ -50,7 +50,7 @@ export default function Title() {
               {data}
             </motion.span>
           ) : (
-            <motion.span
+            <motion.span key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 2 }}
