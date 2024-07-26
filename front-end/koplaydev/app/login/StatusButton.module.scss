@@ -1,5 +1,5 @@
 .statusButton {
-  width: 30vw;
+  width: 20vw;
   height: 30vh;
   position: relative;
   display: flex;
@@ -8,25 +8,25 @@
   z-index: 10;
 }
 .statusButtonMain {
-  width: 15vw;
+  width: 18vw;
   height: 15vw;
   /* left: 0;
   top: 0; */
-  margin-bottom: 1vw;
+  margin-bottom: 2vh;
   position: absolute;
   background-color: #ffd6e0;
   box-shadow: 0px 10px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 1vw;
+  border-radius: 6vw;
 }
 .statusButtonShadow {
-  width: 15vw;
+  width: 18vw;
   height: 15vw;
   /* left: 0;
   top: 15; */
   position: absolute;
   background-color: #e07a93;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 1vw;
+  border-radius: 6vw;
 }
 .text {
   position: absolute;
@@ -34,24 +34,24 @@
   word-wrap: break-word;
 }
 .statusButtonDot {
-  width: 1.8vw;
-  height: 0.9vw;
-  left: 0.5vw;
-  bottom: 65%;
+  width: 3vw;
+  height: 1.5vw;
+  left: 2.5vw;
+  bottom: 69%;
   position: absolute;
-  transform: rotate(-25deg);
+  transform: rotate(-30deg);
   transform-origin: 0 0;
   background-color: white;
   border-radius: 50%;
   z-index: 11;
 }
 .statusButtonDot2 {
-  width: 1.2vw;
-  height: 0.6vw;
-  left: 2.5vw;
-  bottom: 80%;
+  width: 2vw;
+  height: 1vw;
+  left: 5.5vw;
+  bottom: 88%;
   position: absolute;
-  transform: rotate(-25deg);
+  transform: rotate(-20deg);
   transform-origin: 0 0;
   background-color: white;
   border-radius: 50%;
