@@ -1,3 +1,5 @@
+"use client";
+
 import styles from "./page.module.scss";
 import StartButton from "./StartButton";
 
@@ -12,10 +14,8 @@ export default function Home() {
         <div className={styles.logo}>
           <img src="/logo.png" />
         </div>
-        <div className={styles.startButtons}>
-          <StartButton />
-          <StartButton />
-        </div>
+        <StartButton />
+        <StartButton />
         <div className={styles.bottomBackGround}>
           <img className={styles.ufo} src="/ufo.svg" />
           <img className={styles.saturn} src="/saturn.svg" />
