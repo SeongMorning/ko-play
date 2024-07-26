@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState({});
-  const API_BASE_URL = 'http://i11b302.p.ssafy.io:8081';
+  const API_BASE_URL = 'http://i11b302.p.ssafy.io:8081/api/products';
   const newProduct = {
     name: 'Sample Product',
     description: 'This is a sample product.',
