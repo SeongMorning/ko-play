@@ -11,12 +11,9 @@
   justify-content: center;
   align-items: center;
   z-index: 13;
-
-  img {
-    width: 30vw; /* 원하는 너비로 설정 */
-    height: auto; /* 비율을 유지하면서 높이 자동 조정 */
-    z-index: 13;
-  }
+  width: 30vw; /* 원하는 너비로 설정 */
+  height: auto; /* 비율을 유지하면서 높이 자동 조정 */
+  z-index: 13;
 }
 
 .statusButtonContainer {
@@ -25,43 +22,4 @@
   align-items: center;
   width: 100%;
   z-index: 10;
-}
-
-.bottomBackGround {
-  width: 100vw;
-}
-.cloud {
-  width: 100%;
-  height: 70%;
-  z-index: 0;
-  position: absolute;
-  bottom: 0;
-}
-
-.gamepadIcon {
-  z-index: 4; /* z-index를 설정하여 cloud 위로 오게 함 */
-  position: absolute;
-  width: 30vw;
-  left: -4vw;
-  bottom: -7vh;
-}
-
-.ufo {
-  z-index: 3;
-  position: absolute;
-  top: 20vh;
-  left: 10vw;
-}
-.saturn {
-  z-index: 3;
-  position: absolute;
-  top: 20vh;
-  left: 77vw;
-}
-.rocket {
-  width: 12vw;
-  z-index: 3;
-  position: absolute;
-  top: 0.1vh;
-  left: 27vw;
 }
