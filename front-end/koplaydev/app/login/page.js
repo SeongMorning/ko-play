@@ -1,23 +1,18 @@
 import styles from "./page.module.scss";
-import StatusButton from "./StatusButton";
+import ZellyButton from "../component/buttons/ZellyButton";
+import Icon from "../Home/Icon";
 
 export default function Login() {
   return (
-    <main className={styles.main}>
-      <div className={styles.logo}>
-        <img src="/logo.png" />
-      </div>
-      <div className={styles.statusButtonContainer}>
-        <StatusButton />
-        <StatusButton />
-      </div>
-      <div className={styles.bottomBackGround}>
-        <img className={styles.rocket} src="/rocket.svg" />
-        <img className={styles.ufo} src="/ufo.svg" />
-        <img className={styles.saturn} src="/saturn.svg" />
-        <img className={styles.gamepadIcon} src="/gamepadIcon.svg" />
-        <img className={styles.cloud} src="/cloud.png" />
-      </div>
-    </main>
+    <>
+      <main className={styles.main}>
+        <img className={styles.logo} src="/logo.png" />
+        <div className={styles.statusButtonContainer}>
+          <ZellyButton bg={"#ffd6e0"} shadow={"#e07a93"} text={"부모님"} />
+          <ZellyButton bg={"#A2D2FF"} shadow={"#4DA3F3"} text={"학생"} />
+        </div>
+      </main>
+      <Icon />
+    </>
   );
 }
