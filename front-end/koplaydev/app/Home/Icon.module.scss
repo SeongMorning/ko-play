@@ -1,0 +1,27 @@
+.gamepadIcon {
+  z-index: 4;
+  position: absolute;
+  width: 30vw;
+  left: -4vw;
+  bottom: -7vh;
+}
+.ufo {
+  z-index: 3;
+  position: absolute;
+  top: 20vh;
+  left: 10vw;
+}
+.saturn {
+  z-index: 3;
+  position: absolute;
+  top: 20vh;
+  left: 77vw;
+}
+
+.cloud {
+  width: 100%;
+  height: 70%;
+  z-index: 0;
+  position: absolute;
+  bottom: 0;
+}
