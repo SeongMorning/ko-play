@@ -1,0 +1,16 @@
+.button {
+  width: 10vw;
+  height: 5vh;
+  position: relative;
+  background-color: #fdfdfd;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 1.5vw;
+  font-size: 1.5vw;
+  font-weight: 700;
+  z-index: 10;
+  cursor: pointer;
+  margin: 1vw;
+}
+.selected {
+  background-color: #fbe9e9;
+}
