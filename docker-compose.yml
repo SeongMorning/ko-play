@@ -1,18 +1,24 @@
 # docker-compose.yml
-
 version: '3.3'
 
 services:
-  frontend:
-    build:
-      context: ./test/frontend
-      dockerfile: Dockerfile
+  #mysql 도커 배포
+  mysql:
+    image: mysql:8
+    container_name: mysql_container
+    environment:
+      MYSQL_ROOT_PASSWORD: ssafy       # MySQL root 사용자 비밀번호
+      MYSQL_DATABASE: koplay               # 생성할 데이터베이스 이름
+      MYSQL_USER: ssafy                       # 사용자 이름
+      MYSQL_PASSWORD: ssafy               # 사용자 비밀번호
+    volumes:
+      - mysql_data:/var/lib/mysql              # 데이터 디렉토리를 Volume에 마운트
     ports:
-      - "80:80"
+      - "3306:3306"                           # 호스트의 3306 포트를 컨테이너의 3306 포트에 매핑
 
-  backend:
-    build:
-      context: ./test/backend
-      dockerfile: Dockerfile
-    ports:
-      - "8081:8081"
+volumes:
+  mysql_data:
+    driver: local                            # Volume 드라이버 (default: local)
+  #redis 도커 배포
+  #nginx 도커 배포 
+
