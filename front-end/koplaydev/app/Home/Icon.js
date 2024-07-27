@@ -9,7 +9,6 @@ export default function Icon() {
       <motion.img
         className={styles.ufo}
         src="/ufo.svg"
-        initial="hidden"
         animate={{
           translateY: [0, -5, 0],
           transition: {
@@ -40,7 +39,14 @@ export default function Icon() {
           },
         }}
       />
-      <motion.img className={styles.cloud} src="/cloud.png" />
+      <motion.img 
+      animate={{
+        translateY: [0, 5, 3, 1, 0],
+        transition: {
+          repeat: Infinity,
+          duration: 4,
+        },
+      }}className={styles.cloud} src="/cloud.png" />
     </>
   );
 }
