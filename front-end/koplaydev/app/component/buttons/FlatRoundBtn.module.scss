@@ -1,0 +1,58 @@
+.FlatRoundBtn {
+  position: relative;
+
+  .FlatRoundBtnTop {
+    width: 4vw;
+    height: 6vh;
+    position: absolute;
+    background: #fffdd6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 100%;
+    z-index: 10;
+  }
+
+  .FlatRoundBtnBottom {
+    width: 4vw;
+    height: 6vh;
+    margin-top: 0.3vw;
+    position: absolute;
+    background-color: #d2c372;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 100%;
+    z-index: 10;
+  }
+
+  .FlatRoundBtnDot1 {
+    width: 1vw;
+    height: 1vh;
+    top: 2vh;
+    position: absolute;
+    transform: rotate(-13.13deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 1vw;
+    z-index: 10;
+  }
+
+  .FlatRoundBtnDot2 {
+    width: 0.5vw;
+    height: 0.5vh;
+    position: absolute;
+    left: 1vw;
+    top: 1vh;
+    transform: rotate(-13.13deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 1vw;
+    z-index: 10;
+  }
+
+  img {
+    width: 2vw;
+    height: 2vw;
+    left: 1vw;
+    top: 1vh;
+    position: absolute;
+    z-index: 10;
+  }
+}
