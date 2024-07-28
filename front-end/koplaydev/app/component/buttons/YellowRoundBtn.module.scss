@@ -1,0 +1,23 @@
+.YellowRoundBtn {
+  text-align: center;
+  align-items: center;
+  .YellowRoundBtnTop {
+    left: 7px;
+    top: 0px;
+    position: absolute;
+    background-color: #fcf6bd;
+    box-shadow: -10px 10px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3vw;
+    z-index: 10;
+  }
+
+  .YellowRoundBtnBottom {
+    left: 0px;
+    top: 10px;
+    position: absolute;
+    background-color: #fcf6bd;
+    box-shadow: -10px 10px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3vw;
+    z-index: 10;
+  }
+}

@@ -8,8 +8,20 @@ export default function Login() {
       <main className={styles.main}>
         <img className={styles.logo} src="/logo.png" />
         <div className={styles.statusButtonContainer}>
-          <ZellyButton width={''} height={''} bg={"#ffd6e0"} shadow={"#e07a93"} text={"부모님"} />
-          <ZellyButton width={''} height={''} bg={"#A2D2FF"} shadow={"#4DA3F3"} text={"학생"} />
+          <ZellyButton
+            width={""}
+            height={""}
+            bg={"#ffd6e0"}
+            shadow={"#e07a93"}
+            text={"부모님"}
+          />
+          <ZellyButton
+            width={""}
+            height={""}
+            bg={"#A2D2FF"}
+            shadow={"#4DA3F3"}
+            text={"학생"}
+          />
         </div>
       </main>
       <Icon />

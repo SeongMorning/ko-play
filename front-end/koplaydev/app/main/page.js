@@ -1,7 +1,7 @@
 import styles from "./page.module.scss";
 import SelectStatus from "./SelectStatus";
 import Icon from "../Home/Icon";
-import LoginBox from "../component/boxes/LoginBox.js/index.js";
+import LoginBox from "../component/boxes/LoginBox.js";
 
 export default function Main() {
   return (
