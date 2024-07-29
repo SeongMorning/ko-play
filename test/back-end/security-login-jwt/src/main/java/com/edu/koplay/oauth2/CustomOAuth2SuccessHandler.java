@@ -1,6 +1,7 @@
 package com.edu.koplay.oauth2;
 
 import com.edu.koplay.dto.CustomOAuth2User;
+import com.edu.koplay.dto.GeneratedToken;
 import com.edu.koplay.jwt.JwtUtil;
 import com.edu.koplay.util.ROLE;
 import jakarta.servlet.ServletException;
@@ -30,18 +31,16 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String email = customUserDetails.getData();
         String role = ROLE.PARENT.name();
 
-        String token = jwtUtil.createJwt(email, role);
-        logger.info("roles: "+role);
-        logger.info("token: "+token);
-        response.addCookie(createCookie("Authorization", token));
-//        response.sendRedirect("http://localhost:3000/");
+        GeneratedToken token = jwtUtil.generateToken(email, role);
+        logger.info("jwtAccessToken = " + token.getAccessToken());
+        response.addCookie(createCookie("Authorization", token.getAccessToken()));
         response.sendRedirect("http://localhost:8080/parent/test");
     }
 
     private Cookie createCookie(String key, String value) {
 
         Cookie cookie = new Cookie(key, value);
-        cookie.setMaxAge(60*60*60);
+//        cookie.setMaxAge(60 * 60 * 60);
         //https설정
         //cookie.setSecure(true);
         cookie.setPath("/");

@@ -1,21 +1,15 @@
 package com.edu.koplay.oauth2;
 
-import com.edu.koplay.dto.CustomOAuth2User;
 import com.edu.koplay.jwt.JwtUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
 
 @Component
 public class CustomLogoutHandler extends SimpleUrlLogoutSuccessHandler {
@@ -39,6 +33,7 @@ public class CustomLogoutHandler extends SimpleUrlLogoutSuccessHandler {
         // Authorization 쿠키 삭제
         response.addCookie(createCookie("Authorization", null, 0)); // 쿠키를 삭제하는 방법
         request.getSession().invalidate();
+
         // 로그아웃 성공 후 리다이렉트할 URL 설정
 //        super.setDefaultTargetUrl("/loginsucc"); // 로그아웃 후 리다이렉트할 URL
         super.onLogoutSuccess(request, response, authentication);

@@ -57,12 +57,11 @@ public class SecurityConfig {
                                         .requestMatchers("/").permitAll()
                                         .requestMatchers("/custom-login").permitAll()
                                         .requestMatchers("/login").permitAll()
+                                        .requestMatchers("/token/**").permitAll()
                                         .requestMatchers("/studentsuccess").hasRole(ROLE.STUDENT.getRoles())
                                         .requestMatchers("/parent/test").hasRole(ROLE.PARENT.getRoles())
-                                        .requestMatchers("/student/signin").permitAll()
-
-//                                        .requestMatchers("/parent/**").hasRole("PARENT")
-//                                        .requestMatchers("/student/**").hasRole("STUDENT")
+                                        .requestMatchers("/parent/**").hasRole("PARENT")
+                                        .requestMatchers("/student/**").hasRole("STUDENT")
                                         .anyRequest().authenticated())
                 //filter 추가
                 //oauth2 인증 전에 JWT토큰을 검증할 jwtfilter 돌도록
@@ -80,8 +79,8 @@ public class SecurityConfig {
 //                                .loginPage("/custom-login")  // 별도의 로그인 페이지 경로 사용
                                         .usernameParameter("id")
                                         .passwordParameter("password")
-//                                .loginProcessingUrl("/student/signin")
-//                                        .defaultSuccessUrl("/studentsuccess", true)
+//                                      .loginProcessingUrl("/student/signin")
+//                                      .defaultSuccessUrl("/studentsuccess", true)
                                         .failureUrl("/custom-login?error=true")  // 로그인 실패 시 리다이렉트
                                         .successHandler(customUserSuccessHandler)
 
@@ -104,12 +103,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-//@Bean
-//public PasswordEncoder passwordEncoder() {
-//    DelegatingPasswordEncoder delegatingPasswordEncoder =
-//            (DelegatingPasswordEncoder) PasswordEncoderFactories.createDelegatingPasswordEncoder();
-//    delegatingPasswordEncoder.setDefaultPasswordEncoderForMatches(new BCryptPasswordEncoder());
-//
-//    return delegatingPasswordEncoder;
-//}
 }
