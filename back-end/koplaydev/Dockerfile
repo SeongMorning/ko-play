@@ -14,6 +14,9 @@ COPY . .
 # COPY gradle /gradle
 # RUN gradle wrapper --gradle-version 7.6
 
+# Gradle Wrapper 파일 생성
+RUN gradle wrapper --gradle-version 7.6
+
 #권한 변경
 RUN chmod +x gradlew
 
@@ -21,7 +24,7 @@ RUN chmod +x gradlew
 RUN ./gradlew dependencies
 
 # 애플리케이션 빌드
-RUN ./gradlew build --no-daemon
+RUN ./gradlew build --no-daemon --stacktrace
 
 # 2. 배포 단계
 FROM openjdk:17-jdk-alpine
