@@ -1,0 +1,35 @@
+.hehe{
+    position : absolute;
+    top : 25vh;
+    left : 40vw;
+    width : 20vw;
+    height : 30vh;
+    z-index : 10;
+}
+
+.normalGame{
+    position : absolute;
+    top : 0vh;
+    left : 1vw;
+    width : 35vw;
+    height : 65vh;
+    z-index : 10;
+}
+
+.rankGame{
+    position : absolute;
+    top : 0vh;
+    right : 1vw;
+    width : 35vw;
+    height : 65vh;
+    z-index : 10;
+}
+
+.speechBubble{
+    position : absolute;
+    top : 9vh;
+    left : 38vw;
+    width : 24vw;
+    height : 15vh;
+    z-index : 10;
+}
