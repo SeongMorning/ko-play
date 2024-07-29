@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import RoundButton from "../component/buttons/RoundBtn";
+import RoundButton from "./buttons/RoundBtn";
 
 export default function SelectStatus() {
   const [selectedButton, setSelectedButton] = useState("학생");
