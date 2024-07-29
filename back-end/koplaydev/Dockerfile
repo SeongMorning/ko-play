@@ -24,7 +24,7 @@ RUN chmod +x gradlew
 RUN ./gradlew dependencies
 
 # 애플리케이션 빌드
-RUN ./gradlew build --no-daemon > build.log 2>&1 || (cat build.log && exit 1)
+RUN ./gradlew build --no-daemon --stacktrace
 
 # 2. 배포 단계
 FROM openjdk:17-jdk-alpine
