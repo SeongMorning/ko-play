@@ -1,10 +1,17 @@
 package com.edu.koplay.model;
 
-import lombok.Data;
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+import java.util.Date;
+
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 public class Student {
@@ -22,12 +29,16 @@ public class Student {
     @Column(nullable = false)
     private String studentPw;
 
+    @Column(nullable = false)
+    private String studentName;
+
     @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT '닉네임'")
     private String nickname;
 
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 0")
     private Integer exp;
 
+    @Column(nullable = false)
     private LocalDate birth;
 
     @Lob
@@ -35,17 +46,17 @@ public class Student {
 
     private String schoolName;
 
-    @Column(nullable = false)
+    @Builder.Default
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isDeleted = false;
 
-    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
+    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
 
-    private String studentName;
+    private Date updateDate;
 
-    private LocalDateTime updateDate;
-
-    @Column(nullable = false)
+    @Builder.Default
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean visited = false;
 }
 

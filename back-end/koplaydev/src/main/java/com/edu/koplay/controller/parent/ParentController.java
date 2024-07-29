@@ -11,8 +11,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/parents")
 public class ParentController {
-    @Autowired
     private ParentService parentService;
+
+    @Autowired
+    public ParentController(ParentService parentService) {
+        this.parentService = parentService;
+    }
 
     @PostMapping("/signin")
     public Parent signIn(@RequestBody Parent parent) {
@@ -25,7 +29,7 @@ public class ParentController {
     }
 
     @PutMapping("/nation")
-    public void changeNation(@RequestParam Long parentId, @RequestParam String nation) {
+    public void changeNation( @RequestParam Long parentId, @RequestParam String nation) {
         parentService.changeNation(parentId, nation);
     }
 
