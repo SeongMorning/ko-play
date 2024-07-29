@@ -38,7 +38,6 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             return null;
         }
 
-//        String username = oAuth2Response.getProvider()+" "+oAuth2Response.getProviderId();
         String email = oAuth2Response.getEmail();
 
         //유저 이메일을 통해서 검색함

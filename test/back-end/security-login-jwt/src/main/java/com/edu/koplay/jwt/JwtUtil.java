@@ -1,30 +1,20 @@
 package com.edu.koplay.jwt;
 
-import java.nio.charset.StandardCharsets;
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-
-import javax.crypto.SecretKey;
-
-import com.edu.koplay.util.ROLE;
+import com.edu.koplay.dto.GeneratedToken;
+import com.edu.koplay.service.RefreshTokenService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.security.Keys;
-import io.jsonwebtoken.security.SignatureException;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 @Component
 public class JwtUtil {
@@ -32,50 +22,49 @@ public class JwtUtil {
 
     private SecretKey secretkey;
     private long expires;
+    private long refreshExpires;
+    private final RefreshTokenService tokenService;
 
-    public JwtUtil(@Value("${spring.jwt.secret}") String key, @Value("${spring.jwt.expires}") long expires) {
+
+    @Autowired
+    public JwtUtil(@Value("${spring.jwt.secret}") String key, @Value("${spring.jwt.expires}") long expires, @Value("${spring.jwt.refresh-expires}") long refreshExpires, RefreshTokenService tokenService
+    ) {
         this.secretkey = Keys.hmacShaKeyFor(key.getBytes(StandardCharsets.UTF_8));
         this.expires = expires;
+        this.refreshExpires = refreshExpires;
+        this.tokenService = tokenService;
     }
 
-    public String generateToken(Authentication authentication) {
-        String data = authentication.getName(); // 사용자의 이름을 추출하여 사용합니다.
-        logger.info(authentication.getAuthorities().toString());
-//        String role = authentication.getAuthorities().stream()
-//                .findFirst()
-//                .map(SimpleGrantedAuthority::getAuthority)
-//                .orElse("ROLE_USER"); // 기본 역할을 설정
-
-        return generateToken(data, ROLE.STUDENT.name());
+    public GeneratedToken generateToken(String data, String role) {
+        // refreshToken과 accessToken을 생성한다.
+        String refreshToken = generateRefreshToken(data, role);
+        String accessToken = generateAccessToken(data, role);
+        // 토큰을 Redis에 저장한다.
+        tokenService.saveTokenInfo(data, refreshToken, accessToken);
+        return new GeneratedToken(accessToken, refreshToken);
     }
 
-    public String generateToken(String data, String role) {
-        Date exp = new Date(System.currentTimeMillis() + expires); // 만료 시간 설정
-
+    public String generateRefreshToken(String data, String role) {
+        Date now = new Date();
         return Jwts.builder()
                 .claim("data", data)
                 .claim("roles", role)
-                .setExpiration(exp)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + refreshExpires))
                 .signWith(secretkey)
                 .compact();
     }
 
-//    public String generateToken(Authentication authentication) {
-//        String data = authentication.getName(); // 사용자의 이름을 추출하여 사용합니다.
-//        return generateToken(data);
-//    }
-//
-//    public String generateToken(String data) {
-//        Date exp = new Date(System.currentTimeMillis() + expires); // 1시간
-//
-//        return Jwts.builder().claim("data", data).setExpiration(exp).signWith(secretkey).compact();
-//    }
 
-    public Authentication getAuthentication(String accessToken) {
-        Claims claims = Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(accessToken).getBody();
-        String data = claims.get("data", String.class);
-        String role = claims.get("roles", String.class);
-        return new UsernamePasswordAuthenticationToken(claims, null, getAuthorities());
+    public String generateAccessToken(String data, String role) {
+        Date now = new Date();
+        return Jwts.builder()
+                .claim("data", data)
+                .claim("roles", role)
+                .setIssuedAt(now)
+                .setExpiration(new Date(now.getTime() + expires))
+                .signWith(secretkey)
+                .compact();
     }
 
     public String resolveToken(HttpServletRequest request) {
@@ -87,55 +76,41 @@ public class JwtUtil {
     }
 
     public String getData(String token) {
-        return Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token).getBody().get("data",String.class);
+        return Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token).getBody().get("data", String.class);
     }
 
     public String getRole(String token) {
         return Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token).getBody().get("roles", String.class);
     }
 
+
     public Boolean isExpired(String token) {
         try {
             Claims claims = Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token).getBody();
             Date expirationDate = claims.getExpiration();
-            return expirationDate.before(new Date()); // 현재 시간보다 만료 시간이 이전인지 확인
+            logger.info("만료기간: "+expirationDate.toString());
+            logger.info("현재시간이 만료시간보다 이전인가?: "+ expirationDate.after(new Date()));
+            return expirationDate.after(new Date()); // 현재 시간보다 만료 시간이 이전인지 확인
         } catch (Exception e) {
             logger.error("토큰 검증 중 오류 발생: " + e.getMessage());
-            return false; // 오류가 발생한 경우 null 반환
+            return false;
         }
     }
 
+//    public boolean validateToken(String token) {
+//        try {
+//            Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token);
+//            return true;
+//        } catch (SignatureException e) {
+//            logger.info("잘못된 토큰 서명입니다.");
+//        } catch (ExpiredJwtException e) {
+//            logger.info("만료된 토큰입니다.");
+//        } catch (IllegalArgumentException | MalformedJwtException e) {
+//            logger.error(e.toString());
+//            logger.error(e.getMessage());
+//            logger.info("잘못된 토큰입니다.");
+//        }
+//        return false;
+//    }
 
-    public boolean validateToken(String token) {
-        try {
-            Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token);
-            return true;
-        } catch (SignatureException e) {
-            logger.info("잘못된 토큰 서명입니다.");
-        } catch (ExpiredJwtException e) {
-            logger.info("만료된 토큰입니다.");
-        } catch (IllegalArgumentException | MalformedJwtException e) {
-            logger.error(e.toString());
-            logger.error(e.getMessage());
-            logger.info("잘못된 토큰입니다.");
-        }
-        return false;
-    }
-
-    private Collection<SimpleGrantedAuthority> getAuthorities() {
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(ROLE.STUDENT.name()));
-        return authorities;
-    }
-
-    public String createJwt(String data, String role) {
-
-        return Jwts.builder()
-                .claim("data", data)
-                .claim("roles", role)
-                .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + expires))
-                .signWith(secretkey)
-                .compact();
-    }
 }
