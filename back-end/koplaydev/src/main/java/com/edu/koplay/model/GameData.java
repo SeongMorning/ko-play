@@ -20,7 +20,6 @@ public class GameData {
     @JoinColumn(name = "game_idx", nullable = false)
     private Game game;
 
-    @Column(columnDefinition = "DATE DEFAULT CURRENT_TIMESTAMP")
     private LocalDate playDate;
 
     @Column(nullable = false)
