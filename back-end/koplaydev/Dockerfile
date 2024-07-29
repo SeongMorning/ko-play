@@ -14,6 +14,9 @@ COPY . .
 # COPY gradle /gradle
 # RUN gradle wrapper --gradle-version 7.6
 
+# Gradle Wrapper 파일 생성
+RUN gradle wrapper --gradle-version 7.6
+
 #권한 변경
 RUN chmod +x gradlew
 
