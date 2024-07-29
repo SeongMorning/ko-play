@@ -7,7 +7,7 @@ WORKDIR /app
 
 
 # 소스 코드 복사
-COPY jpatest/ ./
+COPY . .
 
 # Gradle 캐시를 활용하여 의존성 다운로드를 빠르게
 # COPY build.gradle settings.gradle ./

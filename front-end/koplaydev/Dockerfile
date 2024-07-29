@@ -59,7 +59,7 @@ FROM node:20-alpine
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY ./jpatest ./
+COPY . .
 
 RUN npm install
 RUN npm run build

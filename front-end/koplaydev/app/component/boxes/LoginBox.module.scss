@@ -1,0 +1,63 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.inputContainer {
+  flex-direction: column;
+}
+.idInput {
+  display: block;
+  width: 25vw;
+  height: 10vh;
+  margin: 2vh;
+  background-color: #fcf6bd;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2vw;
+  text-align: center;
+  font-size: 1.5vw;
+  border-width: 0;
+  &::placeholder {
+    font-size: 1.5vw;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.pwInput {
+  display: block;
+  width: 25vw;
+  height: 10vh;
+  margin: 2vh;
+  background-color: #ffd6e0;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 2vw;
+  text-align: center;
+  font-size: 1.5vw;
+  border-width: 0;
+  &::placeholder {
+    font-size: 1.5vw;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.loginBtn {
+  width: 10vw;
+  height: 20vh;
+  background-color: #a2d2ff;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3vw;
+  font-size: 2vw;
+  border-width: 0;
+  cursor: pointer;
+}
+
+.infoText {
+  margin-top: 2vh;
+  text-align: center;
+  font-size: 1.2vw;
+  left: 6vw;
+}

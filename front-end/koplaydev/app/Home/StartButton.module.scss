@@ -1,0 +1,75 @@
+.startButton {
+  width: 15vw;
+  height: 12vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  box-sizing: border-box;
+
+  .startButtonHover {
+    width: 15vw;
+    height: 10vh;
+    display : flex;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .startButtonMain {
+    width: 15vw;
+    height: 8vh;
+    position: absolute;
+    margin-bottom: 2vh;
+    background: #78f860;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 3.3vh;
+    z-index: 10;
+  }
+
+  .text {
+    font-size: 2.5vh;
+    position: absolute;
+    color: black;
+    word-wrap: break-word;
+    z-index: 11;
+  }
+  .startButtonDot {
+    width: 1.3vw;
+    height: 1.3vh;
+    left: 2%;
+    bottom: 60%;
+    position: absolute;
+    transform: rotate(-25deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 11;
+  }
+  .startButtonDot2 {
+    width: 1.0vw;
+    height: 0.5vw;
+    left: 14%;
+    bottom: 73%;
+    position: absolute;
+    transform: rotate(-25deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 11;
+  }
+}
+
+.startButtonShadow {
+  width: 15vw;
+  height: 8vh;
+  position: absolute;
+  background-color: #23c505;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 3.3vh;
+}
+
+.startButton:hover {
+  cursor: pointer;
+}

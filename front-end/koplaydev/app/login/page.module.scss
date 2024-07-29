@@ -1,0 +1,25 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+}
+
+.logo {
+  justify-content: center;
+  align-items: center;
+  z-index: 13;
+  width: 30vw; /* 원하는 너비로 설정 */
+  height: auto; /* 비율을 유지하면서 높이 자동 조정 */
+  z-index: 13;
+}
+
+.statusButtonContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  z-index: 10;
+}

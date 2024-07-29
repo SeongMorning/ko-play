@@ -1,0 +1,58 @@
+.zellyButton {
+  width: 20vw;
+  height: 30vh;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+
+  .zellyButtonMain {
+    width: 18vw;
+    height: 15vw;
+    position: absolute;
+    margin-bottom: 2vh;
+    box-shadow: 0px 10px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6vw;
+  }
+
+  .zellyButtonShadow {
+    width: 18vw;
+    height: 15vw;
+    position: absolute;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 6vw;
+  }
+
+  .text {
+    position: absolute;
+    color: black;
+    word-wrap: break-word;
+  }
+
+  .zellyButtonDot {
+    width: 3vw;
+    height: 1.5vw;
+    left: 2.5vw;
+    bottom: 69%;
+    position: absolute;
+    transform: rotate(-30deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 11;
+  }
+
+  .zellyButtonDot2 {
+    width: 2vw;
+    height: 1vw;
+    left: 5.5vw;
+    bottom: 88%;
+    position: absolute;
+    transform: rotate(-20deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 11;
+  }
+}
