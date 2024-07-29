@@ -24,5 +24,9 @@ public class Avatar {
 
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
+
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student;
 }
 
