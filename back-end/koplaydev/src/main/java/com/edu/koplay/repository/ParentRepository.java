@@ -1,6 +1,11 @@
 package com.edu.koplay.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import com.edu.koplay.model.Parent;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface ParentRepository extends JpaRepository<Parent, Long> {}
+@Repository
+public interface ParentRepository extends JpaRepository<Parent, Long> {
+
+    Parent findByParentEmail(String email);
+}
