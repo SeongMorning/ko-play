@@ -21,10 +21,5 @@ public class Word {
 
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
-
-    @ManyToOne
-    @JoinColumn(name = "game_id")
-    private Game game;
-
 }
 
