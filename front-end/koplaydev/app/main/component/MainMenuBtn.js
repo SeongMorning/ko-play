@@ -22,8 +22,9 @@ export default function MainMenuBtn(props) {
     >
       <motion.div
         className={styles.MainMenuBtnHover}
+        onClick={handleClick}
         whileTap={{
-          translateY: "0.6vh",
+          translateY: "1vh",
           zIndex: 20,
           transition: {
             duration: 0.1,
