@@ -1,5 +1,5 @@
 "use client";
-
+import "./embla.scss";
 import React, { useCallback, useEffect, useState } from "react";
 
 export const useDotButton = (emblaApi, onButtonClick) => {

@@ -1,7 +1,7 @@
 "use client";
+import "./embla.scss";
 import React, { useCallback, useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import styles from "./EmCarousel.module.scss";
 import {
   NextButton,
   PrevButton,
@@ -94,7 +94,7 @@ const EmblaCarousel = (props) => {
   }, [emblaApi, tweenScale]);
 
   return (
-    <div className={styles.embla}>
+    <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((index) => (
