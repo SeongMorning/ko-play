@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+
 public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
@@ -31,6 +32,7 @@ public class SecurityConfig {
 
     @Autowired
     public SecurityConfig(JwtUtil jwtUtil, CustomOAuth2UserService customOAuth2UserService, CustomUserSuccessHandler customSuccessHandler, CustomOAuth2SuccessHandler customOAuth2SuccessHandler, CustomLogoutHandler customLogoutHandler) {
+
         this.jwtUtil = jwtUtil;
         this.customOAuth2UserService = customOAuth2UserService;
         this.customUserSuccessHandler = customSuccessHandler;
@@ -53,6 +55,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize ->
                                 authorize
+                                        .requestMatchers("/swagger-ui/**").permitAll()
                                         .requestMatchers("/login/oauth2/**").permitAll()
                                         .requestMatchers("/").permitAll()
                                         .requestMatchers("/custom-login").permitAll()
