@@ -3,8 +3,8 @@
   cursor: pointer;
 
   .MainMenuBtnHover {
-    width: 4vw;
-    height: 6vh;
+    width: 10vw;
+    height: 17vh;
     justify-content: center;
     align-items: center;
     z-index: 20;
@@ -12,8 +12,8 @@
   }
 
   .MainMenuBtnTop {
-    width: 4vw;
-    height: 6vh;
+    width: 10vw;
+    height: 17vh;
     position: absolute;
     background-color: #fffdd6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -22,44 +22,45 @@
   }
 
   .MainMenuBtnDot1 {
-    width: 1vw;
-    height: 1vh;
-    top: 2vh;
+    width: 1.5vw;
+    height: 1.5vh;
+    left: 1vw;
+    top: 4vh;
     position: absolute;
-    transform: rotate(-13.13deg);
+    transform: rotate(-30deg);
     transform-origin: 0 0;
-    background-color: black;
+    background-color: white;
     border-radius: 1vw;
     z-index: 20;
   }
 
   .MainMenuBtnDot2 {
-    width: 0.5vw;
-    height: 0.5vh;
+    width: 1vw;
+    height: 1vh;
     position: absolute;
-    left: 1vw;
-    top: 1vh;
+    left: 3vw;
+    top: 1.5vh;
     transform: rotate(-13.13deg);
     transform-origin: 0 0;
-    background-color: black;
+    background-color: white;
     border-radius: 1vw;
     z-index: 20;
   }
 
   img {
-    width: 2vw;
-    height: 2vw;
-    left: 1vw;
-    top: 1vh;
+    width: 7vw;
+    height: 7vw;
+    left: 1.5vw;
+    top: 1.5vh;
     position: absolute;
     z-index: 20;
   }
 }
 
 .MainMenuBtnBottom {
-  width: 4vw;
-  height: 6vh;
-  top: 0.6vh;
+  width: 10vw;
+  height: 17vh;
+  top: 1vh;
   position: absolute;
   background-color: #d2c372;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
