@@ -1,6 +1,6 @@
 package com.edu.koplay.service.parent;
 
-import com.edu.koplay.dto.StudentDTO;
+import com.edu.koplay.dto.StudentLevelDTO;
 import com.edu.koplay.repository.ParentRepository;
 import com.edu.koplay.repository.RecommendLevelRepository;
 import com.edu.koplay.repository.StudentRepository;
@@ -33,8 +33,8 @@ public class ParentService {
         // 로그아웃 로직 구현
     }
 
-    public Parent changeNation(String email, String nation) {
-        Parent parent = getParentInfoByEmail(email);
+    public Parent updateNation(String email, String nation) {
+        Parent parent = selectParentInfoByEmail(email);
         parent.setNationality(nation);
         return parentRepository.save(parent);
     }
@@ -46,9 +46,9 @@ public class ParentService {
      * @param studentDto
      * @return
      */
-    public RecommendLevel createChild(String email, StudentDTO studentDto) {
+    public RecommendLevel createChild(String email, StudentLevelDTO studentDto) {
         //email으로 parent pk 조회
-        Parent parent = getParentInfoByEmail(email);
+        Parent parent = selectParentInfoByEmail(email);
 
         //dto entity로 변환하기
         Student student = Student.builder()
@@ -71,20 +71,16 @@ public class ParentService {
         //저장된 student정보 level값에 담기
         level.setStudent(saveStudent);
         //level 저장
-        RecommendLevel recommendLevel = recommendLevelRepository.save(level);
-        return recommendLevel;
+        return recommendLevelRepository.save(level);
     }
 
-    public Parent getParentInfoByEmail(String email) {
+    public Parent selectParentInfoByEmail(String email) {
         return parentRepository.findByParentEmail(email).orElseThrow();
     }
 
-    public Parent getParentInfo(Long parentId) {
-        return parentRepository.findById(parentId).orElseThrow();
-    }
+    public List<Student> selectChildren(String email) {
+        Parent parent = selectParentInfoByEmail(email);
 
-    public List<Student> getChildren(Long parentId) {
-        Parent parent = parentRepository.findById(parentId).orElseThrow();
         return studentRepository.findAllByParent(parent);
     }
 
