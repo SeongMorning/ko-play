@@ -14,9 +14,13 @@ import java.util.Date;
 @Data
 @Entity
 public class Parent {
+    public Parent(String parentEmail) {
+        this.parentEmail = parentEmail;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long parentIdx;
+    private int parentIdx;
 
     @Column(nullable = false)
     private String parentEmail;
@@ -33,8 +37,8 @@ public class Parent {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isDeleted = false;
 
+    @Builder.Default
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt = new Date();
 
     @Builder.Default
