@@ -1,0 +1,47 @@
+.parentBg {
+    width: 100vw;
+    height: 100vh;
+
+    .parentBgGround {
+        position: absolute;
+        top: 77vh;
+        left: 0;
+        width: 100vw;
+        height: 30vh;
+        z-index: 2;
+    }
+
+    .parentBgStars {
+        position: absolute;
+        top: 0vh;
+        left: 0;
+        width: 90vw;
+        height: 89vh;
+        z-index: 1;
+    }
+
+    .parentBgUfo {
+        position: absolute;
+        top: 78vh;
+        left: 61vw;
+        width: 13vw;
+        height: 19vh;
+        z-index: 3;
+    }
+
+    .parentBgPlanet {
+        position: absolute;
+        top: 17vh;
+        left: 75vw;
+        width: 20vw;
+        height: auto;
+    }
+
+    .parentBgConsole {
+        position: absolute;
+        top: 81vh;
+        left: 29vw;
+        z-index: 4;
+    }
+
+}
