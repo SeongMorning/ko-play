@@ -1,0 +1,31 @@
+.BlueBox {
+    position: relative;
+    .BlueBoxTop {
+      box-shadow: -5px 5px 4px rgba(0, 0, 0, 0.25);
+      width : 100%;
+      height : 100%;
+      border-radius: 20px;
+      position: absolute;
+      z-index: 20;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 2.5vw;
+      font-weight: 900;
+      word-wrap: break-word;
+      background-color: #BDE0FE;
+      color : #0C46B9;
+    }
+  
+    .BlueBoxBottom {
+      width : 100%;
+      height : 100%;
+      border-radius: 20px;
+      position: absolute;
+      top : 5px;
+      left : -5px;
+      z-index: 19;
+      background-color: #BDE0FE;
+    }
+  }
+  

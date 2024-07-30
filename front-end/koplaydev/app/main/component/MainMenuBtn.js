@@ -3,26 +3,27 @@
 import styles from "./MainMenuBtn.module.scss";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { changeNum } from "@/redux/slices/testSlice";
 
 // props : left, top, bg, shadow, imgSrc
 export default function MainMenuBtn(props) {
-  const router = useRouter();
-  const handleClick = () => {
-    router.push(props.url);
-  };
-  const modals = function () {};
+  const dispatch = useDispatch();
+  const num = useSelector((state) => state.test);
+
   return (
     <motion.div
       style={{ left: props.left, top: props.top }}
       className={styles.MainMenuBtn}
-      onClick={handleClick}
+      onClick={()=>{
+        dispatch(changeNum(props.idx))
+      }}
       whileHover={{
         scale: 1.1,
       }}
     >
       <motion.div
         className={styles.MainMenuBtnHover}
-        onClick={handleClick}
         whileTap={{
           translateY: "1vh",
           zIndex: 20,
