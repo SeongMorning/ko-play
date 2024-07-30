@@ -7,7 +7,9 @@ export default function Album() {
   return (
     <>
       <BackScoreBtn text="뒤로가기" left="1vw" top="1vh" />
-      <Embla />
+      <div className={styles.EmblaCarousel}>
+        <Embla />
+      </div>
       <AlbumFameBg />
     </>
   );
