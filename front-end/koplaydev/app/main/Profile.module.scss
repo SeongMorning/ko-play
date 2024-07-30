@@ -1,0 +1,46 @@
+.profile{
+    width: 40vw;
+    height: 32vh;
+    background : rgb(255, 255, 255, 0.8);
+    border-radius: 29px;
+    position : absolute;
+    bottom : 3vh;
+    left : 30vw;
+    display : flex;
+
+
+    .pictureBox{
+        width : 45%;
+        height : 100%;
+        padding : 5%;
+        padding-left : 10%;
+        box-sizing: border-box;
+    
+        img{
+            width : 90%;
+            height : 90%;
+            border-radius: 50px;
+            border : 6px solid #15EA9D;
+        }
+    }
+
+    .profileInfo{
+        width : 55%;
+        height : 100%;
+        box-sizing: border-box;
+        display : flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-right : 10%;
+
+        :nth-child(2){
+            font-size: 5vh;
+        }
+
+        img{
+            width : 100%;
+            height: 40%;
+        }
+    }
+}

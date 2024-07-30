@@ -23,10 +23,10 @@ public class ParentService {
         // 로그아웃 로직 구현
     }
 
-    public void changeNation(Long parentId, String nation) {
-        Parent parent = parentRepository.findById(parentId).orElseThrow();
+    public Parent changeNation(String email, String nation) {
+        Parent parent = parentRepository.findByParentEmail(email);
         parent.setNationality(nation);
-        parentRepository.save(parent);
+        return parentRepository.save(parent);
     }
 
     public Parent createChild(Student student) {
