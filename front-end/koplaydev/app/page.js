@@ -1,7 +1,7 @@
-import Icon from "./Home/Icon";
+import PromLoginBg from "./component/background/PromLoginBg";
 import styles from "./page.module.scss";
-import StartButton from "./Home/StartButton";
-import Title from "./Home/Title";
+import StartButton from "./promotion/component/StartButton";
+import Title from "./promotion/component/Title";
 
 export default function Home() {
   return (
@@ -22,7 +22,7 @@ export default function Home() {
           text={"비회원"}
         />
       </main>
-      <Icon />
+      <PromLoginBg />
     </>
   );
 }

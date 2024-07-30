@@ -1,6 +1,6 @@
 import styles from "./page.module.scss";
-import ZellyButton from "../component/buttons/ZellyButton";
-import Icon from "../Home/Icon";
+import JellyBtn from "./component/JellyBtn";
+import PromLoginBg from "../component/background/PromLoginBg";
 
 export default function Login() {
   return (
@@ -8,14 +8,14 @@ export default function Login() {
       <main className={styles.main}>
         <img className={styles.logo} src="/logo.png" />
         <div className={styles.statusButtonContainer}>
-          <ZellyButton
+          <JellyBtn
             width={""}
             height={""}
             bg={"#ffd6e0"}
             shadow={"#e07a93"}
             text={"부모님"}
           />
-          <ZellyButton
+          <JellyBtn
             width={""}
             height={""}
             bg={"#A2D2FF"}
@@ -24,7 +24,7 @@ export default function Login() {
           />
         </div>
       </main>
-      <Icon />
+      <PromLoginBg />
     </>
   );
 }

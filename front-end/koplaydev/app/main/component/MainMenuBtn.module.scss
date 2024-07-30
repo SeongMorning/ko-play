@@ -1,14 +1,22 @@
 .FlatRoundBtn {
-  position: relative;
+  position: absolute;
+
+  .FlatRoundBtnHover {
+    width: 4vw;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    z-index: 20;
+  }
 
   .FlatRoundBtnTop {
     width: 4vw;
     height: 6vh;
     position: absolute;
-    background: #fffdd6;
+    background-color: #fffdd6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 100%;
-    z-index: 10;
+    z-index: 20;
   }
 
   .FlatRoundBtnBottom {
@@ -31,7 +39,7 @@
     transform-origin: 0 0;
     background-color: white;
     border-radius: 1vw;
-    z-index: 10;
+    z-index: 20;
   }
 
   .FlatRoundBtnDot2 {
@@ -44,7 +52,7 @@
     transform-origin: 0 0;
     background-color: white;
     border-radius: 1vw;
-    z-index: 10;
+    z-index: 20;
   }
 
   img {
@@ -53,6 +61,10 @@
     left: 1vw;
     top: 1vh;
     position: absolute;
-    z-index: 10;
+    z-index: 20;
   }
+}
+
+.FlatRoundBtn:hover {
+  cursor: pointer;
 }

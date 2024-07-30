@@ -1,8 +1,8 @@
 "use client";
-import styles from "./YellowRoundBtn.module.scss";
+import styles from "./BackScoreBtn.module.scss";
 import { motion } from "framer-motion";
 
-export default function YellowRoundBtn(props) {
+export default function BackScoreBtn(props) {
   // 뒤로가기 기능 단순 구현
   const handleClick = () => {
     if (props.text) {
@@ -11,12 +11,12 @@ export default function YellowRoundBtn(props) {
   };
   return (
     <div
-      className={styles.YellowRoundBtn}
+      className={styles.BackScoreBtn}
       onClick={handleClick}
       style={{ left: props.left, top: props.top }}
     >
-      <div className={styles.YellowRoundBtnBottom} />
-      <div className={styles.YellowRoundBtnTop}>
+      <div className={styles.BackScoreBtnBottom} />
+      <div className={styles.BackScoreBtnTop}>
         {props.score ? `점수 : ${props.score} / ${props.question}` : props.text}
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 import styles from "./GameBg.module.scss";
 import { motion } from "framer-motion";
-import Star from "../../game/Star";
+import Star from "../Star";
 
 export default function GameBg() {
   return (
