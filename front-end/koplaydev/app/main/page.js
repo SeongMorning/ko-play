@@ -8,7 +8,7 @@ import Profile from "./component/Profile";
 export default function Test() {
   return (
     <>
-      {/* <MainModal/> */}
+      <MainModal/>
       <FameBtn />
       <MainMenu/>
       <MainBg />
