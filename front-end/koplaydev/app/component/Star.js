@@ -3,7 +3,7 @@
 import styles from "./Star.module.scss";
 import { motion } from "framer-motion";
 
-//props : left, top, right, width
+//props : left, top, right, width, duration, rotate
 export default function Star(props) {
   return (
     <motion.img
@@ -14,6 +14,8 @@ export default function Star(props) {
         top: props.top,
         right: props.right,
         width: props.width,
+        transform: "rotate(-60deg)",
+        transformOrigin: "0 0",
       }}
       animate={{
         translateX: [0, -5, 0],
