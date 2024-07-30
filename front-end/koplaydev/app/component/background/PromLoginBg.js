@@ -1,9 +1,9 @@
 "use client";
 
-import styles from "./Icon.module.scss";
+import styles from "./PromLoginBg.module.scss";
 import { motion } from "framer-motion";
 
-export default function Icon() {
+export default function PromLoginBg() {
   return (
     <>
       <motion.img
@@ -39,14 +39,17 @@ export default function Icon() {
           },
         }}
       />
-      <motion.img 
-      animate={{
-        translateY: [0, 5, 3, 1, 0],
-        transition: {
-          repeat: Infinity,
-          duration: 4,
-        },
-      }}className={styles.cloud} src="/cloud.png" />
+      <motion.img
+        animate={{
+          translateY: [0, 5, 3, 1, 0],
+          transition: {
+            repeat: Infinity,
+            duration: 4,
+          },
+        }}
+        className={styles.cloud}
+        src="/cloud.png"
+      />
     </>
   );
 }

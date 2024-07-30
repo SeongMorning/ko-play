@@ -1,18 +1,18 @@
 "use client";
 import { useState } from "react";
-import RoundButton from "./buttons/RoundBtn";
+import ParentStudentBtn from "./ParentStudentBtn";
 
 export default function SelectStatus() {
   const [selectedButton, setSelectedButton] = useState("학생");
 
   return (
     <div>
-      <RoundButton
+      <ParentStudentBtn
         text={"부모님"}
         isSelected={selectedButton === "부모님"}
         onClick={() => setSelectedButton("부모님")}
       />
-      <RoundButton
+      <ParentStudentBtn
         text={"학생"}
         isSelected={selectedButton === "학생"}
         onClick={() => setSelectedButton("학생")}

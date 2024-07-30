@@ -1,4 +1,4 @@
-.zellyButton {
+.JellyBtn {
   width: 20vw;
   height: 30vh;
   position: relative;
@@ -7,7 +7,7 @@
   align-items: center;
   z-index: 10;
 
-  .zellyButtonMain {
+  .JellyBtnMain {
     width: 18vw;
     height: 15vw;
     position: absolute;
@@ -16,7 +16,7 @@
     border-radius: 6vw;
   }
 
-  .zellyButtonShadow {
+  .JellyBtnShadow {
     width: 18vw;
     height: 15vw;
     position: absolute;
@@ -30,7 +30,7 @@
     word-wrap: break-word;
   }
 
-  .zellyButtonDot {
+  .JellyBtnDot {
     width: 3vw;
     height: 1.5vw;
     left: 2.5vw;
@@ -43,7 +43,7 @@
     z-index: 11;
   }
 
-  .zellyButtonDot2 {
+  .JellyBtnDot2 {
     width: 2vw;
     height: 1vw;
     left: 5.5vw;
