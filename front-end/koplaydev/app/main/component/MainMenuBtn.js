@@ -10,22 +10,21 @@ export default function MainMenuBtn(props) {
   const handleClick = () => {
     router.push(props.url);
   };
-  // 애니메이션이 위아래로 왔다갔다하게.
   const modals = function () {};
   return (
     <motion.div
       style={{ left: props.left, top: props.top }}
-      className={styles.FlatRoundBtn}
+      className={styles.MainMenuBtn}
       onClick={handleClick}
       whileHover={{
         scale: 1.1,
       }}
     >
       <motion.div
-        className={styles.FlatRoundBtnHover}
-        onClick={handleClick}
+        className={styles.MainMenuBtnHover}
         whileTap={{
-          translateY: "0.3vw",
+          translateY: "0.6vh",
+          zIndex: 20,
           transition: {
             duration: 0.1,
           },
@@ -33,15 +32,15 @@ export default function MainMenuBtn(props) {
       >
         <div
           style={{ backgroundColor: `${props.bg}` }}
-          className={styles.FlatRoundBtnTop}
+          className={styles.MainMenuBtnTop}
         />
-        <div className={styles.FlatRoundBtnDot1} />
-        <div className={styles.FlatRoundBtnDot2} />
-        <img src={props.imgSrc} />
+        <div className={styles.MainMenuBtnDot1} />
+        <div className={styles.MainMenuBtnDot2} />
+        <img src={props.imgSrc} alt="Button Icon" />
       </motion.div>
       <div
         style={{ backgroundColor: `${props.shadow}` }}
-        className={styles.FlatRoundBtnBottom}
+        className={styles.MainMenuBtnBottom}
       />
     </motion.div>
   );

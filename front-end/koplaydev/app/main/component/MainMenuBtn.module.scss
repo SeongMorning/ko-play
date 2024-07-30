@@ -1,15 +1,17 @@
-.FlatRoundBtn {
+.MainMenuBtn {
   position: absolute;
+  cursor: pointer;
 
-  .FlatRoundBtnHover {
+  .MainMenuBtnHover {
     width: 4vw;
     height: 6vh;
-    display: flex;
     justify-content: center;
+    align-items: center;
     z-index: 20;
+    position: relative;
   }
 
-  .FlatRoundBtnTop {
+  .MainMenuBtnTop {
     width: 4vw;
     height: 6vh;
     position: absolute;
@@ -19,30 +21,19 @@
     z-index: 20;
   }
 
-  .FlatRoundBtnBottom {
-    width: 4vw;
-    height: 6vh;
-    margin-top: 0.3vw;
-    position: absolute;
-    background-color: #d2c372;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    border-radius: 100%;
-    z-index: 10;
-  }
-
-  .FlatRoundBtnDot1 {
+  .MainMenuBtnDot1 {
     width: 1vw;
     height: 1vh;
     top: 2vh;
     position: absolute;
     transform: rotate(-13.13deg);
     transform-origin: 0 0;
-    background-color: white;
+    background-color: black;
     border-radius: 1vw;
     z-index: 20;
   }
 
-  .FlatRoundBtnDot2 {
+  .MainMenuBtnDot2 {
     width: 0.5vw;
     height: 0.5vh;
     position: absolute;
@@ -50,7 +41,7 @@
     top: 1vh;
     transform: rotate(-13.13deg);
     transform-origin: 0 0;
-    background-color: white;
+    background-color: black;
     border-radius: 1vw;
     z-index: 20;
   }
@@ -65,6 +56,13 @@
   }
 }
 
-.FlatRoundBtn:hover {
-  cursor: pointer;
+.MainMenuBtnBottom {
+  width: 4vw;
+  height: 6vh;
+  top: 0.6vh;
+  position: absolute;
+  background-color: #d2c372;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 100%;
+  z-index: 10;
 }
