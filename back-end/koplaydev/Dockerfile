@@ -1,5 +1,5 @@
 # 1. 빌드 단계
-FROM gradle:7.6-jdk17 AS build
+FROM gradle:8.8-jdk17 AS build
 
 RUN mkdir -p /app
 
@@ -15,7 +15,7 @@ COPY . .
 # RUN gradle wrapper --gradle-version 7.6
 
 # Gradle Wrapper 파일 생성
-RUN gradle wrapper --gradle-version 7.6
+RUN gradle wrapper --gradle-version 8.8
 
 #권한 변경
 RUN chmod +x gradlew
