@@ -74,7 +74,7 @@ public class ParentController {
             //entity to dto
             StudentDTO dto = new StudentDTO(savedStudentAndRecommendLevel.getStudent(), savedStudentAndRecommendLevel);
 
-            logger.info(dto.toString());
+            logger.debug(dto.toString());
             //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화
             ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
 
@@ -85,15 +85,29 @@ public class ParentController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-    private String getAuthenticationData(){
+
+    private String getAuthenticationData() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         return authentication.getName();
     }
 
-    private Parent getParentInfo(@RequestParam Long parentId) {
+    @GetMapping("/info")
+    private ResponseEntity<?> getParentInfo() {
+        try {
+            String email = getAuthenticationData();
+            Parent parent = parentService.getParentInfoByEmail(email);
 
-        return parentService.getParentInfo(parentId);
+            ParentDTO dto = new ParentDTO(parent);
+
+            ResponseDTO<ParentDTO> response = ResponseDTO.<ParentDTO>builder().data(List.of(dto)).build();
+
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            //예외 발생 시 error에 메세지를 넣어 리턴
+            ResponseDTO<ParentDTO> response = ResponseDTO.<ParentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     @GetMapping("/children")
