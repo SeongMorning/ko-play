@@ -8,6 +8,6 @@ import com.edu.koplay.model.Gallary;
 import java.util.List;
 
 public interface GallaryRepository extends JpaRepository<Gallary, Long> {
-    List<Gallary> findAllByStudent(Student student);
+    List<Gallary> findAllByStudentAndIsDeletedFalse(Student student);
 }
 
