@@ -80,17 +80,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         authorize ->
                                 authorize
-                                        .requestMatchers("/swagger-ui/**").permitAll()
-                                        .requestMatchers("/v3/**").permitAll()
-                                        .requestMatchers("/login/oauth2/**").permitAll()
-                                        .requestMatchers("/").permitAll()
-                                        .requestMatchers("/custom-login").permitAll()
-                                        .requestMatchers("/login").permitAll()
-                                        .requestMatchers("/token/**").permitAll()
-                                        .requestMatchers("/studentsuccess").hasRole(ROLE.STUDENT.getRoles())
-                                        .requestMatchers("/parent/test").hasRole(ROLE.PARENT.getRoles())
-                                        .requestMatchers("/parent/**").hasRole("PARENT")
-                                        .requestMatchers("/student/**").hasRole("STUDENT")
+                                        .requestMatchers("/**").permitAll()
+//                                        .requestMatchers("/swagger-ui/**").permitAll()
+//                                        .requestMatchers("/v3/**").permitAll()
+//                                        .requestMatchers("/login/oauth2/**").permitAll()
+//                                        .requestMatchers("/").permitAll()
+//                                        .requestMatchers("/custom-login").permitAll()
+//                                        .requestMatchers("/login").permitAll()
+//                                        .requestMatchers("/token/**").permitAll()
+//                                        .requestMatchers("/studentsuccess").hasRole(ROLE.STUDENT.getRoles())
+//                                        .requestMatchers("/parent/test").hasRole(ROLE.PARENT.getRoles())
+//                                        .requestMatchers("/parent/**").hasRole("PARENT")
+//                                        .requestMatchers("/student/**").hasRole("STUDENT")
                                         .anyRequest().authenticated())
                 //filter 추가
                 //oauth2 인증 전에 JWT토큰을 검증할 jwtfilter 돌도록
