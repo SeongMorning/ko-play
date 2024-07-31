@@ -1,40 +1,53 @@
 .JellyBtn {
   width: 20vw;
-  height: 30vh;
+  height: auto;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 10;
 
+  .JellyBtnHover {
+    width: 18vw;
+    height: 15vw;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+
   .JellyBtnMain {
     width: 18vw;
     height: 15vw;
     position: absolute;
-    margin-bottom: 2vh;
     box-shadow: 0px 10px 4px rgba(0, 0, 0, 0.25);
     border-radius: 6vw;
+    z-index: 10;
   }
 
   .JellyBtnShadow {
     width: 18vw;
     height: 15vw;
+    top: 1vh;
     position: absolute;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 6vw;
+    z-index: 9;
   }
 
   .text {
     position: absolute;
     color: black;
+    font-weight: 800;
     word-wrap: break-word;
+    z-index: 10;
   }
 
-  .JellyBtnDot {
+  .JellyBtnDot1 {
     width: 3vw;
     height: 1.5vw;
-    left: 2.5vw;
-    bottom: 69%;
+    left: 2vw;
+    bottom: 67%;
     position: absolute;
     transform: rotate(-30deg);
     transform-origin: 0 0;
@@ -46,8 +59,8 @@
   .JellyBtnDot2 {
     width: 2vw;
     height: 1vw;
-    left: 5.5vw;
-    bottom: 88%;
+    left: 5.3vw;
+    bottom: 85%;
     position: absolute;
     transform: rotate(-20deg);
     transform-origin: 0 0;
