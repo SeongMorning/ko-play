@@ -3,25 +3,27 @@
   align-items: center;
   position: absolute;
   font-weight: 800;
-  cursor: pointer;
   font-size: 1.2vw;
 
   .BackScoreBtnTop {
     left: 0.2vw;
     top: 0px;
-    width: 8vw;
+    width: 8.5vw;
     height: 4vh;
     position: absolute;
     background-color: #fcf6bd;
     box-shadow: -10px 10px 4px rgba(0, 0, 0, 0.25);
     border-radius: 3vw;
     z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .BackScoreBtnBottom {
     left: 0px;
     top: 0.5vh;
-    width: 8vw;
+    width: 8.5vw;
     height: 4vh;
     position: absolute;
     background-color: #fcf6bd;
@@ -33,7 +35,7 @@
   img {
     width: 1.5vw;
     left: 0.1vw;
-    top: 0.1vh;
+    top: 0.15vw;
     position: absolute;
     z-index: 20;
   }
