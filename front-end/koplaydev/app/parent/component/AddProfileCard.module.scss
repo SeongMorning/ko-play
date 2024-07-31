@@ -1,0 +1,18 @@
+.addProfileCardBg {
+    position: absolute;
+    background-color: rgba(193, 193, 193, 0.349);
+    backdrop-filter: blur(6px);
+    left: 59vw;
+    top: 22.1vh;
+    width: 20.5vw;
+    height: 49.5vh;
+    border-radius: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.plusIcon {
+    width: 4vw;
+    height: auto;
+}

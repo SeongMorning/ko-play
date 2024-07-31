@@ -1,0 +1,205 @@
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 9998;
+    backdrop-filter: blur(7px);
+}
+
+.modalBg {
+    position: fixed;
+    top: 51%;
+    left: 49.55%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(252, 246, 189, 1);
+    width: 49vw;
+    height: 88vh;
+    border-radius: 2vw;
+    z-index: 9999;
+    box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+}
+
+.modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(252, 246, 189, 1);
+    width: 45vw;
+    height: 80vh;
+    border-radius: 2vw;
+    z-index: 9999;
+    padding: 2vw;
+    box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+}
+
+.modalContent {
+    // display: flex;
+    // flex-direction: column;
+
+    .ufo {
+        position: absolute;
+        margin-top: 42vh;
+        margin-left: 11vw;
+        width: 17vw;
+        height: 28vh;
+
+
+    }
+
+    .planet {
+        position: absolute;
+        margin-top: 3vh;
+        margin-left: 26vw;
+        width: 18vw;
+        height: 28vh;
+
+    }
+
+    .star {
+        position: absolute;
+        margin-top: 3vh;
+        margin-left: 0.7vw;
+        width: 12vw;
+        height: 22vh;
+    }
+
+
+}
+
+.completeBoxContainer {
+    position: absolute;
+    bottom: 0;
+    z-index: 9999;
+    margin-bottom: 2vh;
+    width: 17.5vw;
+    height: 10vh;
+    top: 86%;
+    left: 58.5%;
+    transform: translate(-50%);
+}
+
+
+.modalContent h2 {
+    position: absolute;
+    color: rgba(255, 139, 0, 1);
+    font-size: 2.5vw;
+    font-weight: 900;
+    text-align: center;
+    z-index: 9999;
+    top: 2%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.infomation {
+    position: absolute;
+    margin-top: 1vh;
+    margin-bottom: 3vh;
+    top: 49.3%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 44vw;
+    height: 59vh;
+    border-radius: 2vw 1vw 1vw 2vw;
+    background-color: rgba(246, 246, 246, 0.108);
+    box-shadow: -0.1vw 0.1vw 0.5vw 0 rgba(75, 75, 75, 0.299);
+    backdrop-filter: blur(6px);
+    z-index: 9999;
+    overflow: auto;
+    // padding-bottom: 2vh;
+
+    /* 스크롤바 스타일링 */
+    &::-webkit-scrollbar {
+        width: 1vw;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(240, 240, 240, 0.7);
+        border-radius: 10px;
+        border: 0.2px solid;
+        border-color: rgba(161, 161, 161, 0.251);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgb(251, 187, 141, 0.8);
+        border-radius: 10px;
+        border: 2px solid transparent;
+        background-clip: content-box;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background-color: rgba(255, 143, 51, 0.8);
+    }
+}
+
+.table {
+    margin-top: 2vh;
+    margin-left: 1.4vw;
+}
+
+.table th {
+    text-align: left;
+    height: 6vh;
+    font-size: 2.8vh;
+}
+
+.table input {
+    margin-right: 0.5vw;
+    margin-left: 0.7vw;
+    transform: scale(1.4);
+}
+
+.table label {
+    margin-right: 0.8vw;
+}
+
+.tableNumber {
+    padding-left: 0.4vw;
+    font-size: 2.3vh;
+    width: 1vw;
+    vertical-align: top;
+}
+
+.tableContent {
+    font-size: 2.3vh;
+    height: 5vh;
+    vertical-align: top;
+
+}
+
+.tableContent3 {
+    font-size: 2.3vh;
+    height: 8.2vh;
+    vertical-align: top;
+
+}
+
+.tableContent4 {
+    font-size: 2.3vh;
+    height: 8.2vh;
+    vertical-align: top;
+    padding-bottom: 4vh;
+}
+
+
+.checkboxColumn {
+    width: 13vw;
+    font-size: 2vh;
+    vertical-align: top;
+    padding-left: 1vw;
+}
+
+.threeCheck {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    label {
+        margin-bottom: 0.5rem;
+    }
+}
