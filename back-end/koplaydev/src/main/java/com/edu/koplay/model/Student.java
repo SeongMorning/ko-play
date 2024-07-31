@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Builder
@@ -15,9 +14,13 @@ import java.util.Date;
 @Data
 @Entity
 public class Student {
+    public Student(int studentIdx) {
+        this.studentIdx = studentIdx;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long studentIdx;
+    private int studentIdx;
 
     @ManyToOne
     @JoinColumn(name = "parent_idx", nullable = false)
@@ -33,14 +36,13 @@ public class Student {
     @Column(nullable = false)
     private String studentName;
 
-    @Column(nullable = false, columnDefinition = "VARCHAR(255) DEFAULT '닉네임'")
     private String nickname;
 
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 0")
     private Integer exp;
 
     @Column(nullable = false)
-    private LocalDate birth;
+    private Date birth;
 
     @Lob
     private byte[] profileImg;
@@ -51,7 +53,8 @@ public class Student {
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isDeleted = false;
 
-    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
+    @Builder.Default
     private Date createdAt = new Date();
 
     private Date updateDate;

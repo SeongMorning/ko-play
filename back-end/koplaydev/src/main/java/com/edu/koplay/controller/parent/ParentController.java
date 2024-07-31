@@ -2,6 +2,10 @@ package com.edu.koplay.controller.parent;
 
 import com.edu.koplay.dto.ParentDTO;
 import com.edu.koplay.dto.ResponseDTO;
+import com.edu.koplay.dto.StudentDTO;
+import com.edu.koplay.model.Parent;
+import com.edu.koplay.model.RecommendLevel;
+import com.edu.koplay.model.Student;
 import com.edu.koplay.service.parent.ParentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +14,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import com.edu.koplay.model.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/parent")
@@ -40,16 +43,16 @@ public class ParentController {
     @PutMapping("/nation")
     public ResponseEntity<?> changeNation(@RequestParam String nation) {
         try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String email = authentication.getName();
+            String email = getAuthenticationData();
             logger.info("email: " + email);
+
             Parent entity = parentService.changeNation(email, nation);
             //자바 스트림을 이용하여 리턴된 엔티티 리스트를 TodoDTO리스트로 변환한다.
 
             ParentDTO dto = new ParentDTO(entity);
 
             //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
-            ResponseDTO<ParentDTO> response = ResponseDTO.<ParentDTO>builder().data((List<ParentDTO>) dto).build();
+            ResponseDTO<ParentDTO> response = ResponseDTO.<ParentDTO>builder().data(List.of(dto)).build();
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
@@ -60,12 +63,36 @@ public class ParentController {
     }
 
     @PostMapping("/child")
-    public Parent createChild(@RequestBody Student student) {
-        return parentService.createChild(student);
+    public ResponseEntity<?> addChild(@RequestBody StudentDTO studentDto) {
+        try {
+            //authentication에서 email 추출
+            String email = getAuthenticationData();
+            logger.info("email: " + email);
+
+            //학생, 추천레벨 초기 저장하기
+            RecommendLevel savedStudentAndRecommendLevel = parentService.createChild(email, studentDto);
+            //entity to dto
+            StudentDTO dto = new StudentDTO(savedStudentAndRecommendLevel.getStudent(), savedStudentAndRecommendLevel);
+
+            logger.info(dto.toString());
+            //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
+
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            //예외 발생 시 error에 메세지를 넣어 리턴
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+    private String getAuthenticationData(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication.getName();
     }
 
-    @GetMapping("/info")
-    public Parent getParentInfo(@RequestParam Long parentId) {
+    private Parent getParentInfo(@RequestParam Long parentId) {
+
         return parentService.getParentInfo(parentId);
     }
 

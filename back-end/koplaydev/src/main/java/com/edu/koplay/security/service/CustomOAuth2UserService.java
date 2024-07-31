@@ -13,6 +13,8 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     Logger logger = LoggerFactory.getLogger(CustomOAuth2UserService.class);
@@ -41,9 +43,9 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String email = oAuth2Response.getEmail();
 
         //유저 이메일을 통해서 검색함
-        Parent existData = parentRepository.findByParentEmail(email);
+        Optional<Parent> existData = parentRepository.findByParentEmail(email);
         //db에 유저가 없는경우
-        if( existData == null){
+        if(existData.isEmpty()){
             logger.info("유저가 없는경우");
             Parent parentEntity = new Parent();
             parentEntity.setParentEmail(oAuth2Response.getEmail());
@@ -52,21 +54,21 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             parentRepository.save(parentEntity);
 
             UserDTO userDTO = new UserDTO();
-//            userDTO.setEmail(oAuth2Response.getEmail());
-            userDTO.setData(oAuth2Response.getName());
+            userDTO.setData(oAuth2Response.getEmail());
+//            userDTO.setData(oAuth2Response.getName());
             //새로운 유저 생성
             return new CustomOAuth2User(userDTO);
         }else{
             //db에 유저가 있는경우
             logger.info("유저가 있는경우");
-            existData.setParentEmail(oAuth2Response.getEmail());
-            existData.setParentName(oAuth2Response.getName());
+            existData.get().setParentEmail(oAuth2Response.getEmail());
+            existData.get().setParentName(oAuth2Response.getName());
 
-            parentRepository.save(existData);
+            parentRepository.save(existData.get());
 
             UserDTO userDTO = new UserDTO();
-//            userDTO.setEmail(existData.getEmail());
-            userDTO.setData(oAuth2Response.getName());
+            userDTO.setData(oAuth2Response.getEmail());
+//            userDTO.setData(oAuth2Response.getName());
             userDTO.setRoles(ROLE.PARENT.name());
 
             return new CustomOAuth2User(userDTO);

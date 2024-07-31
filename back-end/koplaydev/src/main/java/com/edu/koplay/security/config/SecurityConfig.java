@@ -56,6 +56,7 @@ public class SecurityConfig {
                         authorize ->
                                 authorize
                                         .requestMatchers("/swagger-ui/**").permitAll()
+                                        .requestMatchers("/v3/**").permitAll()
                                         .requestMatchers("/login/oauth2/**").permitAll()
                                         .requestMatchers("/").permitAll()
                                         .requestMatchers("/custom-login").permitAll()

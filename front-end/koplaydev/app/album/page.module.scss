@@ -1,4 +1,10 @@
-.carousel {
-  justify-content: center;
-  align-items: center;
+.emblaCarousel {
+  display: flex;
+  position: absolute;
+  // justify-content: center;
+  //   width: auto;
+  //   height: auto;
+  left: 15vw;
+  top: 20vh;
+  z-index: 30;
 }
