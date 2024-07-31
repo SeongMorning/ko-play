@@ -21,6 +21,7 @@
         letter-spacing:0.7vw;
         line-height: normal;
         font-size: calc((2vh + 2vw)/2);
+        cursor : pointer;
     }
 }
 
@@ -30,8 +31,11 @@
     left : 27%;
     width : 44%;
     height : 7.5%;
-
+    background-color: rgba(115, 238, 194, 0.302);
+    border-collapse: collapse;
+    
+    
     td{
-        background-color: rgb(115, 238, 194, 0.3);
+        border : 2px solid white;
     }
 }

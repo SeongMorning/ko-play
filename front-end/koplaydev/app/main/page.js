@@ -5,7 +5,7 @@ import MainMenu from "./component/MainMenu";
 import MainModal from "./component/MainModal";
 import Profile from "./component/Profile";
 
-export default function Test() {
+export default function Main() {
   return (
     <>
       <MainModal/>
