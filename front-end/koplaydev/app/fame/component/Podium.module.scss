@@ -1,0 +1,140 @@
+.podium {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 50vw;
+    height: auto;
+  }
+
+  .face1 {
+    display: flex;
+    position: absolute;
+    width: 11vw;
+    height: 11vw;
+    border-radius: 50%;
+    overflow: hidden;
+    bottom: calc((28vw + 30vh) / 2);
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 30;
+
+    img {
+      z-index: 30;
+    }
+  }
+
+  .face2 {
+    display: flex;
+    position: absolute;
+    width: 9vw;
+    height: 9vw;
+    border-radius: 50%;
+    overflow: hidden;
+    bottom: calc((18vw + 20vh) / 2);
+    animation: shine 2s infinite;
+    left: 15%;
+    transform: translateX(-50%);
+    z-index: 30;
+
+    img {
+      z-index: 30;
+    }
+  }
+
+  .face3 {
+    display: flex;
+    position: absolute;
+    width: 7vw;
+    height: 7vw;
+    border-radius: 50%;
+    overflow: hidden;
+    animation: shine 2s infinite;
+    left: 85%;
+    bottom: calc((12vw + 13vh) / 2);
+    transform: translateX(-50%);
+    z-index: 30;
+
+    img {
+      z-index: 30;
+    }
+  }
+}
+
+.info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 13vw;
+  height: 10vh;
+  color: black;
+  font-weight: 800;
+  z-index: 30;
+  font-size: 1.5vw;
+
+  .info1 {
+    left: 43.5vw;
+    // top: 80vh;
+    top: 70vh;
+    border-radius: 1vw;
+  }
+
+  .info2 {
+    left: 26vw;
+    top: 70vh;
+    border-radius: 1vw;
+  }
+
+  .info3 {
+    left: 61vw;
+    top: 70vh;
+    border-radius: 1vw;
+  }
+}
+
+.light1 {
+  position: absolute;
+  top: -17vh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 11vw;
+  height: 18vh;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 0, 0.8),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0.6;
+}
+
+.light2 {
+  position: absolute;
+  top: -1vh;
+  left: 15%;
+  transform: translateX(-50%);
+  width: 9vw;
+  height: 15vh;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 0, 0.8),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0.6;
+}
+
+.light3 {
+  position: absolute;
+  top: 11vh;
+  left: 85%;
+  transform: translateX(-50%);
+  width: 7vw;
+  height: 10vh;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 255, 0, 0.8),
+    rgba(255, 255, 255, 0)
+  );
+  opacity: 0.6;
+}
