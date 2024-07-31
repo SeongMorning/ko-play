@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import FirstVisit from "./modals/FirstVisit";
 import NormalGame from "./modals/NormalGame";
+import Setting from "./modals/Setting";
+import Test from "./modals/Test";
 
 export default function MainModal() {
   const modalNum = useSelector((state) => state.modal);
@@ -13,6 +15,8 @@ export default function MainModal() {
   useEffect(() => {
     if (modalNum !== 0) {
       setIsopened("modalOpen");
+    } else {
+      setIsopened("");
     }
   }, [modalNum]);
   return (
@@ -32,9 +36,10 @@ const SelectModal = ({ idx }) => {
   } else if (idx === 1) {
     return <NormalGame />;
   } else if (idx === 2) {
+    return <Setting />;
   } else if (idx === 3) {
-  } else if (idx === 4) {
-  } else {
-    return <></>;
+    return <Test />;
+  } else{
+    return null;
   }
 };

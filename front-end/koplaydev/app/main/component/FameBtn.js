@@ -1,16 +1,33 @@
 "use client";
 
+import { useAnimate } from "framer-motion";
 import styles from "./FameBtn.module.scss";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function FameBtn() {
+  const [scope, animate] = useAnimate();
   let array = Array(30).fill(0);
+  const router = useRouter();
   return (
-    <div>
+    <>
       <div className={styles.FameText}>
         <img src="/fame.png" alt="" />
-        <span>명예의 전당을 확인하세요</span>
+        <motion.span
+          onHoverStart={() => {
+            animate(scope.current, {backgroundColor : "rgba(115, 238, 194, 0.5)"});
+          }}
+          onHoverEnd={() => {
+            animate(scope.current, {backgroundColor : "rgba(115, 238, 194, 0.302)"});
+          }}
+          onClick={()=>{
+            router.push('/fame');
+          }}
+        >
+          명예의 전당을 확인하세요
+        </motion.span>
       </div>
-      <table className={styles.FameBtn}>
+      <motion.table ref={scope} className={styles.FameBtn}>
         <tbody>
           {[...Array(4)].map((_, rowIndex) => (
             <tr key={rowIndex}>
@@ -20,7 +37,7 @@ export default function FameBtn() {
             </tr>
           ))}
         </tbody>
-      </table>
-    </div>
+      </motion.table>
+    </>
   );
 }

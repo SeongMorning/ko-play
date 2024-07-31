@@ -1,12 +1,13 @@
 .profile{
     width: 40vw;
     height: 32vh;
-    background : rgb(255, 255, 255, 0.8);
+    background : rgba(255, 255, 255, 0.8);
     border-radius: 29px;
     position : absolute;
     bottom : 3vh;
     left : 30vw;
     display : flex;
+    cursor : pointer;
 
 
     .pictureBox{

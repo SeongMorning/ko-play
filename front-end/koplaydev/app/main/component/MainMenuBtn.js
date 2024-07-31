@@ -9,13 +9,26 @@ import { changeModalIdx } from "@/redux/slices/modalSlice";
 // props : left, top, bg, shadow, imgSrc
 export default function MainMenuBtn(props) {
   const dispatch = useDispatch();
+  const router = useRouter();
 
   return (
     <motion.div
       style={{ left: props.left, top: props.top }}
       className={styles.MainMenuBtn}
       onClick={()=>{
-        dispatch(changeModalIdx(props.idx))
+        if(props.idx >0 && props.idx <= 1000){
+          dispatch(changeModalIdx(props.idx));
+        }else if(props.idx === 1001){
+          router.push('/album');
+        }else if(props.idx === 1002){
+          router.push('/mypage');
+        }else if(props.idx === 1003){
+          router.push('/123');
+        }else if(props.idx === 10000){
+          router.push('/123');
+        }else if(props.idx === -1){
+          router.push('/');
+        }
       }}
       whileHover={{
         scale: 1.1,

@@ -21,7 +21,7 @@ export default function LevelJellyBtn(props) {
           className={styles.LevelJellyBtnTop}
           style={{ background: `${props.bg}`, color: `${props.color}` }}
         >
-          {props.text}
+          {props.level}
         </div>
         <div className={styles.LevelJellyBtnDot} />
         <div className={styles.LevelJellyBtnDot2} />

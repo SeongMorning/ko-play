@@ -1,0 +1,40 @@
+.backBtn{
+    position : absolute;
+    right : 5%;
+    top : 5%;
+    z-index: 30;
+}
+
+.settingMain{
+    position: relative;
+    display : flex;
+    flex-direction: column;
+    width : 100%;
+    height: 100%;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top : 15%;
+    z-index: 20;
+    gap : 3%;
+
+
+    .profileImg{
+        border-radius: 50%;
+        border : 3px solid #F48400;
+        width : 70%;
+        height : 50%;
+        background-color: white;
+    }
+
+    .modifyImg{
+        width : 17%;
+        height : 80%;
+    }
+
+    input{
+        width: 70%;
+        height : 60%;
+        border : none;
+    }
+
+}

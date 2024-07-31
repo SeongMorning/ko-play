@@ -1,11 +1,18 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import styles from "./JellyBtn.module.scss";
 import { motion } from "framer-motion";
 
 export default function JellyBtn(props) {
+
+  const router = useRouter()
+
   return (
-    <div className={styles.JellyBtn}>
+    <div className={styles.JellyBtn}
+    onClick={()=>{
+      router.push('/main')
+    }}>
       <div className={styles.JellyBtnDot} />
       <div className={styles.JellyBtnDot2} />
       <div

@@ -3,9 +3,11 @@
 import YellowBox from "@/app/component/boxes/YellowBox";
 import GameJellyBtn from "../GameJellyBtn";
 import styles from "./NormalGame.module.scss";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import LevelJellyBtn from "../LevelJellyBtn";
+import { changeGameIdx } from "@/redux/slices/gameSlice";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
 
 let propObject = [
   {
@@ -28,16 +30,57 @@ let propObject = [
   },
 ];
 
+let levelList = [1, 2, 3, 4, 5];
+
 export default function NormalGame() {
+  const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
   return (
     <YellowBox width={"70"} height={"80"}>
       <div className={styles.NormalGameMain}>
-        <span className={styles.NormalGameTitle}>일 반 게 임</span>
-        <GameSelect idx={gameIdx} />
-        <div>
-          <LevelJellyBtn/>
+        <div className={styles.header}>
+          {gameIdx === 0 ? null : (
+            <button
+              onClick={() => {
+                dispatch(changeGameIdx(0));
+              }}
+            >
+              임시 뒤로가기
+            </button>
+          )}
+          <span className={styles.NormalGameTitle}>일 반 게 임</span>
+          <button
+          onClick={()=>{
+            dispatch(changeGameIdx(0));
+            dispatch(changeModalIdx(0));
+          }}>임시 나가기</button>
         </div>
+        <GameSelect idx={gameIdx} />
+        {gameIdx === 0 ? null : (
+          <motion.div
+            className={styles.LevelJellyBtn}
+            initial={{
+              opacity: 0,
+            }}
+            animate={{
+              opacity: 1,
+              transition: {
+                duration: 1,
+              },
+            }}
+          >
+            {levelList.map((data, index) => (
+              <div className={styles.LevelBtn}>
+                <LevelJellyBtn
+                  level={data}
+                  bg={propObject[gameIdx - 1].bg}
+                  shadow={propObject[gameIdx - 1].shadow}
+                  color={propObject[gameIdx - 1].color}
+                />
+              </div>
+            ))}
+          </motion.div>
+        )}
       </div>
     </YellowBox>
   );
@@ -60,9 +103,9 @@ const GameSelect = (props) => {
             translateX: `${
               props.idx === 1 ? "6%" : props.idx === 3 ? "-6%" : 0
             }`,
-            transition : {
-              duration : 1
-            }
+            transition: {
+              duration: 1,
+            },
           }}
         >
           <GameJellyBtn
@@ -74,7 +117,9 @@ const GameSelect = (props) => {
             visibility={
               props.idx === 0 || props.idx === index + 1 ? "visible" : "hidden"
             }
-          >여기에 게임종류 컴포넌트</GameJellyBtn>
+          >
+            여기에 게임종류 컴포넌트
+          </GameJellyBtn>
         </motion.div>
       ))}
     </div>
