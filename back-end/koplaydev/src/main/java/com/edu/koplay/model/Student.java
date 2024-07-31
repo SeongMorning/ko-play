@@ -22,6 +22,7 @@ public class Student {
     @ManyToOne
     @JoinColumn(name = "parent_idx", nullable = false)
     private Parent parent;
+    //student를 인서트 할떄 fk값이 있어야 매핑을 하는데
 
     @Column(nullable = false)
     private String studentId;
