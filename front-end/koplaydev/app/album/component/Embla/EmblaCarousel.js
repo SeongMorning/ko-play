@@ -1,7 +1,7 @@
 "use client";
+import "./embla.scss";
 import React, { useCallback, useEffect, useRef } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import styles from "./EmCarousel.module.scss";
 import {
   NextButton,
   PrevButton,
@@ -9,7 +9,7 @@ import {
 } from "./EmblaCarouselArrowButtons";
 import { DotButton, useDotButton } from "./EmblaCarouselDotButton";
 
-const TWEEN_FACTOR_BASE = 0.52;
+const TWEEN_FACTOR_BASE = 0.4;
 
 const numberWithinRange = (number, min, max) =>
   Math.min(Math.max(number, min), max);
@@ -74,6 +74,9 @@ const EmblaCarousel = (props) => {
         const scale = numberWithinRange(tweenValue, 0, 1).toString();
         const tweenNode = tweenNodes.current[slideIndex];
         tweenNode.style.transform = `scale(${scale})`;
+        // const translate = diffToTarget * (-1 * tweenFactor.current) * 100;
+        // const tweenNode = tweenNodes.current[slideIndex];
+        // tweenNode.style.transform = `translateX(${translate}%)`;
       });
     });
   }, []);
@@ -94,12 +97,28 @@ const EmblaCarousel = (props) => {
   }, [emblaApi, tweenScale]);
 
   return (
-    <div className={styles.embla}>
+    <div className="embla">
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
-          {slides.map((index) => (
+          {slides.map((src, index) => (
             <div className="embla__slide" key={index}>
-              <div className="embla__slide__number">{index + 1}</div>
+              <img
+                className="embla__slide__number"
+                src={`https://picsum.photos/600/350?v=${index}`}
+                alt="Your alt text"
+              />
+              {/* {index + 1} */}
+              {/* </img> */}
+              {/* <img
+                className="embla__slide__img"
+                src={src}
+                alt={`Slide ${index + 1}`}
+              /> */}
+              {/* <img
+                className="embla__slide__img "
+                src={`https://picsum.photos/600/350?v=${index}`}
+                alt="Your alt text"
+              /> */}
             </div>
           ))}
         </div>
