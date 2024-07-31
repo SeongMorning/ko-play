@@ -30,7 +30,7 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("없는 회원 입니다..."));
 
         UserDTO userDTO = new UserDTO();
-        userDTO.setData(member.getStudentName());
+        userDTO.setData(member.getStudentId());
         userDTO.setRoles(ROLE.STUDENT.name());
         return User.builder().username(member.getStudentId()).password(member.getStudentPw()).roles(ROLE.STUDENT.name()).build();
     }
