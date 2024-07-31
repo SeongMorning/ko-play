@@ -8,14 +8,17 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    List<Student> findAllByParent(Parent parent);
+    Optional<List<Student>> findAllByParent(Parent parent);
 
     @Query("SELECT u FROM Student u WHERE u.studentId = :loginId AND u.studentPw = :password AND u.isDeleted = false")
     Student findByStudentIdAndStudentPw(@Param("loginId") String loginId, @Param("password") String password);
 
-    Student findByStudentId(String id);
+    Optional<Student> findByStudentId(String id);
+
+    Optional<Student> findByStudentIdAndParent(String studentID, Parent parent);
 }

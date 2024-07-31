@@ -14,13 +14,13 @@ import java.util.Date;
 @Data
 @Entity
 public class Student {
-    public Student(int studentIdx) {
+    public Student(Long studentIdx) {
         this.studentIdx = studentIdx;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int studentIdx;
+    private Long studentIdx;
 
     @ManyToOne
     @JoinColumn(name = "parent_idx", nullable = false)

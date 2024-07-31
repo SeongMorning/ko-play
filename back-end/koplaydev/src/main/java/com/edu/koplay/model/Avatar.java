@@ -26,7 +26,7 @@ public class Avatar {
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "student_id")
+    @JoinColumn(name = "student_idx")
     private Student student;
 }
 
