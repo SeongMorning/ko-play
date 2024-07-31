@@ -44,6 +44,18 @@ public class ParentController {
 //        parentService.signOut();
 //    }
 
+    @DeleteMapping("/")
+    public ResponseEntity<?> quitParent() {
+        try {
+            String email = getAuthenticationData();
+            parentService.deleteParent(email);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            ResponseDTO<Void> response = ResponseDTO.<Void>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+
     @PutMapping("/nation")
     public ResponseEntity<?> changeNation(@RequestParam(name = "id") String nation) {
         try {
