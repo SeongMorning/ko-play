@@ -4,6 +4,7 @@ import lombok.Data;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity
@@ -20,7 +21,7 @@ public class GameData {
     @JoinColumn(name = "game_idx", nullable = false)
     private Game game;
 
-    private LocalDate playDate;
+    private Date playDate;
 
     @Column(nullable = false)
     private Integer correct;
@@ -37,6 +38,6 @@ public class GameData {
     private Boolean isDeleted = false;
 
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private LocalDateTime createdAt;
+    private Date createdAt;
 }
 
