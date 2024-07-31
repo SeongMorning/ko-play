@@ -42,6 +42,12 @@ public class ParentService {
         // 로그아웃 로직 구현
     }
 
+    public void deleteParent(String email){
+        Parent parent = selectParentInfoByEmail(email);
+        parent.setIsDeleted(true);
+    };
+
+
     public Parent updateNation(String email, String nation) {
         Parent parent = selectParentInfoByEmail(email);
         parent.setNationality(nation);

@@ -1,9 +1,12 @@
 package com.edu.koplay.controller.student;
 
+import com.edu.koplay.controller.parent.ParentController;
 import com.edu.koplay.dto.GallaryDTO;
 import com.edu.koplay.dto.ParentDTO;
 import com.edu.koplay.dto.ResponseDTO;
 import com.edu.koplay.service.student.StudentService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -18,6 +21,8 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/students")
 public class StudentController {
+    private static final Logger logger = LoggerFactory.getLogger(ParentController.class);
+
     @Autowired
     private StudentService studentService;
 
@@ -53,7 +58,6 @@ public class StudentController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         List<Gallary> gallaries = studentService.getSnapshots(authentication.getName());
-
         try {
 
             //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
