@@ -3,12 +3,12 @@
 import styles from "./StarBg.module.scss";
 import { motion } from "framer-motion";
 
-//props : left, top, right, width, duration, rotate
+//props : left, top, right, width, duration, rotate, imgSrc
 export default function StarBg(props) {
   return (
     <motion.img
       className={styles.star}
-      src="/Star-fame-bg.png"
+      src={props.imgSrc}
       style={{
         left: props.left,
         top: props.top,
