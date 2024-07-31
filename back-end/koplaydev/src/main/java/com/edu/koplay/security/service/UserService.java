@@ -26,10 +26,9 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
-        Student member = studentRepository.findByStudentId(id);
-        if (member == null) {
-            throw new UsernameNotFoundException("없는 회원 입니다...");
-        }
+        Student member = studentRepository.findByStudentId(id)
+                .orElseThrow(() -> new UsernameNotFoundException("없는 회원 입니다..."));
+
         UserDTO userDTO = new UserDTO();
         userDTO.setData(member.getStudentName());
         userDTO.setRoles(ROLE.STUDENT.name());

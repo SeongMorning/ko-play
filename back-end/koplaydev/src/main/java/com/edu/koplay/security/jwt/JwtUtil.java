@@ -3,8 +3,11 @@ package com.edu.koplay.security.jwt;
 import com.edu.koplay.security.dto.GeneratedToken;
 import com.edu.koplay.security.service.RefreshTokenService;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -88,30 +91,33 @@ public class JwtUtil {
         try {
             Claims claims = Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token).getBody();
             Date expirationDate = claims.getExpiration();
-            logger.info("만료기간: "+expirationDate.toString());
-            logger.info("현재시간이 만료시간보다 이전인가?: "+ expirationDate.after(new Date()));
-            System.out.println("만료시간보다"+expirationDate.toString());
+            logger.info("만료기간: " + expirationDate.toString());
+            logger.info("현재시간이 만료시간보다 이전인가?: " + expirationDate.after(new Date()));
+            System.out.println("만료시간보다" + expirationDate.toString());
             return expirationDate.before(new Date()); // 현재 시간보다 만료 시간이 이전인지 확인
+        } catch (ExpiredJwtException e) {
+            logger.info("만료된 토큰입니다.");
+            return true;
         } catch (Exception e) {
             logger.error("토큰 검증 중 오류 발생: " + e.getMessage());
             return false;
         }
     }
 
-//    public boolean validateToken(String token) {
-//        try {
-//            Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token);
-//            return true;
-//        } catch (SignatureException e) {
-//            logger.info("잘못된 토큰 서명입니다.");
-//        } catch (ExpiredJwtException e) {
-//            logger.info("만료된 토큰입니다.");
-//        } catch (IllegalArgumentException | MalformedJwtException e) {
-//            logger.error(e.toString());
-//            logger.error(e.getMessage());
-//            logger.info("잘못된 토큰입니다.");
-//        }
-//        return false;
-//    }
+    public boolean validateToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token);
+            return true;
+        } catch (SignatureException e) {
+            logger.info("잘못된 토큰 서명입니다.");
+        } catch (ExpiredJwtException e) {
+            logger.info("만료된 토큰입니다.");
+        } catch (IllegalArgumentException | MalformedJwtException e) {
+            logger.error(e.toString());
+            logger.error(e.getMessage());
+            logger.info("잘못된 토큰입니다.");
+        }
+        return false;
+    }
 
 }
