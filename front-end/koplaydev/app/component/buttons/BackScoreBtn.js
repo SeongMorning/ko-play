@@ -10,29 +10,37 @@ export default function BackScoreBtn(props) {
       history.go(-1);
     }
   };
+
   return (
     <div
       className={styles.BackScoreBtn}
       onClick={handleClick}
-      style={{ left: props.left, top: props.top }}
+      style={{
+        left: props.left,
+        top: props.top,
+        cursor: props.score ? "default" : "pointer",
+      }}
     >
       <motion.div
         className={styles.BackScoreBtnTop}
-        whileTap={{
-          translateY: "0.5vh",
-          zIndex: 20,
-          transition: {
-            duration: 0.1,
-          },
-          translateX: "-0.2vw",
-          zIndex: 20,
-          transition: {
-            duration: 0.1,
-          },
-        }}
+        whileTap={
+          props.score
+            ? {}
+            : {
+                translateY: "0.5vh",
+                translateX: "-0.2vw",
+                transition: {
+                  duration: 0.1,
+                },
+              }
+        }
       >
-        <img src="/Back.png" />
-        {props.score ? `점수 : ${props.score} / ${props.question}` : props.text}
+        {props.score ? (
+          `점수 : ${props.score} / ${props.question}`
+        ) : (
+          <img src="/Back.png" />
+        )}
+        {props.score ? null : props.text}
       </motion.div>
       <div className={styles.BackScoreBtnBottom} />
     </div>
