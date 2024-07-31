@@ -35,7 +35,7 @@ public class StudentService {
     }
 
     public List<Avatar> getAvatars(String studentId) {
-        Student student = studentRepository.findByStudentId(studentId).orElseThrow();
+        Student student = studentRepository.findByStudentIdAndIsDeletedFalse(studentId).orElseThrow();
         return avatarRepository.findAllByStudent(student);
     }
 
@@ -46,7 +46,7 @@ public class StudentService {
     }
     //studentid
     public List<Gallary> getSnapshots(String studentId) {
-        Student student = studentRepository.findByStudentId(studentId).orElseThrow();
+        Student student = studentRepository.findByStudentIdAndIsDeletedFalse(studentId).orElseThrow();
         System.out.println(studentId);
         return gallaryRepository.findAllByStudentAndIsDeletedFalse(student);
     }
