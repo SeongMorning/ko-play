@@ -8,31 +8,23 @@ import SelectStatus from "./component/SelectStatus";
 import ParentLogin from "./component/ParentLogin";
 
 export default function Login() {
-  const [isStudentSelected, setIsStudentSelected] = useState(false);
-  const [isParentSelected, setIsParentSelected] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState("");
 
-  const handleStudentClick = () => {
-    setIsStudentSelected(true);
-    setIsParentSelected(false);
-  };
-
-  const handleParentClick = () => {
-    setIsParentSelected(true);
-    setIsStudentSelected(false);
+  const handleSelectStatus = (status) => {
+    setSelectedStatus(status);
   };
 
   return (
     <>
       <main className={styles.main}>
         <img className={styles.logo} src="/logo.png" />
-        {isStudentSelected || isParentSelected ? (
+        {selectedStatus ? (
           <>
             <SelectStatus
-              text={isStudentSelected ? "학생" : "부모님"}
-              isSelected={true}
-              onClick={() => {}}
+              initialText={selectedStatus}
+              onSelect={handleSelectStatus}
             />
-            {isStudentSelected ? <StudentLogin /> : <ParentLogin />}
+            {selectedStatus === "학생" ? <StudentLogin /> : <ParentLogin />}
           </>
         ) : (
           <div className={styles.statusButtonContainer}>
@@ -42,7 +34,7 @@ export default function Login() {
               bg={"#ffd6e0"}
               shadow={"#e07a93"}
               text={"부모님"}
-              onClick={handleParentClick}
+              onClick={() => setSelectedStatus("부모님")}
             />
             <JellyBtn
               width={""}
@@ -50,7 +42,7 @@ export default function Login() {
               bg={"#A2D2FF"}
               shadow={"#4DA3F3"}
               text={"학생"}
-              onClick={handleStudentClick}
+              onClick={() => setSelectedStatus("학생")}
             />
           </div>
         )}
