@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import ClickedPinkBtn from "./ClickedPinkBtn";
 import styles from "./MyPageInfo.module.scss";
 import YellowBox from "./YellowBox";
+import Score from "./Score";
+import Correct from "./Correct";
 
 let myPageList = ["최근 전적", "정답률", "경험치 변화", "레이팅"];
 
@@ -27,12 +29,12 @@ export default function MyPageInfo() {
 
 const MyPageSelector = (props) => {
   if (props.idx === 1) {
-    return 1;
+    return <Score/>;
   }else if(props.idx === 2){
-    return 2;
+    return <Correct/>;
   }else if(props.idx === 3){
     return 3;
   }else{
-    return 4;
+    return "    2차개발 드가자";
   }
 };
