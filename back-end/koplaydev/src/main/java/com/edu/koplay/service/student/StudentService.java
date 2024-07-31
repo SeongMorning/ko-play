@@ -1,5 +1,6 @@
 package com.edu.koplay.service.student;
 
+import com.edu.koplay.dto.GallaryDTO;
 import com.edu.koplay.repository.AvatarRepository;
 import com.edu.koplay.repository.GallaryRepository;
 import com.edu.koplay.repository.StudentRepository;
@@ -33,8 +34,8 @@ public class StudentService {
         studentRepository.save(student);
     }
 
-    public List<Avatar> getAvatars(Long studentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow();
+    public List<Avatar> getAvatars(String studentId) {
+        Student student = studentRepository.findByStudentId(studentId).orElseThrow();
         return avatarRepository.findAllByStudent(student);
     }
 
@@ -43,10 +44,11 @@ public class StudentService {
         //avatar.setStudent(student);
         avatarRepository.save(avatar);
     }
-
-    public List<Gallary> getSnapshots(Long studentId) {
-        Student student = studentRepository.findById(studentId).orElseThrow();
-        return gallaryRepository.findAllByStudent(student);
+    //studentid
+    public List<Gallary> getSnapshots(String studentId) {
+        Student student = studentRepository.findByStudentId(studentId).orElseThrow();
+        System.out.println(studentId);
+        return gallaryRepository.findAllByStudentAndIsDeletedFalse(student);
     }
 
     public void deleteSnapshot(Long snapshotId) {
