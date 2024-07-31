@@ -5,15 +5,13 @@ export default function Embla() {
   const OPTIONS = { loop: true };
   const SLIDE_COUNT = 7;
   const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-  //   const SLIDES = [
-  //     "/public/Back.png",
-  //     "/public/Back.png",
-  //     "/public/Back.png",
-  //     "/public/Back.png",
-  //     "/public/Back.png",
-  //     "/public/Back.png",
-  //     "/public/Back.png",
-  //   ];
+  // const SLIDES = [
+  //   "C:Users/SSAFY/Desktop/S11P12B302/front-end/koplaydev/public/Back.png",
+  //   "/public/Back.png",
+  //   "/public/Back.png",
+  //   "/public/Back.png",
+  //   "/public/Back.png",
+  // ];
 
   return (
     <>
