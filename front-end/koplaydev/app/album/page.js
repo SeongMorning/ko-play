@@ -1,5 +1,5 @@
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
-import AlbumBg from "../component/background/AlbumFameBg";
+import AlbumFameBg from "../component/background/AlbumFameBg";
 import styles from "./page.module.scss";
 import Embla from "./component/Embla/Embla";
 
@@ -10,7 +10,7 @@ export default function Album() {
       <div className={styles.emblaCarousel}>
         <Embla />
       </div>
-      <AlbumBg />
+      <AlbumFameBg />
     </>
   );
 }
