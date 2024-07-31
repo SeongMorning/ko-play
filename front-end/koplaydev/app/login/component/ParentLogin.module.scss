@@ -1,0 +1,9 @@
+.container {
+  z-index: 30;
+  flex-direction: column;
+  position: relative;
+  display: flex;
+  img {
+    z-index: 30;
+  }
+}

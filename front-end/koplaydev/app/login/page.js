@@ -5,6 +5,7 @@ import JellyBtn from "./component/JellyBtn";
 import PromLoginBg from "../component/background/PromLoginBg";
 import StudentLogin from "./component/StudentLogin";
 import SelectStatus from "./component/SelectStatus";
+import ParentLogin from "./component/ParentLogin";
 
 export default function Login() {
   const [isStudentSelected, setIsStudentSelected] = useState(false);
@@ -31,7 +32,7 @@ export default function Login() {
               isSelected={true}
               onClick={() => {}}
             />
-            <StudentLogin />
+            {isStudentSelected ? <StudentLogin /> : <ParentLogin />}
           </>
         ) : (
           <div className={styles.statusButtonContainer}>
