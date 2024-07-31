@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,24 +26,26 @@ public class ParentController {
     private static final Logger logger = LoggerFactory.getLogger(ParentController.class);
 
     private ParentService parentService;
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ParentController(ParentService parentService) {
+    public ParentController(ParentService parentService, PasswordEncoder passwordEncoder) {
         this.parentService = parentService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @PostMapping("/signin")
-    public Parent signIn(@RequestBody Parent parent) {
-        return parentService.signIn(parent);
-    }
-
-    @GetMapping("/signout")
-    public void signOut() {
-        parentService.signOut();
-    }
+//    @PostMapping("/signin")
+//    public Parent signIn(@RequestBody Parent parent) {
+//        return parentService.signIn(parent);
+//    }
+//
+//    @GetMapping("/signout")
+//    public void signOut() {
+//        parentService.signOut();
+//    }
 
     @PutMapping("/nation")
-    public ResponseEntity<?> changeNation(@RequestParam(name="id") String nation) {
+    public ResponseEntity<?> changeNation(@RequestParam(name = "id") String nation) {
         try {
             String email = getAuthenticationData();
             logger.info("email: " + email);
@@ -70,6 +73,10 @@ public class ParentController {
             String email = getAuthenticationData();
             logger.info("email: " + email);
 
+            // 비밀번호 인코딩
+            String encodedPassword = passwordEncoder.encode(studentDto.getPw());
+            studentDto.setPw(encodedPassword);
+
             //학생, 추천레벨 초기 저장하기
             RecommendLevel savedStudentAndRecommendLevel = parentService.createChild(email, studentDto);
             //entity to dto
@@ -85,12 +92,6 @@ public class ParentController {
             ResponseDTO<StudentLevelDTO> response = ResponseDTO.<StudentLevelDTO>builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(response);
         }
-    }
-
-    private String getAuthenticationData() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        return authentication.getName();
     }
 
     @GetMapping("/info")
@@ -116,7 +117,7 @@ public class ParentController {
         try {
             String email = getAuthenticationData();
 
-            List<Student> students = parentService.selectChildren(email);
+            List<Student> students = parentService.selectStudents(email);
 
             List<StudentDTO> dtos = students.stream().map(StudentDTO::new).collect(Collectors.toList());
 
@@ -133,7 +134,6 @@ public class ParentController {
     @DeleteMapping("/child/{studentId}")
     public ResponseEntity<?> removeChild(@PathVariable(name = "studentId") String studentId) {
         try {
-//            System.out.println("스튜"+studentId);
 //            return null;
             //부모 idx와 자식 아이디가 일치하는 컬럼 삭제하기.
             String email = getAuthenticationData();
@@ -150,19 +150,36 @@ public class ParentController {
             logger.info(e.getMessage());
             ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(response);
-//            return null;
         }
     }
 
     @GetMapping("/child/{studentId}")
-    public Student getChild(@PathVariable(name = "studentId") String studentId) {
-        String email = getAuthenticationData();
-        return parentService.selectStudent(email, studentId);
+    public ResponseEntity<?> getChild(@PathVariable(name = "studentId") String studentId) {
+        try {
+            String email = getAuthenticationData();
+            //select entity
+            Student student = parentService.selectStudent(email, studentId);
+            //entity to dto
+            StudentDTO dto = new StudentDTO(student);
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            //예외 발생 시 error에 메세지를 넣어 리턴
+            logger.info(e.getMessage());
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
     }
 
     @GetMapping("/child/{childId}/statistics")
     public String getChildStatistics(@PathVariable Long childId) {
         return parentService.getChildStatistics(childId);
+    }
+
+    private String getAuthenticationData() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication.getName();
     }
 }
 

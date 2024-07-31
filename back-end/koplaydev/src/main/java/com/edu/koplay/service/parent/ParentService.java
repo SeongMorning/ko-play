@@ -11,9 +11,11 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -48,10 +50,11 @@ public class ParentService {
 
     /**
      * 부모가 child 생성 시 child 계정, 추천레벨 insert
-     * @author 허지영
+     *
      * @param email
      * @param studentDto
      * @return
+     * @author 허지영
      */
     public RecommendLevel createChild(String email, StudentLevelDTO studentDto) {
         //email으로 parent pk 조회
@@ -82,50 +85,29 @@ public class ParentService {
     }
 
     public Parent selectParentInfoByEmail(String email) {
-        return parentRepository.findByParentEmail(email).orElseThrow();
+        return parentRepository.findByParentEmail(email).orElseThrow(() -> new NoSuchElementException("없는 PARENT 회원 입니다..."));
     }
 
-    public List<Student> selectChildren(String email) {
+    public List<Student> selectStudents(String email) {
         Parent parent = selectParentInfoByEmail(email);
-
-        return studentRepository.findAllByParent(parent).orElseThrow();
+        return studentRepository.findAllByParentAndIsDeletedFalse(parent).orElseThrow(() -> new NoSuchElementException("없는 자녀회원 입니다..."));
     }
 
     public List<Student> deleteStudent(String email, String studentId) {
-        //아이디로 정보 받아와서 삭제
-        Parent parent = selectParentInfoByEmail(email);
+        Student student = selectStudent(email, studentId);
+        //삭제컬럼 업데이트
+        student.setIsDeleted(true);
 
-        Optional<Student> student = studentRepository.findByStudentIdAndParent(studentId, parent);
-        Student selectOneStudent = null;
-        if (student.isPresent()) {
-            selectOneStudent = student.get();
-            // 나머지 로직
-        } else {
-            logger.error("학생 정보가 존재하지 않습니다: studentId=" + studentId + ", parent=" + parent);
-            throw new IllegalArgumentException("해당 학생을 찾을 수 없습니다.");
-        }
-
-        selectOneStudent.setIsDeleted(true);
-
-        logger.info("지영");
-
-        return studentRepository.findAllByParent(parent).orElseThrow();
+        return studentRepository.findAllByParentAndIsDeletedFalse(student.getParent()).orElseThrow(() -> new NoSuchElementException("없는 회원 입니다..."));
     }
 
     public Student selectStudent(String email, String studentId) {
-//        Parent parent = selectParentInfoByEmail(email);
-//
-//        Optional<Student> student = studentRepository.findByStudentIdAndParent(studentId, parent);
-//        Student selectOneStudent = null;
-//        if (student.isPresent()) {
-//            selectOneStudent = student.get();
-//            // 나머지 로직
-//        } else {
-//            logger.error("학생 정보가 존재하지 않습니다: studentId=" + studentId + ", parent=" + parent);
-//            throw new IllegalArgumentException("해당 학생을 찾을 수 없습니다.");
-//        }
-//        return studentRepository.findAllByParent(parent).orElseThrow();
-        return null;
+        Parent parent = selectParentInfoByEmail(email);
+
+        Student student = studentRepository.findByStudentIdAndParentAndIsDeletedFalse(studentId, parent)
+                .orElseThrow(() -> new NoSuchElementException("없는 회원 입니다..."));
+
+        return student;
     }
 
     public String getChildStatistics(Long childId) {

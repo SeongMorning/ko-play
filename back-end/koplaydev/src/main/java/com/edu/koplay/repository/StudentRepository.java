@@ -13,14 +13,12 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    Optional<List<Student>> findAllByParent(Parent parent);
+    Optional<List<Student>> findAllByParentAndIsDeletedFalse(Parent parent);
 
     @Query("SELECT u FROM Student u WHERE u.studentId = :loginId AND u.studentPw = :password AND u.isDeleted = false")
     Student findByStudentIdAndStudentPw(@Param("loginId") String loginId, @Param("password") String password);
 
-    Optional<Student> findByStudentId(String id);
+    Optional<Student> findByStudentIdAndIsDeletedFalse(String id);
 
-    Optional<Student> findByStudentIdAndParent(String studentID, Parent parent);
-
-
+    Optional<Student> findByStudentIdAndParentAndIsDeletedFalse(String studentID, Parent parent);
 }
