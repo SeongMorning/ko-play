@@ -1,18 +1,25 @@
 package com.edu.koplay.service.parent;
 
 import com.edu.koplay.dto.StudentLevelDTO;
+import com.edu.koplay.model.Parent;
+import com.edu.koplay.model.RecommendLevel;
+import com.edu.koplay.model.Student;
 import com.edu.koplay.repository.ParentRepository;
 import com.edu.koplay.repository.RecommendLevelRepository;
 import com.edu.koplay.repository.StudentRepository;
 import jakarta.transaction.Transactional;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.edu.koplay.model.*;
+
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
 public class ParentService {
+    private static final Logger logger = LoggerFactory.getLogger(ParentService.class);
 
     private ParentRepository parentRepository;
     private RecommendLevelRepository recommendLevelRepository;
@@ -81,17 +88,44 @@ public class ParentService {
     public List<Student> selectChildren(String email) {
         Parent parent = selectParentInfoByEmail(email);
 
-        return studentRepository.findAllByParent(parent);
+        return studentRepository.findAllByParent(parent).orElseThrow();
     }
 
-    public void deleteChild(Long childId) {
-        Student student = studentRepository.findById(childId).orElseThrow();
-        student.setIsDeleted(true);
-        studentRepository.save(student);
+    public List<Student> deleteStudent(String email, String studentId) {
+        //아이디로 정보 받아와서 삭제
+        Parent parent = selectParentInfoByEmail(email);
+
+        Optional<Student> student = studentRepository.findByStudentIdAndParent(studentId, parent);
+        Student selectOneStudent = null;
+        if (student.isPresent()) {
+            selectOneStudent = student.get();
+            // 나머지 로직
+        } else {
+            logger.error("학생 정보가 존재하지 않습니다: studentId=" + studentId + ", parent=" + parent);
+            throw new IllegalArgumentException("해당 학생을 찾을 수 없습니다.");
+        }
+
+        selectOneStudent.setIsDeleted(true);
+
+        logger.info("지영");
+
+        return studentRepository.findAllByParent(parent).orElseThrow();
     }
 
-    public Student getChild(Long childId) {
-        return studentRepository.findById(childId).orElseThrow();
+    public Student selectStudent(String email, String studentId) {
+//        Parent parent = selectParentInfoByEmail(email);
+//
+//        Optional<Student> student = studentRepository.findByStudentIdAndParent(studentId, parent);
+//        Student selectOneStudent = null;
+//        if (student.isPresent()) {
+//            selectOneStudent = student.get();
+//            // 나머지 로직
+//        } else {
+//            logger.error("학생 정보가 존재하지 않습니다: studentId=" + studentId + ", parent=" + parent);
+//            throw new IllegalArgumentException("해당 학생을 찾을 수 없습니다.");
+//        }
+//        return studentRepository.findAllByParent(parent).orElseThrow();
+        return null;
     }
 
     public String getChildStatistics(Long childId) {

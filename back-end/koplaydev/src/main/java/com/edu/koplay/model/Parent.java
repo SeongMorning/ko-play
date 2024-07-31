@@ -14,13 +14,13 @@ import java.util.Date;
 @Data
 @Entity
 public class Parent {
-    public Parent(String parentEmail) {
-        this.parentEmail = parentEmail;
+    public Parent(Long parentIdx) {
+        this.parentIdx = parentIdx;
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int parentIdx;
+    private Long parentIdx;
 
     @Column(nullable = false)
     private String parentEmail;

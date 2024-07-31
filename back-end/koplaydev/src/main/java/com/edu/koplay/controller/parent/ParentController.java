@@ -42,7 +42,7 @@ public class ParentController {
     }
 
     @PutMapping("/nation")
-    public ResponseEntity<?> changeNation(@RequestParam String nation) {
+    public ResponseEntity<?> changeNation(@RequestParam(name="id") String nation) {
         try {
             String email = getAuthenticationData();
             logger.info("email: " + email);
@@ -130,14 +130,34 @@ public class ParentController {
         }
     }
 
-    @DeleteMapping("/child/{childId}")
-    public void deleteChild(@PathVariable Long childId) {
-        parentService.deleteChild(childId);
+    @DeleteMapping("/child/{studentId}")
+    public ResponseEntity<?> removeChild(@PathVariable(name = "studentId") String studentId) {
+        try {
+//            System.out.println("스튜"+studentId);
+//            return null;
+            //부모 idx와 자식 아이디가 일치하는 컬럼 삭제하기.
+            String email = getAuthenticationData();
+
+            List<Student> students = parentService.deleteStudent(email, studentId);
+
+            List<StudentDTO> dtos = students.stream().map(StudentDTO::new).collect(Collectors.toList());
+
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(dtos).build();
+
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            //예외 발생 시 error에 메세지를 넣어 리턴
+            logger.info(e.getMessage());
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+//            return null;
+        }
     }
 
-    @GetMapping("/child/{childId}")
-    public Student getChild(@PathVariable Long childId) {
-        return parentService.getChild(childId);
+    @GetMapping("/child/{studentId}")
+    public Student getChild(@PathVariable(name = "studentId") String studentId) {
+        String email = getAuthenticationData();
+        return parentService.selectStudent(email, studentId);
     }
 
     @GetMapping("/child/{childId}/statistics")
