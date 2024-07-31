@@ -7,9 +7,9 @@ export default function Album() {
   return (
     <>
       <BackScoreBtn text="뒤로가기" left="1vw" top="1vh" />
-      {/* <div className={styles.emblaCarousel}> */}
-      <Embla />
-      {/* </div> */}
+      <div className={styles.emblaCarousel}>
+        <Embla />
+      </div>
       <AlbumFameBg />
     </>
   );

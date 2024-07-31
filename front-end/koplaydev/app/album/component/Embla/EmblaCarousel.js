@@ -107,18 +107,6 @@ const EmblaCarousel = (props) => {
                 src={`https://picsum.photos/600/350?v=${index}`}
                 alt="Your alt text"
               />
-              {/* {index + 1} */}
-              {/* </img> */}
-              {/* <img
-                className="embla__slide__img"
-                src={src}
-                alt={`Slide ${index + 1}`}
-              /> */}
-              {/* <img
-                className="embla__slide__img "
-                src={`https://picsum.photos/600/350?v=${index}`}
-                alt="Your alt text"
-              /> */}
             </div>
           ))}
         </div>
@@ -130,7 +118,7 @@ const EmblaCarousel = (props) => {
           <NextButton onClick={onNextButtonClick} disabled={nextBtnDisabled} />
         </div>
 
-        <div className="embla__dots">
+        {/* <div className="embla__dots">
           {scrollSnaps.map((_, index) => (
             <DotButton
               key={index}
@@ -140,7 +128,7 @@ const EmblaCarousel = (props) => {
               )}
             />
           ))}
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,8 +1,10 @@
-// .emblaCarousel {
-//   display: flex;
-//   width: auto;
-//   height: auto;
-//   left: 70vw;
-//   top: 20vh;
-//   z-index: 30;
-// }
+.emblaCarousel {
+  display: flex;
+  position: absolute;
+  justify-content: center;
+  //   width: auto;
+  //   height: auto;
+  left: 25vw;
+  top: 20vh;
+  z-index: 30;
+}
