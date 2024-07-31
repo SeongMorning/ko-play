@@ -11,7 +11,9 @@ export default function JellyBtn(props) {
     <motion.div
       className={styles.JellyBtn}
       onClick={() => {
-        router.push("/main");
+        if (props.onClick) {
+          props.onClick();
+        }
       }}
       whileHover={{
         scale: 1.1,

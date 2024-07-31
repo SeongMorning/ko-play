@@ -2,8 +2,8 @@
 import { useState } from "react";
 import ParentStudentBtn from "./ParentStudentBtn";
 
-export default function SelectStatus() {
-  const [selectedButton, setSelectedButton] = useState("학생");
+export default function SelectStatus(props) {
+  const [selectedButton, setSelectedButton] = useState(props.text);
 
   return (
     <div>

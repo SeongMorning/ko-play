@@ -1,7 +1,12 @@
 "use client";
 import { useRef } from "react";
-import styles from "./LoginBox.module.scss";
-export default function LoginBox() {
+import { useRouter } from "next/navigation";
+import styles from "./StudentLogin.module.scss";
+export default function StudentLogin() {
+  const router = useRouter();
+  const handleClick = () => {
+    router.push("/main");
+  };
   return (
     <div className={styles.container}>
       <div className={styles.inputContainer}>
@@ -19,7 +24,9 @@ export default function LoginBox() {
           아이디와 비밀번호는 부모님 계정에서 발급 가능합니다.
         </div>
       </div>
-      <button className={styles.loginBtn}>로그인</button>
+      <button className={styles.loginBtn} onClick={handleClick}>
+        로그인
+      </button>
     </div>
   );
 }
