@@ -8,16 +8,18 @@ export default function Setting() {
   const dispatch = useDispatch();
   return (
     <YellowBox width={"30"} height={"80"}>
-      <img 
+      <img
         src="/close.png"
         className={styles.backBtn}
         onClick={() => {
           dispatch(changeModalIdx(0));
         }}
-      >
-      </img>
+      ></img>
       <div className={styles.settingMain}>
-        <img className={styles.profileImg} src="/hehe.png" />
+        <div className={styles.profileBox}>
+          <img className={styles.profileImg} src="/hehe.png" />
+          <img className={styles.profileSetting}src="/settingIcon2.png"/>
+        </div>
         <WhiteBox width={"60"} height={"10"}>
           <input />
           <img className={styles.modifyImg} src="/modify.png" />
@@ -27,7 +29,7 @@ export default function Setting() {
           <img className={styles.modifyImg} src="/modify.png" />
         </WhiteBox>
         <WhiteBox width={"60"} height={"10"}>
-          비밀번호 재설정
+          <span>비밀번호 재설정</span>
         </WhiteBox>
       </div>
     </YellowBox>
