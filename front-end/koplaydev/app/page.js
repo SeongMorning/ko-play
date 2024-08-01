@@ -3,7 +3,15 @@ import styles from "./page.module.scss";
 import StartButton from "./promotion/component/StartButton";
 import Title from "./promotion/component/Title";
 
-export default function Home() {
+// app/page.js (서버 컴포넌트)
+async function fetchData() {
+  // 여기서 실제 데이터 패칭을 수행
+  await new Promise((resolve) => setTimeout(resolve, 1000)); // 1초 대기 (데이터 패칭 시뮬레이션)
+}
+
+export default async function Home() {
+  await fetchData(); // 데이터 패칭
+
   return (
     <>
       <main className={styles.main}>
