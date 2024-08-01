@@ -20,6 +20,18 @@
         padding-left : 2%;
         gap : 3%;
         overflow-y: scroll;
+
+        ::-webkit-scrollbar{
+
+        }
+
+        ::-webkit-scrollbar-thumb{
+
+        }
+
+        ::-webkit-scrollbar-track{
+            
+        }
     }
 
     .recordItem{
@@ -33,6 +45,7 @@
         align-items: center;
         font-weight: bold;
         font-size : calc((2vw + 2vh)/2);
+        position : relative;
 
         .recordInfo{
             display : flex;

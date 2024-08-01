@@ -9,6 +9,9 @@
     align-items: center;
     z-index: 20;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .MainMenuBtnTop {
@@ -50,9 +53,6 @@
   img {
     width: 5vw;
     height: 5vw;
-    left: 1vw;
-    top: 3vh;
-    position: absolute;
     z-index: 20;
   }
 }

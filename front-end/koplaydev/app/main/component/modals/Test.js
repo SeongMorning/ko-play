@@ -12,12 +12,13 @@ export default function Test() {
   const dispatch = useDispatch();
   return (
     <YellowBox width={"60"} height={"80"}>
-      <button 
+      <img
+      src = "/close.png" 
       className={styles.backBtn}
       onClick={()=>{
         dispatch(changeTestIdx(1));
         dispatch(changeModalIdx(0));
-      }}>나가기</button>
+      }}></img>
       <div className={styles.TestMain}>
         <div className={styles.TestDisplay}>
             <TestSelector idx={testIdx}/>
@@ -32,10 +33,10 @@ export default function Test() {
 
 const TestSelector = (props)=>{
     if(props.idx === 1){
-        return 1;
+        return '화면등장';
     }else if(props.idx === 2){
-        return 2;
+        return <img style={{width : "30%", height : "80%"}} src="/MicTest.png"></img>;
     }else{
-        return 3;
+        return <img style={{width : "50%"}}src="/listentest.png"></img>;
     }
 }
