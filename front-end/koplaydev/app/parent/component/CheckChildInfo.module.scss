@@ -11,8 +11,8 @@
 
 .modalBg {
     position: fixed;
-    top: 51%;
-    left: 49.55%;
+    top: 50.9%;
+    left: 49.7%;
     transform: translate(-50%, -50%);
     background-color: rgba(252, 246, 189, 1);
     width: 49vw;
@@ -72,16 +72,16 @@
 
     }
 
-    .closeButton {
-        margin-left: 42vw;
-        margin-top: 0;
-        width: 3vw;
-        height: auto;
-    }
+    // .closeButton {
+    //     margin-left: 42vw;
+    //     margin-top: 0;
+    //     width: 3vw;
+    //     height: auto;
+    // }
 
     .inputTotal {
-        margin-top: 5%;
-        margin-bottom: 10%;
+        margin-top: 11%;
+        margin-bottom: 11%;
         z-index: 4;
 
     }
@@ -94,11 +94,12 @@
 
     .box {
         width: 25vw;
-        height: 9.2vh;
+        height: 9vh;
         background-color: rgb(255, 255, 255);
         margin-left: -5vh;
-        margin-right: 4vh;
-        margin-bottom: 2.3vh;
+        margin-right: 6vh;
+        margin-top: 1%;
+        margin-bottom: 1.5%;
         outline: none;
         border-width: 0;
         border-radius: 1.5vw;
@@ -116,23 +117,24 @@
     .detailBox {
         position: relative;
         bottom: 0;
-        margin-left: 4vh;
-        margin-bottom: 2vh;
+        margin-left: 6vh;
+        margin-top: 0.5%;
+        margin-bottom: 0;
         width: 17.5vw;
-        height: 10vh;
+        height: 9.7vh;
 
     }
 
 
-    .generateBoxContainer {
+    .checkBoxContainer {
         position: absolute;
         bottom: 0;
         z-index: 9999;
         margin-bottom: 2vh;
         width: 17.5vw;
         height: 10vh;
-        top: 86%;
-        left: 97%;
+        top: 87%;
+        left: 95%;
         transform: translate(-50%);
     }
 
