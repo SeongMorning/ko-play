@@ -1,13 +1,22 @@
 "use client";
+import { usePathname, useRouter } from "next/navigation";
 import styles from "./BackScoreBtn.module.scss";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { changeMyPageIdx } from "@/redux/slices/myPageSlice";
 
 // props : left, top, score, question, text
 export default function BackScoreBtn(props) {
+  const pathName = usePathname();
+  const dispatch = useDispatch();
+  
   // 뒤로가기 기능 단순 구현
   const handleClick = () => {
     if (props.text) {
       history.go(-1);
+    }
+    if(pathName ==="/mypage"){
+      dispatch(changeMyPageIdx(1));
     }
   };
 

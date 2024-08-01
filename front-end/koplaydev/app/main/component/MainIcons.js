@@ -23,7 +23,7 @@ export default function MainIcons() {
       />
       <motion.img
         className={styles.normalGame}
-        src="/normal-game2.png"
+        src="/realnormal.png"
         alt=""
         onClick={() => {
           dispatch(changeModalIdx(1));

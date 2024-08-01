@@ -7,10 +7,10 @@ import GameStartBtn from "@/app/game/component/GameStartBtn";
 export default function Game1() {
   return (
     <>
-      <BackScoreBtn text="뒤로가기" left="1vw" />
+      <BackScoreBtn text="뒤로가기" left="1vw" top="3vh" />
       <GameStartBtn />
       <GameBg />
-      <BackScoreBtn score="10" question="10" left="86vw" />
+      <BackScoreBtn score="10" question="10" left="86vw" top="3vh" />
     </>
   );
 }

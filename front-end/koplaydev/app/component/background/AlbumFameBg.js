@@ -4,61 +4,61 @@ export default function AlbumFameBg() {
   return (
     <>
       <StarBg
-        left="5vw"
-        top="20vh"
+        left="10vw"
+        top="10vh"
         duration="2"
         imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
         left="5vw"
         top="50vh"
-        duration="2"
+        duration="2.3"
         imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
         left="20vw"
         top="30vh"
-        duration="2"
-        imgSrc="Star-fame-blue-bg.png"
+        duration="3"
+        imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
         left="20vw"
         top="80vh"
         duration="1.5"
-        imgSrc="Star-fame-blue-bg.png"
+        imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
         right="15vw"
         top="20vh"
-        duration="1.5"
+        duration="1"
         imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
-        right="8vw"
+        right="30vw"
         top="15vh"
-        duration="1.5"
+        duration="3.5"
         imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
         right="2vw"
         top="14vh"
-        duration="2"
-        imgSrc="Star-fame-blue-bg.png"
+        duration="1.2"
+        imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
-        right="10vw"
-        top="30vh"
-        duration="2"
-        imgSrc="Star-fame-blue-bg.png"
+        left="40vw"
+        top="70vh"
+        duration="1.6"
+        imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
         right="50vw"
         top="5vh"
-        duration="1.5"
+        duration="2.1"
         imgSrc="Star-fame-yellow-bg.png"
       />
       <StarBg
-        right="5vw"
+        right="20vw"
         top="80vh"
         duration="2"
         imgSrc="Star-fame-yellow-bg.png"

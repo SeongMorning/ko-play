@@ -18,7 +18,7 @@ export default function StarBg(props) {
         transformOrigin: "0 0",
       }}
       animate={{
-        translateX: [0, -5, 0],
+        scale : [1, 1.1, 0.9, 1],
         transition: {
           repeat: Infinity,
           duration: props.duration,

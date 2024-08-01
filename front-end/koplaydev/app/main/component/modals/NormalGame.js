@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 import LevelJellyBtn from "../LevelJellyBtn";
 import { changeGameIdx } from "@/redux/slices/gameSlice";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
+import { useRef } from "react";
 
 let propObject = [
   {
@@ -31,33 +32,41 @@ let propObject = [
 ];
 
 let levelList = [1, 2, 3, 4, 5];
+let gameList = [
+  ["게임비", "123", "123"],
+  ["뒤집기"],
+  ["듣고맞추기"],
+];
 
 export default function NormalGame() {
   const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
+  const ref = useRef(null);
+
+  console.log(ref);
   return (
     <YellowBox width={"70"} height={"80"}>
       <div className={styles.NormalGameMain}>
-        <div className={styles.header}>
+        <div ref={ref} className={styles.header}>
           <div className={styles.headerleft}>
             {gameIdx === 0 ? null : (
-              <img src = "/back2.png"
+              <img
+                src="/back2.png"
                 onClick={() => {
                   dispatch(changeGameIdx(0));
                 }}
-              >
-              </img>
+              ></img>
             )}
           </div>
           <span className={styles.NormalGameTitle}>일 반 게 임</span>
           <div className={styles.headerright}>
-            <img src="/close.png"
+            <img
+              src="/close.png"
               onClick={() => {
                 dispatch(changeGameIdx(0));
                 dispatch(changeModalIdx(0));
               }}
-            >
-            </img>
+            ></img>
           </div>
         </div>
         <GameSelect idx={gameIdx} />
@@ -93,6 +102,7 @@ export default function NormalGame() {
 
 const GameSelect = (props) => {
   let widthList = Array(3).fill(26);
+
   if (props.idx !== 0) {
     widthList = [...Array(3).fill(0)];
     widthList[props.idx - 1] = 80;
@@ -123,7 +133,22 @@ const GameSelect = (props) => {
               props.idx === 0 || props.idx === index + 1 ? "visible" : "hidden"
             }
           >
-            여기에 게임종류 컴포넌트
+            <motion.div 
+            className={styles.gameItems}
+            initial={{
+              opacity : 0
+            }}
+            animate={{
+              opacity : 1,
+              transition: {
+                duration : 3
+              }
+            }}>
+              {props.idx !== 0 &&
+                gameList[props.idx - 1].map((data) => (
+                  <div className={styles.gameItem}>{data}</div>
+                ))}
+            </motion.div>
           </GameJellyBtn>
         </motion.div>
       ))}
