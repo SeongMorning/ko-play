@@ -22,9 +22,9 @@ export default function Parent() {
             {/* <InputChildInfo /> */}
 
             {/* CheckChildInfo = 자녀 정보 확인 */}
-            <CheckChildInfo />
-            <ChildProfileCard name="홍길동" birth="2024.06.15" />
-            <ChildProfileCard isBgBlue={true} name="김철수" birth="2024.07.30" />
+            {/* <CheckChildInfo /> */}
+            <ChildProfileCard idx="1" src="hehe.png" name="홍길동" birth="2024.06.15" />
+            <ChildProfileCard idx="2" src="hehe.png" isBgBlue={true} name="김철수" birth="2024.07.30" />
             <AddProfileCard />
             <ParentBg />
         </div>

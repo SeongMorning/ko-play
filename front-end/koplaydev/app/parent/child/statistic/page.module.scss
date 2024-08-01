@@ -15,18 +15,27 @@
 }
 
 .characterSection {
-    margin-top: 17%;
+    margin-top: 2%;
     width: 42%;
-    height: 51%;
+    height: 79%;
     left: 1%;
     // overflow: hidden;
     position: absolute;
     z-index: 6;
     bottom: 7%;
+    // background-color: red;
+
+    .bubble {
+        width: 60%;
+        height: 46%;
+        float: right;
+        margin-right: 8%;
+    
+    }
 }
 
 .character {
-    width: 65%;
+    width: 61%;
     position: absolute;
     bottom: 0;
 }
