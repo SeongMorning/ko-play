@@ -1,13 +1,13 @@
 package com.edu.koplay.service.student;
 
-import com.edu.koplay.dto.GallaryDTO;
 import com.edu.koplay.repository.AvatarRepository;
-import com.edu.koplay.repository.GallaryRepository;
+import com.edu.koplay.repository.GalleryRepository;
 import com.edu.koplay.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.edu.koplay.model.*;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class StudentService {
@@ -18,7 +18,7 @@ public class StudentService {
     private AvatarRepository avatarRepository;
 
     @Autowired
-    private GallaryRepository gallaryRepository;
+    private GalleryRepository galleryRepository;
 
     public Student signIn(Student student) {
         return studentRepository.save(student);
@@ -45,16 +45,19 @@ public class StudentService {
         avatarRepository.save(avatar);
     }
     //studentid
-    public List<Gallary> getSnapshots(String studentId) {
+    public List<Gallery> getSnapshots(String studentId) {
+        System.out.println("**************************************"+studentId);
         Student student = studentRepository.findByStudentIdAndIsDeletedFalse(studentId).orElseThrow();
-        System.out.println(studentId);
-        return gallaryRepository.findAllByStudentAndIsDeletedFalse(student);
+
+
+        return galleryRepository.findAllByStudentAndIsDeletedFalse(student);
     }
 
-    public void deleteSnapshot(Long snapshotId) {
-        Gallary gallary = gallaryRepository.findById(snapshotId).orElseThrow();
-        gallary.setIsDeleted(true);
-        gallaryRepository.save(gallary);
+    public void deleteSnapshot(Long snapshotId, Student me) {
+        Optional<Gallery> gallery = galleryRepository.findByGalleryIdxAndStudentAndIsDeletedFalse(snapshotId, me);
+        //System.out.println("!!!!!!!!!!!!!!"+me.getStudentIdx());
+        gallery.get().setIsDeleted(true);
+        galleryRepository.save(gallery.get());
     }
 
     public String getMyPage(Long studentId) {

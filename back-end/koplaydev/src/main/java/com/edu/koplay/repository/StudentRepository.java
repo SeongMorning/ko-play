@@ -21,4 +21,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Optional<Student> findByStudentIdAndIsDeletedFalse(String id);
 
     Optional<Student> findByStudentIdAndParentAndIsDeletedFalse(String studentID, Parent parent);
+
+    //Optional<Student> findByStudentId(String );
 }
