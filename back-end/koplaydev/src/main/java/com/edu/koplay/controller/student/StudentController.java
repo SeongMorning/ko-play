@@ -2,7 +2,9 @@ package com.edu.koplay.controller.student;
 
 import com.edu.koplay.controller.parent.ParentController;
 import com.edu.koplay.dto.GalleryDTO;
+import com.edu.koplay.dto.ParentDTO;
 import com.edu.koplay.dto.ResponseDTO;
+import com.edu.koplay.dto.StudentDTO;
 import com.edu.koplay.repository.StudentRepository;
 import com.edu.koplay.security.jwt.JwtUtil;
 import com.edu.koplay.service.student.StudentService;
@@ -18,6 +20,7 @@ import com.edu.koplay.model.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/students")
@@ -41,19 +44,42 @@ public class StudentController {
         studentService.signOut();
     }
 
-    @PutMapping("/info")
-    public void updateStudentInfo(@RequestParam Long studentId, @RequestParam String nickname) {
-        studentService.updateStudentInfo(studentId, nickname);
+    @PutMapping("/info") //학생 개인정보 변경
+    public ResponseEntity<?> updateStudentInfo( @RequestBody StudentDTO student ) {
+        //내 email 조희
+        try {
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Student entity = null;
+            if (Objects.equals(authentication.getName(), student.getId())) {
+                entity =  studentService.updateStudentInfo(student);
+            }
+
+
+            assert entity != null;
+            StudentDTO dto = new StudentDTO(entity);
+
+            //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
+            return ResponseEntity.ok().body(response);
+
+
+        }catch (Exception e){
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+        // 바꾸기
+        //studentService.updateStudentInfo(studentId, nickname);
     }
 
-    @GetMapping("/avatars") //자기꺼만 가져오는중
+    @GetMapping("/avatars") //자신의 아바타를 가져옴
     public List<Avatar> getAvatars() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         //authentication.getName();
         return studentService.getAvatars(authentication.getName());
     }
 
-    @PutMapping("/avatar")
+    @PutMapping("/avatar") //사용하고 있는 아바타를 다른 아바타로 수정함
     public void updateAvatar(@RequestParam Long studentId, @RequestBody Avatar avatar) {
         studentService.updateAvatar(studentId, avatar);
     }

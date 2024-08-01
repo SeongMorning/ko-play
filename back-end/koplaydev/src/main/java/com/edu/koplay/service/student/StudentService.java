@@ -1,9 +1,13 @@
 package com.edu.koplay.service.student;
 
+import com.edu.koplay.dto.StudentDTO;
 import com.edu.koplay.repository.AvatarRepository;
 import com.edu.koplay.repository.GalleryRepository;
 import com.edu.koplay.repository.StudentRepository;
+import com.edu.koplay.repository.StudentUsableAvatarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.edu.koplay.model.*;
 import java.util.List;
@@ -11,14 +15,20 @@ import java.util.Optional;
 
 @Service
 public class StudentService {
-    @Autowired
+
     private StudentRepository studentRepository;
-
-    @Autowired
     private AvatarRepository avatarRepository;
-
-    @Autowired
     private GalleryRepository galleryRepository;
+    private PasswordEncoder passwordEncoder;
+    private StudentUsableAvatarRepository suar;
+    @Autowired
+    public StudentService(StudentRepository studentRepository, AvatarRepository avatarRepository, GalleryRepository galleryRepository, PasswordEncoder passwordEncoder, StudentUsableAvatarRepository suar) {
+        this.studentRepository = studentRepository;
+        this.avatarRepository = avatarRepository;
+        this.galleryRepository = galleryRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.suar = suar;
+    }
 
     public Student signIn(Student student) {
         return studentRepository.save(student);
@@ -36,7 +46,7 @@ public class StudentService {
 
     public List<Avatar> getAvatars(String studentId) {
         Student student = studentRepository.findByStudentIdAndIsDeletedFalse(studentId).orElseThrow();
-        return avatarRepository.findAllByStudent(student);
+        return suar.findAllByStudent(student);
     }
 
     public void updateAvatar(Long studentId, Avatar avatar) {
@@ -46,7 +56,7 @@ public class StudentService {
     }
     //studentid
     public List<Gallery> getSnapshots(String studentId) {
-        System.out.println("**************************************"+studentId);
+
         Student student = studentRepository.findByStudentIdAndIsDeletedFalse(studentId).orElseThrow();
 
 
@@ -55,7 +65,6 @@ public class StudentService {
 
     public void deleteSnapshot(Long snapshotId, Student me) {
         Optional<Gallery> gallery = galleryRepository.findByGalleryIdxAndStudentAndIsDeletedFalse(snapshotId, me);
-        //System.out.println("!!!!!!!!!!!!!!"+me.getStudentIdx());
         gallery.get().setIsDeleted(true);
         galleryRepository.save(gallery.get());
     }
@@ -69,5 +78,18 @@ public class StudentService {
         Student student = studentRepository.findById(studentId).orElseThrow();
         //avatar.setStudent(student);
         avatarRepository.save(avatar);
+    }
+
+    public Student updateStudentInfo(StudentDTO student) {
+        Student st = studentRepository.findByStudentIdAndIsDeletedFalse(student.getId()).orElseThrow();
+        // 비밀번호 인코딩
+
+        String encodedPassword = passwordEncoder.encode(student.getPw());
+        st.setStudentPw(encodedPassword);
+        st.setNickname(student.getNickname());
+        st.setProfileImg(student.getProfileImg());
+        st.setSchoolName(student.getSchoolName());
+        //studentRepository.save(st);
+        return st;
     }
 }

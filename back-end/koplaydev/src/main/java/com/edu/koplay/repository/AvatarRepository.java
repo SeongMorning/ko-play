@@ -7,5 +7,5 @@ import com.edu.koplay.model.Avatar;
 import java.util.List;
 
 public interface AvatarRepository extends JpaRepository<Avatar, Long> {
-    List<Avatar> findAllByStudent(Student student);
+    List<Avatar> findAll();
 }
