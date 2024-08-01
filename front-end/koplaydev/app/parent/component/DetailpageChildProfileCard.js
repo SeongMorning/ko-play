@@ -1,7 +1,10 @@
+"use client";
+import { useRouter } from "next/navigation";
 import DetailBox from "./DetailBox";
 import styles from "./DetailpageChildProfileCard.module.scss";
 
 export default function DetailpageChildProfileCard({ isBgBlue, name }) {
+    const router = useRouter();
 
     return (
         <><div className={styles.profileCardContainer}>
@@ -19,13 +22,53 @@ export default function DetailpageChildProfileCard({ isBgBlue, name }) {
             </div>
 
             <div className={styles.inputTotal}>
-                <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="분야별, 레벨별 정답률" width={220} height={92} /></div></div>
-                <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="학습 진도 현황" width={220} height={92} /></div></div>
-                <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="학습 성취도 비교" width={220} height={92} /></div></div>
-                <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="주간 학습 리포트" width={220} height={92} /></div></div>
-                <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="스냅샷" width={220} height={92} /></div></div>
+                <div className={styles.inputContainer}>
+                    <div className={styles.detailBox}>
+                        <DetailBox
+                            onClick={() => router.push("/parent/child/statistic")}
+                            text="분야별, 레벨별 정답률"
+                            width={220}
+                            height={92} />
+                    </div>
+                </div>
+                <div className={styles.inputContainer}>
+                    <div className={styles.detailBox}>
+                        <DetailBox
+                            onClick={() => router.push("/parent/child/statistic")}
+                            text="학습 진도 현황"
+                            width={220}
+                            height={92} />
+                    </div>
+                </div>
+                <div className={styles.inputContainer}>
+                    <div className={styles.detailBox}>
+                        <DetailBox
+                            onClick={() => router.push("/parent/child/statistic")}
+                            text="학습 성취도 비교"
+                            width={220}
+                            height={92} />
+                    </div>
+                </div>
+                <div className={styles.inputContainer}>
+                    <div className={styles.detailBox}>
+                        <DetailBox
+                            onClick={() => router.push("/parent/child/statistic")}
+                            text="주간 학습 리포트"
+                            width={220}
+                            height={92} />
+                    </div>
+                </div>
+                <div className={styles.inputContainer}>
+                    <div className={styles.detailBox}>
+                        <DetailBox
+                            onClick={() => router.push("/parent/child/statistic")}
+                            text="스냅샷"
+                            width={220}
+                            height={92} />
+                    </div>
+                </div>
             </div>
-            </div>
+        </div>
         </>
     )
 }

@@ -8,6 +8,7 @@ export default function DetailBox(props) {
         width: `${props.width}%`,
         height: `${props.height}%`,
       }}
+      onClick={props.onClick}
     >
       <div className={styles.BoxTop}>{props.text}</div>
       <div className={styles.BoxBottom} />
