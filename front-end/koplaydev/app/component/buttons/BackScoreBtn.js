@@ -40,7 +40,7 @@ export default function BackScoreBtn(props) {
         ) : (
           <img src="/Back.png" />
         )}
-        {props.score ? null : props.text}
+        <span>{props.score ? null : props.text}</span>
       </motion.div>
       <div className={styles.BackScoreBtnBottom} />
     </div>

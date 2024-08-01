@@ -10,7 +10,7 @@ export default function Game1() {
       <BackScoreBtn text="뒤로가기" left="1vw" />
       <GameStartBtn />
       <GameBg />
-      <BackScoreBtn score="10" question="10" left="91vw" />
+      <BackScoreBtn score="10" question="10" left="86vw" />
     </>
   );
 }
