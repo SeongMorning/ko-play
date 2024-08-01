@@ -3,9 +3,12 @@
 import { useEffect, useRef } from "react";
 import styles from "./Correct.module.scss";
 import { Chart } from "chart.js/auto";
+import LevelJellyBtn from "@/app/main/component/LevelJellyBtn";
+import { useSelector } from "react-redux";
 
 export default function Correct() {
   const graph = useRef(null);
+  const graphLevel = useSelector((state) => state.graphLevel)
   // 단계별 분야별 정답률 다 받아야되네요 한번에
 
   useEffect(() => {
@@ -69,10 +72,10 @@ export default function Correct() {
           },
           elements: {
             point: {
-              backgroundColor: "white",
+              // backgroundColor: "white",
             },
             line: {
-              borderWidth: 5,
+              borderWidth: 15,
             },
           },
           plugins: {
@@ -97,6 +100,18 @@ export default function Correct() {
     <div className={styles.CorrectMain}>
       <div className={styles.graph}>
         <canvas ref={graph} />
+      </div>
+      <div className={styles.levelBtn}>
+        {[1,2,3,4,5].map((data, index)=>
+          <LevelJellyBtn
+            level={data}
+            bg={"#FFCC17"}
+            shadow={"#C99D00"}
+            color={"white"}
+            width={"15"}
+            height={"60"}
+          />
+        )}
       </div>
     </div>
   );

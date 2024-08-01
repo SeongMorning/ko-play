@@ -8,14 +8,14 @@ export default function Setting() {
   const dispatch = useDispatch();
   return (
     <YellowBox width={"30"} height={"80"}>
-      <button
+      <img 
+        src="/close.png"
         className={styles.backBtn}
         onClick={() => {
           dispatch(changeModalIdx(0));
         }}
       >
-        나가기
-      </button>
+      </img>
       <div className={styles.settingMain}>
         <img className={styles.profileImg} src="/hehe.png" />
         <WhiteBox width={"60"} height={"10"}>

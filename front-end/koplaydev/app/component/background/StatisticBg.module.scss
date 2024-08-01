@@ -1,8 +1,8 @@
-.parentBg {
+.statisticBg {
     width: 100vw;
     height: 100vh;
 
-    .parentBgGround {
+    .statisticBgGround {
         position: absolute;
         top: 78vh;
         left: 0;
@@ -11,7 +11,7 @@
         z-index: 2;
     }
 
-    .parentBgStars {
+    .statisticBgStars {
         position: absolute;
         top: 1vh;
         left: 0;
@@ -20,27 +20,19 @@
         z-index: 1;
     }
 
-    .parentBgUfo {
-        position: absolute;
-        top: 79vh;
-        left: 61vw;
-        width: 13vw;
-        height: 19vh;
-        z-index: 3;
-    }
-
-    .parentBgPlanet {
+    .statisticBgPlanet {
         position: absolute;
         top: 17vh;
         left: 75vw;
         width: 20vw;
         height: auto;
+        z-index: 4;
     }
 
-    .parentBgConsole {
+    .statisticBgConsole {
         position: absolute;
         top: 82%;
-        left: 29vw;
+        left: 57vw;
         width: 7vw;
         height: auto;
         z-index: 4;

@@ -1,0 +1,32 @@
+.section {
+    width: 100%;
+    height: 80.8%;
+    overflow: hidden;;
+}
+
+.boardImg {
+    float: right;
+    margin-top: 1%;
+    margin-right: 4%;
+    width: 54%;
+    height: auto;
+    position: relative;
+    z-index: 5;
+}
+
+.characterSection {
+    margin-top: 17%;
+    width: 42%;
+    height: 51%;
+    left: 1%;
+    // overflow: hidden;
+    position: absolute;
+    z-index: 6;
+    bottom: 7%;
+}
+
+.character {
+    width: 65%;
+    position: absolute;
+    bottom: 0;
+}

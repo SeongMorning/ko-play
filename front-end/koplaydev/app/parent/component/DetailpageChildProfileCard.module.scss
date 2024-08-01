@@ -1,0 +1,162 @@
+.profileCardContainer {
+    display: flex; /* Flexbox로 가로 정렬 */
+    align-items: flex-start; /* 상단 정렬 */
+    justify-content: flex-start; /* 요소들이 왼쪽에서부터 정렬 */
+    width: 100%; /* 전체 너비를 사용 */
+    margin-top: 20px;
+    position: relative; /* absolute 요소가 컨테이너를 기준으로 정렬되도록 함 */
+}
+
+.profileCardBg {
+    position: absolute;
+    top: 14.4%;
+    left: 17%;
+    width: 22.5vw;
+    height: 53.2vh;
+    z-index: 9997;
+    background-color: rgba(252, 246, 189, 1);
+    border-radius: 2vw;
+    box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+}
+
+.profileCard {
+    position: absolute;
+    top: 13.2%;
+    left: 17.3%;
+    width: 22.5vw;
+    height: 53.2vh;
+    z-index: 9998;
+    background-color: rgba(252, 246, 189, 1);
+    border-radius: 2vw;
+    box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .settingIcon {
+        width: 13%;
+        height: auto;
+        margin-top: 2vh;
+        margin-left: 1.2vw;
+        align-self: flex-start;
+    }
+
+    .profileInput {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .profileImgBg {
+        width: 56%;
+        height: auto;
+        border-radius: 23%;
+        margin-top: 5%;
+        margin-bottom: 10%;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profileImg {
+        width: 120%;
+        height: auto;
+    }
+
+    .profileName {
+        font-size: 2.5vw;
+        font-weight: bold;
+        letter-spacing: 1vw;
+        margin-top: -1%;
+        padding-left: 4%;
+        text-align: center;
+    }
+}
+
+.blueProfileCardBg {
+    background-color: rgba(189, 224, 254, 1);
+    position: absolute;
+    top: 20.2vh;
+    left: 33vw;
+    width: 22.5vw;
+    height: 53.2vh;
+    z-index: 9996;
+    border-radius: 2vw;
+    box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+}
+
+.blueProfileCard {
+    background-color: rgba(189, 224, 254, 1);
+    position: absolute;
+    top: 19.3vh;
+    left: 33.4vw;
+    width: 22.5vw;
+    height: 53.2vh;
+    z-index: 9995;
+    border-radius: 2vw;
+    box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .settingIcon {
+        width: 3vw;
+        height: auto;
+        margin-top: 2vh;
+        margin-left: 1.2vw;
+        align-self: flex-start;
+    }
+
+    .profileInput {
+        width: 63%;
+        height: auto;
+        margin-top: 2vh;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profileImgBg {
+        width: 100%;
+        height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .profileImg {
+        width: 100%;
+        height: 100%;
+    }
+
+    .profileName {
+        font-size: 2.5vw;
+        font-weight: bold;
+        letter-spacing: 1vw;
+        text-align: center;
+    }
+}
+
+.inputTotal {
+    margin-left: 43%; /* profileCardBg와 inputTotal 사이의 간격 조정 */
+    margin-top: 4%;
+    display: flex;
+    flex-direction: column; /* 세로 정렬 */
+    z-index: 4;
+}
+
+.detailBox {
+    position: relative;
+    width: 17.5vw;
+    height: 10vh;
+    margin-bottom: 2.5%;
+}

@@ -8,14 +8,47 @@
 
     .header{
         display :flex;
-        justify-content: space-between;
         z-index : 20;
+        box-sizing: border-box;
+        align-items: center;
+        justify-content: space-between;
+
+
+        .headerleft{
+            display : flex;
+            width : 20%;
+            align-items: center;
+            box-sizing: border-box;
+            padding-left: 3%;
+            
+            img{
+                width : 2.5vw;
+                cursor : pointer;
+            }
+        }
+
+        
+
+        .headerright{
+            display: flex;
+            width : 20%;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            padding-right : 3%;
+
+            img{
+                cursor : pointer;
+            }
+        }
     }
 
     .NormalGameTitle{
+        width : 60%;
+        display : flex;
+        justify-content: center;
         color : #FF8B00;
         font-weight: bold;
-        font-size: calc((5vw + 5vh)/2);
+        font-size: calc((4.5vw + 4.5vh)/2);
     }
 }
 

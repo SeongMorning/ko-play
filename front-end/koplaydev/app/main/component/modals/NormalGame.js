@@ -14,19 +14,19 @@ let propObject = [
     bg: "#FFD6E0",
     shadow: "#E07A93",
     text: "말하기",
-    color: "#E07A93",
+    color: "white",
   },
   {
     bg: "#A2D2FF",
     shadow: "#4DA3F2",
     text: "읽기",
-    color: "#4DA3F2",
+    color: "white",
   },
   {
     bg: "#FDD127",
     shadow: "#C89F00",
     text: "듣기",
-    color: "#F48400",
+    color: "white",
   },
 ];
 
@@ -39,21 +39,26 @@ export default function NormalGame() {
     <YellowBox width={"70"} height={"80"}>
       <div className={styles.NormalGameMain}>
         <div className={styles.header}>
-          {gameIdx === 0 ? null : (
-            <button
+          <div className={styles.headerleft}>
+            {gameIdx === 0 ? null : (
+              <img src = "/back2.png"
+                onClick={() => {
+                  dispatch(changeGameIdx(0));
+                }}
+              >
+              </img>
+            )}
+          </div>
+          <span className={styles.NormalGameTitle}>일 반 게 임</span>
+          <div className={styles.headerright}>
+            <img src="/close.png"
               onClick={() => {
                 dispatch(changeGameIdx(0));
+                dispatch(changeModalIdx(0));
               }}
             >
-              임시 뒤로가기
-            </button>
-          )}
-          <span className={styles.NormalGameTitle}>일 반 게 임</span>
-          <button
-          onClick={()=>{
-            dispatch(changeGameIdx(0));
-            dispatch(changeModalIdx(0));
-          }}>임시 나가기</button>
+            </img>
+          </div>
         </div>
         <GameSelect idx={gameIdx} />
         {gameIdx === 0 ? null : (

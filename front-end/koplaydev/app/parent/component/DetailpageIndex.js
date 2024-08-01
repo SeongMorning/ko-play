@@ -1,6 +1,6 @@
 import styles from "./DetailBox.module.scss";
 
-export default function DetailBox(props) {
+export default function DetailpageIndex(props) {
   return (
     <div
       className={styles.Box}
