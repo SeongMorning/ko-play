@@ -11,8 +11,8 @@
 
 .modalBg {
     position: fixed;
-    top: 51%;
-    left: 49.55%;
+    top: 50.9%;
+    left: 49.7%;
     transform: translate(-50%, -50%);
     background-color: rgba(252, 246, 189, 1);
     width: 49vw;
@@ -80,8 +80,8 @@
     }
 
     .inputTotal {
-        margin-top: 5%;
-        margin-bottom: 10%;
+        margin-top: 4.4%;
+        margin-bottom: 11%;
         z-index: 4;
 
     }
@@ -93,12 +93,13 @@
     }
 
     .input {
-        width: 25.5vw;
-        height: 9.2vh;
+        width: 25vw;
+        height: 9vh;
         background-color: rgb(255, 255, 255);
         margin-left: -5vh;
         margin-right: 4vh;
-        margin-bottom: 2.3vh;
+        margin-top: 2%;
+        margin-bottom: 1.5%;
         outline: none;
         border-width: 0;
         border-radius: 1.5vw;
@@ -106,15 +107,17 @@
         font-size: 2vw;
         line-height: 1.5;
         padding-left: 1.5vw;
+        padding-right: 1.5vw;
     }
 
     .detailBox {
         position: relative;
         bottom: 0;
         margin-left: 4vh;
-        margin-bottom: 2vh;
+        margin-top: 1.1%;
+        margin-bottom: 0;
         width: 17.5vw;
-        height: 10vh;
+        height: 9.7vh;
 
     }
 
@@ -126,7 +129,7 @@
         margin-bottom: 2vh;
         width: 17.5vw;
         height: 10vh;
-        top: 86%;
+        top: 87%;
         left: 97%;
         transform: translate(-50%);
     }

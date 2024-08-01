@@ -1,19 +1,32 @@
 "use client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import DetailBox from "./DetailBox";
 import styles from "./DetailpageChildProfileCard.module.scss";
+import CheckChildInfo from "./CheckChildInfo";
 
 export default function DetailpageChildProfileCard({ isBgBlue, name }) {
     const router = useRouter();
+    const [ openModal, setOpenModal ] = useState(false);
+
+    const clickIcon = () => {
+        setOpenModal(true);
+    };
+
+    const closeModal = () => {
+        setOpenModal(false);
+    }
 
     return (
         <><div className={styles.profileCardContainer}>
-            <div className={`${styles.profileCardBg} ${isBgBlue ? styles.blueProfileCardBg : ''}`}>
-            </div>
+            <div className={`${styles.profileCardBg} ${isBgBlue ? styles.blueProfileCardBg : ''}`}></div>
             <div className={`${styles.profileCard} ${isBgBlue ? styles.blueProfileCard : ''}`}>
 
                 <div className={styles.profileInput}>
-                    <img className={styles.settingIcon} src="/settingIcon2.png" />
+                    <img
+                    className={styles.settingIcon}
+                    src="/settingIcon2.png"
+                    onClick={clickIcon} />
                     <div className={styles.profileImgBg}>
                         <img className={styles.profileImg} src="/hehe.png" />
                     </div>
@@ -69,6 +82,7 @@ export default function DetailpageChildProfileCard({ isBgBlue, name }) {
                 </div>
             </div>
         </div>
+        { openModal && <CheckChildInfo onClose={closeModal} />}
         </>
     )
 }

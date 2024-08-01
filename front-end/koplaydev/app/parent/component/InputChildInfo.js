@@ -2,7 +2,7 @@ import CompleteBox from "./CompleteBox";
 import DetailBox from "./DetailBox";
 import styles from "./InputChildInfo.module.scss";
 
-export default function InputChildInfo() {
+export default function InputChildInfo({ onClose }) {
 
     return (
         <>
@@ -11,7 +11,7 @@ export default function InputChildInfo() {
             <div className={styles.modal}>
                 <div className={styles.modalContent}>
                     <h2>자녀 등록</h2>
-                    <img className={styles.closeButton} src="close.png" alt="" />
+                    <img className={styles.closeButton} onClick={onClose} src="close.png" alt="" />
                     <img className={styles.star} src="Star-bg.png" alt="" />
                     <img className={styles.planet} src="planet-bg.png" alt="" />
                     <img className={styles.ufo} src="ufo-bg.png" alt="" />
