@@ -5,7 +5,7 @@ import styles from "./CardFrontText.module.scss";
 export default function CardFrontText(props) {
   return (
     <div
-      className={styles.cardContainer}
+      className={styles.cardOuter}
       styles={{
         left: `${props.left}`,
         top: `${props.top}`,
@@ -13,10 +13,8 @@ export default function CardFrontText(props) {
         height: `${props.height}`,
       }}
     >
-      <div className={styles.cardOuter}>
-        <div className={styles.cardInner}>
-          <span>1</span>
-        </div>
+      <div className={styles.cardInner}>
+        <span>1</span>
       </div>
     </div>
   );

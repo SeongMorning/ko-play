@@ -1,10 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./GameStartBtn.module.scss";
+import { useDispatch } from "react-redux";
+import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 
 export default function GameStartBtn() {
   const [countdown, setCountdown] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let timer;
@@ -12,6 +15,7 @@ export default function GameStartBtn() {
       timer = setTimeout(() => setCountdown(countdown - 1), 1000);
     } else if (countdown === 0) {
       setGameStarted(true);
+      dispatch(changeLoadingIdx(0));
       setCountdown(null);
     }
 
