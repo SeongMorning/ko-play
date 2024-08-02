@@ -10,6 +10,7 @@ import { changeGameIdx } from "@/redux/slices/gameSlice";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useRef } from "react";
 import { NodeNextRequest } from "next/dist/server/base-http/node";
+import { useRouter } from "next/navigation";
 
 let propObject = [
   {
@@ -99,6 +100,7 @@ export default function NormalGame() {
 
 const GameSelect = (props) => {
   let widthList = Array(3).fill(26);
+  const router = useRouter();
 
   if (props.idx !== 0) {
     widthList = [...Array(3).fill(0)];
@@ -151,6 +153,9 @@ const GameSelect = (props) => {
                       whileHover={{
                         backgroundColor: "rgba(0, 0, 0, 0.8)",
                         color: "rgba(154, 205, 50, 1)",
+                      }}
+                      onClick={()=>{
+                        router.push(`/game/${props.idx}`)
                       }}
                     >
                       시작

@@ -15,6 +15,7 @@
     align-items: center;
     position: relative;
     z-index: 10;
+    display: flex;
   }
 
   .JellyBtnMain {
@@ -37,9 +38,9 @@
   }
 
   .text {
+    font-weight: 800;
     position: absolute;
     color: black;
-    font-weight: 800;
     word-wrap: break-word;
     z-index: 10;
   }

@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.1",
+    "axios": "^1.7.3",
     "chart.js": "^4.4.3",
     "embla-carousel-react": "^8.1.7",
     "framer-motion": "^11.3.17",
