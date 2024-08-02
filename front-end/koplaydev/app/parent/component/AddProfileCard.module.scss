@@ -10,9 +10,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 2;
 }
 
 .plusIcon {
     width: 4vw;
     height: auto;
+    z-index: 1;
 }

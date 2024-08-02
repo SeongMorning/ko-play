@@ -1,0 +1,29 @@
+.expBarMain{
+    position : relative;
+    display: flex;
+    align-items: center;
+    width : 100%;
+    height : 20%;
+
+    .expBar{
+        position : absolute;
+        height : 50%;
+        width : 100%;
+        background-color: rgb(216, 211, 211);
+        border-radius: 30px;
+    }
+
+    .expBarFill{
+        position : absolute;
+        height : 50%;
+        border-radius : 30px;
+        background-color: #C3EDA7;
+    }
+
+    span{
+        width : 100%;
+        position : absolute;
+        display :flex;
+        justify-content: center;
+    }
+}

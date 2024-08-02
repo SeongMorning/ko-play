@@ -1,10 +1,11 @@
 .BackScoreBtn {
   text-align: center;
-  align-items: center;
   position: absolute;
   font-weight: 800;
   font-size: calc((3vw + 2vh)/2);
   box-sizing: border-box;
+  position : relative;
+  z-index : 40;
 
   .BackScoreBtnTop {
     left: 0.2vw;
@@ -17,6 +18,7 @@
     border-radius: 3vw;
     z-index: 20;
     display: flex;
+    gap : 5%;
     justify-content: center;
     align-items: center;
   }
@@ -36,7 +38,5 @@
     width: 2vw;
     height : 4vh;
     z-index: 20;
-    position : absolute;
-    left : 0.5vw
   }
 }

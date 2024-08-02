@@ -1,11 +1,14 @@
 .header {
-  width: 100vw;
-  display : flex;
-  justify-content: flex-end;
+  position : absolute;
+  right : 0;
+  z-index: 11;
   /* border: 1px solid white; */
   height: 7vh;
+  
   img {
+    position : relative;
     height: 5vh; /* 이미지의 높이를 적절히 조절 */
     margin: 0.5vw;
+    cursor : pointer;
   }
 }
