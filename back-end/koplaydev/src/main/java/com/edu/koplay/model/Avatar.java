@@ -26,8 +26,6 @@ public class Avatar {
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
     private Date createdAt;
 
-    @ManyToOne
-    @JoinColumn(name = "student_idx")
-    private Student student;
+
 }
 

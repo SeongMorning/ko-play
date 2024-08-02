@@ -37,7 +37,7 @@ public class RecommendLevel {
     private Integer levelListening;
 
     @Builder.Default
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isDeleted = false;
 
     @Builder.Default
