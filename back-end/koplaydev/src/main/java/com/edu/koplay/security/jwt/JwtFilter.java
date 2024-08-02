@@ -82,13 +82,13 @@ public class JwtFilter extends OncePerRequestFilter {
             logger.info("token expired");
 
             filterChain.doFilter(request, response);
-
-            //조건이 해당되면 메소드 종료 (필수)
+            //여기서 어떻게 처리를 해야할까??
             return;
         }
 
         //토큰에서 username과 role 획득
         String username = jwtUtil.getData(token);
+        System.out.println(username);
         String role = jwtUtil.getRole(token);
         logger.info("username: " + username);
         logger.info("role: " + role);

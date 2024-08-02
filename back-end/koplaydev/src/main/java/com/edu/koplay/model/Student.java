@@ -38,8 +38,9 @@ public class Student {
 
     private String nickname;
 
+    @Builder.Default
     @Column(columnDefinition = "INT UNSIGNED DEFAULT 0")
-    private Integer exp;
+    private Integer exp = 0;
 
     @Column(nullable = false)
     private Date birth;

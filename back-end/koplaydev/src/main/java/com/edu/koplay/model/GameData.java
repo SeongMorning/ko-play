@@ -1,17 +1,22 @@
 package com.edu.koplay.model;
 
-import lombok.Data;
 import jakarta.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.Date;
 
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 public class GameData {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long gameDataId;
+    private Long gameDataIdx;
 
     @ManyToOne
     @JoinColumn(name = "student_idx", nullable = false)
@@ -21,23 +26,24 @@ public class GameData {
     @JoinColumn(name = "game_idx", nullable = false)
     private Game game;
 
-    private Date playDate;
-
     @Column(nullable = false)
     private Integer correct;
 
+    @Column(nullable = false)
     private Integer totalQuestion;
 
+    @Column(nullable = false)
     private Integer gameLevel;
 
+    @Column(nullable = false)
     private Integer gainedExp;
 
-    private Boolean isRank;
-
+    @Builder.Default
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isDeleted = false;
 
+    @Builder.Default
     @Column(nullable = false, updatable = false, columnDefinition = "DATETIME DEFAULT CURRENT_TIMESTAMP")
-    private Date createdAt;
+    private Date createdAt = new Date();
 }
 

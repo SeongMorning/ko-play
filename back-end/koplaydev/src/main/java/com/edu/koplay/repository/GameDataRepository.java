@@ -5,4 +5,6 @@ import com.edu.koplay.model.GameData;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GameDataRepository extends JpaRepository<GameData, Long> {}
+public interface GameDataRepository extends JpaRepository<GameData, Long> {
+
+}
