@@ -13,19 +13,14 @@ export default function AddProfileCard({ onAdd }) {
 
     const closeModal = () => {
         setOpenModal(false);
-    }
-
-    const handleAdd = () => {
-        onAdd();
-        closeModal();
-    }
+    };
 
     return (
         <>
             <div className={styles.addProfileCardBg} onClick={clickEmptyCard}>
-                <img className={styles.plusIcon} src="plus.png" alt="" />
+                <img className={styles.plusIcon} src="plus.png" alt="Add" />
             </div>
-            {openModal && <InputChildInfo onClose={handleAdd} />}
+            {openModal && (<InputChildInfo onClose={closeModal} onAdd={onAdd} />)}
         </>
     );
 }
