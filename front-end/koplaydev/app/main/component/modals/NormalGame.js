@@ -9,6 +9,7 @@ import LevelJellyBtn from "../LevelJellyBtn";
 import { changeGameIdx } from "@/redux/slices/gameSlice";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useRef } from "react";
+import { NodeNextRequest } from "next/dist/server/base-http/node";
 
 let propObject = [
   {
@@ -32,11 +33,7 @@ let propObject = [
 ];
 
 let levelList = [1, 2, 3, 4, 5];
-let gameList = [
-  ["게임비", "123", "123"],
-  ["뒤집기"],
-  ["듣고맞추기"],
-];
+let gameList = [["게임비", "123", "123"], ["뒤집기"], ["듣고맞추기"]];
 
 export default function NormalGame() {
   const dispatch = useDispatch();
@@ -133,20 +130,32 @@ const GameSelect = (props) => {
               props.idx === 0 || props.idx === index + 1 ? "visible" : "hidden"
             }
           >
-            <motion.div 
-            className={styles.gameItems}
-            initial={{
-              opacity : 0
-            }}
-            animate={{
-              opacity : 1,
-              transition: {
-                duration : 3
-              }
-            }}>
+            <motion.div
+              className={styles.gameItems}
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+                transition: {
+                  duration: 3,
+                },
+              }}
+            >
               {props.idx !== 0 &&
                 gameList[props.idx - 1].map((data) => (
-                  <div className={styles.gameItem}>{data}</div>
+                  <div className={styles.gameItem}>
+                    {data}
+                    <motion.div
+                      className={styles.gameStart}
+                      whileHover={{
+                        backgroundColor: "rgba(0, 0, 0, 0.8)",
+                        color: "rgba(154, 205, 50, 1)",
+                      }}
+                    >
+                      시작
+                    </motion.div>
+                  </div>
                 ))}
             </motion.div>
           </GameJellyBtn>
