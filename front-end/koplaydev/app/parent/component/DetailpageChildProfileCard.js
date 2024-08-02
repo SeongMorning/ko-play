@@ -18,15 +18,15 @@ export default function DetailpageChildProfileCard({ isBgBlue, name }) {
     }
 
     return (
-        <><div className={styles.profileCardContainer}>
+        <><div>
             <div className={`${styles.profileCardBg} ${isBgBlue ? styles.blueProfileCardBg : ''}`}></div>
             <div className={`${styles.profileCard} ${isBgBlue ? styles.blueProfileCard : ''}`}>
 
-                <div className={styles.profileInput}>
                     <img
                     className={styles.settingIcon}
                     src="/settingIcon2.png"
                     onClick={clickIcon} />
+                <div className={styles.profileInput}>
                     <div className={styles.profileImgBg}>
                         <img className={styles.profileImg} src="/hehe.png" />
                     </div>

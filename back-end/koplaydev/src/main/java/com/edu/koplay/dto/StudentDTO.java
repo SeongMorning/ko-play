@@ -1,6 +1,7 @@
 package com.edu.koplay.dto;
 
 import com.edu.koplay.model.Student;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -30,6 +31,7 @@ public class StudentDTO {
     private byte[] profileImg;
     private Date birth;
     private String schoolName;
+    private int exp;
 
     public StudentDTO(final Student studentEntity) {
         this.id = studentEntity.getStudentId();
@@ -39,12 +41,13 @@ public class StudentDTO {
         this.profileImg = studentEntity.getProfileImg();
         this.nickname = studentEntity.getNickname();
         this.schoolName = studentEntity.getSchoolName();
+        this.exp = studentEntity.getExp();
     }
 
     public static class Base64Deserializer extends com.fasterxml.jackson.databind.JsonDeserializer<byte[]> {
         @Override
         public byte[] deserialize(com.fasterxml.jackson.core.JsonParser p, com.fasterxml.jackson.databind.DeserializationContext ctxt)
-                throws IOException, com.fasterxml.jackson.core.JsonProcessingException {
+                throws IOException, JsonProcessingException {
             String base64 = p.getValueAsString();
             if (base64 == null) {
                 return null;

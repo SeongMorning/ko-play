@@ -3,10 +3,10 @@ package com.edu.koplay.security.config;
 import com.edu.koplay.security.jwt.JwtFilter;
 import com.edu.koplay.security.jwt.JwtUtil;
 import com.edu.koplay.security.oauth2.CustomLogoutHandler;
+import com.edu.koplay.security.oauth2.CustomUserFailureHandler;
 import com.edu.koplay.security.oauth2.CustomOAuth2SuccessHandler;
 import com.edu.koplay.security.oauth2.CustomUserSuccessHandler;
 import com.edu.koplay.security.service.CustomOAuth2UserService;
-import com.edu.koplay.security.util.ROLE;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -34,15 +34,17 @@ public class SecurityConfig {
     private final CustomUserSuccessHandler customUserSuccessHandler;
     private final CustomOAuth2SuccessHandler customOAuth2SuccessHandler;
     private final CustomLogoutHandler customLogoutHandler;
+    private final CustomUserFailureHandler customUserFailureHandler;
 
     @Autowired
-    public SecurityConfig(JwtUtil jwtUtil, CustomOAuth2UserService customOAuth2UserService, CustomUserSuccessHandler customSuccessHandler, CustomOAuth2SuccessHandler customOAuth2SuccessHandler, CustomLogoutHandler customLogoutHandler) {
+    public SecurityConfig(JwtUtil jwtUtil, CustomOAuth2UserService customOAuth2UserService, CustomUserSuccessHandler customSuccessHandler, CustomOAuth2SuccessHandler customOAuth2SuccessHandler, CustomLogoutHandler customLogoutHandler, CustomUserFailureHandler customOAuth2FailureHandler) {
 
         this.jwtUtil = jwtUtil;
         this.customOAuth2UserService = customOAuth2UserService;
         this.customUserSuccessHandler = customSuccessHandler;
         this.customOAuth2SuccessHandler = customOAuth2SuccessHandler;
         this.customLogoutHandler = customLogoutHandler;
+        this.customUserFailureHandler = customOAuth2FailureHandler;
     }
 
     @Bean
@@ -111,8 +113,9 @@ public class SecurityConfig {
                                         .passwordParameter("password")
 //                                      .loginProcessingUrl("/student/signin")
 //                                      .defaultSuccessUrl("/studentsuccess", true)
-                                        .failureUrl("/custom-login?error=true")  // 로그인 실패 시 리다이렉트
+//                                        .failureUrl("/custom-login?error=true")  // 로그인 실패 시 리다이렉트
                                         .successHandler(customUserSuccessHandler)
+                                        .failureHandler(customUserFailureHandler)
 
                 )
                 .logout(logout -> logout

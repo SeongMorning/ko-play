@@ -8,7 +8,7 @@
         left: 0;
         width: 100vw;
         height: 30vh;
-        z-index: 2;
+        z-index: 1;
     }
 
     .parentBgStars {
@@ -17,7 +17,7 @@
         left: 0;
         width: 88vw;
         height: 89vh;
-        z-index: 1;
+        z-index: 0;
     }
 
     .parentBgUfo {
@@ -26,7 +26,7 @@
         left: 61vw;
         width: 13vw;
         height: 19vh;
-        z-index: 3;
+        z-index: 1;
     }
 
     .parentBgPlanet {
@@ -43,7 +43,7 @@
         left: 29vw;
         width: 7vw;
         height: auto;
-        z-index: 4;
+        z-index: 1;
     }
 
 }

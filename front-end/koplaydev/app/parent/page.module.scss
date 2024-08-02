@@ -1,20 +1,16 @@
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    height: 55%;
-    margin-top: 7%;
-    margin-left: 8%;
-    padding-left: 3%;
-    margin-right: 8%;
-    overflow: hidden;
-}
+// .background {
+//     background-color: red;
+// }
 
 .profileList {
+    position: absolute;
     display: flex;
+    top: 1.9%;
+    left: 41%;
     margin-right: 5%;
     gap: 4.4vw;
     align-items: center;
     justify-content: flex-start;
+    z-index: 2;
+    // background-color: aqua;
 }
