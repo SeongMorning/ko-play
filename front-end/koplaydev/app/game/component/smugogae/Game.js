@@ -1,102 +1,129 @@
 "use client";
-import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 import { useState, useEffect } from "react";
 import Hint from "./Hint";
 import Options from "./Options";
 import styles from "./Game.module.scss";
+import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 
-const words = ["사과", "바나나", "포도"]; // 예시 단어 리스트
+const words = [
+  ["사과", "바나나", "포도"],
+  ["오렌지", "딸기", "키위"],
+  ["배", "수박", "복숭아"],
+];
 
 export default function Game() {
-  const [currentWord, setCurrentWord] = useState("");
+  const [currentWord, setCurrentWord] = useState([]);
   const [hints, setHints] = useState([]);
-  const [attempts, setAttempts] = useState(0);
+  const [correctAnswers, setCorrectAnswers] = useState(0);
   const [gameOver, setGameOver] = useState(false);
   const [result, setResult] = useState("");
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentHintIndex, setCurrentHintIndex] = useState(0);
 
   useEffect(() => {
     startGame();
   }, []);
 
   const startGame = async () => {
-    const randomIndex = Math.floor(Math.random() * words.length);
-    const chosenWord = words[randomIndex];
-    setCurrentWord(chosenWord);
-    let msg = `I am playing a game with a korean child. I have to give hints about the word "${chosenWord}" in Korean. Please provide 5 hints that become progressively more specific. Start with a very general in hint in korean.`;
-    const initialHints = new Promise((resolve) => {
-      resolve(OpenAiUtill.prompt(msg));
-    })
-      .then((result) => {
-        console.log(result.message.content);
-        return result.message.content
-          .trim()
-          .split("\n")
-          .filter((hint) => hint);
-      })
-      .catch((err) => {
-        console.error("Error fetching hints:", err);
-        return ["힌트를 가져오는 데 문제가 발생했습니다."];
-      });
-    console.log(initialHints);
-    // const initialHints = await getHintsFromGPT(chosenWord);
-    setHints(initialHints);
-    setAttempts(0);
+    const chosenWords = words.map(
+      (wordSet) => wordSet[Math.floor(Math.random() * wordSet.length)]
+    );
+    setCurrentWord(chosenWords);
+
+    // try {
+    //   const hintsResponse = await Promise.all(
+    //     chosenWords.map((word) => {
+    //       return new Promise((resolve) => {
+    //         let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${word}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막에는 정답을 거의 알 수 있는 것으로 무조건 5개의 힌트를 줘. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
+    //         resolve(OpenAiUtill.prompt(msg));
+    //       })
+    //         .then((result) => {
+    //           return result.message.content
+    //             .split("\n")
+    //             .map((h) => h.trim().replace(/Hint\d+: /, ""));
+    //         })
+    //         .catch((err) => {
+    //           console.error("Error fetching hints:", err);
+    //           return ["힌트를 가져오는 데 문제가 발생했습니다."];
+    //         });
+    //     })
+    //   );
+    //   setHints(hintsResponse);
+    // } catch (error) {
+    //   console.error("Error fetching hints:", error);
+    //   setHints(
+    //     chosenWords.map(() => ["힌트를 가져오는 데 문제가 발생했습니다."])
+    //   );
+    // }
+
+    setCorrectAnswers(0);
+    setCurrentHintIndex(0);
     setGameOver(false);
     setResult("");
+    setCurrentQuestion(0);
   };
 
-  // const getHintsFromGPT = async (word) => {
-  //   try {
-  //     const response = await axios.post(
-  //       "https://api.openai.com/v1/completions",
-  //       {
-  //         prompt: `I am playing a game with a child. I have to give hints about the word "${word}" in Korean. Please provide 3 hints that become progressively more specific. Start with a very general hint.`,
-  //         max_tokens: 100,
-  //         model: "text-davinci-003",
-  //       },
-  //       {
-  //         headers: {
-  //           Authorization:
-  //             "Bearer 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",
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     return response.data.choices[0].text
-  //       .trim()
-  //       .split("\n")
-  //       .filter((hint) => hint);
-  //   } catch (error) {
-  //     console.error("Error fetching hints:", error);
-  //     return ["힌트를 가져오는 데 문제가 발생했습니다."];
-  //   }
-  // };
+  const handleNextHint = () => {
+    // 현재 음성을 중지합니다.
+    window.speechSynthesis.cancel();
+
+    if (currentHintIndex < hints[currentQuestion].length - 1) {
+      setCurrentHintIndex(currentHintIndex + 1);
+    } else {
+      setResult(
+        `힌트가 더 이상 없습니다! 정답은 ${currentWord[currentQuestion]}입니다.`
+      );
+      setTimeout(handleNextQuestion, 2000); // 2초 후에 다음 문제로 자동 이동
+    }
+  };
 
   const handleGuess = (guess) => {
-    if (guess === currentWord) {
+    window.speechSynthesis.cancel();
+    if (guess === currentWord[currentQuestion]) {
       setResult("정답입니다!");
-      setGameOver(true);
+      setCorrectAnswers(correctAnswers + 1);
     } else {
-      setAttempts(attempts + 1);
-      if (attempts + 1 >= 5) {
-        setResult(`오답입니다! 정답은 ${currentWord}입니다.`);
-        setGameOver(true);
-      } else {
-        setResult("오답입니다! 다시 시도하세요.");
-      }
+      setResult(`오답입니다! 정답은 ${currentWord[currentQuestion]}입니다.`);
+    }
+    setTimeout(handleNextQuestion, 2000); // 2초 후에 다음 문제로 자동 이동
+  };
+
+  const handleNextQuestion = () => {
+    if (currentQuestion < currentWord.length - 1) {
+      setCurrentQuestion(currentQuestion + 1);
+      setCurrentHintIndex(0);
+      setResult("");
+    } else {
+      setGameOver(true);
     }
   };
 
   return (
     <div className={styles.gameContainer}>
-      <Hint hint={hints[attempts]} />
+      <div className={styles.statusContainer}>
+        <p>총 문제 수: {words.length}</p>
+        <p>정답 개수: {correctAnswers}</p>
+      </div>
+      {hints[currentQuestion] && hints[currentQuestion][currentHintIndex] && (
+        <Hint hint={hints[currentQuestion][currentHintIndex]} />
+      )}
       {gameOver ? (
         <div>
-          <p>{result}</p>
+          <p className={styles.resultText}>{result}</p>
           <button onClick={startGame}>다시 시작</button>
         </div>
       ) : (
-        <Options words={words} onGuess={handleGuess} />
+        <div>
+          <Options words={words[currentQuestion]} onGuess={handleGuess} />
+          <button
+            className={styles.nextHintButton}
+            onClick={handleNextHint}
+            disabled={result !== ""}
+          >
+            다음 힌트 듣기
+          </button>
+          <p className={styles.resultText}>{result}</p>
+        </div>
       )}
     </div>
   );
