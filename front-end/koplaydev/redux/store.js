@@ -5,6 +5,8 @@ import test from "./slices/testSlice";
 import myPage from "./slices/myPageSlice";
 import graphLevel from "./slices/graphLevelSlice";
 import loading from "./slices/loadingSlice";
+import token from "./slices/tokenSlice";
+
 
 export const store = configureStore({
     reducer : {
@@ -14,5 +16,6 @@ export const store = configureStore({
         myPage : myPage.reducer,
         graphLevel : graphLevel.reducer,
         loading : loading.reducer,
+        token : token.reducer,
     },
 });
