@@ -23,7 +23,7 @@ export default function MainMenuBtn(props) {
         }else if(props.idx === 1002){
           router.push('/mypage');
         }else if(props.idx === 1003){
-          router.push('/123');
+          router.push('/avatar');
         }else if(props.idx === 10000){
           router.push('/123');
         }else if(props.idx === -1){
