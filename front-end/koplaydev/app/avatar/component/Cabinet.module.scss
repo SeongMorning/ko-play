@@ -1,9 +1,24 @@
 .cabinetContainer {
-  position: absolute;
+  animation: slideIn 1s ease-out forwards;
+  position: relative; // 필요에 따라 추가
   z-index: 10;
-  img {
+
+  .cabinetImg {
+    position: absolute;
+    top: 12vh;
     width: 80vw;
     height: 85vh;
     z-index: 10;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
   }
 }
