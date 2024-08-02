@@ -1,12 +1,11 @@
 package com.edu.koplay.controller.student;
 
 import com.edu.koplay.controller.parent.ParentController;
-import com.edu.koplay.dto.GalleryDTO;
-import com.edu.koplay.dto.ParentDTO;
-import com.edu.koplay.dto.ResponseDTO;
-import com.edu.koplay.dto.StudentDTO;
+import com.edu.koplay.dto.*;
 import com.edu.koplay.repository.StudentRepository;
+import com.edu.koplay.repository.StudentUsableAvatarRepository;
 import com.edu.koplay.security.jwt.JwtUtil;
+import com.edu.koplay.service.Avatar.AvatarService;
 import com.edu.koplay.service.student.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,6 +20,7 @@ import com.edu.koplay.model.*;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/students")
@@ -33,6 +33,10 @@ public class StudentController {
     private JwtUtil jwtUtil;
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
+    private AvatarService avatarService;
+    @Autowired
+    private StudentUsableAvatarRepository studentUsableAvatarRepository;
 
     @PostMapping("/signin")
     public Student signIn(@RequestBody Student student) {
@@ -73,19 +77,47 @@ public class StudentController {
     }
 
     @GetMapping("/avatars") //자신의 아바타를 가져옴
-    public List<Avatar> getAvatars() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        //authentication.getName();
-        return studentService.getAvatars(authentication.getName());
+    public ResponseEntity<?> getAvatars() {
+        try{
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            //authentication.getName();
+            List<Avatar> avatars = studentService.getAvatars(authentication.getName());
+            List<AvatarDTO> dtos = avatars.stream().map(AvatarDTO::new).collect(Collectors.toList());
+            ResponseDTO<AvatarDTO> response = ResponseDTO.<AvatarDTO>builder().data(dtos).build();
+
+            return ResponseEntity.ok().body(response);
+        }catch(Exception e){
+            ResponseDTO<Void> response = ResponseDTO.<Void>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
     }
 
     @PutMapping("/avatar") //사용하고 있는 아바타를 다른 아바타로 수정함
-    public void updateAvatar(@RequestParam Long studentId, @RequestBody Avatar avatar) {
-        studentService.updateAvatar(studentId, avatar);
+    public ResponseEntity<?> updateAvatar(@RequestBody ChangeAvatarDTO cad) {
+        try{
+            //사용자 얻어옴
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            //인가검사
+            //??????????
+
+            List<StudentUsableAvatar> studentUsableAvatars = studentService.updateAvatar(cad);
+            //usable avatars 반환
+            List<StudentUsableAvatarDTO> dtos = studentUsableAvatars.stream().map(StudentUsableAvatarDTO::new).toList();
+            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<StudentUsableAvatarDTO>builder().data(dtos).build();
+
+            return ResponseEntity.ok().body(response);
+        }catch (Exception e){
+            ResponseDTO<Void> response = ResponseDTO.<Void>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+
+
     }
 
     @GetMapping("/snapshots")
-    public ResponseEntity<?> getSnapshots() {
+    public ResponseEntity<?> getSnapshots() { //
         //사용자의 이름을 알아내는 함수
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
@@ -142,7 +174,19 @@ public class StudentController {
     }
 
     @PostMapping("/avatar")
-    public void addAvatar(@RequestParam Long studentId, @RequestBody Avatar avatar) {
-        studentService.addAvatar(studentId, avatar);
+    public ResponseEntity<?> addAvatar( @RequestBody String nation) { //아바타 추가 함수 => 현재는 블랙박스
+        //
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            Student me = selectStudentInfoByEmail(authentication.getName());
+            studentService.addAvatar(nation, me);
+            List<StudentUsableAvatar> all = studentUsableAvatarRepository.findAll();
+            List<StudentUsableAvatarDTO> dtos = all.stream().map(StudentUsableAvatarDTO::new).collect(Collectors.toList());
+            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<StudentUsableAvatarDTO>builder().data(dtos).build();
+            return ResponseEntity.ok().body(response);
+        }catch(Exception e){
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+
     }
 }

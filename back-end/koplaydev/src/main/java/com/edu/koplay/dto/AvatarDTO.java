@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AvatarDTO {
+    private int avatarIdx;
     private Nation nation;
     private byte[] avatarFile;
 
@@ -18,5 +19,6 @@ public class AvatarDTO {
     public AvatarDTO(Avatar avatar) {
         this.avatarFile = avatar.getAvatarFile();
         this.nation = avatar.getNation();
+        this.avatarIdx = getAvatarIdx();
     }
 }
