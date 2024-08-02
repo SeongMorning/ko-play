@@ -5,6 +5,7 @@ import styles from "./StudentLogin.module.scss";
 import axios from 'axios';
 import { useDispatch } from "react-redux";
 import { changeTokenIdx } from "@/redux/slices/tokenSlice";
+import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 
 export default function StudentLogin() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function StudentLogin() {
 
   // 상태 변수로 token 관리
   const [token, setToken] = useState(null);
+  const [studentInfo, setStudentInfo] = useState(null);
 
   // 쿠키에서 특정 값을 가져오는 함수
   function getCookieValue(name) {
@@ -35,6 +37,12 @@ export default function StudentLogin() {
       dispatch(changeTokenIdx(token)); // Redux 상태 업데이트
     }
   }, [token, dispatch]); // token이나 dispatch가 변경될 때마다 실행
+
+  useEffect(() => {
+    if (studentInfo) {
+      dispatch(changeStudentInfo(studentInfo)); // Redux 상태 업데이트
+    }
+  }, [studentInfo, dispatch]); // token이나 dispatch가 변경될 때마다 실행
 
   // 버튼 클릭 시 실행되는 함수
   const handleClick = () => {
@@ -62,6 +70,28 @@ export default function StudentLogin() {
       
       console.log('Auth Token:', authToken);
       // 성공적으로 로그인 시 메인 페이지로 이동
+      // 그전에 로그인 정보 먼저 받아오기
+      // console.log(token);
+      // console.log(token.value);
+      const config = {
+        withCredentials: true,
+        headers: {
+        Authorization: `Bearer ${authToken}`
+        },
+      }
+      console.log(authToken)
+      axios.get('http://localhost:8080/students/info', config
+      )
+      .then((res) => {
+        console.log('Response:', res.data.data[0]);
+        setStudentInfo(res.data.data[0])
+        // router.push("/main");
+      })
+      .catch((e) => {
+        alert("정보 받아오기 실패");
+        console.error('Error:', e);
+      });
+
       router.push("/main");
     })
     .catch((e) => {

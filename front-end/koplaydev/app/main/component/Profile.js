@@ -10,25 +10,12 @@ import { useEffect } from "react";
 
 
 export default function Profile() {
-  
-  const token  = useSelector((state)=>state.token)
-  const config = {
-    headers: {
-    Authorization: `${token}`
-    },
-    
-  }
-  axios.get('http://localhost:8080/student/info', null, config
-  )
-  .then((res) => {
-    console.log('Response:', res);
 
-    router.push("/main");
-  })
-  .catch((e) => {
-    alert("로그인 실패");
-    console.error('Error:', e);
-  });
+  const token = useSelector((state)=>state.token)
+  console.log(token)
+  const userInfo = useSelector((state)=>state.studentInfo)
+  console.log(userInfo)
+  
   const dispatch = useDispatch();
   return (
     <motion.div 

@@ -1,7 +1,7 @@
-import { createSlice } from "@redux/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 export const studentInfo = createSlice({
-  name: "test",
+  name: "studentInfo",
   initialState: {
     id: "",
     pw: "",
