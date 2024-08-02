@@ -1,29 +1,36 @@
 .profileCardBg {
-    position: absolute;
     top: 23vh;
     left: 7vw;
-    width: 20.5vw;
+    width: 19.5vw;
     height: 48vh;
     z-index: 9997;
-    background-color: rgba(252, 246, 189, 1);
+    background-color: var(--bgColor);
     border-radius: 2vw;
     box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .profileCard {
-    position: absolute;
     top: 22.1vh;
     left: 7.4vw; 
-    width: 20.5vw;
+    width: 19.5vw;
     height: 48vh;
     z-index: 9997;
-    background-color: rgba(252, 246, 189, 1);
+    background-color: var(--bgColor);
     border-radius: 2vw;
     box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
 
     .closeButton {
-        margin-left: 17vw;
-        margin-top: 2.2vh;
+        margin-left: 16vw;
+        margin-bottom: 1.1vh;
         margin-right: 1vw;
         width: 2.2vw;
         height: auto;
@@ -67,32 +74,3 @@
     }
 
 }
-
-.blueProfileCardBg {
-    background-color: rgba(189, 224, 254, 1);
-    left: 33vw;
-}
-
-.blueProfileCard {
-    background-color: rgba(189, 224, 254, 1);
-    left: 33.4vw; 
-}
-
-// .addProfileCardBg {
-//     position: absolute;
-//     background-color: red;
-//     left: 59vw;
-//     width: 20.5vw;
-//     height: 48vh;
-//     border-radius: 2vw;
-//     z-index: 9999;
-// }
-
-// .container {
-//     top: 23vh;
-//     display: flex;
-//     flex-direction: row;
-//     justify-content: space-around;
-//     align-items: center;
-//     height: 100vh;
-// }
