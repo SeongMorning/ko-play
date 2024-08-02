@@ -1,0 +1,30 @@
+.cardContainer {
+  position: absolute;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cardOuter {
+    width: 8vw;
+    height: 8vw;
+    background-color: #fdd127;
+    border-radius: 3vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cardInner {
+      width: 7vw;
+      height: 7vw;
+      background-color: white;
+      border-radius: 3vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      .cardText {
+      }
+    }
+  }
+}
