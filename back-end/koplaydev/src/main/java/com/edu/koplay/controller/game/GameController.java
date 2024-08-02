@@ -7,7 +7,7 @@ import com.edu.koplay.model.*;
 
 
 import java.util.List;
-
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/games")
 public class GameController {

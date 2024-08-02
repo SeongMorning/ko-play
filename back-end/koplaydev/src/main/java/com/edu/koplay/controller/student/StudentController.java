@@ -21,7 +21,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.stream.Collectors;
-
+@CrossOrigin(origins="*")
 @RestController
 @RequestMapping("/students")
 public class StudentController {
