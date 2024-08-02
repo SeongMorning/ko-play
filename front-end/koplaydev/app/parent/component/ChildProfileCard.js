@@ -19,3 +19,4 @@ export default function ChildProfileCard({ name, birth, src, idx, bgColor }) {
         </div>
     );
 }
+

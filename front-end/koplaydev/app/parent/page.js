@@ -6,8 +6,10 @@ import styles from "./page.module.scss";
 import ParentBg from "../component/background/ParentBg";
 import ChildProfileCard from "./component/ChildProfileCard";
 import AddProfileCard from "./component/AddProfileCard";
+import InputChildInfo from "./component/InputChildInfo";
 
 export default function Parent() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [childProfiles, setChildProfiles] = useState([]
     //     [
@@ -39,10 +41,19 @@ export default function Parent() {
         };
 
         setChildProfiles([...childProfiles, newProfile]);
+        setIsModalOpen(false);
     };
 
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+    }
+
     return (
-        <div className={styles.container}>
+        <div className={styles.background}>
                 <div className={styles.profileList}>
             {/* {childProfiles.length > 0 && ( */}
                     {childProfiles?.map((profile) => (
@@ -57,10 +68,12 @@ export default function Parent() {
                     )
                 )}
                 </div>
-                <div className={styles.profileList}>
-            <AddProfileCard onAdd={addChildProfile} />
+                <div className={styles.AddProfileButton} onClick={openModal}>
+            <AddProfileCard />
                 </div>
             <ParentBg />
+            {isModalOpen && (<InputChildInfo onClose={closeModal} onAdd={addChildProfile} />)}
         </div>
     );
 }
+

@@ -6,9 +6,17 @@ import styles from "./InputChildInfo.module.scss";
 export default function InputChildInfo({ onClose, onAdd }) {
     const [name, setName] = useState("");
     const [birth, setBirth] = useState("");
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+
+
 
     const createProfile = () => {
         onAdd({ name, birth });
+        setName("");
+        setBirth("");
+        setId("");
+        setPassword("");
         onClose();
     }
 
@@ -31,8 +39,16 @@ export default function InputChildInfo({ onClose, onAdd }) {
                         />
                         </div>
                         </div>
-                        <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="아이디" width={68} height={92} /></div> <div><input className={styles.input} /></div></div>
-                        <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="비밀번호" width={68} height={92} /></div> <div><input className={styles.input} /></div></div>
+                        <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="아이디" width={68} height={92} /></div> <div><input
+                                className={styles.input}
+                                // value={id}
+                                // onChange={(e) => setBirth(e.target.value)}
+                                 /></div></div>
+                        <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="비밀번호" width={68} height={92} /></div> <div><input
+                                className={styles.input}
+                                // value={password}
+                                // onChange={(e) => setBirth(e.target.value)}
+                                /></div></div>
                         <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text="생년월일" width={68} height={92} /></div> <div>
                             <input
                                 className={styles.input}
