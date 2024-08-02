@@ -18,6 +18,8 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Query("SELECT u FROM Student u WHERE u.studentId = :loginId AND u.studentPw = :password AND u.isDeleted = false")
     Student findByStudentIdAndStudentPw(@Param("loginId") String loginId, @Param("password") String password);
 
+    Optional<Student> findByStudentId(String id);
+
     Optional<Student> findByStudentIdAndIsDeletedFalse(String id);
 
     Optional<Student> findByStudentIdAndParentAndIsDeletedFalse(String studentID, Parent parent);
