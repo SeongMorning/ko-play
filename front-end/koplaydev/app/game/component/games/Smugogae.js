@@ -3,6 +3,7 @@ import GameBg from "../../../component/background/GameBg";
 import BackScoreBtn from "@/app/component/buttons/BackScoreBtn";
 import GameStartBtn from "@/app/game/component/GameStartBtn";
 import Game from "../smugogae/Game";
+// import Test from /"../smugogae/test";
 
 // 스무고개 게임 페이지
 export default function Smugogae() {
@@ -10,12 +11,13 @@ export default function Smugogae() {
     <>
       <BackScoreBtn text="뒤로가기" left="1vw" top="3vh" />
       {/* <GameStartBtn /> */}
-      <video
+      {/* <video
         className={styles.myVideo}
         src="/character_dancing.mp4"
         autoPlay
         loop
-      />
+      /> */}
+      <img className={styles.myVideo} src="/character-dancingMachine.gif" />
       <div className={styles.container}>
         <Game />
       </div>

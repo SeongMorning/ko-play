@@ -7,11 +7,13 @@
   height: auto;
 }
 .container {
+  position: absolute;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-end;
-  height: 100vh;
+  left: 37%;
+  top: 60%;
   padding-bottom: 5vh;
   z-index: 40;
 }
