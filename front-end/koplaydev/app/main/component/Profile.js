@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import styles from "./Profile.module.scss";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import {motion} from 'framer-motion';
+import ExpBar from "./ExpBar";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ export default function Profile() {
         <img src="hehe.png" />
       </div>
       <div className={styles.profileInfo}>
-        <img src="/korea-3.png" alt="" />
+        <ExpBar/>
         <div>
           <span>123123</span>
           <span>456</span>
