@@ -6,6 +6,7 @@ import myPage from "./slices/myPageSlice";
 import graphLevel from "./slices/graphLevelSlice";
 import loading from "./slices/loadingSlice";
 import token from "./slices/tokenSlice";
+import correct from "./slices/correct";
 
 
 export const store = configureStore({
@@ -17,5 +18,6 @@ export const store = configureStore({
         graphLevel : graphLevel.reducer,
         loading : loading.reducer,
         token : token.reducer,
+        correct : correct.reducer,
     },
 });

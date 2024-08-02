@@ -2,13 +2,14 @@
 import { usePathname, useRouter } from "next/navigation";
 import styles from "./BackScoreBtn.module.scss";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeMyPageIdx } from "@/redux/slices/myPageSlice";
 
 // props : left, top, score, question, text
 export default function BackScoreBtn(props) {
   const pathName = usePathname();
   const dispatch = useDispatch();
+  const correct = useSelector((state) => state.correct);
   
   // 뒤로가기 기능 단순 구현
   const handleClick = () => {
@@ -45,7 +46,7 @@ export default function BackScoreBtn(props) {
         }
       >
         {props.score ? (
-          `점수 : ${props.score} / ${props.question}`
+          `점수 : ${correct} / ${props.question}`
         ) : (
           <img src="/Back.png" />
         )}
