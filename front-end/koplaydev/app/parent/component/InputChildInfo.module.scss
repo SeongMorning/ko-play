@@ -2,23 +2,24 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9998;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.305);
     backdrop-filter: blur(7px);
+    z-index: 1000;
 }
+
 
 .modalBg {
     position: fixed;
-    top: 50.9%;
-    left: 49.7%;
+    top: 51.3%;
+    left: 49.4%;
     transform: translate(-50%, -50%);
     background-color: rgba(252, 246, 189, 1);
-    width: 49vw;
-    height: 75vh;
+    width: 50.7vw;
+    height: 77.6vh;
     border-radius: 2vw;
-    z-index: 9998;
+    z-index: 1001;
     box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
 }
 
@@ -28,10 +29,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(252, 246, 189, 1);
-    width: 45vw;
-    height: 67vh;
+    width: 47vw;
+    height: 70vh;
     border-radius: 2vw;
-    z-index: 9998;
+    z-index: 1002;
     padding: 2vw;
     box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
 }
@@ -55,7 +56,7 @@
     .planet {
         position: absolute;
         margin-top: 3vh;
-        margin-left: 26vw;
+        margin-left: 28vw;
         width: 18vw;
         height: 28vh;
         z-index: 2;
@@ -73,15 +74,15 @@
     }
 
     .closeButton {
-        margin-left: 42vw;
-        margin-top: 0;
-        width: 3vw;
+        margin-left: 44vw;
+        margin-top: -1vh;
+        width: 3.5vw;
         height: auto;
+        z-index: 1002;
     }
 
     .inputTotal {
-        margin-top: 4.4%;
-        margin-bottom: 11%;
+        margin-top: 5%;
         z-index: 4;
 
     }
@@ -98,7 +99,7 @@
         background-color: rgb(255, 255, 255);
         margin-left: -5vh;
         margin-right: 4vh;
-        margin-top: 2%;
+        margin-top: 2.2%;
         margin-bottom: 1.5%;
         outline: none;
         border-width: 0;
@@ -129,9 +130,9 @@
         margin-bottom: 2vh;
         width: 17.5vw;
         height: 10vh;
-        top: 87%;
-        left: 97%;
-        transform: translate(-50%);
+        top: 105%;
+        left: 78%;
+        // transform: translate(-50%);
     }
 
 
@@ -142,7 +143,7 @@
         font-weight: 900;
         text-align: center;
         z-index: 9998;
-        margin-top: 0;
+        margin-top: 1%;
         left: 50%;
         transform: translateX(-50%);
     }
