@@ -4,13 +4,13 @@ import { useState } from "react";
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import styles from "./page.module.scss";
-import ChildProfileCard from "./component/ChildProfileCard";
-import AddProfileCard from "./component/AddProfileCard";
-import ParentBg from "../component/background/ParentBg";
-import InputChildInfo from "./component/InputChildInfo";
+import styles from "./carousel.module.scss";
+import ParentBg from "@/app/component/background/ParentBg";
+import AddProfileCard from "./AddProfileCard";
+import InputChildInfo from "./InputChildInfo";
+import ChildProfileCard from "./ChildProfileCard";
 
-export default function Parent() {
+export default function Carousel() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [childProfiles, setChildProfiles] = useState([]);
@@ -39,7 +39,6 @@ export default function Parent() {
 
         setChildProfiles([...childProfiles, newProfile]);
         setIsModalOpen(false);
-        console.log(childProfiles.length);
     };
 
     const openModal = () => {
@@ -57,9 +56,6 @@ export default function Parent() {
         slidesToShow: 3,
         slidesToScroll: 1,
         arrows: true,
-        draggable: false,
-        initialSlide: 0
-        // rtl: true
     };
 
     return (
@@ -83,6 +79,7 @@ export default function Parent() {
             <div className={styles.AddProfileButton} onClick={openModal}>
                 <AddProfileCard />
             </div>
+            
             <ParentBg />
 
             {isModalOpen && (<InputChildInfo onClose={closeModal} onAdd={addChildProfile} />)}
