@@ -11,10 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.edu.koplay.model.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -124,5 +121,9 @@ public class StudentService {
         st.setSchoolName(student.getSchoolName());
         //studentRepository.save(st);
         return st;
+    }
+
+    public Student selectOneStudent(String id) {
+        return studentRepository.findByStudentId(id).orElseThrow();
     }
 }

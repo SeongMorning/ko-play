@@ -38,16 +38,34 @@ public class StudentController {
     @Autowired
     private StudentUsableAvatarRepository studentUsableAvatarRepository;
 
-    @PostMapping("/signin")
-    public Student signIn(@RequestBody Student student) {
-        return studentService.signIn(student);
-    }
+//    @PostMapping("/signin")
+//    public Student signIn(@RequestBody Student student) {
+//        return studentService.signIn(student);
+//    }
+//
+//    @GetMapping("/signout")
+//    public void signOut() {
+//        studentService.signOut();
+//    }
 
-    @GetMapping("/signout")
-    public void signOut() {
-        studentService.signOut();
-    }
+    @GetMapping("/info")
+    public ResponseEntity<?> getStudentInfo() {
+        //내 정보 조회
+        try {
+            String id = getAuthenticationData();
+            Student entity = studentService.selectOneStudent(id);
+            StudentDTO dto = new StudentDTO(entity);
 
+            //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
+            return ResponseEntity.ok().body(response);
+
+        }catch (Exception e){
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
+    
     @PutMapping("/info") //학생 개인정보 변경
     public ResponseEntity<?> updateStudentInfo( @RequestBody StudentDTO student ) {
         //내 email 조희
@@ -188,5 +206,11 @@ public class StudentController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
+    }
+
+    private String getAuthenticationData() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication.getName();
     }
 }
