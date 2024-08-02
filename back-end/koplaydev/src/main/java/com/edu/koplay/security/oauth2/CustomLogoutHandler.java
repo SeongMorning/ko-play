@@ -44,6 +44,7 @@ public class CustomLogoutHandler extends SimpleUrlLogoutSuccessHandler {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/"); // 쿠키의 경로 설정
         cookie.setMaxAge(maxAge); // 쿠키의 유효시간 설정
+
         return cookie;
     }
 }
