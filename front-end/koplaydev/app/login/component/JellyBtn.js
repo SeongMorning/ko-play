@@ -34,12 +34,12 @@ export default function JellyBtn(props) {
           style={{ background: `${props.bg}` }}
           className={styles.JellyBtnMain}
         />
+        <h1 className={styles.text}>{props.text}</h1>
       </motion.div>
       <div
         style={{ background: `${props.shadow}` }}
         className={styles.JellyBtnShadow}
       />
-      <h1 className={styles.text}>{props.text}</h1>
     </motion.div>
   );
 }
