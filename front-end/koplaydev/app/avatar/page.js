@@ -1,4 +1,3 @@
-import styles from "./page.module.scss";
 import AlbumFameBg from "../component/background/AlbumFameBg";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
 import Cabinet from "./component/Cabinet";
