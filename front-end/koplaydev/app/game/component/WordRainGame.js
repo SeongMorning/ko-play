@@ -11,7 +11,7 @@ export default function WordRainGame(){
     }else if(loading === 0){
         return <WordRainStart/>
     }else if(loading === 1){
-        return "게임 끝!!!!!"
+        return <WordRainStart/>
     }else{
         return "뭔가 잘못됐습니다"
     }
