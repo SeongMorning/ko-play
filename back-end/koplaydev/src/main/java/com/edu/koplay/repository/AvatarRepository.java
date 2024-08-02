@@ -12,9 +12,9 @@ import java.util.List;
 public interface AvatarRepository extends JpaRepository<Avatar, Long> {
     List<Avatar> findAll();
 
-    List<Avatar> findAllByNation(String nation);
+    //List<Avatar> findAllByNation(String nation);
 
-    List<Avatar> findAllByNationAndIsDeleteIsFalse(String nation);
+    //List<Avatar> findAllByNationAndIsDeleteIsFalse(String nation);
 
     @Query("SELECT a FROM Avatar a WHERE a.nation = :nation " +
             "AND a.isDeleted = false " +
