@@ -1,0 +1,14 @@
+.nationContainer {
+  position: absolute;
+  top: 80vh;
+  left: 5vw;
+  z-index: 11;
+  display: flex;
+  gap: 5vw;
+
+  img {
+    width: 5vw;
+    margin: 0.5vw;
+    cursor: pointer;
+  }
+}

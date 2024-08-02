@@ -1,6 +1,6 @@
-import styles from "./GameCard.module.scss";
+import styles from "./CardBack.module.scss";
 
-export default function GameCard(props) {
+export default function CardBack(props) {
   return (
     <div className={styles.GameCard}>
       <img src="/card-game.png" style={{ left: props.left, top: props.top }} />

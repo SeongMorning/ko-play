@@ -6,7 +6,7 @@ export default function BtnContainer() {
       <BlueBtn
         width="10vw"
         height="7vh"
-        top="60vh"
+        top="70vh"
         left="55vw"
         radius="10vw"
         text="테스트"
@@ -14,7 +14,7 @@ export default function BtnContainer() {
       <BlueBtn
         width="10vw"
         height="7vh"
-        top="70vh"
+        top="80vh"
         left="55vw"
         radius="10vw"
         text="모두 벗기"
@@ -22,7 +22,7 @@ export default function BtnContainer() {
       <BlueBtn
         width="17vh"
         height="17vh"
-        top="60vh"
+        top="70vh"
         left="66vw"
         radius="2vw"
         text="적용하기"
