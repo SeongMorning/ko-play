@@ -2,6 +2,7 @@
 
 import styles from "./loading.module.scss";
 import { motion } from "framer-motion";
+// app/loading.js
 export default function Loading() {
   const text = Array.from("... 로딩중 ...");
 
@@ -52,7 +53,6 @@ export default function Loading() {
           ))}
         </div>
       </div>
-      <div>로딩페이지2</div>
     </>
   );
 }
