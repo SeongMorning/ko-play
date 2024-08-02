@@ -1,8 +1,14 @@
 import WordRain from "../component/games/WordRain";
 import Smugogae from "../component/games/Smugogae";
+async function fetchData() {
+  // 실제 데이터 패칭
+  await new Promise((resolve) => setTimeout(resolve, 5000)); // 5초 대기 (데이터 패칭 시뮬레이션)
+}
 
 // 단어비 게임 페이지.
-export default function game({ params }) {
+export default async function game({ params }) {
+  await fetchData();
+
   return (
     <>
       <GameSelector gameidx={params.id} />
