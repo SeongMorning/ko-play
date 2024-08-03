@@ -55,4 +55,4 @@ export const {
   setExp,
 } = studentInfo.actions;
 
-export default studentInfo.reducer;
+export default studentInfo;
