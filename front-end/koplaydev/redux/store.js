@@ -8,6 +8,7 @@ import loading from "./slices/loadingSlice";
 import token from "./slices/tokenSlice";
 import correct from "./slices/correct";
 import studentInfo from "./slices/studentInfoSlice"
+import wrong from "./slices/wrongList";
 
 export const store = configureStore({
     reducer : {
@@ -20,5 +21,6 @@ export const store = configureStore({
         token : token.reducer,
         correct : correct.reducer,
         studentInfo : studentInfo.reducer,
+        wrong : wrong.reducer
     },
 });

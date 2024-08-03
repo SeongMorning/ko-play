@@ -8,7 +8,7 @@ export default function Cam(props) {
     <>
       <Webcam
         className={styles.webcam}
-        style={{ left: props.left, top: props.top, width: props.width }}
+        style={{ left: props.left, top: props.top, width: props.width, right: props.right, bottom : props.bottom }}
       />
     </>
   );
