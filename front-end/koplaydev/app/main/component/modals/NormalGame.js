@@ -40,8 +40,7 @@ export default function NormalGame() {
   const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
   const ref = useRef(null);
-
-  console.log(ref);
+  
   return (
     <YellowBox width={"70"} height={"80"}>
       <div className={styles.NormalGameMain}>
@@ -82,7 +81,7 @@ export default function NormalGame() {
             }}
           >
             {levelList.map((data, index) => (
-              <div className={styles.LevelBtn}>
+              <div key={index} className={styles.LevelBtn}>
                 <LevelJellyBtn
                   level={data}
                   bg={propObject[gameIdx - 1].bg}

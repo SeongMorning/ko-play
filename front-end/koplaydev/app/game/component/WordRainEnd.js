@@ -67,8 +67,8 @@ export default function WordRainEnd() {
             initial="hidden"
             animate="visible"
           >
-            {wrongList.map((data) => (
-              <motion.div className={styles.wrong} variants={wrongVariants}>
+            {wrongList.map((data,index) => (
+              <motion.div key={index} className={styles.wrong} variants={wrongVariants}>
                 <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
                 <div className={styles.KoreaWord}>
                   {data.word}
