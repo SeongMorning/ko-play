@@ -7,7 +7,7 @@ import graphLevel from "./slices/graphLevelSlice";
 import loading from "./slices/loadingSlice";
 import token from "./slices/tokenSlice";
 import correct from "./slices/correct";
-import studentInfoSlice from "./slices/studentInfoSlice"
+import studentInfo from "./slices/studentInfoSlice"
 
 export const store = configureStore({
     reducer : {
@@ -19,6 +19,6 @@ export const store = configureStore({
         loading : loading.reducer,
         token : token.reducer,
         correct : correct.reducer,
-        studentInfoSlice : studentInfoSlice.reducer,
+        studentInfo : studentInfo.reducer,
     },
 });
