@@ -1,5 +1,6 @@
 "use client";
 
+import 'regenerator-runtime/runtime';
 import { motion } from "framer-motion";
 import styles from './GameJellyBtn.module.scss';
 import { useDispatch } from "react-redux";
@@ -8,6 +9,7 @@ import { useRouter } from "next/navigation";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeCorrectIdx } from "@/redux/slices/correct";
 import { changeInCorrect } from "@/redux/slices/Incorrect";
+import SpeechRecognition from 'react-speech-recognition';
 
 export default function LevelJellyBtn(props) {
     const dispatch = useDispatch()
@@ -38,6 +40,7 @@ export default function LevelJellyBtn(props) {
         dispatch(changeCorrectIdx(0));
           router.push("/main");
         }
+        SpeechRecognition.stopListening();
 
       }}
     >

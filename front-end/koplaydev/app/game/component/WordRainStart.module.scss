@@ -1,3 +1,20 @@
+.InputBox{
+  position : absolute;
+  display : flex;
+  justify-content: center;
+  align-items: center;
+  bottom : 40%;
+  right : 2%;
+  width : 15%;
+  height : 15%;
+  background-color: white;
+  border-radius: 40px;
+  font-size: calc((3vw + 3vh)/2);
+  font-weight: bold;
+  z-index: 30;
+  border : 5px solid yellow;
+}
+
 .CardMain {
   position: absolute;
   display: flex;
