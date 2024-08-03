@@ -11,6 +11,7 @@ import BlueBox from "@/app/component/boxes/BlueBox";
 import PinkBox from "@/app/component/boxes/PinkBox";
 import GameJellyBtn from "./GameJellyBtn";
 import { changeCorrectIdx } from "@/redux/slices/correct";
+import { changeWrong } from "@/redux/slices/wrongList";
 
 export default function WordRainStart() {
   const [wordObjectList, setWordObjectList] = useState([
@@ -18,57 +19,66 @@ export default function WordRainStart() {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이1",
+      word2 : "tiger1"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이2",
+      word2 : "tiger2"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이3",
+      word2 : "tiger3"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이4",
+      word2 : "tiger4"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이5",
+      word2 : "tiger5"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이6",
+      word2 : "tiger6"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이7",
+      word2 : "tiger7"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이8",
+      word2 : "tiger8"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이9",
+      word2 : "tiger9"
     },
     {
       left: Math.random() * 60 + 10,
       imgSrc: "/korea-3.png",
       word: "호랑이10",
+      word2 : "tiger10"
     },
   ]);
 
   const [resultList, setResultList] = useState([1, 0, 0, 1, 0, 0, 0, 1, 0, 0]);
   const [wrong, setWrong] = useState([]);
-  const [cnt, setCnt] = useState(0);
   const dispatch = useDispatch();
   const [modal, setModal] = useState(false);
   const [correct, setCorrect] = useState(0);
@@ -83,11 +93,11 @@ export default function WordRainStart() {
       setCorrect(a);
       setIncorrect(b);
       setModal(true);
+      dispatch(changeWrong(wrong));
     }
   }, [resultList]);
 
   const changeResultList = useCallback((index) => {
-    setCnt(cnt + 1);
     if (resultList[index] !== 1) {
       let copy2 = [...resultList];
       copy2[index] = -1;

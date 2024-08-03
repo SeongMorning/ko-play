@@ -7,7 +7,7 @@ export default function Cabinet() {
   return (
     <div className={styles.cabinetContainer}>
       <img className={styles.cabinetImg} src="/cabinet.png" />
-      <Cam left="65vw" top="50vh" width="20vw" />
+      <Cam left="55vw" top="40vh" width="20vw" />
       <BtnContainer />
       <ChangeNation />
     </div>

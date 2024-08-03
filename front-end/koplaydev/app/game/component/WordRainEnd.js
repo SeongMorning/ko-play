@@ -1,6 +1,93 @@
-export default function WordRainEnd(){
-    return(
-        <div>
-        </div>
-    )
+"use client";
+
+import { useSelector } from "react-redux";
+import styles from "./WordRainEnd.module.scss";
+import CardFrontImage from "./CardFrontImage";
+import { motion } from "framer-motion";
+import GameJellyBtn from "@/app/main/component/GameJellyBtn";
+
+export default function WordRainEnd() {
+  const wrongList = useSelector((state) => state.wrong);
+
+  const container = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const wrongVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        duration: 1,
+      },
+    },
+  };
+
+  return (
+    <>
+      <div className={styles.EndPage}>
+        <motion.div
+          className={styles.ExpBar}
+          initial={{
+            opacity: 0,
+          }}
+          animate={{
+            opacity: 1,
+            transition: {
+              duration: 1,
+            },
+          }}
+        >
+          <motion.div
+            className={styles.Exp}
+            initial={{
+              width: 0,
+            }}
+            animate={{
+              width: "50%",
+              transition: {
+                duration: 3,
+                ease: "easeInOut",
+              },
+            }}
+          ></motion.div>
+        </motion.div>
+        <motion.div
+          className={styles.Incorrect}
+          variants={container}
+          initial="hidden"
+          animate="visible"
+        >
+          {wrongList.map((data) => (
+            <motion.div className={styles.wrong} variants={wrongVariants}>
+              <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
+              <div className={styles.KoreaWord}>
+                {data.word}
+                <img src="/WordSound.png" />
+              </div>
+              <div className={styles.ForeignWord}>
+                {data.word2}
+                <img src="/WordSound.png" />
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+      <div className={styles.GoMain}>
+        <GameJellyBtn
+          width="100"
+          height="100"
+          bg="#FFD6E0"
+          shadow="#E07A93"
+          text="나가기"
+        />
+      </div>
+    </>
+  );
 }
