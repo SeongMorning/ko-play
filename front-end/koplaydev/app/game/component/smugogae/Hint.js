@@ -1,11 +1,11 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-export default function Hint({ hint, rate = 1.0 }) {
+export default function Hint({ hint, rate = 1.0, playHint }) {
   const utteranceRef = useRef(null);
 
   useEffect(() => {
-    if (hint) {
+    if (playHint && hint) {
       if (utteranceRef.current) {
         window.speechSynthesis.cancel();
       }
@@ -15,7 +15,7 @@ export default function Hint({ hint, rate = 1.0 }) {
       window.speechSynthesis.speak(utterance);
       utteranceRef.current = utterance;
     }
-  }, [hint, rate]);
+  }, [playHint, hint, rate]);
 
   return null;
 }

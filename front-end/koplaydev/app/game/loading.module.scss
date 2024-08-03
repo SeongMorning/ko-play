@@ -6,10 +6,10 @@
   height: 100vh;
   background-color: #001f3f; // Deep navy blue for the background
   overflow: hidden;
-  .cloud{
+  .cloud {
     width: 100vw;
     bottom: -0;
-    position:absolute;
+    position: absolute;
   }
   .mascot {
     height: 350px;
@@ -18,10 +18,9 @@
     top: 30%;
     left: 38%;
     transform: translateY(-40%) rotate(0deg);
-    
-    animation: 
-      fly 8s ease-in-out infinite alternate,
-      // spin 2s linear infinite;
+
+    animation: fly 8s ease-in-out infinite alternate;
+    // spin 2s linear infinite;
   }
 
   .text {
@@ -70,7 +69,13 @@
 // }
 
 @keyframes fadeInOut {
-  0% { opacity: 0; }
-  50% { opacity: 1; }
-  100% { opacity: 0; }
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }

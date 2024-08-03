@@ -29,18 +29,18 @@ export default function Loading() {
   return (
     <>
       <div className={styles.loading}>
-      <motion.img
-        animate={{
-          translateY: [0, 5, 3, 1, 0],
-          transition: {
-            repeat: Infinity,
-            duration: 4,
-          },
-        }}
-        className={styles.cloud}
-        src="/cloud.png"
-      />
-      <img
+        <motion.img
+          animate={{
+            translateY: [0, 5, 3, 1, 0],
+            transition: {
+              repeat: Infinity,
+              duration: 4,
+            },
+          }}
+          className={styles.cloud}
+          src="/cloud.png"
+        />
+        <img
           src="/starship2.png" // Update this URL to your mascot's public URL
           alt="Mascot"
           className={styles.mascot}
