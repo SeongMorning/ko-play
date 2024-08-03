@@ -12,13 +12,52 @@ import styles from "./SmuGameStart.module.scss";
 import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 
 const words = [
-  ["사과", "바나나", "포도"],
-  ["오렌지", "딸기", "키위"],
-  ["배", "수박", "복숭아"],
+  [
+    {
+      word: "사과",
+      word2: "apple",
+    },
+    {
+      word: "바나나",
+      word2: "banana",
+    },
+    {
+      word: "포도",
+      word2: "grape",
+    },
+  ],
+  [
+    {
+      word: "오렌지",
+      word2: "orange",
+    },
+    {
+      word: "딸기",
+      word2: "strawberry",
+    },
+    {
+      word: "키위",
+      word2: "kiwi",
+    },
+  ],
+  [
+    {
+      word: "배",
+      word2: "pear",
+    },
+    {
+      word: "수박",
+      word2: "watermelon",
+    },
+    {
+      word: "복숭아",
+      word2: "peach",
+    },
+  ],
 ];
 
 export default function SmuGameStart() {
-  const [currentWord, setCurrentWord] = useState([]);
+  const [currentWords, setCurrentWords] = useState([]);
   const [hints, setHints] = useState([]);
   const [gameOver, setGameOver] = useState(false);
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -41,12 +80,13 @@ export default function SmuGameStart() {
     const chosenWords = words.map(
       (wordSet) => wordSet[Math.floor(Math.random() * wordSet.length)]
     );
-    setCurrentWord(chosenWords);
+    setCurrentWords(chosenWords);
+
     // try {
     //   const hintsResponse = await Promise.all(
-    //     chosenWords.map((word) => {
+    //     chosenWords.map((wordObj) => {
     //       return new Promise((resolve) => {
-    //         let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${word}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막으로 갈수록 구체적으로 무조건 5개의 힌트를 줘. 정답을 알려주면 안 돼. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
+    //         let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${wordObj.word}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막으로 갈수록 구체적으로 무조건 5개의 힌트를 줘. 정답을 알려주면 안 돼. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
     //         resolve(OpenAiUtill.prompt(msg));
     //       })
     //         .then((result) => {
@@ -80,28 +120,25 @@ export default function SmuGameStart() {
 
   const handleNextHint = () => {
     window.speechSynthesis.cancel();
-
     if (currentHintIndex < hints[currentQuestion].length - 1) {
       setCurrentHintIndex(currentHintIndex + 1);
       setPlayHint(true);
-    } else {
-      // 힌트가 끝났음을 알리는 UI 표시가 필요할 경우 여기에 추가 가능
     }
   };
 
   const handleGuess = (guess) => {
     window.speechSynthesis.cancel();
-    setCorrectWord(currentWord[currentQuestion]);
-    if (guess === currentWord[currentQuestion]) {
+    setCorrectWord(currentWords[currentQuestion].word);
+    if (guess === currentWords[currentQuestion].word) {
       dispatch(changeCorrectIdx(correctAnswers + 1));
     } else {
-      dispatch(changeWrong([...wrongAnswers, currentWord[currentQuestion]]));
+      dispatch(changeWrong([...wrongAnswers, currentWords[currentQuestion]]));
     }
     setTimeout(handleNextQuestion, 2000);
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < currentWord.length - 1) {
+    if (currentQuestion < currentWords.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setCurrentHintIndex(0);
       setCorrectWord(null);
@@ -163,9 +200,9 @@ export default function SmuGameStart() {
         {!gameOver && (
           <div style={{ width: "100%" }}>
             <Options
-              words={words[currentQuestion]}
+              words={words[currentQuestion].map((wordObj) => wordObj.word)}
               onGuess={handleGuess}
-              correctWord={currentWord[currentQuestion]}
+              correctWord={currentWords[currentQuestion]?.word}
               reset={reset}
             />
             <div className={styles.hintInfo}>

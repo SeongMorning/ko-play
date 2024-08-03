@@ -66,8 +66,12 @@ export default function SmuGameEnd() {
             initial="hidden"
             animate="visible"
           >
-            {wrongList.map((data) => (
-              <motion.div className={styles.wrong} variants={wrongVariants}>
+            {wrongList.map((data, index) => (
+              <motion.div
+                className={styles.wrong}
+                variants={wrongVariants}
+                key={index}
+              >
                 <div className={styles.KoreaWord}>
                   {data.word}
                   <img src="/WordSound.png" />
