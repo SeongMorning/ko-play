@@ -4,9 +4,14 @@ import { motion } from "framer-motion";
 import styles from './GameJellyBtn.module.scss';
 import { useDispatch } from "react-redux";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
+import { useRouter } from "next/navigation";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
+import { changeCorrectIdx } from "@/redux/slices/correct";
+import { changeInCorrect } from "@/redux/slices/Incorrect";
 
 export default function LevelJellyBtn(props) {
     const dispatch = useDispatch()
+    const router = useRouter();
   return (
     <motion.div
       className={styles.LevelJellyBtn}
@@ -22,11 +27,17 @@ export default function LevelJellyBtn(props) {
       }}
       onClick={()=>{
         if(props.text === "예"){
-
+          dispatch(changeInCorrect(true));
+          dispatch(changeLoadingIdx(1));
+        }else if(props.text === "아니요"){
+          dispatch(changeInCorrect(false));
+          dispatch(changeLoadingIdx(1));
         }else{
-
+        dispatch(changeModalIdx(0));
+        dispatch(changeLoadingIdx(-1));
+        dispatch(changeCorrectIdx(0));
+          router.push("/main");
         }
-        dispatch(changeLoadingIdx(1));
 
       }}
     >
