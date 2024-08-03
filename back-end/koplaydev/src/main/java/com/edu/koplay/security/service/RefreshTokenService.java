@@ -27,7 +27,9 @@ public class RefreshTokenService {
      */
     public void saveTokenInfo(String data, String refreshToken, String accessToken) {
         logger.info("Saving token info");
-
+        logger.info("refreshToken: "+refreshToken);
+        logger.info("accessToken:"+accessToken);
+        logger.info("data: "+data);
         RefreshToken save = repository.save(new RefreshToken(data, accessToken, refreshToken));
         // find
         System.out.println(save.getId()+"아이디입니다");

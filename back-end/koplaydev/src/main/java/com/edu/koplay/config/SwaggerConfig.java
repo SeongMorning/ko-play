@@ -2,6 +2,8 @@ package com.edu.koplay.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.media.StringSchema;
+import io.swagger.v3.oas.models.parameters.Parameter;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
@@ -26,7 +28,8 @@ public class SwaggerConfig {
                         .description("API documentation for the Koplay application"))
                 .addSecurityItem(new SecurityRequirement().addList("Authorization"))
                 .components(new io.swagger.v3.oas.models.Components()
-                        .addSecuritySchemes("Authorization", securityScheme));
+                        .addSecuritySchemes("Authorization", securityScheme)
+                );
     }
 
 }

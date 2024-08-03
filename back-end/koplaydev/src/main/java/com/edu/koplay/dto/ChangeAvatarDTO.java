@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChangeAvatarDTO {
-    private int beforeAvatarIdx;
-    private int afterAvatarIdx;
+    private Long beforeAvatarIdx;
+    private Long afterAvatarIdx;
 
 }

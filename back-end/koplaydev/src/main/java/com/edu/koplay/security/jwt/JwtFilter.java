@@ -53,6 +53,7 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+
         if (cookies != null) {
 
             for (Cookie cookie : cookies) {
