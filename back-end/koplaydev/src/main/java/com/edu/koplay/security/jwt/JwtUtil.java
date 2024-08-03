@@ -70,6 +70,10 @@ public class JwtUtil {
                 .compact();
     }
 
+    public String seperateBearer(String token){
+        return token.substring(7);
+    }
+
     public String resolveToken(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
@@ -89,6 +93,7 @@ public class JwtUtil {
 
     public Boolean isExpired(String token) {
         try {
+            logger.info(token);
             Claims claims = Jwts.parserBuilder().setSigningKey(secretkey).build().parseClaimsJws(token).getBody();
             Date expirationDate = claims.getExpiration();
             logger.info("만료기간: " + expirationDate.toString());

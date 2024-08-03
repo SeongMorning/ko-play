@@ -12,4 +12,5 @@ import java.util.Optional;
 @Repository
 public interface StudentUsableAvatarRepository extends JpaRepository<StudentUsableAvatar, Long> {
     Optional<List<StudentUsableAvatar>> findAllByStudent(Student student);
+    Optional<StudentUsableAvatar> findByAvatarAndStudent(Student student, Avatar avatar);
 }

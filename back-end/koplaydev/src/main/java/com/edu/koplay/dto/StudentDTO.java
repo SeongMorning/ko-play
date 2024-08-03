@@ -1,5 +1,6 @@
 package com.edu.koplay.dto;
 
+import com.edu.koplay.model.RecommendLevel;
 import com.edu.koplay.model.Student;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
@@ -32,8 +33,12 @@ public class StudentDTO {
     private Date birth;
     private String schoolName;
     private int exp;
+    private int speechLevel;
+    private int listeningLevel;
+    private int readingLevel;
 
-    public StudentDTO(final Student studentEntity) {
+    public StudentDTO(final Student studentEntity
+    ) {
         this.id = studentEntity.getStudentId();
         this.pw = studentEntity.getStudentPw();
         this.name = studentEntity.getStudentName();
@@ -42,6 +47,23 @@ public class StudentDTO {
         this.nickname = studentEntity.getNickname();
         this.schoolName = studentEntity.getSchoolName();
         this.exp = studentEntity.getExp();
+    }
+
+    public StudentDTO(final Student studentEntity
+            , final RecommendLevel recommendLevelEntity
+    ) {
+        this.id = studentEntity.getStudentId();
+        this.pw = studentEntity.getStudentPw();
+        this.name = studentEntity.getStudentName();
+        this.birth = studentEntity.getBirth();
+        this.profileImg = studentEntity.getProfileImg();
+        this.nickname = studentEntity.getNickname();
+        this.schoolName = studentEntity.getSchoolName();
+        this.exp = studentEntity.getExp();
+        this.speechLevel = recommendLevelEntity.getLevelSpeech();
+        this.listeningLevel = recommendLevelEntity.getLevelListening();
+        this.readingLevel = recommendLevelEntity.getLevelReading();
+
     }
 
     public static class Base64Deserializer extends com.fasterxml.jackson.databind.JsonDeserializer<byte[]> {

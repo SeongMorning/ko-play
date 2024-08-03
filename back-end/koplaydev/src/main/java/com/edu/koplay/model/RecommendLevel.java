@@ -23,10 +23,6 @@ public class RecommendLevel {
     @JoinColumn(name = "student_idx", nullable = false)
     private Student student;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_idx", nullable = false)
-    private Parent parent;
-
     @Column(nullable = false)
     private Integer levelSpeech;
 
