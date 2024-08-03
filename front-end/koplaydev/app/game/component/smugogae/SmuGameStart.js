@@ -1,8 +1,10 @@
 "use client";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeWrong } from "@/redux/slices/wrongList"; // 경로는 실제 프로젝트 구조에 맞게 수정하세요
 import Hint from "./Hint";
 import Options from "./Options";
-import styles from "./Game.module.scss";
+import styles from "./SmuGameStart.module.scss";
 import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 
 const words = [
@@ -11,7 +13,7 @@ const words = [
   ["배", "수박", "복숭아"],
 ];
 
-export default function Game() {
+export default function SmuGameStart() {
   const [currentWord, setCurrentWord] = useState([]);
   const [hints, setHints] = useState([]);
   const [correctAnswers, setCorrectAnswers] = useState(0);
@@ -20,7 +22,10 @@ export default function Game() {
   const [currentHintIndex, setCurrentHintIndex] = useState(0);
   const [correctWord, setCorrectWord] = useState(null);
   const [reset, setReset] = useState(false);
-  const [playHint, setPlayHint] = useState(false); // 힌트 재생 여부 상태 추가
+  const [playHint, setPlayHint] = useState(false);
+
+  const dispatch = useDispatch();
+  const wrongAnswers = useSelector((state) => state.wrong);
 
   useEffect(() => {
     startGame();
@@ -70,7 +75,7 @@ export default function Game() {
 
     if (currentHintIndex < hints[currentQuestion].length - 1) {
       setCurrentHintIndex(currentHintIndex + 1);
-      setPlayHint(true); // 힌트 재생 신호 설정
+      setPlayHint(true);
     } else {
       // 힌트가 끝났음을 알리는 UI 표시가 필요할 경우 여기에 추가 가능
     }
@@ -81,6 +86,8 @@ export default function Game() {
     setCorrectWord(currentWord[currentQuestion]);
     if (guess === currentWord[currentQuestion]) {
       setCorrectAnswers(correctAnswers + 1);
+    } else {
+      dispatch(changeWrong([...wrongAnswers, currentWord[currentQuestion]]));
     }
     setTimeout(handleNextQuestion, 2000);
   };
@@ -91,46 +98,57 @@ export default function Game() {
       setCurrentHintIndex(0);
       setCorrectWord(null);
       setReset((prev) => !prev);
-      setPlayHint(false); // 힌트 재생 신호 초기화
+      setPlayHint(false);
     } else {
       setGameOver(true);
     }
   };
 
   return (
-    <div className={styles.gameContainer}>
-      <Hint
-        hint={hints[currentQuestion]?.[currentHintIndex]}
-        playHint={playHint}
-      />
-      {gameOver ? (
-        <div>
-          <p className={styles.resultText}>게임이 종료되었습니다!</p>
-          <button onClick={startGame}>다시 시작</button>
-        </div>
-      ) : (
-        <div style={{ width: "100%" }}>
-          <Options
-            words={words[currentQuestion]}
-            onGuess={handleGuess}
-            correctWord={currentWord[currentQuestion]}
-            reset={reset}
-          />
-          <div className={styles.hintInfo}>
-            <p>
-              남은 힌트 개수:{" "}
-              {hints[currentQuestion]?.length - currentHintIndex || 0}
-            </p>
+    <>
+      {/* <video
+        className={styles.myVideo}
+        src="/character_dancing.mp4"
+        autoPlay
+        loop
+      /> */}
+      <img className={styles.myVideo} src="/character-dancingMachine.gif" />
+      <div className={styles.gameContainer}>
+        <Hint
+          hint={hints[currentQuestion]?.[currentHintIndex]}
+          playHint={playHint}
+        />
+        {gameOver ? (
+          <div>
+            <p className={styles.resultText}>게임이 종료되었습니다!</p>
+            <button onClick={startGame}>다시 시작</button>
           </div>
-          <button
-            className={styles.nextHintButton}
-            onClick={handleNextHint}
-            disabled={currentHintIndex >= (hints[currentQuestion]?.length || 0)}
-          >
-            힌트 듣기
-          </button>
-        </div>
-      )}
-    </div>
+        ) : (
+          <div style={{ width: "100%" }}>
+            <Options
+              words={words[currentQuestion]}
+              onGuess={handleGuess}
+              correctWord={currentWord[currentQuestion]}
+              reset={reset}
+            />
+            <div className={styles.hintInfo}>
+              <p>
+                남은 힌트 개수:{" "}
+                {hints[currentQuestion]?.length - currentHintIndex || 0}
+              </p>
+            </div>
+            <button
+              className={styles.nextHintButton}
+              onClick={handleNextHint}
+              disabled={
+                currentHintIndex >= (hints[currentQuestion]?.length || 0)
+              }
+            >
+              힌트 듣기
+            </button>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
