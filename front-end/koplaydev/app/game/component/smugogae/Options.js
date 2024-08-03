@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import styles from "./Options.module.scss";
-import CardFrontText from "../CardFrontText";
+import CardText from "./CardText";
 
 export default function Options({ words, onGuess, correctWord, reset }) {
   const [selectedWord, setSelectedWord] = useState(null);
@@ -19,7 +19,7 @@ export default function Options({ words, onGuess, correctWord, reset }) {
   return (
     <div className={styles.optionsContainer}>
       {words.map((word, index) => (
-        <CardFrontText
+        <CardText
           key={index}
           left={`${index * 10}px`}
           top="20px"
