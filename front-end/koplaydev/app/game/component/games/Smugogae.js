@@ -10,11 +10,9 @@ export default function Smugogae() {
   return (
     <>
       {/* <BackScoreBtn text="뒤로가기" left="1vw" top="3vh" /> */}
-      {/* <div className={styles.container}> */}
-      <SmuGame />
-      {/* </div> */}
-      <GameBg />
       <BackScoreBtn score="3" question="3" left="86vw" top="3vh" />
+      <GameBg />
+      <SmuGame />
     </>
   );
 }
