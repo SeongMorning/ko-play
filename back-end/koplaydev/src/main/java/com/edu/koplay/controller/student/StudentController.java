@@ -2,11 +2,9 @@ package com.edu.koplay.controller.student;
 
 import com.edu.koplay.controller.parent.ParentController;
 import com.edu.koplay.dto.*;
-import com.edu.koplay.model.Gallery;
-import com.edu.koplay.model.GameData;
-import com.edu.koplay.model.Student;
-import com.edu.koplay.model.StudentUsableAvatar;
+import com.edu.koplay.model.*;
 import com.edu.koplay.service.GameDataService;
+import com.edu.koplay.service.RecommendLevelService;
 import com.edu.koplay.service.facade.StudentFacadeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,11 +22,13 @@ import java.util.stream.Collectors;
 public class StudentController {
     private static final Logger logger = LoggerFactory.getLogger(ParentController.class);
     private final GameDataService gameDataService;
+    private final RecommendLevelService recommendLevelService;
     private StudentFacadeService studentService;
 
-    public StudentController(StudentFacadeService studentFacadeService, GameDataService gameDataService) {
+    public StudentController(StudentFacadeService studentFacadeService, GameDataService gameDataService, RecommendLevelService recommendLevelService) {
         this.studentService = studentFacadeService;
         this.gameDataService = gameDataService;
+        this.recommendLevelService = recommendLevelService;
     }
 
     @GetMapping("/info")
@@ -39,7 +39,9 @@ public class StudentController {
             //아이디로 정보조회 후 리턴
             Student entity = studentService.getStudentInfo(id);
             List<GameData> gameData = gameDataService.getStudentGameCount(entity);
-            StudentDTO dto = new StudentDTO(entity);
+            RecommendLevel recommendLevel = recommendLevelService.getStudentLevel(entity);
+
+            StudentDTO dto = new StudentDTO(entity, recommendLevel);
             dto.setTotalGameCount(gameData.size());
 
             //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.

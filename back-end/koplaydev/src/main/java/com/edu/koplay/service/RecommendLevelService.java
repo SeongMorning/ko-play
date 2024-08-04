@@ -27,4 +27,8 @@ public class RecommendLevelService {
         //level 저장
         return recommendLevelRepository.save(level);
     }
+
+    public RecommendLevel getStudentLevel(Student entity) {
+        return recommendLevelRepository.findAllByStudent(entity);
+    }
 }

@@ -20,12 +20,15 @@ public class StudentFacadeService {
     private StudentUsableAvatarService studentUsableAvatarService;
     private GalleryService galleryService;
 
+
+
     public StudentFacadeService(StudentService studentService, AvatarService avatarService, NationService nationService, StudentUsableAvatarService studentUsableAvatarService, GalleryService galleryService) {
         this.studentService = studentService;
         this.avatarService = avatarService;
         this.nationService = nationService;
         this.studentUsableAvatarService = studentUsableAvatarService;
         this.galleryService = galleryService;
+
     }
 
     public Student getStudentInfo(String id) {
