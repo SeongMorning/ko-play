@@ -158,7 +158,10 @@ export default function SmuGameStart() {
 
   return (
     <>
-      <img className={styles.myVideo} src="/character-dancingMachine.gif" />
+      <div className={styles.characterContainer}>
+        <img className={styles.myVideo} src="/character-dancingMachine.gif" />
+        <div className={styles.videoBack}></div>
+      </div>
       {gameOver && modal && (
         <motion.div
           className={styles.modal}
@@ -210,7 +213,7 @@ export default function SmuGameStart() {
               width="15vw"
               left="45vw"
               bottom="25vh"
-              text={`남은 힌트 개수 ${
+              text={`문제 남은 힌트 ${
                 hints[currentQuestion]?.length - currentHintIndex || 0
               }`}
             />
