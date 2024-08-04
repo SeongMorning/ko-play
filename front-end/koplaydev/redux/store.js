@@ -13,6 +13,7 @@ import avatarSlice from "./slices/avatarSlice";
 import studentAvatarSlice from "./slices/studentAvatarSlice";
 import level from "./slices/levelSlice";
 import graphLevel from "./slices/graphLevel";
+import exp from "./slices/expSlice";
 
 export const store = configureStore({
     reducer : {
@@ -30,5 +31,6 @@ export const store = configureStore({
         avatar : avatarSlice.reducer,
         myAvatar : studentAvatarSlice.reducer,
         graphLevel : graphLevel.reducer,
+        exp : exp.reducer,
     },
 });
