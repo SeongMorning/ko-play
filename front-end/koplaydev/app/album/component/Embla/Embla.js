@@ -1,21 +1,29 @@
 "use client";
+import { useState, useEffect } from "react";
 import EmblaCarousel from "./EmblaCarousel";
 import "./embla.scss";
+import album from "@/app/axios/album";
+
 export default function Embla() {
+  const [slides, setSlides] = useState([]);
   const OPTIONS = { loop: true };
-  const SLIDE_COUNT = 7;
-  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
-  // const SLIDES = [
-  //   "C:Users/SSAFY/Desktop/S11P12B302/front-end/koplaydev/public/Back.png",
-  //   "/public/Back.png",
-  //   "/public/Back.png",
-  //   "/public/Back.png",
-  //   "/public/Back.png",
-  // ];
+
+  useEffect(() => {
+    const fetchAlbumData = async () => {
+      const data = await album();
+      console.log(data);
+      if (data) {
+        setSlides(data);
+        console.log(slides);
+      }
+    };
+
+    fetchAlbumData();
+  }, []);
 
   return (
     <>
-      <EmblaCarousel slides={SLIDES} options={OPTIONS} />
+      <EmblaCarousel slides={slides} options={OPTIONS} />
     </>
   );
 }
