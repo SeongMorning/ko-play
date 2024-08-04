@@ -2,33 +2,27 @@
 import { motion } from "framer-motion";
 import styles from "./ChangeNation.module.scss";
 
-export default function ChangeNation() {
+export default function ChangeNation({ setSelectedCountry }) {
+  const nations = [
+    { name: "Korea", src: "/korea-3.png" },
+    { name: "Thailand", src: "/thailand-parent-choice.png" },
+    { name: "China", src: "/china-3.png" },
+    { name: "Vietnam", src: "/vietnam-3.png" },
+  ];
+
   return (
     <div className={styles.nationContainer}>
-      <motion.img
-        src="/korea-3.png"
-        whileHover={{
-          scale: 1.1,
-        }}
-      />
-      <motion.img
-        src="/thailand-parent-choice.png"
-        whileHover={{
-          scale: 1.1,
-        }}
-      />
-      <motion.img
-        src="/china-3.png"
-        whileHover={{
-          scale: 1.1,
-        }}
-      />
-      <motion.img
-        src="/vietnam-3.png"
-        whileHover={{
-          scale: 1.1,
-        }}
-      />
+      {nations.map((nation, index) => (
+        <motion.img
+          key={index}
+          src={nation.src}
+          onClick={() => setSelectedCountry(nation.name)}
+          whileHover={{
+            scale: 1.1,
+          }}
+          className={styles.nationImg}
+        />
+      ))}
     </div>
   );
 }
