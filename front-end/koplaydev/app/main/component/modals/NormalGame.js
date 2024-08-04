@@ -36,7 +36,7 @@ let propObject = [
 ];
 
 let levelList = [1, 2, 3, 4, 5];
-let gameList = [["게임비", "123", "123"], ["뒤집기"], ["듣고맞추기"]];
+let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
 
 export default function NormalGame() {
   const dispatch = useDispatch();
@@ -125,6 +125,7 @@ const GameSelect = (props) => {
     <div className={styles.GameJelly}>
       {propObject.map((data, index) => (
         <motion.div
+          key={index}
           className={styles.Btn}
           style={{ cursor: `${props.idx === 0 ? "pointer" : ""}` }}
           animate={{

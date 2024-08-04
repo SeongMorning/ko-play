@@ -1,31 +1,41 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./EasyBtn.module.scss";
 import { motion } from "framer-motion";
-import { changeGraphLevelIdx } from "@/redux/slices/graphLevelSlice";
+import {
+  changeListenLevel,
+  changeReadLevel,
+  changeSpeechLevel,
+} from "@/redux/slices/levelSlice";
 
 export default function EasyBtn(props) {
   const dispatch = useDispatch();
-  const level = useSelector((state)=> state.graphLevel)
+  const levelList = useSelector((state) => state.level);
+  const gameIdx = useSelector((state) => state.game);
+
   return (
-    <motion.div 
-    className={styles.EasyBtn}
-    whileHover={{
-      scale : [1, 1.1, 1],
-      transition : {
-        duration : 0.3
-      }
-    }}
-    onClick={()=>{
-      if(level !== 1){
-        dispatch(changeGraphLevelIdx(level-1))
-      }
-    }}
+    <motion.div
+      className={styles.EasyBtn}
+      whileHover={{
+        scale: [1, 1.1, 1],
+        transition: {
+          duration: 0.3,
+        },
+      }}
+      onClick={() => {
+        if (gameIdx === 1 && levelList[gameIdx - 1] !== 1) {
+          dispatch(changeSpeechLevel(levelList[gameIdx - 1] - 1));
+        } else if (gameIdx === 2 && levelList[gameIdx - 1] !== 1) {
+          dispatch(changeReadLevel(levelList[gameIdx - 1] - 1));
+        } else {
+          dispatch(changeListenLevel(levelList[gameIdx - 1] - 1));
+        }
+      }}
     >
       <motion.div
-      className={styles.EasyBtnTap}
-      whileTap={{
-        translateY : "6px"
-      }}
+        className={styles.EasyBtnTap}
+        whileTap={{
+          translateY: "6px",
+        }}
       >
         <svg
           className={styles.EasyBtnTop}
@@ -38,12 +48,14 @@ export default function EasyBtn(props) {
             fill={props.bg}
           />
         </svg>
-        <span 
-         className={styles.text}
-         style={{
-          color : `${props.shadow}`
-         }}
-         >쉬움</span>
+        <span
+          className={styles.text}
+          style={{
+            color: `${props.shadow}`,
+          }}
+        >
+          쉬움
+        </span>
       </motion.div>
       <svg
         className={styles.EasyBtnBottom}

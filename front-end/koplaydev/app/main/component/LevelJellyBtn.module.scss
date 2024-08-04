@@ -18,6 +18,13 @@
         align-items: center;
         font-weight: bold;
         font-size : calc((5vw + 5vh)/2);
+
+        .recommend{
+            position : absolute;
+            width : 60%;
+            top : -20%;
+            left : 40%;
+        }
     }
 
     .LevelJellyBtnBottom{
