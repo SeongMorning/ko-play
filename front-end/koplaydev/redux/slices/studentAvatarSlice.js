@@ -22,6 +22,6 @@ export const studentAvatarSlice = createSlice({
 });
 
 // 액션 내보내기
-export const { setAvatars, addAvatar, updateAvatar } = studentAvatarSlice.actions;
+export const { setStudentAvatars, addAvatar, updateAvatar } = studentAvatarSlice.actions;
 
 export default studentAvatarSlice;
