@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 export default function Correct() {
   const graph = useRef(null);
-  const graphLevel = useSelector((state) => state.graphLevel)
+  const levelList = useSelector((state) => state.level)
   // 단계별 분야별 정답률 다 받아야되네요 한번에
 
   useEffect(() => {

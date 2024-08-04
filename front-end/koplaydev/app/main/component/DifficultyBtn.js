@@ -1,11 +1,13 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./DifficultyBtn.module.scss";
 import { motion } from "framer-motion";
-import { changeGraphLevelIdx } from "@/redux/slices/graphLevelSlice";
+import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
 
 export default function DifficultyBtn(props) {
   const dispatch = useDispatch();
-  const level = useSelector((state) => state.graphLevel)
+  const levelList = useSelector((state) => state.level);
+  const gameIdx = useSelector((state) => state.game)
+
   return (
     <motion.div
       className={styles.DifficultyBtn}
@@ -15,9 +17,15 @@ export default function DifficultyBtn(props) {
           duration: 0.3,
         },
       }}
-      onClick={()=>{
-        if(level !== 5){
-          dispatch(changeGraphLevelIdx(level+1))
+      onClick={() => {
+        if (levelList[gameIdx - 1] !== 5) {
+          if (gameIdx === 1) {
+            dispatch(changeSpeechLevel(levelList[gameIdx - 1] + 1));
+          } else if (gameIdx === 2) {
+            dispatch(changeReadLevel(levelList[gameIdx - 1] + 1));
+          } else {
+            dispatch(changeListenLevel(levelList[gameIdx - 1] + 1));
+          }
         }
       }}
     >
@@ -38,12 +46,14 @@ export default function DifficultyBtn(props) {
             fill={`${props.bg}`}
           />
         </svg>
-        <span 
-        className={styles.text}
-        style={{
-          color : `${props.shadow}`
-        }}
-        >어려움</span>
+        <span
+          className={styles.text}
+          style={{
+            color: `${props.shadow}`,
+          }}
+        >
+          어려움
+        </span>
       </motion.div>
       <svg
         className={styles.DifficultyBtnBottom}
