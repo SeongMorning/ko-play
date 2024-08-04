@@ -10,6 +10,7 @@ import YellowBox from "@/app/component/boxes/YellowBox";
 import GameJellyBtn from "../GameJellyBtn";
 import styles from "./SmuGameStart.module.scss";
 import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
+import TalkBalloon from "@/app/component/TalkBalloon";
 
 const words = [
   [
@@ -126,6 +127,11 @@ export default function SmuGameStart() {
     }
   };
 
+  const handleRepeatHint = () => {
+    window.speechSynthesis.cancel();
+    setPlayHint(true);
+  };
+
   const handleGuess = (guess) => {
     window.speechSynthesis.cancel();
     setCorrectWord(currentWords[currentQuestion].word);
@@ -196,21 +202,24 @@ export default function SmuGameStart() {
         <Hint
           hint={hints[currentQuestion]?.[currentHintIndex]}
           playHint={playHint}
+          onEnd={() => setPlayHint(false)}
         />
         {!gameOver && (
           <div style={{ width: "100%" }}>
+            <TalkBalloon
+              width="15vw"
+              left="45vw"
+              bottom="25vh"
+              text={`남은 힌트 개수 ${
+                hints[currentQuestion]?.length - currentHintIndex || 0
+              }`}
+            />
             <Options
               words={words[currentQuestion].map((wordObj) => wordObj.word)}
               onGuess={handleGuess}
               correctWord={currentWords[currentQuestion]?.word}
               reset={reset}
             />
-            <div className={styles.hintInfo}>
-              <p>
-                남은 힌트 개수:{" "}
-                {hints[currentQuestion]?.length - currentHintIndex || 0}
-              </p>
-            </div>
             <button
               className={styles.nextHintButton}
               onClick={handleNextHint}
@@ -218,7 +227,13 @@ export default function SmuGameStart() {
                 currentHintIndex >= (hints[currentQuestion]?.length || 0)
               }
             >
-              힌트 듣기
+              다음 힌트 듣기
+            </button>
+            <button
+              className={styles.currentHintButton}
+              onClick={handleRepeatHint}
+            >
+              힌트 다시 듣기
             </button>
           </div>
         )}
