@@ -11,11 +11,7 @@ async function fetchData() {
 export default async function game({ params }) {
   await fetchData();
 
-  return (
-    <>
-      <GameSelector gameidx={params.id} />
-    </>
-  );
+  return <GameSelector gameidx={params.id} />;
 }
 
 const GameSelector = (props) => {

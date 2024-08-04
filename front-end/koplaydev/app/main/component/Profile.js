@@ -10,8 +10,10 @@ import studentInfo from "../../axios/studentInfo";
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import allAvatarAxios from "@/app/axios/allAvatarAxios";
 import { setAvatars } from "@/redux/slices/avatarSlice";
-import MyAvatarAxios from "@/app/axios/myAvatarAxios";
-import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice";
+import myAvatarAxios from "@/app/axios/myAvatarAxios";
+import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice"
+import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -36,7 +38,7 @@ export default function Profile() {
     };
 
     const fetchMyAvatarInfo = async () => {
-      const response = await MyAvatarAxios();
+      const response = await myAvatarAxios();
       if (response) {
         dispatch(setStudentAvatars(response)); // Redux 상태 업데이트
         // console.log('userinfo받아오기 성공');
@@ -48,6 +50,11 @@ export default function Profile() {
     fetchMyAvatarInfo();
   }, [dispatch]); // dispatch를 의존성으로 추가
 
+  useEffect(()=>{
+    dispatch(changeListenLevel(userInfo.listeningLevel));
+    dispatch(changeSpeechLevel(userInfo.speechLevel));
+    dispatch(changeReadLevel(userInfo.readingLevel));
+  }, [userInfo])
   return (
     <motion.div
       className={styles.profile}
