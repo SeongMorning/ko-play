@@ -1,0 +1,23 @@
+.cardOuter {
+  width: 9.5vw;
+  height: 9.5vw;
+  background-color: #fdd127;
+  // border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cardInner {
+    width: 83%;
+    height: 83%;
+    background-color: white;
+    // border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cardText {
+      font-size: 1.5vw;
+    }
+  }
+}

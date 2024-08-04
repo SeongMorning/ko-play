@@ -2,13 +2,13 @@ import BackScoreBtn from "@/app/component/buttons/BackScoreBtn";
 import styles from "./FlipFlip.module.scss";
 import GameBg from "@/app/component/background/GameBg";
 import GameStartBtn from "../GameStartBtn";
-import FlipFlipGameCardArray from "../FlipFlipGameCardDeck";
+import FlipFlipGameCardArray from "../flipflip/FlipFlipGameCardDeck";
 
 
 
 export default function FilpFlip() {
     // 선택한 레벨
-    const chooseLevel = 1; 
+    const chooseLevel = 5; 
 
     return (
         <>
