@@ -1,6 +1,6 @@
 import WordRain from "../component/games/WordRain";
 import Smugogae from "../component/games/Smugogae";
-import FilpFlip from "../component/games/FlipCard";
+import FilpFlip from "../component/games/FlipFlip";
 
 async function fetchData() {
   // 실제 데이터 패칭

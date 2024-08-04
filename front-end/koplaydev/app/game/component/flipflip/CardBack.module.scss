@@ -1,0 +1,39 @@
+// .card {
+//   display: block; 
+//   width: 9.5vw; 
+//   height: 9.5vw;
+//   z-index: 10;
+//   position: relative;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+// }
+
+.cardOuter {
+  width: 9.5vw;
+  height: 9.5vw;
+  background-color: #fdd127;
+  // background-color: red;
+  // border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+
+  .cardInner {
+    width: 83%;
+    height: 83%;
+    background-color: white;
+    // border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cardImage {
+      width: 93%;
+      height: 93%;
+      object-fit: cover;
+      // border-radius: 20%;
+    }
+  }
+}
