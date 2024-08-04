@@ -8,7 +8,7 @@ import FlipFlipGameCardArray from "../flipflip/FlipFlipGameCardDeck";
 
 export default function FilpFlip() {
     // 선택한 레벨
-    const chooseLevel = 5; 
+    const chooseLevel = 1; 
 
     return (
         <>
