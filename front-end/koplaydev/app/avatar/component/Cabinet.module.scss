@@ -22,3 +22,13 @@
     opacity: 1;
   }
 }
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+.avatarContainer {
+  position: absolute;
+  top: 40vh;
+  z-index: 20;
+}

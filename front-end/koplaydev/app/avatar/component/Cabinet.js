@@ -10,6 +10,8 @@ import { useEffect, useState } from "react";
 export default function Cabinet() {
   const [allAvatars, setAllAvatars] = useState([]);
   const [myAvatars, setMyAvatars] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState("Korea");
+
   useEffect(() => {
     const fetchAllAvatars = async () => {
       const data = await allAvatarAxios();
@@ -29,24 +31,32 @@ export default function Cabinet() {
     fetchAllAvatars();
     fetchMyAvatars();
   }, []);
-  // 내가 가지고 있는 것일 때는 색깔이 보이게
-  // 모든 애들 중에서 내가 가지고 있지 않은 것일 때는 흑백으로 보이게.
+
+  const filteredAvatars = allAvatars.filter(
+    (avatar) => avatar.countryName === selectedCountry
+  );
+
   return (
     <div className={styles.cabinetContainer}>
       <img className={styles.cabinetImg} src="/cabinet.png" />
       <div className={styles.avatarContainer}>
-        {allAvatars.map((avatar, index) => (
-          <img
-            key={index}
-            src={avatar.avatarFile}
-            alt={`Avatar ${index}`}
-            className={styles.avatar}
-          />
-        ))}
+        {filteredAvatars.map((avatar, index) => {
+          const isOwned = myAvatars.some(
+            (myAvatar) => myAvatar.avatarIdx === avatar.avatarIdx
+          );
+          return (
+            <img
+              key={index}
+              src={avatar.avatarFile}
+              alt={`Avatar ${index}`}
+              className={`${styles.avatar} ${!isOwned ? styles.grayscale : ""}`}
+            />
+          );
+        })}
       </div>
       <Cam left="55vw" top="40vh" width="20vw" />
       <BtnContainer />
-      <ChangeNation />
+      <ChangeNation setSelectedCountry={setSelectedCountry} />
     </div>
   );
 }
