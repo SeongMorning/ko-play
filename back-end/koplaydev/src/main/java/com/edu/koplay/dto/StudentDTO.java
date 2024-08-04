@@ -36,6 +36,8 @@ public class StudentDTO {
     private int speechLevel;
     private int listeningLevel;
     private int readingLevel;
+    //GameData
+    private int totalGameCount;
 
     public StudentDTO(final Student studentEntity
     ) {
