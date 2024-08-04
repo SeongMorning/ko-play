@@ -5,6 +5,7 @@ import styles from "./FlipFlipGameCardDeck.module.scss";
 import CardBack from "./CardBack";
 import CardFrontImage from "./CardFrontImage";
 import CardFrontText from "./CardFrontText";
+
 import elephantImg from "./image/elephant.png";
 import kittyImg from "./image/kitty.png";
 import bearImg from "./image/bear.png";
@@ -201,13 +202,18 @@ export default function FlipFlipGameCardArray({ Level }) {
 
   return (
     <div className={styles.container}>
-      <img className={styles.alarm} src="/flipflip-game-alarm.png"/>
-      <div className={styles.timer}>{formatTime(timeLeft)}</div> {/* 타이머 표시 */}
+      <div className={styles.timerContainer}>
+        <img className={styles.alarm} src="/flipflip-game-alarm2.png" />
+        <div className={styles.timer}>{formatTime(timeLeft)}</div> {/* 타이머 표시 */}
+      </div>
       <div className={styles.cardContainer}>
         {cardDeck.map((card, index) => (
           <div
             key={index}
-            className={`${styles.cardDeck} ${cardStates[index]?.flipped ? styles.flipped : ''}`}
+            className={`
+              ${styles.cardDeck}
+              ${cardStates[index]?.flipped ? styles.flipped : ''}
+              `}
             onClick={() => handleCardClick(index)}
           >
             {/* <CardBack className={styles.cardBack} /> */}

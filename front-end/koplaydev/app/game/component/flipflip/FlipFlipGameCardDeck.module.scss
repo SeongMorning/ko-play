@@ -3,29 +3,48 @@
   height: 100vh;
 }
 
-.alarm {
+.timerContainer {
   position: relative;
-  width: 8%;
-  top: 20vh;
+  width: 19.2%;
+  top: 46vh;
+  left: 80.1vw;
+  background-color: rgba(255, 42, 0, 0.833);
+  padding: 0.2vw;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+
+}
+
+.alarm {
+  margin-left: 0.3vw;
+  margin-right: -1.4vw;
+  margin-bottom: 0.2vw;
+  padding: 0.8vw;
+  width: 29%;
+
 }
 
 .timer {
+  // margin-top: 0.2vw;
   position: relative;
-  width: 15%;
-  top: 20vh;
-  left: 3vw;
-  background-color: red;
-  transform: translate(0%, 0%);
-  font-size: 5vw;
+  width: 80%;
+
+
+
+  text-align: center;
+  // transform: translate(300%, 50%);
+  font-size: 4.5vw;
   font-weight: bold;
   color: rgb(255, 255, 255);
   padding: 10px;
+  z-index: 11;
 }
 
 .cardContainer {
   position: absolute;
   top: 28%;
-  left: 48%;
+  left: 50%;
   transform: translate(-50%, -50%);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -48,6 +67,7 @@
 
 .flipped {
   transform: rotateY(360deg);
+  // backface-visibility: hidden;
 }
 
 .cardBack,
@@ -62,13 +82,13 @@
 .cardBack {
   background: #ccc;
   transform: rotateY(0deg);
-  transition: transform 0.6s;
+  // transition: transform 0.8s;
 }
 
 .cardFrontImage,
 .cardFrontText {
   transform: rotateY(180deg);
-  transition: transform 0.6s;
+  // transition: transform 0.8s;
 }
 
 .flipped .cardFrontImage,
