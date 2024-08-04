@@ -4,11 +4,15 @@
   align-items: center;
   width: 70vw;
   left: 9vw;
-  bottom: 3vh;
-  background-color: #ffffff;
+  bottom: 20vh;
+  // background-color: #ffffff;
   border-radius: 1vw;
   position: absolute;
   z-index: 50;
+
+  p {
+    color: white;
+  }
 }
 
 .resultText {
@@ -18,15 +22,39 @@
 }
 
 .nextHintButton {
-  margin-top: 1rem;
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
+  margin-top: 1vw;
+  padding: 0.5vw 1.5vw;
+  font-size: 1.5vw;
   cursor: pointer;
   border: 1px solid #ccc;
   background-color: #4caf50;
   color: white;
   transition: background-color 0.3s;
   border-radius: 5px;
+  position: absolute;
+  left: 43vw;
+
+  &:hover {
+    background-color: #45a049;
+  }
+
+  &:active {
+    background-color: #388e3c;
+  }
+}
+
+.currentHintButton {
+  margin-top: 1vw;
+  padding: 1.5vw 1.5vw;
+  font-size: 1.5vw;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #4caf50;
+  color: white;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  position: absolute;
+  left: 14vw;
 
   &:hover {
     background-color: #45a049;
@@ -39,12 +67,9 @@
 
 .myVideo {
   position: absolute;
-  left: 50%;
-  top: 33%;
-  transform: translate(-50%, -50%);
+  left: 30%;
   width: 30vw;
   height: auto;
-  z-index: 60;
 }
 
 .modal {

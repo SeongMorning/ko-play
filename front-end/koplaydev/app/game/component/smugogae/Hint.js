@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useRef } from "react";
 
-export default function Hint({ hint, rate = 1.0, playHint }) {
+export default function Hint({ hint, rate = 1.0, playHint, onEnd }) {
   const utteranceRef = useRef(null);
 
   useEffect(() => {
@@ -12,10 +12,11 @@ export default function Hint({ hint, rate = 1.0, playHint }) {
       const utterance = new SpeechSynthesisUtterance(hint);
       utterance.lang = "ko-KR";
       utterance.rate = rate;
+      utterance.onend = onEnd;
       window.speechSynthesis.speak(utterance);
       utteranceRef.current = utterance;
     }
-  }, [playHint, hint, rate]);
+  }, [playHint, hint, rate, onEnd]);
 
   return null;
 }

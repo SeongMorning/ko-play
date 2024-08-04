@@ -23,8 +23,8 @@ export default function Options({ words, onGuess, correctWord, reset }) {
           key={index}
           left={`${index * 10}px`}
           top="20px"
-          width="11vw"
-          height="11vw"
+          width="14vw"
+          height="14vw"
           text={word}
           isCorrect={
             selectedWord === null
