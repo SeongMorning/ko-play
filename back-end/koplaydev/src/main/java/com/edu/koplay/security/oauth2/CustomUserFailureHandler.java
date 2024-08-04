@@ -35,6 +35,7 @@ public class CustomUserFailureHandler extends SimpleUrlAuthenticationFailureHand
             errorMessage = "알 수없는 오류입니다.";
         }
 
+        logger.info("error: "+errorMessage);
         errorMessage = URLEncoder.encode(errorMessage, "UTF-8");
         setDefaultFailureUrl("/login?error=" + errorMessage);
         super.onAuthenticationFailure(request, response, exception);
