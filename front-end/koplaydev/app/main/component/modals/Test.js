@@ -4,8 +4,9 @@ import WhiteTestBtn from "../WhiteTestBtn";
 import { useDispatch, useSelector } from "react-redux";
 import { changeTestIdx } from "@/redux/slices/testSlice";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
+import Cam from "@/app/avatar/component/Cam";
 
-let testList = ["듣기 테스트", "화면 테스트", "마이크 테스트"];
+let testList = ["화면 테스트", "마이크 테스트", "듣기 테스트"];
 
 export default function Test() {
   const testIdx = useSelector((state) => state.test);
@@ -33,7 +34,7 @@ export default function Test() {
 
 const TestSelector = (props)=>{
     if(props.idx === 1){
-        return '화면등장';
+        return <Cam width="40%"/>;
     }else if(props.idx === 2){
         return <img style={{width : "30%", height : "80%"}} src="/MicTest.png"></img>;
     }else{

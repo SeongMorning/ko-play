@@ -11,6 +11,8 @@ import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useRef } from "react";
 import { NodeNextRequest } from "next/dist/server/base-http/node";
 import { useRouter } from "next/navigation";
+import EasyBtn from "../EasyBtn";
+import DifficultyBtn from "../DifficultyBtn";
 
 let propObject = [
   {
@@ -40,7 +42,7 @@ export default function NormalGame() {
   const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
   const ref = useRef(null);
-  
+
   return (
     <YellowBox width={"70"} height={"80"}>
       <div className={styles.NormalGameMain}>
@@ -80,6 +82,13 @@ export default function NormalGame() {
               },
             }}
           >
+            <div className={styles.EasyBtn}>
+              <EasyBtn
+                bg={propObject[gameIdx - 1].bg}
+                shadow={propObject[gameIdx - 1].shadow}
+                color={propObject[gameIdx - 1].color}
+              />
+            </div>
             {levelList.map((data, index) => (
               <div key={index} className={styles.LevelBtn}>
                 <LevelJellyBtn
@@ -90,6 +99,13 @@ export default function NormalGame() {
                 />
               </div>
             ))}
+            <div className={styles.EasyBtn}>
+              <DifficultyBtn
+                bg={propObject[gameIdx - 1].bg}
+                shadow={propObject[gameIdx - 1].shadow}
+                color={propObject[gameIdx - 1].color}
+              />
+            </div>
           </motion.div>
         )}
       </div>
@@ -153,8 +169,8 @@ const GameSelect = (props) => {
                         backgroundColor: "rgba(0, 0, 0, 0.8)",
                         color: "rgba(154, 205, 50, 1)",
                       }}
-                      onClick={()=>{
-                        router.push(`/game/${props.idx}`)
+                      onClick={() => {
+                        router.push(`/game/${props.idx}`);
                       }}
                     >
                       시작

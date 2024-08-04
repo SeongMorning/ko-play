@@ -1,0 +1,38 @@
+.EasyBtn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .EasyBtnTap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 32;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .text{
+        position : relative;
+        z-index: 32;
+        margin-left: 10%;
+        font-weight : bold;
+        font-size: calc((3vw + 1vh)/2);
+        color : #DF7B93;
+    }
+  }
+
+  .EasyBtnTop {
+    position: absolute;
+    width: 100%;
+    height : 100%;
+    z-index: 31;
+  }
+  .EasyBtnBottom {
+    position: absolute;
+    width: 100%;
+    height : 100%;
+    top: 6px;
+    z-index: 29;
+  }
+}
