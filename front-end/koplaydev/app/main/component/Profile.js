@@ -3,21 +3,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./Profile.module.scss";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 import ExpBar from "./ExpBar";
 import { useEffect } from "react";
-import studentInfo from "../../axios/studentInfo"
+import studentInfo from "../../axios/studentInfo";
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import allAvatarAxios from "@/app/axios/allAvatarAxios";
-import { setAvatars } from "@/redux/slices/avatarSlice"
-import MyAvatarAxios from "@/app/axios/MyAvatarAxios";
-import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice"
-
+import { setAvatars } from "@/redux/slices/avatarSlice";
+import MyAvatarAxios from "@/app/axios/myAvatarAxios";
+import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice";
 
 export default function Profile() {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.studentInfo)
-  const avatar = useSelector((state) => state.avatar)
+  const userInfo = useSelector((state) => state.studentInfo);
+  const avatar = useSelector((state) => state.avatar);
   const myAvatar = useSelector((state) => state.myAvatar);
 
   useEffect(() => {
@@ -49,7 +48,6 @@ export default function Profile() {
     fetchMyAvatarInfo();
   }, [dispatch]); // dispatch를 의존성으로 추가
 
-
   return (
     <motion.div
       className={styles.profile}
@@ -62,8 +60,9 @@ export default function Profile() {
       }}
     >
       <div className={styles.pictureBox}>
-        <img src={userInfo.profileImg == null ? "hehe.png" : userInfo.profileImg} />
-
+        <img
+          src={userInfo.profileImg == null ? "hehe.png" : userInfo.profileImg}
+        />
       </div>
 
       <div className={styles.profileInfo}>
@@ -73,7 +72,9 @@ export default function Profile() {
         </div>
         <span className={styles.nickname}>{userInfo.nickname}</span>
         <span className={styles.games}>총 게임수 : 13판</span>
-        <span className={styles.avatar}>열린코스튬 {myAvatar.avatars.length}/{avatar.avatars.length}</span>
+        <span className={styles.avatar}>
+          열린코스튬 {myAvatar.avatars.length}/{avatar.avatars.length}
+        </span>
       </div>
     </motion.div>
   );
