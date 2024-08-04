@@ -1,12 +1,13 @@
 .container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 10;
 }
 .inputContainer {
-  flex-direction: column;
+  display: flex;
+  align-items: center;
 }
 .idInput {
   display: block;
@@ -19,10 +20,12 @@
   text-align: center;
   font-size: 1.5vw;
   border-width: 0;
+
   &::placeholder {
     font-size: 1.5vw;
     font-weight: bold;
     text-align: center;
+    color: #f48400;
   }
 }
 
@@ -41,12 +44,15 @@
     font-size: 1.5vw;
     font-weight: bold;
     text-align: center;
+    color: #df3089;
   }
 }
 
 .loginBtn {
   width: 10vw;
-  height: 20vh;
+  height: 85%;
+  color: #05559d;
+  font-weight: bold;
   background-color: #a2d2ff;
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.25);
   border-radius: 3vw;
@@ -56,6 +62,8 @@
 }
 
 .infoText {
+  width: 100%;
+  height: 10%;
   margin-top: 2vh;
   text-align: center;
   font-size: 1.2vw;

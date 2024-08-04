@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const graphLevel = createSlice({
-    name : "graghLevel",
+    name : "graphLevel",
     initialState : 1,
     reducers: {
         changeGraphLevelIdx(state, idx){
