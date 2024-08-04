@@ -1,11 +1,12 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
   position: relative;
+  padding-top : 5%;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -13,7 +14,7 @@
   align-items: center;
   z-index: 13;
   width: 25vw; /* 원하는 너비로 설정 */
-  height: auto; /* 비율을 유지하면서 높이 자동 조정 */
+  height: 40vh; /* 비율을 유지하면서 높이 자동 조정 */
   z-index: 13;
 }
 

@@ -6,4 +6,6 @@ body {
   overflow-x: hidden;
   overflow-y: hidden;
   /* position: relative; */
+  user-select: none;
+  -webkit-user-drag: none;
 }

@@ -1,4 +1,5 @@
 "use client";
+
 import styles from "./Cam.module.scss";
 import Webcam from "react-webcam"; // react-webcam import
 
@@ -8,7 +9,7 @@ export default function Cam(props) {
     <>
       <Webcam
         className={styles.webcam}
-        style={{ left: props.left, top: props.top, width: props.width, right: props.right, bottom : props.bottom }}
+        style={{ left: props.left, top: props.top, width: props.width, height: props.height, right: props.right, bottom : props.bottom }}
       />
     </>
   );
