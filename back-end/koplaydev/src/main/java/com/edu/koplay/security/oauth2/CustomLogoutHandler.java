@@ -31,12 +31,13 @@ public class CustomLogoutHandler extends SimpleUrlLogoutSuccessHandler {
         }
 
         // Authorization 쿠키 삭제
+
         response.addCookie(createCookie("Authorization", null, 0)); // 쿠키를 삭제하는 방법
         request.getSession().invalidate();
 
         // 로그아웃 성공 후 리다이렉트할 URL 설정
 //        super.setDefaultTargetUrl("/loginsucc"); // 로그아웃 후 리다이렉트할 URL
-        super.onLogoutSuccess(request, response, authentication);
+//        super.onLogoutSuccess(request, response, authentication);
         logger.info("logout successful");
     }
 

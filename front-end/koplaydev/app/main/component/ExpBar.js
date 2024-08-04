@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import styles from "./ExpBar.module.scss";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 export default function ExpBar() {
-  const [progress, setProgress] = useState(50);
+  const userInfo = useSelector((state)=>state.studentInfo)
+  
   return (
     <>
       <div className={styles.expBarMain}>
@@ -15,16 +16,16 @@ export default function ExpBar() {
             width : 0
         }}
         animate={{
-            width : `${progress}%`,
+            width : `${userInfo.exp%100}%`,
             transition : {
                 duration : 2,
                 ease : "easeOut"
             }
         }}
           className={styles.expBarFill}
-          style={{ width: `${progress}%` }}
+          style={{ width: `${userInfo.exp%100}%` }}
         ></motion.div>
-        <span>{progress}%</span>
+        <span>{userInfo.exp%100}%</span>
       </div>
     </>
   );

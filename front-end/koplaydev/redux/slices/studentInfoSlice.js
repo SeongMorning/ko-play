@@ -11,6 +11,9 @@ export const studentInfo = createSlice({
     birth: "",
     schoolName: "",
     exp: "",
+    speechLevel: "" ,
+    listeningLevel: "" ,
+    readingLevel: "" ,
   },
   reducers: {
     changeStudentInfo(state, action) {

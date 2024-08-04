@@ -10,6 +10,8 @@ import correct from "./slices/correct";
 import studentInfo from "./slices/studentInfoSlice"
 import wrong from "./slices/wrongList";
 import incorrect from "./slices/Incorrect";
+import avatarSlice from "./slices/avatarSlice";
+import studentAvatarSlice from "./slices/studentAvatarSlice";
 
 export const store = configureStore({
     reducer : {
@@ -23,6 +25,8 @@ export const store = configureStore({
         correct : correct.reducer,
         studentInfo : studentInfo.reducer,
         wrong : wrong.reducer,
-        incorrect : incorrect.reducer
+        incorrect : incorrect.reducer,
+        avatar : avatarSlice.reducer,
+        myAvatar : studentAvatarSlice.reducer,
     },
 });

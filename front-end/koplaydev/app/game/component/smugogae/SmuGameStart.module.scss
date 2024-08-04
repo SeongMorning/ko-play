@@ -23,7 +23,7 @@
 
 .nextHintButton {
   margin-top: 1vw;
-  padding: 0.5vw 1.5vw;
+  padding: 1.5vw 1.5vw;
   font-size: 1.5vw;
   cursor: pointer;
   border: 1px solid #ccc;
@@ -32,7 +32,7 @@
   transition: background-color 0.3s;
   border-radius: 5px;
   position: absolute;
-  left: 43vw;
+  bottom: 37vh;
 
   &:hover {
     background-color: #45a049;
@@ -54,7 +54,7 @@
   transition: background-color 0.3s;
   border-radius: 5px;
   position: absolute;
-  left: 14vw;
+  bottom: 50vh;
 
   &:hover {
     background-color: #45a049;
