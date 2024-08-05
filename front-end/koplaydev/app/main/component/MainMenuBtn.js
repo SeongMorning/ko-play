@@ -49,7 +49,6 @@ export default function MainMenuBtn(props) {
           const response = await logoutAxios();
           if(response != null){
             //null이 아니면 성공
-            console.log('로그아웃성공')
             router.push("/")
           }
         }

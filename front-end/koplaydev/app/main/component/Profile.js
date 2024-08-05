@@ -13,6 +13,7 @@ import { setAvatars } from "@/redux/slices/avatarSlice";
 import myAvatarAxios from "@/app/axios/myAvatarAxios";
 import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice"
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 
 
 export default function Profile() {
@@ -20,6 +21,10 @@ export default function Profile() {
   const userInfo = useSelector((state) => state.studentInfo);
   const avatar = useSelector((state) => state.avatar);
   const myAvatar = useSelector((state) => state.myAvatar);
+
+  useEffect(()=>{
+    dispatch(changeLoadingIdx(-1))
+  }, [])
 
   useEffect(() => {
     const fetchStudentInfo = async () => {

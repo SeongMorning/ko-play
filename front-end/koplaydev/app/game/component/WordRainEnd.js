@@ -126,20 +126,14 @@ export default function WordRainEnd() {
                 className={styles.wrong}
                 variants={wrongVariants}
               >
-                <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
+                <CardFrontImage width="18" height="100" imgSrc={data.imgUrl} />
                 <div className={styles.KoreaWord}>
-                  {data.word}
-                  <img
-                    src="/WordSound.png"
-                    onClick={() => speakWord(data.word)}
-                  />
+                  {data.wordKor}
+                  <img src="/WordSound.png" />
                 </div>
                 <div className={styles.ForeignWord}>
-                  {data.word2}
-                  <img
-                    src="/WordSound.png"
-                    onClick={() => speakForeignWord(data.word2)}
-                  />
+                  {data.wordThailand}
+                  <img src="/WordSound.png" />
                 </div>
               </motion.div>
             ))}

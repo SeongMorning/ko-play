@@ -1,6 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import modal from './slices/modalSlice';
-import game from './slices/gameSlice';
 import test from './slices/testSlice';
 import myPage from './slices/myPageSlice';
 import loading from './slices/loadingSlice';
@@ -14,10 +13,12 @@ import studentAvatarSlice from './slices/studentAvatarSlice';
 import level from './slices/levelSlice';
 import graphLevel from './slices/graphLevel';
 import exp from "./slices/expSlice";
+import gameWord from './slices/gameWordSlice';
+import gamePurpose from './slices/gamePurposeSlice';
+import game from './slices/gameSlice';
 
 const rootReducer = combineReducers({
   modal: modal.reducer,
-  game: game.reducer,
   test: test.reducer,
   myPage: myPage.reducer,
   level: level.reducer,
@@ -31,7 +32,9 @@ const rootReducer = combineReducers({
   myAvatar: studentAvatarSlice.reducer,
   graphLevel: graphLevel.reducer,
   exp : exp.reducer,
-
+  gameWord : gameWord.reducer,
+  gamePurpose : gamePurpose.reducer,
+  game : game.reducer,
 });
 
 export default rootReducer;

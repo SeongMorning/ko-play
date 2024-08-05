@@ -4,8 +4,8 @@ export const game = createSlice({
     name : "game",
     initialState : 0,
     reducers: {
-        changeGameIdx(state, idx){
-            return idx.payload;
+        changeGameIdx(state, action){
+            return action.payload;
         }
     },
 })
