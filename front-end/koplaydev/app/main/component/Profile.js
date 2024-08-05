@@ -8,12 +8,17 @@ import ExpBar from "./ExpBar";
 import { useEffect } from "react";
 import studentInfo from "../../axios/studentInfo"
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
+import allAvatarAxios from "@/app/axios/allAvatarAxios";
+import { setAvatars } from "@/redux/slices/avatarSlice"
+import MyAvatarAxios from "@/app/axios/MyAvatarAxios";
+import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice"
 
 
 export default function Profile() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.studentInfo)
   const avatar = useSelector((state) => state.avatar)
+  const myAvatar = useSelector((state) => state.myAvatar);
 
   useEffect(() => {
     const fetchStudentInfo = async () => {
@@ -23,12 +28,27 @@ export default function Profile() {
         // console.log('userinfo받아오기 성공');
       }
     };
+    const fetchAllAvatarInfo = async () => {
+      const response = await allAvatarAxios();
+      if (response) {
+        dispatch(setAvatars(response)); // Redux 상태 업데이트
+        // console.log('userinfo받아오기 성공');
+      }
+    };
+
+    const fetchMyAvatarInfo = async () => {
+      const response = await MyAvatarAxios();
+      if (response) {
+        dispatch(setStudentAvatars(response)); // Redux 상태 업데이트
+        // console.log('userinfo받아오기 성공');
+      }
+    };
 
     fetchStudentInfo(); // 비동기 함수 호출
+    fetchAllAvatarInfo();
+    fetchMyAvatarInfo();
   }, [dispatch]); // dispatch를 의존성으로 추가
 
-
-  console.log(userInfo)
 
   return (
     <motion.div
@@ -53,7 +73,7 @@ export default function Profile() {
         </div>
         <span className={styles.nickname}>{userInfo.nickname}</span>
         <span className={styles.games}>총 게임수 : 13판</span>
-        <span className={styles.avatar}>열린코스튬 120/{avatar.avatars.length}</span>
+        <span className={styles.avatar}>열린코스튬 {myAvatar.avatars.length}/{avatar.avatars.length}</span>
       </div>
     </motion.div>
   );
