@@ -14,25 +14,7 @@ import { changeExp } from "@/redux/slices/expSlice";
 export default function SmuGameJellyBtn(props) {
   const dispatch = useDispatch();
   const router = useRouter();
-  const userInfo = useSelector((state) => state.studentInfo).speechLevel;
-  const recommendLevel = userInfo.speechLevel;
-  const nowLevel = useSelector((state) => state.level)[0];
-  const correctCnt = useSelector((state) => state.correct);
-  let unitScore = 0;
-
-  useEffect(() => {
-    if (nowLevel - recommendLevel <= -3) {
-      unitScore = 1;
-    } else if (nowLevel - recommendLevel === -2) {
-      unitScore = 2;
-    } else if (nowLevel - recommendLevel === -1) {
-      unitScore = 3;
-    } else if (nowLevel - recommendLevel === 0) {
-      unitScore = 5;
-    } else {
-      unitScore = 6;
-    }
-  }, [recommendLevel, nowLevel]);
+  const exp = useSelector((state) => state.exp);
 
   return (
     <motion.div
@@ -49,13 +31,11 @@ export default function SmuGameJellyBtn(props) {
       }}
       onClick={() => {
         if (props.text === "예") {
-          console.log(unitScore);
-          console.log(correctCnt);
-          dispatch(changeExp(unitScore * correctCnt));
+          dispatch(changeExp(exp));
           dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
         } else if (props.text === "아니요") {
-          dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)));
+          dispatch(changeExp(Math.round(exp / 2)));
           dispatch(changeInCorrect(false));
           dispatch(changeLoadingIdx(1));
         } else {

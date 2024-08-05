@@ -7,11 +7,12 @@ import Hint from "./Hint";
 import Options from "./Options";
 import { motion } from "framer-motion";
 import YellowBox from "@/app/component/boxes/YellowBox";
-import GameJellyBtn from "../GameJellyBtn";
+import SmuGameJellyBtn from "./SmuGameJellyBtn";
 import styles from "./SmuGameStart.module.scss";
 import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 import TalkBalloon from "@/app/component/TalkBalloon";
 import PlayJellyBtn from "./playJellyBtn";
+import { changeExp } from "@/redux/slices/expSlice";
 
 const words = [
   [
@@ -68,6 +69,8 @@ const words = [
 ];
 
 export default function SmuGameStart() {
+  const userInfo = useSelector((state) => state.studentInfo);
+  const recommendLevel = userInfo.listeningLevel;
   const levelList = useSelector((state) => state.level);
   const listenLevel = levelList[2];
   let initialSpeechSpeed = 1;
@@ -82,9 +85,27 @@ export default function SmuGameStart() {
   } else if (listenLevel === 5) {
     initialSpeechSpeed = 1.3;
   }
+  let unitScore = 0;
+  let totalexp = 0;
+  let pointByHints = 0;
+  useEffect(() => {
+    if (listenLevel - recommendLevel <= -2) {
+      unitScore = 5;
+      pointByHints = 1;
+    } else if (listenLevel - recommendLevel == -1) {
+      unitScore = 6;
+      pointByHints = 1;
+    } else if (listenLevel - recommendLevel == 0) {
+      unitScore = 10;
+      pointByHints = 2;
+    } else {
+      unitScore = 15;
+      pointByHints = 3;
+    }
+  });
+  const exp = useSelector((state) => state.exp);
 
   const [speechSpeed, setSpeechSpeed] = useState(initialSpeechSpeed);
-
   const [currentWords, setCurrentWords] = useState([]);
   const [hints, setHints] = useState([]);
   const [gameOver, setGameOver] = useState(false);
@@ -164,6 +185,8 @@ export default function SmuGameStart() {
     setCorrectWord(currentWords[currentQuestion].word);
     if (guess === currentWords[currentQuestion].word) {
       dispatch(changeCorrectIdx(correctAnswers + 1));
+      totalexp += unitScore - currentHintIndex * pointByHints;
+      dispatch(changeExp(totalexp));
     } else {
       dispatch(changeWrong([...wrongAnswers, currentWords[currentQuestion]]));
     }
@@ -218,10 +241,14 @@ export default function SmuGameStart() {
               </span>
               <div className={styles.buttons}>
                 <div className={styles.Yes}>
-                  <GameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
+                  <SmuGameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
                 </div>
                 <div className={styles.No}>
-                  <GameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="아니요" />
+                  <SmuGameJellyBtn
+                    bg="#A2D2FF"
+                    shadow="#4DA3F2"
+                    text="아니요"
+                  />
                 </div>
               </div>
             </div>
