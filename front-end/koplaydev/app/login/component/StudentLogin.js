@@ -18,14 +18,11 @@ export default function StudentLogin() {
     // 입력 필드의 값을 올바르게 가져와서 FormData에 추가
     formData.append('id', idRef.current.value);
     formData.append('password', passwordRef.current.value);
-    console.log(formData)
     // 값 확인을 위해 콘솔에 출력
-    console.log("ID:", idRef.current.value, "Password:", passwordRef.current.value);
     const response = await login(formData);
 
     if(response != null){
       //null이 아니면 성공
-      console.log('로그인성공')
       router.push("/main")
     }
   };

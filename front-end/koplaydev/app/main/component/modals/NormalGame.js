@@ -53,7 +53,6 @@ export default function NormalGame() {
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
 
         gameList = [[...speechGame], [...readGame], [...listenGame]];
-        console.log(gameList);
       }
     };
     fetchGameList();
