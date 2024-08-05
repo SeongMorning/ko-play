@@ -29,9 +29,6 @@
   // margin-top: 0.2vw;
   position: relative;
   width: 80%;
-
-
-
   text-align: center;
   // transform: translate(300%, 50%);
   font-size: 4.5vw;
@@ -43,6 +40,7 @@
 
 .cardContainer {
   position: absolute;
+  background-color: red;
   top: 28%;
   left: 50%;
   transform: translate(-50%, -50%);

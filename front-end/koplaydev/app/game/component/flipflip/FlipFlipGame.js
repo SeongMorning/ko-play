@@ -7,7 +7,7 @@ import FlipFlipGameEnd from "./FlipFlipGameEnd";
 
 export default function FlipFlipGame() {
   // 선택한 레벨
-  const chooseLevel = 1;
+  const chooseLevel = 5;
   // 현재 추천 레벨
   const recommendLevel = 1;
 
