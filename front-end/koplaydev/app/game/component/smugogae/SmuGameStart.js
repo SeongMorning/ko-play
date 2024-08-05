@@ -11,46 +11,56 @@ import GameJellyBtn from "../GameJellyBtn";
 import styles from "./SmuGameStart.module.scss";
 import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 import TalkBalloon from "@/app/component/TalkBalloon";
+import PlayJellyBtn from "./playJellyBtn";
 
 const words = [
   [
     {
+      imgSrc: "/korea-3.png",
       word: "사과",
       word2: "apple",
     },
     {
+      imgSrc: "/korea-3.png",
       word: "바나나",
       word2: "banana",
     },
     {
+      imgSrc: "/korea-3.png",
       word: "포도",
       word2: "grape",
     },
   ],
   [
     {
+      imgSrc: "/korea-3.png",
       word: "오렌지",
       word2: "orange",
     },
     {
+      imgSrc: "/korea-3.png",
       word: "딸기",
       word2: "strawberry",
     },
     {
+      imgSrc: "/korea-3.png",
       word: "키위",
       word2: "kiwi",
     },
   ],
   [
     {
+      imgSrc: "/korea-3.png",
       word: "배",
       word2: "pear",
     },
     {
+      imgSrc: "/korea-3.png",
       word: "수박",
       word2: "watermelon",
     },
     {
+      imgSrc: "/korea-3.png",
       word: "복숭아",
       word2: "peach",
     },
@@ -58,6 +68,23 @@ const words = [
 ];
 
 export default function SmuGameStart() {
+  const levelList = useSelector((state) => state.level);
+  const listenLevel = levelList[2];
+  let initialSpeechSpeed = 1;
+  if (listenLevel === 1) {
+    initialSpeechSpeed = 0.7;
+  } else if (listenLevel === 2) {
+    initialSpeechSpeed = 0.85;
+  } else if (listenLevel === 3) {
+    initialSpeechSpeed = 1;
+  } else if (listenLevel === 4) {
+    initialSpeechSpeed = 1.15;
+  } else if (listenLevel === 5) {
+    initialSpeechSpeed = 1.3;
+  }
+
+  const [speechSpeed, setSpeechSpeed] = useState(initialSpeechSpeed);
+
   const [currentWords, setCurrentWords] = useState([]);
   const [hints, setHints] = useState([]);
   const [gameOver, setGameOver] = useState(false);
@@ -83,38 +110,38 @@ export default function SmuGameStart() {
     );
     setCurrentWords(chosenWords);
 
-    // try {
-    //   const hintsResponse = await Promise.all(
-    //     chosenWords.map((wordObj) => {
-    //       return new Promise((resolve) => {
-    //         let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${wordObj.word}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막으로 갈수록 구체적으로 무조건 5개의 힌트를 줘. 정답을 알려주면 안 돼. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
-    //         resolve(OpenAiUtill.prompt(msg));
-    //       })
-    //         .then((result) => {
-    //           return result.message.content
-    //             .split("\n")
-    //             .map((h) => h.trim().replace(/Hint\d+: /, ""));
-    //         })
-    //         .catch((err) => {
-    //           console.error("Error fetching hints:", err);
-    //           return ["힌트를 가져오는 데 문제가 발생했습니다."];
-    //         });
-    //     })
-    //   );
-    //   setHints(hintsResponse);
-    // } catch (error) {
-    //   console.error("Error fetching hints:", error);
-    //   setHints(
-    //     chosenWords.map(() => ["힌트를 가져오는 데 문제가 발생했습니다."])
-    //   );
-    // }
+    try {
+      const hintsResponse = await Promise.all(
+        chosenWords.map((wordObj) => {
+          return new Promise((resolve) => {
+            let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${wordObj.word}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막으로 갈수록 구체적으로 무조건 5개의 힌트를 줘. 정답을 알려주면 안 돼. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
+            resolve(OpenAiUtill.prompt(msg));
+          })
+            .then((result) => {
+              return result.message.content
+                .split("\n")
+                .map((h) => h.trim().replace(/Hint\d+: /, ""));
+            })
+            .catch((err) => {
+              console.error("Error fetching hints:", err);
+              return ["힌트를 가져오는 데 문제가 발생했습니다."];
+            });
+        })
+      );
+      setHints(hintsResponse);
+    } catch (error) {
+      console.error("Error fetching hints:", error);
+      setHints(
+        chosenWords.map(() => ["힌트를 가져오는 데 문제가 발생했습니다."])
+      );
+    }
 
     dispatch(changeCorrectIdx(0));
     dispatch(changeWrong([]));
     setCurrentHintIndex(0);
-    setGameOver(false);
     setCurrentQuestion(0);
     setCorrectWord(null);
+    setGameOver(false);
     setReset((prev) => !prev);
     setModal(false);
   };
@@ -205,6 +232,7 @@ export default function SmuGameStart() {
         <Hint
           hint={hints[currentQuestion]?.[currentHintIndex]}
           playHint={playHint}
+          rate={speechSpeed}
           onEnd={() => setPlayHint(false)}
         />
         {!gameOver && (
@@ -223,21 +251,20 @@ export default function SmuGameStart() {
               correctWord={currentWords[currentQuestion]?.word}
               reset={reset}
             />
-            <button
-              className={styles.nextHintButton}
+            <PlayJellyBtn
+              top="-10vh"
+              onClick={handleRepeatHint}
+              imgSrc="/replay.png"
+            />
+            <PlayJellyBtn
+              left="10vw"
+              top="-10vh"
               onClick={handleNextHint}
               disabled={
                 currentHintIndex >= (hints[currentQuestion]?.length || 0)
               }
-            >
-              다음 힌트 듣기
-            </button>
-            <button
-              className={styles.currentHintButton}
-              onClick={handleRepeatHint}
-            >
-              힌트 다시 듣기
-            </button>
+              imgSrc="/nextplay.png"
+            />
           </div>
         )}
       </div>

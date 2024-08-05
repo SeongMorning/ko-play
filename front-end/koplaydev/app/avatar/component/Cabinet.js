@@ -42,7 +42,7 @@ export default function Cabinet() {
       <div className={styles.avatarContainer}>
         {filteredAvatars.map((avatar, index) => {
           const isOwned = myAvatars.some(
-            (myAvatar) => myAvatar.avatarIdx === avatar.avatarIdx
+            (myAvatar) => myAvatar.studentUsableAvatarIdx === avatar.avatarIdx
           );
           return (
             <img
