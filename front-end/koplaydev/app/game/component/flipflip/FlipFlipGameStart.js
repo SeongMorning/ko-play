@@ -9,7 +9,7 @@ import styles from "./FlipFlipGameStart.module.scss";
 import CardBack from "./CardBack";
 import CardFrontImage from "./CardFrontImage";
 import CardFrontText from "./CardFrontText";
-import GameJellyBtn from "./GameJellyBtn";
+import FlipFlipGameJellyBtn from "./FlipFlipGameJellyBtn";
 import YellowBox from "@/app/component/boxes/YellowBox";
 
 import elephantImg from "./image/elephant.png";
@@ -31,6 +31,7 @@ import pufferImg from "./image/puffer-fish.png";
 import shellImg from "./image/shell.png";
 import snailImg from "./image/snail.png";
 import octopusImg from "./image/octopus.png";
+
 
 export default function FlipFlipGameStart({ Level, Recommend }) {
   const [flippedIndices, setFlippedIndices] = useState([]); // 뒤집힌 카드 인덱스를 저장
@@ -187,6 +188,12 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
       timerRef.current = null; // 타이머 초기화
     }
 
+    const matchedCount = matchedCards.size;
+    const incorrectCount = (boardSize / 2) - matchedCount;
+
+    setCorrect(matchedCount);
+    setIncorrect(incorrectCount);
+
     setTimeout(() => {
       if (modal === null) {
         setModal('complete');
@@ -250,7 +257,9 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
                 : state
             ));
           setCanFlip(true); // 다시 카드 클릭 가능
-          setWrong((prev) => [...prev, firstCard.idx]);
+          addToWrongList(firstCard.idx); // 중복 체크 후 wrong 배열에 추가
+          addToWrongList(secondCard.idx); // 중복 체크 후 wrong 배열에 추가
+
         }, 1000);
       }
     }
@@ -261,8 +270,26 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
     if (modal === 'complete' || modal === 'timeout') {
       const wrongCards = cardDeck.filter(card => !matchedCards.has(card.idx));
       dispatch(changeWrong(wrongCards)); // 오답 목록을 Redux 상태로 디스패치
+
+      const matchedCount = matchedCards.size;
+      const incorrectCount = (boardSize / 2) - matchedCount;
+
+      setCorrect(matchedCount);
+      setIncorrect(incorrectCount);
     }
   }, [modal, matchedCards, cardDeck, dispatch]);
+
+
+  // 중복 체크 함수
+  const addToWrongList = (index) => {
+    setWrong((prev) => {
+      // 기존 wrong 배열에서 이미 존재하는 인덱스가 있는지 확인
+      // Set을 사용하여 중복 제거
+      const newWrongSet = new Set(prev);
+      newWrongSet.add(index);
+      return Array.from(newWrongSet);
+    });
+  };
 
 
   // 카드 클릭 처리 함수
@@ -362,7 +389,7 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
                 </span>
                 <div className={styles.buttons}>
                   <div className={styles.check}>
-                    <GameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="확인" />
+                    <FlipFlipGameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="확인" />
                   </div>
                 </div>
               </div>
@@ -394,10 +421,10 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
                 </span>
                 <div className={styles.buttons}>
                   <div className={styles.Yes}>
-                    <GameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
+                    <FlipFlipGameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
                   </div>
                   <div className={styles.No}>
-                    <GameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="아니요" />
+                    <FlipFlipGameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="아니요" />
                   </div>
                 </div>
               </div>

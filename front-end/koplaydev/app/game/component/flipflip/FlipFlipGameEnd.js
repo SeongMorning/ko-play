@@ -2,12 +2,19 @@
 
 import { useSelector } from "react-redux";
 import styles from "./FlipFlipGameEnd.module.scss";
-import { motion } from "framer-motion";
-import GameJellyBtn from "@/app/game/component/GameJellyBtn";
+import CardFrontImage from "../CardFrontImage";
+import { motion, useAnimation } from "framer-motion";
+import { useEffect } from "react";
+import FlipFlipGameJellyBtn from "./FlipFlipGameJellyBtn";
 
-export default function SmuGameEnd() {
+export default function FlipFlipGameEnd() {
+  const userInfo = useSelector((state) => state.studentInfo);
   const wrongList = useSelector((state) => state.wrong);
   const Incorrect = useSelector((state) => state.incorrect);
+  const exp = useSelector((state) => state.exp);
+  const beforeExp = userInfo.exp % 100;
+  const afterExp = beforeExp + exp;
+
   const container = {
     hidden: { opacity: 1 },
     visible: {
@@ -27,6 +34,9 @@ export default function SmuGameEnd() {
       },
     },
   };
+
+  const expAnimation = useAnimation();
+
   let nation = "kr-KR";
   if (userInfo.nation === "Thailand") {
     nation = "th-TH";
@@ -48,6 +58,42 @@ export default function SmuGameEnd() {
     window.speechSynthesis.speak(utterance);
   };
 
+  useEffect(() => {
+    if (afterExp > 100) {
+      expAnimation
+        .start({
+          width: "100%",
+          transition: {
+            duration: (100 - beforeExp) / 30,
+            ease: "easeInOut",
+          },
+        })
+        .then(() => {
+          expAnimation.set({ width: "0%" });
+          expAnimation.start({
+            width: `${afterExp % 100}%`,
+            transition: {
+              duration: (afterExp % 100) / 30,
+              ease: "easeInOut",
+            },
+          });
+        });
+    } else {
+      expAnimation.start({
+        width: `${afterExp}%`,
+        transition: {
+          duration: exp / 30,
+          ease: "easeInOut",
+        },
+      });
+    }
+  }, [afterExp, beforeExp, expAnimation]);
+
+   // 중복된 항목을 제거한 wrongList
+   const uniqueWrongList = Array.from(new Set(wrongList.map(item => item.idx)))
+   .map(idx => wrongList.find(item => item.idx === idx));
+
+
   return (
     <>
       <div className={styles.EndPage}>
@@ -67,16 +113,9 @@ export default function SmuGameEnd() {
           <motion.div
             className={styles.Exp}
             initial={{
-              width: 0,
+              width: `${beforeExp}%`,
             }}
-            animate={{
-              width: "50%",
-              transition: {
-                delay: `${Incorrect ? "0" : "1"}`,
-                duration: 3,
-                ease: "easeInOut",
-              },
-            }}
+            animate={expAnimation}
           ></motion.div>
         </motion.div>
         {Incorrect ? (
@@ -86,21 +125,26 @@ export default function SmuGameEnd() {
             initial="hidden"
             animate="visible"
           >
-            {wrongList.map((data, index) => (
+            {uniqueWrongList.map((data, index) => (
               <motion.div
-
+                key={index}
                 className={styles.wrong}
                 variants={wrongVariants}
-                key={index}
               >
+                <CardFrontImage width="18" height="100" imgSrc={data.img} />
                 <div className={styles.KoreaWord}>
                   {data.text}
-                  <img src="/WordSound.png" />
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakWord(data.text)}
+                  />
                 </div>
                 <div className={styles.ForeignWord}>
                   {data.text2}
-                  <img src="/WordSound.png" />
-
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakForeignWord(data.text2)}
+                  />
                 </div>
               </motion.div>
             ))}
@@ -125,7 +169,7 @@ export default function SmuGameEnd() {
           },
         }}
       >
-        <GameJellyBtn
+        <FlipFlipGameJellyBtn
           width="100"
           height="100"
           bg="#FFD6E0"

@@ -26,6 +26,7 @@
         }
     }
 
+
     .Incorrect{
         width : 80%;
         height : 70%;
@@ -37,6 +38,8 @@
         gap : 4%;
         box-sizing: border-box;
         padding-left : 5%;
+        // background-color: red;
+
 
         &::-webkit-scrollbar {
             height : 0px;
@@ -62,6 +65,7 @@
         }
     }
 }
+
 
 .KoreaWord{
     position: relative;

@@ -12,7 +12,7 @@ import { useState } from "react";
 export default function FilpFlip() {
 
     // 선택한 레벨
-    const chooseLevel = 1;
+    const chooseLevel = 3;
 
     const getQuestion = () => { 
     if(chooseLevel === 1 || chooseLevel === 2) {
