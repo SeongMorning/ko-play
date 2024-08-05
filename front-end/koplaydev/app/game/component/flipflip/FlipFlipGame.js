@@ -5,9 +5,9 @@ import GameStartBtn from "../GameStartBtn";
 import FlipFlipGameStart from "./FlipFlipGameStart";
 import FlipFlipGameEnd from "./FlipFlipGameEnd";
 
-export default function FlipFlipGame({ onMatchedPairs }) {
+export default function FlipFlipGame() {
   // 선택한 레벨
-  const chooseLevel = 5;
+  const chooseLevel = 1;
   // 현재 추천 레벨
   const recommendLevel = 1;
 
@@ -15,7 +15,7 @@ export default function FlipFlipGame({ onMatchedPairs }) {
   if (loading === -1) {
     return <GameStartBtn />;
   } else if (loading === 0) {
-    return <FlipFlipGameStart Level={5} Recommend={1} onMatchedPairs={onMatchedPairs} />;
+    return <FlipFlipGameStart Level={chooseLevel} Recommend={recommendLevel} />;
   } else if (loading === 1) {
     return <FlipFlipGameEnd />;
   } else {

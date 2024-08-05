@@ -2,11 +2,10 @@
 
 import { useSelector } from "react-redux";
 import styles from "./FlipFlipGameEnd.module.scss";
-import CardFrontImage from "../CardFrontImage";
 import { motion } from "framer-motion";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
 
-export default function FlipFlipGameEnd() {
+export default function SmuGameEnd() {
   const wrongList = useSelector((state) => state.wrong);
   const Incorrect = useSelector((state) => state.incorrect);
   const container = {
@@ -89,6 +88,7 @@ export default function FlipFlipGameEnd() {
           >
             {wrongList.map((data, index) => (
               <motion.div
+<<<<<<< Updated upstream
                 key={index}
                 className={styles.wrong}
                 variants={wrongVariants}
@@ -107,6 +107,19 @@ export default function FlipFlipGameEnd() {
                     src="/WordSound.png"
                     onClick={() => speakForeignWord(data.word2)}
                   />
+=======
+                className={styles.wrong}
+                variants={wrongVariants}
+                key={index}
+              >
+                <div className={styles.KoreaWord}>
+                  {data.text}
+                  <img src="/WordSound.png" />
+                </div>
+                <div className={styles.ForeignWord}>
+                  {data.text2}
+                  <img src="/WordSound.png" />
+>>>>>>> Stashed changes
                 </div>
               </motion.div>
             ))}
