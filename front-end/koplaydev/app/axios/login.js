@@ -12,5 +12,4 @@ export default async function login(code) {
         console.log("error Handling")
         return null;
     }
-
 }

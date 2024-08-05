@@ -8,33 +8,31 @@ import { useRouter } from "next/navigation";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeCorrectIdx } from "@/redux/slices/correct";
 import { changeInCorrect } from "@/redux/slices/Incorrect";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { changeExp } from "@/redux/slices/expSlice";
 
 export default function LevelJellyBtn(props) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const router = useRouter();
     const userInfo = useSelector((state) => state.studentInfo).speechLevel;
-    const recommendLevel = userInfo.speechLevel
+    const recommendLevel = userInfo.speechLevel;
     const nowLevel = useSelector((state)=> state.level)[0];
-    const correctCnt = useSelector((state) => state.correct)
-    let unitScore = 0;
+    const correctCnt = useSelector((state) => state.correct);
+    let [unitScore, setUnitScore] = useState(0);
 
     useEffect(()=>{
       if(nowLevel - recommendLevel <= -3){
-        unitScore = 1;
+        setUnitScore(1);
       }else if(nowLevel - recommendLevel === -2){
-        unitScore = 2;
+        setUnitScore(2);
       }else if(nowLevel - recommendLevel === -1){
-        unitScore = 3;
+        setUnitScore(3);
       }else if(nowLevel - recommendLevel === 0){
-        unitScore = 5;
+        setUnitScore(5);
       }else{
-        unitScore = 6;
+        setUnitScore(6);
       }
     },[recommendLevel, nowLevel])
-
-
 
   return (
     <motion.div
@@ -51,11 +49,10 @@ export default function LevelJellyBtn(props) {
       }}
       onClick={()=>{
         if(props.text === "예"){
-          console.log(unitScore)
-          console.log(correctCnt)
           dispatch(changeExp(unitScore * correctCnt))
           dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
+          console.log(unitScore, correctCnt)
         }else if(props.text === "아니요"){
           dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)))
           dispatch(changeInCorrect(false));

@@ -3,10 +3,10 @@
 import { motion, useAnimate } from "framer-motion";
 import styles from "./GameJellyBtn.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { changeGameIdx } from "@/redux/slices/gameSlice";
+import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 
 export default function GameJellyBtn(props) {
-  const gameIdx = useSelector((state) => state.game);
+  const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const dispatch = useDispatch();
   return (
     <>
@@ -16,28 +16,28 @@ export default function GameJellyBtn(props) {
           visibility: `${props.visibility}`,
         }}
         onTap={() => {
-          dispatch(changeGameIdx(props.idx));
+          dispatch(changeGamePurposeIdx(props.idx));
         }}
         whileHover={{
-          scale: Number(`${gameIdx === 0 ? "1.1" : "1"}`),
+          scale: Number(`${gamePurposeIdx === 0 ? "1.1" : "1"}`),
         }}
       >
         <motion.div
           className={styles.GameJellyBtnHover}
           whileTap={{
-            translateY: `${gameIdx === 0 ? "9px" : "0px"}`,
+            translateY: `${gamePurposeIdx === 0 ? "9px" : "0px"}`,
           }}
         >
           <div
             className={styles.GameJellyBtnTop}
             style={{
-              background: `${gameIdx === 0 ? props.bg : "white"}`,
+              background: `${gamePurposeIdx === 0 ? props.bg : "white"}`,
               color: `${props.color}`,
             }}
           >
-            {gameIdx === 0 ? props.text : props.children}
+            {gamePurposeIdx === 0 ? props.text : props.children}
           </div>
-          {gameIdx === 0 && (
+          {gamePurposeIdx === 0 && (
             <>
               <div className={styles.GameJellyBtnDot} />
               <div className={styles.GameJellyBtnDot2} />
