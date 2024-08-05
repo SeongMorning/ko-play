@@ -3,7 +3,7 @@ spring:
     secret: HopeEdu_SSAFY_Project_B302_secret_key
     # access token 만료시간
     # 1000 *60 * 30 = 30분
-    expires: 180000
+    expires: 1800000
     #expires: 2000
     # refresh token 만료시간
     # 60 * 60 * 24 * 14 = 14일
