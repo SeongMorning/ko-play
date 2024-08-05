@@ -28,6 +28,11 @@ export default function FlipFlipGameEnd() {
       },
     },
   };
+  const speakWord = (word) => {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "ko-KR";
+    window.speechSynthesis.speak(utterance);
+  };
 
   return (
     <>
@@ -38,7 +43,7 @@ export default function FlipFlipGameEnd() {
             opacity: 0,
           }}
           animate={{
-            translateY : `${Incorrect ? null : "120%"}`,
+            translateY: `${Incorrect ? null : "120%"}`,
             opacity: 1,
             transition: {
               duration: 1,
@@ -53,7 +58,7 @@ export default function FlipFlipGameEnd() {
             animate={{
               width: "50%",
               transition: {
-                delay : `${Incorrect ? '0' : '1'}`,
+                delay: `${Incorrect ? "0" : "1"}`,
                 duration: 3,
                 ease: "easeInOut",
               },
@@ -67,22 +72,35 @@ export default function FlipFlipGameEnd() {
             initial="hidden"
             animate="visible"
           >
-            {wrongList.map((data,index) => (
-              <motion.div key={index} className={styles.wrong} variants={wrongVariants}>
+            {wrongList.map((data, index) => (
+              <motion.div
+                key={index}
+                className={styles.wrong}
+                variants={wrongVariants}
+              >
                 <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
                 <div className={styles.KoreaWord}>
                   {data.word}
-                  <img src="/WordSound.png" />
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakWord(data.word)}
+                  />
                 </div>
                 <div className={styles.ForeignWord}>
                   {data.word2}
-                  <img src="/WordSound.png" />
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakWord(data.word2)}
+                  />
                 </div>
               </motion.div>
             ))}
           </motion.div>
         ) : (
-          <img className={styles.character} src="/character-dancingMachine.gif"/>
+          <img
+            className={styles.character}
+            src="/character-dancingMachine.gif"
+          />
         )}
       </div>
       <motion.div
