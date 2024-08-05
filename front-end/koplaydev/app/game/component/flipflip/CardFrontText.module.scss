@@ -1,23 +1,27 @@
 .cardOuter {
   width: 9.5vw;
   height: 9.5vw;
-  background-color: #fdd127;
-  // border-radius: 20%;
+  background-color: #fdd127; // 기본 배경색
   display: flex;
   justify-content: center;
   align-items: center;
+}
 
-  .cardInner {
-    width: 83%;
-    height: 83%;
-    background-color: white;
-    // border-radius: 20%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.cardInner {
+  width: 83%;
+  height: 83%;
+  background-color: white; // 기본 배경색
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-    .cardText {
-      font-size: 1.5vw;
-    }
-  }
+.cardText {
+  font-size: 2vw;
+  font-weight: 800;
+}
+
+.match {
+  // transition: transform 0.8s;
+  background-color: rgb(255, 134, 136); // 매칭된 카드의 배경색
 }
