@@ -23,6 +23,7 @@ export default function StudentLogin() {
 
     if(response != null){
       //null이 아니면 성공
+      // 첫방문인지 확인하고 모달띄울지 말지 정해주기
       router.push("/main")
     }
   };

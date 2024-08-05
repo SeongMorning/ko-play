@@ -22,7 +22,6 @@ export default function WordRainEnd() {
   useEffect(()=>{
     const postGameResult = async () => {
       const res = await gameResultAxios(gameIdx, correctCnt, 10, gameList[0], exp);
-      console.log(res);
     }
     postGameResult();
   }, [])
