@@ -11,7 +11,7 @@ import SmuGameJellyBtn from "./SmuGameJellyBtn";
 import styles from "./SmuGameStart.module.scss";
 import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 import TalkBalloon from "@/app/component/TalkBalloon";
-import PlayJellyBtn from "./playJellyBtn";
+import PlayJellyBtn from "./PlayJellyBtn";
 import { changeExp } from "@/redux/slices/expSlice";
 
 const words = [
