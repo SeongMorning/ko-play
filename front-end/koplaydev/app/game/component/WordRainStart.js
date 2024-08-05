@@ -20,7 +20,6 @@ export default function WordRainStart() {
 
   useEffect(() => {
     setWordObjectList(wordList);
-    console.log(wordList);
   }, [wordList]);
 
   let { transcript, listening, resetTranscript } = useSpeechRecognition();
@@ -70,7 +69,6 @@ export default function WordRainStart() {
         setCorrect(a);
         setIncorrect(b);
         dispatch(changeCorrectIdx(a));
-        console.log(a);
         setModal(true);
         dispatch(changeWrong(wrong));
         SpeechRecognition.stopListening();
@@ -80,11 +78,9 @@ export default function WordRainStart() {
 
   // 시간초과시 실행되는 함수
   const changeResultList = useCallback((index) => {
-    console.log(wrong)
     if (wordObjectList[index].state !== 1) {
       let copy2 = [...wordObjectList];
       copy2[index].state = -1;
-      console.log(wrong)
       setWordObjectList(copy2);
       let wrong2 = [...wrong];
       wrong2.push(wordObjectList[index]);
@@ -94,7 +90,6 @@ export default function WordRainStart() {
 
   // 화면에 보이면 실행되는 함수
   const changeResultList2 = useCallback((index) => {
-    console.log("하이")
     let copy3 = wordObjectList.map(wordObject => ({...wordObject}))
     copy3[index].state = 10;
     setWordObjectList(copy3);

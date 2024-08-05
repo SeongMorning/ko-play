@@ -33,8 +33,6 @@ export default function GameStartBtn() {
             value["left"] = `${Math.random() * 60 + 10}`
             return copy;
           })
-          data[0].state = 100;
-          console.log(data);
           dispatch(changeGameWord(data));
         }
         changeData();

@@ -52,7 +52,6 @@ export default function LevelJellyBtn(props) {
           dispatch(changeExp(unitScore * correctCnt))
           dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
-          console.log(unitScore, correctCnt)
         }else if(props.text === "아니요"){
           dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)))
           dispatch(changeInCorrect(false));
