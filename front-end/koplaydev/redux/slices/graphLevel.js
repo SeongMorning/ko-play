@@ -4,12 +4,12 @@ export const graphLevel = createSlice({
     name : "graphLevel",
     initialState : 1,
     reducers: {
-        changeGraphLevelIdx(state, idx){
-            return idx.payload;
+        changeGraphLevel(state, action){
+            return action.payload;
         }
     },
 })
 
-export let {changeGraphLevelIdx} = graphLevel.actions;
+export let {changeGraphLevel} = graphLevel.actions;
 
 export default graphLevel;

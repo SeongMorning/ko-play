@@ -5,7 +5,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import CardFrontImage from "./CardFrontImage";
 import styles from "./WordRainStart.module.scss";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import YellowBox from "@/app/component/boxes/YellowBox";
 import GameJellyBtn from "./GameJellyBtn";
 import { changeCorrectIdx } from "@/redux/slices/correct";
@@ -94,6 +94,7 @@ export default function WordRainStart() {
   const [incorrect, setIncorrect] = useState(0);
   const [timer, setTimer] = useState(null);
   const [viewWord, SetViewWord] = useState([])
+  const WordRainLevel = useSelector((state) => state.level)
 
   useEffect(()=>{
     SpeechRecognition.startListening({ language: 'ko-KR', continuous: true });
@@ -133,6 +134,7 @@ export default function WordRainStart() {
       setIncorrect(b);
       setModal(true);
       dispatch(changeWrong(wrong));
+      SpeechRecognition.stopListening();
     }
   }, [wordObjectList]);
 
@@ -210,8 +212,8 @@ export default function WordRainStart() {
               animate={{
                 translateY: "118vh",
                 transition: {
-                  duration: 15,
-                  delay: index * 5,
+                  duration: 10,
+                  delay: index * [10, 5, 5, 3, 3][WordRainLevel[0]-1],
                 },
               }}
               onViewportEnter={()=> changeResultList2(index)}

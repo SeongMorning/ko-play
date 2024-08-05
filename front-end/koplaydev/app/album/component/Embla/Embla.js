@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import EmblaCarousel from "./EmblaCarousel";
 import "./embla.scss";
-import album from "@/app/axios/album";
+import albumAxios from "@/app/axios/albumAxios";
 
 export default function Embla() {
   const [slides, setSlides] = useState([]);
@@ -10,11 +10,9 @@ export default function Embla() {
 
   useEffect(() => {
     const fetchAlbumData = async () => {
-      const data = await album();
-      console.log(data);
+      const data = await albumAxios();
       if (data) {
         setSlides(data);
-        console.log(slides);
       }
     };
 

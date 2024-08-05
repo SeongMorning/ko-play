@@ -1,20 +1,14 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import styles from "./SmuGameEnd.module.scss";
+import styles from "./FlipFlipGameEnd.module.scss";
 import CardFrontImage from "../CardFrontImage";
-import { motion, useAnimation } from "framer-motion";
+import { motion } from "framer-motion";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
-import { useEffect } from "react";
 
-export default function SmuGameEnd() {
-  const userInfo = useSelector((state) => state.studentInfo);
+export default function FlipFlipGameEnd() {
   const wrongList = useSelector((state) => state.wrong);
   const Incorrect = useSelector((state) => state.incorrect);
-  const exp = useSelector((state) => state.exp);
-  const beforeExp = userInfo.exp % 100;
-  const afterExp = beforeExp + exp;
-
   const container = {
     hidden: { opacity: 1 },
     visible: {
@@ -35,39 +29,6 @@ export default function SmuGameEnd() {
     },
   };
 
-  const expAnimation = useAnimation();
-
-  useEffect(() => {
-    if (afterExp > 100) {
-      expAnimation
-        .start({
-          width: "100%",
-          transition: {
-            duration: (100 - beforeExp) / 30,
-            ease: "easeInOut",
-          },
-        })
-        .then(() => {
-          expAnimation.set({ width: "0%" });
-          expAnimation.start({
-            width: `${afterExp % 100}%`,
-            transition: {
-              duration: (afterExp % 100) / 30,
-              ease: "easeInOut",
-            },
-          });
-        });
-    } else {
-      expAnimation.start({
-        width: `${afterExp}%`,
-        transition: {
-          duration: exp / 30,
-          ease: "easeInOut",
-        },
-      });
-    }
-  }, [afterExp, beforeExp, expAnimation]);
-
   return (
     <>
       <div className={styles.EndPage}>
@@ -77,7 +38,7 @@ export default function SmuGameEnd() {
             opacity: 0,
           }}
           animate={{
-            translateY: `${Incorrect ? null : "120%"}`,
+            translateY : `${Incorrect ? null : "120%"}`,
             opacity: 1,
             transition: {
               duration: 1,
@@ -87,9 +48,16 @@ export default function SmuGameEnd() {
           <motion.div
             className={styles.Exp}
             initial={{
-              width: `${beforeExp}%`,
+              width: 0,
             }}
-            animate={expAnimation}
+            animate={{
+              width: "50%",
+              transition: {
+                delay : `${Incorrect ? '0' : '1'}`,
+                duration: 3,
+                ease: "easeInOut",
+              },
+            }}
           ></motion.div>
         </motion.div>
         {Incorrect ? (
@@ -99,12 +67,8 @@ export default function SmuGameEnd() {
             initial="hidden"
             animate="visible"
           >
-            {wrongList.map((data, index) => (
-              <motion.div
-                key={index}
-                className={styles.wrong}
-                variants={wrongVariants}
-              >
+            {wrongList.map((data,index) => (
+              <motion.div key={index} className={styles.wrong} variants={wrongVariants}>
                 <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
                 <div className={styles.KoreaWord}>
                   {data.word}
@@ -118,10 +82,7 @@ export default function SmuGameEnd() {
             ))}
           </motion.div>
         ) : (
-          <img
-            className={styles.character}
-            src="/character-dancingMachine.gif"
-          />
+          <img className={styles.character} src="/character-dancingMachine.gif"/>
         )}
       </div>
       <motion.div

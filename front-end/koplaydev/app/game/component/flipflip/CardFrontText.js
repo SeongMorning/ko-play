@@ -1,11 +1,17 @@
 import styles from "./CardFrontText.module.scss";
 
-export default function CardFrontText(props) {
+export default function CardFrontText({text, isMatch}) {
   return (
-    <div className={styles.cardOuter}>
-      <div className={styles.cardInner}>
-        <span className={styles.cardText}>{props.text}</span>
+<div
+      className={`${styles.cardOuter} ${isMatch ? styles.match : ""}`}
+    >
+<div className={styles.cardInner}>
+        <span className={styles.cardText}>{text}</span>
       </div>
     </div>
   );
 }
+
+CardFrontText.js
+
+
