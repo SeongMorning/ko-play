@@ -36,6 +36,11 @@ export default function WordRainEnd() {
   };
 
   const expAnimation = useAnimation();
+  const speakWord = (word) => {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = "ko-KR";
+    window.speechSynthesis.speak(utterance);
+  };
 
   useEffect(() => {
     if (afterExp > 100) {
@@ -108,11 +113,17 @@ export default function WordRainEnd() {
                 <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
                 <div className={styles.KoreaWord}>
                   {data.word}
-                  <img src="/WordSound.png" />
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakWord(data.word)}
+                  />
                 </div>
                 <div className={styles.ForeignWord}>
                   {data.word2}
-                  <img src="/WordSound.png" />
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakWord(data.word2)}
+                  />
                 </div>
               </motion.div>
             ))}
