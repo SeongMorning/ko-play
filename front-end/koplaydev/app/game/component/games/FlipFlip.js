@@ -10,14 +10,9 @@ import { useState } from "react";
 
 
 export default function FilpFlip() {
-    const [matchedPairs, setMatchedPairs] = useState(0);
-
-    const handleMatchedPairs = (count) => {
-      setMatchedPairs(count);
-    };
 
     // 선택한 레벨
-    const chooseLevel = 5;
+    const chooseLevel = 1;
 
     const getQuestion = () => { 
     if(chooseLevel === 1 || chooseLevel === 2) {
@@ -34,12 +29,13 @@ export default function FilpFlip() {
         <>
 
             {/* <BackScoreBtn text="뒤로가기" left="1vw" top="3vh" /> */}
-            <BackScoreBtn score={matchedPairs} question={question} left="86vw" top="3vh" />
+            <BackScoreBtn score={question} question={question} left="86vw" top="3vh" />
             {/* <GameStartBtn /> */}
 
             {/* <FlipFlipGame Level={chooseLevel} Recommend={recommendLevel}/> */}
-            <FlipFlipGame onMatchedPairs={handleMatchedPairs} />
+            <FlipFlipGame />
             <GameBg />
+
         </>
     );
 }

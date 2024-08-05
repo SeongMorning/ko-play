@@ -7,7 +7,7 @@ export default function CardFrontImage({ imgSrc, alt, isMatch }) {
       className={`${styles.cardOuter} ${isMatch ? styles.match : ""}`}
     >
       <div className={styles.cardInner}>
-        <Image src={imgSrc} alt={alt} className={styles.cardImage} />
+        <Image src={imgSrc} className={styles.cardImage} />
       </div>
     </div>
   );

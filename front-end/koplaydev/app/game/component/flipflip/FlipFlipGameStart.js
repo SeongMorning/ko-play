@@ -1,13 +1,19 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCorrectIdx } from "@/redux/slices/correct";
+import { changeWrong } from "@/redux/slices/wrongList";
+import { motion } from "framer-motion";
 import styles from "./FlipFlipGameStart.module.scss";
 import CardBack from "./CardBack";
 import CardFrontImage from "./CardFrontImage";
 import CardFrontText from "./CardFrontText";
+import GameJellyBtn from "./GameJellyBtn";
+import YellowBox from "@/app/component/boxes/YellowBox";
 
 import elephantImg from "./image/elephant.png";
-import kittyImg from "./image/kitty.png";
+import catImg from "./image/cat.png";
 import bearImg from "./image/bear.png";
 import rabbitImg from "./image/rabbit.png";
 import snakeImg from "./image/snake.png";
@@ -33,11 +39,17 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
   const [canFlip, setCanFlip] = useState(false); // 카드 클릭 가능 여부를 저장
   const [showAll, setShowAll] = useState(false); // 모든 카드를 보여줄지 여부를 저장
   const [initialFlip, setInitialFlip] = useState(true); // 게임 시작 시 초기 카드 뒤집기 여부를 저장
-  const [timeLeft, setTimeLeft] = useState(180); // 남은 시간을 저장 (초 단위)
+  const [timeLeft, setTimeLeft] = useState(10); // 남은 시간을 저장 (초 단위)
   const [cardStates, setCardStates] = useState([]); // 카드의 상태를 저장
   const [totalScore, setTotalScore] = useState(0);
+  const [modal, setModal] = useState(null);
+  const [correct, setCorrect] = useState(0);
+  const [incorrect, setIncorrect] = useState(0);
+  const [wrong, setWrong] = useState([]);
 
   const timerRef = useRef(null); // 타이머를 제어하기 위한 ref
+  const dispatch = useDispatch();
+  const wrongAnswers = useSelector((state) => state.wrong);
 
   // 게임 레벨에 따라 보드 크기를 결정
   const getBoardSize = () => {
@@ -88,25 +100,25 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
     const randomCardIndices = generateRandomCardIndices(boardSize);
 
     const deck = [
-      { idx: 1, text: "곰", img: bearImg },
-      { idx: 2, text: "돌고래", img: dolphinImg },
-      { idx: 3, text: "코끼리", img: elephantImg },
-      { idx: 4, text: "물고기", img: fishImg },
-      { idx: 5, text: "고양이", img: kittyImg },
-      { idx: 6, text: "펭귄", img: penguinImg },
-      { idx: 7, text: "토끼", img: rabbitImg },
-      { idx: 8, text: "뱀", img: snakeImg },
-      { idx: 9, text: "호랑이", img: tigerImg },
-      { idx: 10, text: "낙타", img: camelImg },
-      { idx: 11, text: "병아리", img: chickImg },
-      { idx: 12, text: "소", img: cowImg },
-      { idx: 13, text: "개구리", img: frogImg },
-      { idx: 14, text: "코알라", img: koalaImg },
-      { idx: 15, text: "복어", img: pufferImg },
-      { idx: 16, text: "쥐", img: mouseImg },
-      { idx: 17, text: "소라", img: shellImg },
-      { idx: 18, text: "달팽이", img: snailImg },
-      { idx: 19, text: "문어", img: octopusImg },
+      { idx: 1, text: "곰", text2: "bear", img: bearImg },
+      { idx: 2, text: "돌고래", text2: "dolphin", img: dolphinImg },
+      { idx: 3, text: "코끼리", text2: "elephant", img: elephantImg },
+      { idx: 4, text: "물고기", text2: "fish", img: fishImg },
+      { idx: 5, text: "고양이", text2: "cat", img: catImg },
+      { idx: 6, text: "펭귄", text2: "penguin", img: penguinImg },
+      { idx: 7, text: "토끼", text2: "rabbit", img: rabbitImg },
+      { idx: 8, text: "뱀", text2: "snake", img: snakeImg },
+      { idx: 9, text: "호랑이", text2: "tiger", img: tigerImg },
+      { idx: 10, text: "낙타", text2: "camel", img: camelImg },
+      { idx: 11, text: "병아리", text2: "chick", img: chickImg },
+      { idx: 12, text: "소", text2: "cow", img: cowImg },
+      { idx: 13, text: "개구리", text2: "frog", img: frogImg },
+      { idx: 14, text: "코알라", text2: "koala", img: koalaImg },
+      { idx: 15, text: "복어", text2: "puffer", img: pufferImg },
+      { idx: 16, text: "쥐", text2: "mouse", img: mouseImg },
+      { idx: 17, text: "소라", text2: "shell", img: shellImg },
+      { idx: 18, text: "달팽이", text2: "snail", img: snailImg },
+      { idx: 19, text: "문어", text2: "octopus", img: octopusImg },
     ];
 
     // 카드 쌍을 만들고 섞기
@@ -127,6 +139,9 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
       isMatch: false,
     })); // 카드 상태 초기화
     setCardStates(initialStates);
+
+    dispatch(changeCorrectIdx(0));
+    // dispatch(changeWrong([]));
   }, [boardSize]);
 
 
@@ -154,6 +169,9 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
             timerRef.current = null; // 타이머 초기화
             setCanFlip(false); // 시간이 끝나면 카드 클릭 비활성화
             setTotalScore(0); // 시간 초과 시 점수 0으로 설정
+            setModal('timeout');
+            // let copy2 = [...wordObjectList];
+            // copy2
             return 0;
           }
           return prevTime - 1;
@@ -168,6 +186,12 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
       clearInterval(timerRef.current);
       timerRef.current = null; // 타이머 초기화
     }
+
+    setTimeout(() => {
+      if (modal === null) {
+        setModal('complete');
+      }
+    }, 2000);
   };
 
   // 카드 클릭 가능 상태가 변경될 때 타이머를 시작
@@ -197,10 +221,19 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
           );
           setMatchedCards((prev) => {
             const newMatchedCards = new Set(prev).add(firstCard.idx);
-            if (newMatchedCards.size === boardSize / 2) {
+            const newCorrectCount = newMatchedCards.size;
+            const newIncorrectCount = (boardSize / 2) - newCorrectCount;
+            setCorrect(newCorrectCount)
+            setIncorrect(newIncorrectCount)
+            dispatch(changeCorrectIdx(newCorrectCount));
+            if (newCorrectCount === boardSize / 2) {
               stopTimer(); // 모든 카드가 매칭되면 타이머 중지
-              setTotalScore(getScore());
+              const score = getScore();
+              setTotalScore(score);
               setCanFlip(false); // 카드 클릭 비활성화
+              // 틀린 단어들은 
+              //dispatch(changeWrong(wrong)); 오답 목록을 Redux 상태로 디스패치
+              // dispatch(changeWrong(wrong))
             }
             return newMatchedCards;
           });
@@ -217,10 +250,20 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
                 : state
             ));
           setCanFlip(true); // 다시 카드 클릭 가능
+          setWrong((prev) => [...prev, firstCard.idx]);
         }, 1000);
       }
     }
   }, [flippedIndices, cardDeck, matchedCards, boardSize]);
+
+  // 게임 종료 시 오답 목록을 Redux 상태로 디스패치
+  useEffect(() => {
+    if (modal === 'complete' || modal === 'timeout') {
+      const wrongCards = cardDeck.filter(card => !matchedCards.has(card.idx));
+      dispatch(changeWrong(wrongCards)); // 오답 목록을 Redux 상태로 디스패치
+    }
+  }, [modal, matchedCards, cardDeck, dispatch]);
+
 
   // 카드 클릭 처리 함수
   const handleCardClick = (index) => {
@@ -284,7 +327,7 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
           </div>
         ))}
       </div>
-      {matchedCards.size === boardSize / 2 && (
+      {/* {matchedCards.size === boardSize / 2 && (
         <div className={styles.scoreContainer}>
           <h2>게임 클리어! 총 점수: {totalScore}</h2>
         </div>
@@ -293,7 +336,75 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
         <div className={styles.scoreContainer}>
           <h2>게임 오버! 총 점수: {totalScore}</h2>
         </div>
-      )}
+      )} */}
+
+      <div>
+        {/* 모두 맞았을 때 모달 */}
+        {modal === 'complete' && (
+          <motion.div
+            className={styles.modal}
+            initial={{
+              opacity: 0,
+              translateY: 10,
+            }}
+            animate={{
+              opacity: 1,
+              translateY: 0,
+            }}
+          >
+            <YellowBox width="40" height="70">
+              <div className={styles.text}>
+                <span className={styles.finish}>게임종료</span>
+                <span className={styles.correct}>정답 개수 : {correct}</span>
+                <span className={styles.incorrect}>오답 개수 : {incorrect}</span>
+                <span className={styles.comment}>
+                  모든 단어를 맞혔습니다.
+                </span>
+                <div className={styles.buttons}>
+                  <div className={styles.check}>
+                    <GameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="확인" />
+                  </div>
+                </div>
+              </div>
+            </YellowBox>
+          </motion.div>
+        )}
+        {modal === 'timeout' && (
+          <motion.div
+            className={styles.modal}
+            initial={{
+              opacity: 0,
+              translateY: 10,
+            }}
+            animate={{
+              opacity: 1,
+              translateY: 0,
+            }}
+          >
+            <YellowBox width="40" height="70">
+              <div className={styles.text}>
+                <span className={styles.finish}>게임종료</span>
+                <span className={styles.correct}>정답 개수 : {correct}</span>
+                <span className={styles.incorrect}>오답 개수 : {incorrect}</span>
+                <span className={styles.retry}>
+                  틀린 단어를 다시 학습하시겠습니까?
+                </span>
+                <span className={styles.addExp}>
+                  학습 시 추가 경험치가 있습니다.
+                </span>
+                <div className={styles.buttons}>
+                  <div className={styles.Yes}>
+                    <GameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
+                  </div>
+                  <div className={styles.No}>
+                    <GameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="아니요" />
+                  </div>
+                </div>
+              </div>
+            </YellowBox>
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }
