@@ -34,7 +34,8 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         GeneratedToken token = jwtUtil.generateToken(email, role);
         logger.info("jwtAccessToken = " + token.getAccessToken());
         response.addCookie(createCookie("Authorization", token.getAccessToken()));
-        response.sendRedirect("http://localhost:8080/parent/test");
+//        response.sendRedirect("http://localhost:8080/parent/test");
+        response.sendRedirect("https://i11b302.p.ssafy.io/parent");
     }
 
     private Cookie createCookie(String key, String value) {
@@ -42,7 +43,7 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         Cookie cookie = new Cookie(key, value);
 //        cookie.setMaxAge(60 * 60 * 60);
         //https설정
-        //cookie.setSecure(true);
+        cookie.setSecure(true);
         cookie.setPath("/");
 //        cookie.setHttpOnly(true);
 
