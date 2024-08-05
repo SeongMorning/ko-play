@@ -15,12 +15,14 @@ public class GameDTO {
     private String gameName;
     private boolean isRank;
     private String gamePurpose;
+    private Long gamePurposeIdx;
 
     public GameDTO(final GamePurpose gamePurpose) {
         this.gameIdx = gamePurpose.getGame().getGameIdx();
         this.gameName = gamePurpose.getGame().getGameName();
         this.isRank = gamePurpose.getGame().getIsRank();
         this.gamePurpose = gamePurpose.getGamePurpose();
+        this.gamePurposeIdx = gamePurpose.getGamePurposeIdx();
     }
 
 }
