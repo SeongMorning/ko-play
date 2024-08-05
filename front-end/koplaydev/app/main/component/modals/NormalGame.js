@@ -6,13 +6,14 @@ import styles from "./NormalGame.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import LevelJellyBtn from "../LevelJellyBtn";
-import { changeGameIdx } from "@/redux/slices/gameSlice";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
-import { useRef } from "react";
-import { NodeNextRequest } from "next/dist/server/base-http/node";
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import EasyBtn from "../EasyBtn";
 import DifficultyBtn from "../DifficultyBtn";
+import gameListAxios from "@/app/axios/gameListAxios";
+import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
+import { changeGameIdx } from "@/redux/slices/gameSlice";
 
 let propObject = [
   {
@@ -40,19 +41,34 @@ let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
 
 export default function NormalGame() {
   const dispatch = useDispatch();
-  const gameIdx = useSelector((state) => state.game);
+  const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const ref = useRef(null);
+
+  useEffect(() => {
+    const fetchGameList = async () => {
+      const data = await gameListAxios();
+      if (data) {
+        let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
+        let readGame = data.filter((value) => value.gamePurposeIdx === 2);
+        let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
+
+        gameList = [[...speechGame], [...readGame], [...listenGame]];
+        console.log(gameList);
+      }
+    };
+    fetchGameList();
+  }, []);
 
   return (
     <YellowBox width={"70"} height={"80"}>
       <div className={styles.NormalGameMain}>
         <div ref={ref} className={styles.header}>
           <div className={styles.headerleft}>
-            {gameIdx === 0 ? null : (
+            {gamePurposeIdx === 0 ? null : (
               <img
                 src="/back2.png"
                 onClick={() => {
-                  dispatch(changeGameIdx(0));
+                  dispatch(changeGamePurposeIdx(0));
                 }}
               ></img>
             )}
@@ -62,14 +78,14 @@ export default function NormalGame() {
             <img
               src="/close.png"
               onClick={() => {
-                dispatch(changeGameIdx(0));
+                dispatch(changeGamePurposeIdx(0));
                 dispatch(changeModalIdx(0));
               }}
             ></img>
           </div>
         </div>
-        <GameSelect idx={gameIdx} />
-        {gameIdx === 0 ? null : (
+        <GameSelect idx={gamePurposeIdx} />
+        {gamePurposeIdx === 0 ? null : (
           <motion.div
             className={styles.LevelJellyBtn}
             initial={{
@@ -84,26 +100,26 @@ export default function NormalGame() {
           >
             <div className={styles.EasyBtn}>
               <EasyBtn
-                bg={propObject[gameIdx - 1].bg}
-                shadow={propObject[gameIdx - 1].shadow}
-                color={propObject[gameIdx - 1].color}
+                bg={propObject[gamePurposeIdx - 1].bg}
+                shadow={propObject[gamePurposeIdx - 1].shadow}
+                color={propObject[gamePurposeIdx - 1].color}
               />
             </div>
             {levelList.map((data, index) => (
               <div key={index} className={styles.LevelBtn}>
                 <LevelJellyBtn
                   level={data}
-                  bg={propObject[gameIdx - 1].bg}
-                  shadow={propObject[gameIdx - 1].shadow}
-                  color={propObject[gameIdx - 1].color}
+                  bg={propObject[gamePurposeIdx - 1].bg}
+                  shadow={propObject[gamePurposeIdx - 1].shadow}
+                  color={propObject[gamePurposeIdx - 1].color}
                 />
               </div>
             ))}
             <div className={styles.EasyBtn}>
               <DifficultyBtn
-                bg={propObject[gameIdx - 1].bg}
-                shadow={propObject[gameIdx - 1].shadow}
-                color={propObject[gameIdx - 1].color}
+                bg={propObject[gamePurposeIdx - 1].bg}
+                shadow={propObject[gamePurposeIdx - 1].shadow}
+                color={propObject[gamePurposeIdx - 1].color}
               />
             </div>
           </motion.div>
@@ -115,6 +131,7 @@ export default function NormalGame() {
 
 const GameSelect = (props) => {
   let widthList = Array(3).fill(26);
+  const dispatch = useDispatch();
   const router = useRouter();
 
   if (props.idx !== 0) {
@@ -163,7 +180,7 @@ const GameSelect = (props) => {
               {props.idx !== 0 &&
                 gameList[props.idx - 1].map((data) => (
                   <div className={styles.gameItem}>
-                    {data}
+                    {data.gameName}
                     <motion.div
                       className={styles.gameStart}
                       whileHover={{
@@ -171,6 +188,7 @@ const GameSelect = (props) => {
                         color: "rgba(154, 205, 50, 1)",
                       }}
                       onClick={() => {
+                        dispatch(changeGameIdx(data.gameIdx))
                         router.push(`/game/${props.idx}`);
                       }}
                     >

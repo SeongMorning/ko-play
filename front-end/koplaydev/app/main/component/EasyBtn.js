@@ -10,7 +10,7 @@ import {
 export default function EasyBtn(props) {
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
-  const gameIdx = useSelector((state) => state.game);
+  const gamePurposeIdx = useSelector((state) => state.gamePurpose);
 
   return (
     <motion.div
@@ -22,12 +22,12 @@ export default function EasyBtn(props) {
         },
       }}
       onClick={() => {
-        if (gameIdx === 1 && levelList[gameIdx - 1] !== 1) {
-          dispatch(changeSpeechLevel(levelList[gameIdx - 1] - 1));
-        } else if (gameIdx === 2 && levelList[gameIdx - 1] !== 1) {
-          dispatch(changeReadLevel(levelList[gameIdx - 1] - 1));
+        if (gamePurposeIdx === 1 && levelList[gamePurposeIdx - 1] !== 1) {
+          dispatch(changeSpeechLevel(levelList[gamePurposeIdx - 1] - 1));
+        } else if (gamePurposeIdx === 2 && levelList[gamePurposeIdx - 1] !== 1) {
+          dispatch(changeReadLevel(levelList[gamePurposeIdx - 1] - 1));
         } else {
-          dispatch(changeListenLevel(levelList[gameIdx - 1] - 1));
+          dispatch(changeListenLevel(levelList[gamePurposeIdx - 1] - 1));
         }
       }}
     >

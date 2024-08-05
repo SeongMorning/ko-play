@@ -6,7 +6,7 @@ import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/s
 export default function DifficultyBtn(props) {
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
-  const gameIdx = useSelector((state) => state.game)
+  const gamePurposeIdx = useSelector((state) => state.gamePurpose)
 
   return (
     <motion.div
@@ -18,13 +18,13 @@ export default function DifficultyBtn(props) {
         },
       }}
       onClick={() => {
-        if (levelList[gameIdx - 1] !== 5) {
-          if (gameIdx === 1) {
-            dispatch(changeSpeechLevel(levelList[gameIdx - 1] + 1));
-          } else if (gameIdx === 2) {
-            dispatch(changeReadLevel(levelList[gameIdx - 1] + 1));
+        if (levelList[gamePurposeIdx - 1] !== 5) {
+          if (gamePurposeIdx === 1) {
+            dispatch(changeSpeechLevel(levelList[gamePurposeIdx - 1] + 1));
+          } else if (gamePurposeIdx === 2) {
+            dispatch(changeReadLevel(levelList[gamePurposeIdx - 1] + 1));
           } else {
-            dispatch(changeListenLevel(levelList[gameIdx - 1] + 1));
+            dispatch(changeListenLevel(levelList[gamePurposeIdx - 1] + 1));
           }
         }
       }}

@@ -1,13 +1,48 @@
 "use client";
 import { useState, useEffect } from "react";
 import styles from "./GameStartBtn.module.scss";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
+import gameWordAxios from "@/app/axios/gameWordAxios";
+import { changeGameWord } from "@/redux/slices/gameWordSlice";
 
 export default function GameStartBtn() {
   const [countdown, setCountdown] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
   const dispatch = useDispatch();
+  const gameIdx = useSelector((state) => state.game);
+  const levelList = useSelector((state) => state.level);
+
+  useEffect(() => {
+    const fetchGameWord = async () => {
+      const data = await gameWordAxios(
+        gameIdx,
+        // levelList[gameIdx - 1],
+        1,
+        [
+          [10, 10, 10, 10, 10],
+          [4, 4, 6, 6, 8],
+          [3, 3, 3, 3, 3]
+        ][gameIdx- 1][levelList[gameIdx - 1]-1]
+      );
+      if (data) {
+        const changeData = ()=>{
+          data.map((value)=>{
+            let copy = value;
+            copy["state"] = 0;
+            value["left"] = `${Math.random() * 60 + 10}`
+            return copy;
+          })
+          data[0].state = 100;
+          console.log(data);
+          dispatch(changeGameWord(data));
+        }
+        changeData();
+
+      }
+    };
+    fetchGameWord();
+  }, [gameIdx, levelList]);
 
   useEffect(() => {
     let timer;

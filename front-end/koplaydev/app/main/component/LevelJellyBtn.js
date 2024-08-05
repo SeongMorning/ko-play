@@ -4,23 +4,24 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./LevelJellyBtn.module.scss";
 import { motion } from "framer-motion";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import { changeGraphLevel } from "@/redux/slices/graphLevel";
 
 export default function LevelJellyBtn(props) {
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
-  let gameIdx = useSelector((state) => state.game);
+  let gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const graphLevel = useSelector((state)=> state.graphLevel);
   return (
     <motion.div
       onClick={()=>{
-        if(gameIdx===1){
+        if(gamePurposeIdx===1){
           dispatch(changeSpeechLevel(props.level));
-        }else if(gameIdx===2){
+        }else if(gamePurposeIdx===2){
           dispatch(changeReadLevel(props.level));
-        }else if(gameIdx===3){
+        }else if(gamePurposeIdx===3){
           dispatch(changeListenLevel(props.level));
         }else{
-
+          dispatch(changeGraphLevel(props.level));
         }
       }}
       className={styles.LevelJellyBtn}
@@ -45,11 +46,11 @@ export default function LevelJellyBtn(props) {
           className={styles.LevelJellyBtnTop}
           style={{
             background: `${props.bg}`,
-            color: `${(props.level === levelList[gameIdx-1]) || (gameIdx === 0 && props.level === graphLevel) ? props.shadow : props.color}` ,
+            color: `${(props.level === levelList[gamePurposeIdx-1]) || (gamePurposeIdx === 0 && props.level === graphLevel) ? props.shadow : props.color}` ,
           }}
         >
           {props.level}
-          <RecommendImg gameIdx={gameIdx} level={props.level}/>
+          <RecommendImg gamePurposeIdx={gamePurposeIdx} level={props.level}/>
         </div>
         <div className={styles.LevelJellyBtnDot} />
         <div className={styles.LevelJellyBtnDot2} />
@@ -62,13 +63,13 @@ export default function LevelJellyBtn(props) {
   );
 }
 
-const RecommendImg = ({gameIdx, level}) => {
+const RecommendImg = ({gamePurposeIdx, level}) => {
   const userInfo = useSelector((state) => state.studentInfo);
-  if(gameIdx === 1 && userInfo.speechLevel === level){
+  if(gamePurposeIdx === 1 && userInfo.speechLevel === level){
     return <img className={styles.recommend} src="/recommend.png"/>
-  }else if(gameIdx === 2 && userInfo.readingLevel === level){
+  }else if(gamePurposeIdx === 2 && userInfo.readingLevel === level){
     return <img className={styles.recommend} src="/recommend.png"/>
-  }else if(gameIdx === 3 && userInfo.listeningLevel === level){
+  }else if(gamePurposeIdx === 3 && userInfo.listeningLevel === level){
     return <img className={styles.recommend} src="/recommend.png"/>
   }else{
     return null;
