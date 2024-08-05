@@ -9,6 +9,7 @@ export default async function modifyStudentInfoAxios(form) {
                 }
             }
         )
+        console.log(data);
         return data;
     } catch (error){
         // Error Handling

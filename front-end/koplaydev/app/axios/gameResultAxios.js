@@ -16,7 +16,6 @@ export default async function gameResultAxios(
     gainedExp,
   })
     .then((res) => {
-      console.log(res);
       return res;
     })
     .catch((e) => {

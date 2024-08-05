@@ -15,14 +15,12 @@ export default function Cabinet() {
   useEffect(() => {
     const fetchAllAvatars = async () => {
       const data = await allAvatarAxios();
-      console.log(data);
       if (data) {
         setAllAvatars(data);
       }
     };
     const fetchMyAvatars = async () => {
       const data = await myAvatarAxios();
-      console.log(data.data);
       if (data) {
         setMyAvatars(data.data);
       }
