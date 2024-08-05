@@ -1,9 +1,11 @@
 package com.edu.koplay.controller.game;
 
+import com.edu.koplay.batch.Top3Players;
 import com.edu.koplay.dto.*;
 import com.edu.koplay.model.GamePurpose;
 import com.edu.koplay.model.Student;
 import com.edu.koplay.model.Word;
+import com.edu.koplay.service.GameDataService;
 import com.edu.koplay.service.facade.GameFacadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +22,11 @@ import java.util.stream.Collectors;
 public class GameController {
 
     private GameFacadeService gameService;
-
+    private GameDataService gameDataService;
     @Autowired
-    public GameController(GameFacadeService gameFacadeService) {
+    public GameController(GameFacadeService gameFacadeService, GameDataService gameDataService) {
         this.gameService = gameFacadeService;
+        this.gameDataService = gameDataService;
     }
 
     @GetMapping("/")
@@ -95,7 +98,25 @@ public class GameController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+    @GetMapping("/loadTop3students")
+    public ResponseEntity<?> loadTop3Students() {
+        List<Top3Players> topPlayers = Top3Players.getTopPlayers();
+        ResponseDTO<Top3Players> response = null;
+        if(topPlayers.isEmpty()) {
+            response = ResponseDTO.<Top3Players>builder().error("데이터 없어용~").build();
+        }else{
 
+            response = ResponseDTO.<Top3Players>builder().data(topPlayers).build();
+        }
+        System.out.println(topPlayers.toString());
+
+        return ResponseEntity.ok().body(response);
+    }
+//
+//    @GetMapping("/top3students")
+//    public List<Top3Players> getTop3Students() {
+//        return Top3Players.getTopPlayers();
+//    }
     private String getAuthenticationData() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
