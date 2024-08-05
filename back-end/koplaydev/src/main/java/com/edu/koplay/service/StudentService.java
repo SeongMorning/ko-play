@@ -78,9 +78,10 @@ public class StudentService {
 //    }
 
     public Student updateStudentInfo(Student beforeStudent, StudentDTO student) {
-
-        String encodedPassword = passwordEncoder.encode(student.getPw());
-        beforeStudent.setStudentPw(encodedPassword);
+        if(student.getPw() != null){
+            String encodedPassword = passwordEncoder.encode(student.getPw());
+            beforeStudent.setStudentPw(encodedPassword);
+        }
         beforeStudent.setNickname(student.getNickname());
         beforeStudent.setProfileImg(student.getProfileImg());
         beforeStudent.setSchoolName(student.getSchoolName());
