@@ -43,7 +43,7 @@ public class StudentDTO {
     public StudentDTO(final Student studentEntity
     ) {
         this.id = studentEntity.getStudentId();
-        this.pw = studentEntity.getStudentPw();
+//        this.pw = studentEntity.getStudentPw();
         this.name = studentEntity.getStudentName();
         this.birth = studentEntity.getBirth();
         this.profileImg = studentEntity.getProfileImg();
@@ -56,7 +56,7 @@ public class StudentDTO {
             , final RecommendLevel recommendLevelEntity
     ) {
         this.id = studentEntity.getStudentId();
-        this.pw = studentEntity.getStudentPw();
+//        this.pw = studentEntity.getStudentPw();
         this.name = studentEntity.getStudentName();
         this.birth = studentEntity.getBirth();
         this.profileImg = studentEntity.getProfileImg();
