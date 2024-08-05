@@ -88,26 +88,7 @@ export default function SmuGameEnd() {
           >
             {wrongList.map((data, index) => (
               <motion.div
-<<<<<<< Updated upstream
-                key={index}
-                className={styles.wrong}
-                variants={wrongVariants}
-              >
-                <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
-                <div className={styles.KoreaWord}>
-                  {data.word}
-                  <img
-                    src="/WordSound.png"
-                    onClick={() => speakWord(data.word)}
-                  />
-                </div>
-                <div className={styles.ForeignWord}>
-                  {data.word2}
-                  <img
-                    src="/WordSound.png"
-                    onClick={() => speakForeignWord(data.word2)}
-                  />
-=======
+
                 className={styles.wrong}
                 variants={wrongVariants}
                 key={index}
@@ -119,7 +100,7 @@ export default function SmuGameEnd() {
                 <div className={styles.ForeignWord}>
                   {data.text2}
                   <img src="/WordSound.png" />
->>>>>>> Stashed changes
+
                 </div>
               </motion.div>
             ))}
