@@ -67,8 +67,88 @@ const words = [
     },
   ],
 ];
-
+function convertTo3x3Grid(data) {
+  const grid = [];
+  for (let i = 0; i < 3; i++) {
+    grid.push(data.slice(i * 3, i * 3 + 3));
+  }
+  return grid;
+}
+const data = [
+  {
+    imgUrl: "",
+    wordChina: "苹果",
+    wordKor: "사과",
+    wordThailand: "แอปเปิ้ล",
+    wordVietnam: "táo",
+  },
+  {
+    imgUrl: "",
+    wordChina: "香蕉",
+    wordKor: "바나나",
+    wordThailand: "กล้วย",
+    wordVietnam: "chuối",
+  },
+  {
+    imgUrl: "",
+    wordChina: "葡萄",
+    wordKor: "포도",
+    wordThailand: "องุ่น",
+    wordVietnam: "nho",
+  },
+  {
+    imgUrl: "",
+    wordChina: "橙子",
+    wordKor: "오렌지",
+    wordThailand: "ส้ม",
+    wordVietnam: "cam",
+  },
+  {
+    imgUrl: "",
+    wordChina: "草莓",
+    wordKor: "딸기",
+    wordThailand: "สตรอเบอร์รี่",
+    wordVietnam: "dâu",
+  },
+  {
+    imgUrl: "",
+    wordChina: "猕猴桃",
+    wordKor: "키위",
+    wordThailand: "กีวี่",
+    wordVietnam: "kiwi",
+  },
+  {
+    imgUrl: "",
+    wordChina: "梨",
+    wordKor: "배",
+    wordThailand: "ลูกแพร์",
+    wordVietnam: "lê",
+  },
+  {
+    imgUrl: "",
+    wordChina: "西瓜",
+    wordKor: "수박",
+    wordThailand: "แตงโม",
+    wordVietnam: "dưa hấu",
+  },
+  {
+    imgUrl: "",
+    wordChina: "桃子",
+    wordKor: "복숭아",
+    wordThailand: "ลูกท้อ",
+    wordVietnam: "đào",
+  },
+];
 export default function SmuGameStart() {
+  const wordList = useSelector((state) => state.gameWord);
+  const [wordObjectList, setWordObjectList] = useState([]);
+  const test = convertTo3x3Grid(data);
+  useEffect(() => {
+    const wordData = convertTo3x3Grid(wordList);
+    setWordObjectList(wordData);
+    console.log(wordObjectList);
+  }, [wordList]);
+
   const userInfo = useSelector((state) => state.studentInfo);
   const recommendLevel = userInfo.listeningLevel;
   const levelList = useSelector((state) => state.level);
@@ -123,10 +203,12 @@ export default function SmuGameStart() {
 
   useEffect(() => {
     startGame();
+    console.log(test);
   }, []);
 
   const startGame = async () => {
-    const chosenWords = words.map(
+    // const chosenWords = words.map(
+    const chosenWords = wordObjectList.map(
       (wordSet) => wordSet[Math.floor(Math.random() * wordSet.length)]
     );
     setCurrentWords(chosenWords);
@@ -273,7 +355,9 @@ export default function SmuGameStart() {
               }`}
             />
             <Options
-              words={words[currentQuestion].map((wordObj) => wordObj.word)}
+              words={wordObjectList[currentQuestion].map(
+                (wordObj) => wordObj.word
+              )}
               onGuess={handleGuess}
               correctWord={currentWords[currentQuestion]?.word}
               reset={reset}

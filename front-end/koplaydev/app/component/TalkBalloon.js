@@ -14,8 +14,8 @@ export default function TalkBalloon(props) {
     >
       <img
         className={styles.talkBalloonImage}
-        src="/TalkBalloon.svg"
-        alt="Talk Balloon"
+        src="/talkBalloon.svg"
+        alt="talk Balloon"
         style={{
           width: props.width,
           height: props.height,
