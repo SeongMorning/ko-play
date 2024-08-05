@@ -18,12 +18,13 @@ services:
   # Redis 도커 배포
   redis:
     image: redis:latest
-    container_name: redis_container
+    container_name: redis_oauth
     ports:
-            - "127.0.0.1:6379:6379"                    # 호스트의 6379 포트를 컨테이너의 6379 포트에 매핑
+            - "6380:6379"                    # 호스트의 6379 포트를 컨테이너의 6379 포트에 매핑
+    command: redis-server --requirepass koplay^^ --port 6379
     volumes:
       - redis_data:/data               # 데이터 디렉토리를 Volume에 마운트
-
+      - ./path/to/redis:/usr/local/etc/redis
   # Nginx 도커 배포
   nginx:
     image: nginx:latest
