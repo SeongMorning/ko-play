@@ -19,51 +19,51 @@ const words = [
     {
       imgSrc: "/korea-3.png",
       word: "사과",
-      word2: "apple",
+      word2: "xiǎogǒu",
     },
     {
       imgSrc: "/korea-3.png",
       word: "바나나",
-      word2: "banana",
+      word2: "xiǎogǒu",
     },
     {
       imgSrc: "/korea-3.png",
       word: "포도",
-      word2: "grape",
+      word2: "xiǎogǒu",
     },
   ],
   [
     {
       imgSrc: "/korea-3.png",
       word: "오렌지",
-      word2: "orange",
+      word2: "con hổ",
     },
     {
       imgSrc: "/korea-3.png",
       word: "딸기",
-      word2: "strawberry",
+      word2: "con hổ",
     },
     {
       imgSrc: "/korea-3.png",
       word: "키위",
-      word2: "kiwi",
+      word2: "con hổ",
     },
   ],
   [
     {
       imgSrc: "/korea-3.png",
       word: "배",
-      word2: "pear",
+      word2: "เสือ",
     },
     {
       imgSrc: "/korea-3.png",
       word: "수박",
-      word2: "watermelon",
+      word2: "เสือ",
     },
     {
       imgSrc: "/korea-3.png",
       word: "복숭아",
-      word2: "peach",
+      word2: "เสือ",
     },
   ],
 ];

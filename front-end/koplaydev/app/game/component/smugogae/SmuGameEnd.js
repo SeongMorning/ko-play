@@ -34,10 +34,33 @@ export default function SmuGameEnd() {
       },
     },
   };
+  // 중국어 : zh-CN
+  // 태국어 : th-TH
+  // 베트남어 : vi-VN
+  // 한국어 : kr-KR
+  // 영어 : en-EN
+  // 부모의 국가 받아와서.
+
+  // 부모 국적 받아와서
+
+  let nation = "kr-KR";
+  if (userInfo.nation === "Thailand") {
+    nation = "th-TH";
+  } else if (userInfo.nation === "Vietnam") {
+    nation = "vi-VN";
+  } else if (userInfo.nation === "China") {
+    nation = "zh-CN";
+  }
 
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "ko-KR";
+    utterance.lang = "kr-KR";
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const speakForeignWord = (word) => {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = nation;
     window.speechSynthesis.speak(utterance);
   };
 
@@ -123,7 +146,7 @@ export default function SmuGameEnd() {
                   {data.word2}
                   <img
                     src="/WordSound.png"
-                    onClick={() => speakWord(data.word2)}
+                    onClick={() => speakForeignWord(data.word2)}
                   />
                 </div>
               </motion.div>

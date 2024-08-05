@@ -36,9 +36,25 @@ export default function WordRainEnd() {
   };
 
   const expAnimation = useAnimation();
+
+  let nation = "kr-KR";
+  if (userInfo.nation === "Thailand") {
+    nation = "th-TH";
+  } else if (userInfo.nation === "Vietnam") {
+    nation = "vi-VN";
+  } else if (userInfo.nation === "China") {
+    nation = "zh-CN";
+  }
+
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "ko-KR";
+    utterance.lang = "kr-KR";
+    window.speechSynthesis.speak(utterance);
+  };
+
+  const speakForeignWord = (word) => {
+    const utterance = new SpeechSynthesisUtterance(word);
+    utterance.lang = nation;
     window.speechSynthesis.speak(utterance);
   };
 
@@ -122,7 +138,7 @@ export default function WordRainEnd() {
                   {data.word2}
                   <img
                     src="/WordSound.png"
-                    onClick={() => speakWord(data.word2)}
+                    onClick={() => speakForeignWord(data.word2)}
                   />
                 </div>
               </motion.div>
