@@ -1,11 +1,13 @@
 "use client"
 
-import BackScoreBtn from "@/app/component/buttons/BackScoreBtn";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./FlipFlip.module.scss";
+import BackScoreBtn from "@/app/component/buttons/BackScoreBtn";
 import GameBg from "@/app/component/background/GameBg";
 import GameStartBtn from "../GameStartBtn";
 import FlipFlipGame from "../flipflip/FlipFlipGame";
-import { useState } from "react";
+
 
 
 
@@ -14,10 +16,15 @@ export default function FilpFlip() {
     // 선택한 레벨
     const chooseLevel = 3;
 
+
+    const FlipFlipLevel = useSelector((state) => state.level);
+
+    console.log(FlipFlipLevel[1]);
+    
     const getQuestion = () => { 
-    if(chooseLevel === 1 || chooseLevel === 2) {
+    if(FlipFlipLevel[1] === 1 || FlipFlipLevel[1] === 2) {
         return 4;
-    } else if(chooseLevel === 3 || chooseLevel === 4) {
+    } else if(FlipFlipLevel[1] === 3 || FlipFlipLevel[1] === 4) {
         return 6;
     } else {
         return 8;

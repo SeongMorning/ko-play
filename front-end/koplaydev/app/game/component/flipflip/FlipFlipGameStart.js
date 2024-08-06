@@ -1,5 +1,6 @@
 "use client";
 
+import "regenerator-runtime/runtime";
 import { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { changeCorrectIdx } from "@/redux/slices/correct";
@@ -40,7 +41,7 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
   const [canFlip, setCanFlip] = useState(false); // 카드 클릭 가능 여부를 저장
   const [showAll, setShowAll] = useState(false); // 모든 카드를 보여줄지 여부를 저장
   const [initialFlip, setInitialFlip] = useState(true); // 게임 시작 시 초기 카드 뒤집기 여부를 저장
-  const [timeLeft, setTimeLeft] = useState(10); // 남은 시간을 저장 (초 단위)
+  const [timeLeft, setTimeLeft] = useState(7); // 남은 시간을 저장 (초 단위)
   const [cardStates, setCardStates] = useState([]); // 카드의 상태를 저장
   const [totalScore, setTotalScore] = useState(0);
   const [modal, setModal] = useState(null);
@@ -48,20 +49,22 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
   const [incorrect, setIncorrect] = useState(0);
   const [wrong, setWrong] = useState([]);
 
+  const FlipFlipLevel = useSelector((state) => state.level);
   const timerRef = useRef(null); // 타이머를 제어하기 위한 ref
   const dispatch = useDispatch();
   const wrongAnswers = useSelector((state) => state.wrong);
 
+
   // 게임 레벨에 따라 보드 크기를 결정
-  const getBoardSize = () => {
-    if (Level === 1 || Level === 2) {
-      return 8;
-    } else if (Level === 3 || Level === 4) {
-      return 12;
-    } else {
-      return 16;
-    }
-  };
+  // const getBoardSize = () => {
+  //   if (Level === 1 || Level === 2) {
+  //     return 8;
+  //   } else if (Level === 3 || Level === 4) {
+  //     return 12;
+  //   } else {
+  //     return 16;
+  //   }
+  // };
 
   const getScore = () => {
     if (Level === Recommend) {
@@ -75,8 +78,12 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
     }
   };
 
-  const boardSize = getBoardSize();
+  // const boardSize = getBoardSize();
 
+  const wordList = useSelector((state) => state.gameWord);
+  const [wordObjectList, setWordObjectList] = useState(wordList);
+  const boardSize = wordList.length * 2;
+  
   // 특정 범위 내에서 랜덤 숫자를 생성
   function getRandom(max, min) {
     return parseInt(Math.random() * (max - min)) + min;
@@ -86,7 +93,7 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
   function generateRandomCardIndices(boardSize) {
     let randomNumberArr = [];
     for (let i = 0; i < boardSize / 2; i++) {
-      let randomNumber = getRandom(19, 1); // 최대 19개의 이미지와 텍스트 쌍
+      let randomNumber = getRandom(boardSize, 1); // 최대 wordList.length개의 이미지와 텍스트 쌍
       if (randomNumberArr.indexOf(randomNumber) === -1) {
         randomNumberArr.push(randomNumber);
       } else {
@@ -96,35 +103,14 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
     return randomNumberArr;
   }
 
-  // 컴포넌트가 마운트될 때 카드 덱을 초기화
+    // 컴포넌트가 마운트될 때 카드 덱을 초기화
   useEffect(() => {
     const randomCardIndices = generateRandomCardIndices(boardSize);
 
-    const deck = [
-      { idx: 1, text: "곰", text2: "bear", img: bearImg },
-      { idx: 2, text: "돌고래", text2: "dolphin", img: dolphinImg },
-      { idx: 3, text: "코끼리", text2: "elephant", img: elephantImg },
-      { idx: 4, text: "물고기", text2: "fish", img: fishImg },
-      { idx: 5, text: "고양이", text2: "cat", img: catImg },
-      { idx: 6, text: "펭귄", text2: "penguin", img: penguinImg },
-      { idx: 7, text: "토끼", text2: "rabbit", img: rabbitImg },
-      { idx: 8, text: "뱀", text2: "snake", img: snakeImg },
-      { idx: 9, text: "호랑이", text2: "tiger", img: tigerImg },
-      { idx: 10, text: "낙타", text2: "camel", img: camelImg },
-      { idx: 11, text: "병아리", text2: "chick", img: chickImg },
-      { idx: 12, text: "소", text2: "cow", img: cowImg },
-      { idx: 13, text: "개구리", text2: "frog", img: frogImg },
-      { idx: 14, text: "코알라", text2: "koala", img: koalaImg },
-      { idx: 15, text: "복어", text2: "puffer", img: pufferImg },
-      { idx: 16, text: "쥐", text2: "mouse", img: mouseImg },
-      { idx: 17, text: "소라", text2: "shell", img: shellImg },
-      { idx: 18, text: "달팽이", text2: "snail", img: snailImg },
-      { idx: 19, text: "문어", text2: "octopus", img: octopusImg },
-    ];
 
     // 카드 쌍을 만들고 섞기
     let pairedCards = randomCardIndices.flatMap((randomIdx) => {
-      const card = deck.find((card) => card.idx === randomIdx);
+      const card = randomCardIndices.find((card) => card.idx === randomIdx);
       return [
         { ...card, showImage: true }, // 첫 번째 카드: 이미지
         { ...card, showImage: false }, // 두 번째 카드: 텍스트
@@ -143,7 +129,57 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
 
     dispatch(changeCorrectIdx(0));
     // dispatch(changeWrong([]));
-  }, [boardSize]);
+  }, [wordList]);
+
+
+  // 컴포넌트가 마운트될 때 카드 덱을 초기화
+  // useEffect(() => {
+  //   const randomCardIndices = generateRandomCardIndices(boardSize);
+
+  //   const deck = [
+  //     { idx: 1, text: "곰", text2: "bear", img: bearImg },
+  //     { idx: 2, text: "돌고래", text2: "dolphin", img: dolphinImg },
+  //     { idx: 3, text: "코끼리", text2: "elephant", img: elephantImg },
+  //     { idx: 4, text: "물고기", text2: "fish", img: fishImg },
+  //     { idx: 5, text: "고양이", text2: "cat", img: catImg },
+  //     { idx: 6, text: "펭귄", text2: "penguin", img: penguinImg },
+  //     { idx: 7, text: "토끼", text2: "rabbit", img: rabbitImg },
+  //     { idx: 8, text: "뱀", text2: "snake", img: snakeImg },
+  //     { idx: 9, text: "호랑이", text2: "tiger", img: tigerImg },
+  //     { idx: 10, text: "낙타", text2: "camel", img: camelImg },
+  //     { idx: 11, text: "병아리", text2: "chick", img: chickImg },
+  //     { idx: 12, text: "소", text2: "cow", img: cowImg },
+  //     { idx: 13, text: "개구리", text2: "frog", img: frogImg },
+  //     { idx: 14, text: "코알라", text2: "koala", img: koalaImg },
+  //     { idx: 15, text: "복어", text2: "puffer", img: pufferImg },
+  //     { idx: 16, text: "쥐", text2: "mouse", img: mouseImg },
+  //     { idx: 17, text: "소라", text2: "shell", img: shellImg },
+  //     { idx: 18, text: "달팽이", text2: "snail", img: snailImg },
+  //     { idx: 19, text: "문어", text2: "octopus", img: octopusImg },
+  //   ];
+
+  //   // 카드 쌍을 만들고 섞기
+  //   let pairedCards = randomCardIndices.flatMap((randomIdx) => {
+  //     const card = deck.find((card) => card.idx === randomIdx);
+  //     return [
+  //       { ...card, showImage: true }, // 첫 번째 카드: 이미지
+  //       { ...card, showImage: false }, // 두 번째 카드: 텍스트
+  //     ];
+  //   });
+
+  //   pairedCards = pairedCards.sort(() => Math.random() - 0.5); // 카드 덱을 섞음
+
+  //   setCardDeck(pairedCards);
+
+  //   const initialStates = pairedCards.map(() => ({
+  //     flipped: false,
+  //     isMatch: false,
+  //   })); // 카드 상태 초기화
+  //   setCardStates(initialStates);
+
+  //   dispatch(changeCorrectIdx(0));
+  //   // dispatch(changeWrong([]));
+  // }, [boardSize]);
 
 
   // 게임 시작 시 초기 카드 뒤집기 및 카드 클릭 가능 상태 설정
@@ -337,14 +373,14 @@ export default function FlipFlipGameStart({ Level, Recommend }) {
               card.showImage ? (
                 <CardFrontImage
                   className={styles.cardFrontImage}
-                  imgSrc={card.img}
-                  alt={card.text}
+                  imgSrc={card.imgUrl}
+                  alt={card.wordKor}
                   isMatch={cardStates[index].isMatch}
                 />
               ) : (
                 <CardFrontText
                   className={styles.cardFrontText}
-                  text={card.text}
+                  text={card.wordKor}
                   isMatch={cardStates[index].isMatch}
                 />
               )
