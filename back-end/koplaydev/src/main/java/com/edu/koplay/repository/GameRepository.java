@@ -62,4 +62,15 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "GROUP BY gp.game_purpose "
             ,nativeQuery = true)
     List<Object[]> findGameCountPerPurpose(@Param("studentIdx") Long studentIdx);
+
+
+    @Query(value = "SELECT DATE(gd.created_at) AS date, gd.correct AS correct, gd.total_question AS question, gp.game_purpose, gd.game_level "+
+            "FROM koplay.game_data gd JOIN game g ON gd.game_idx = g.game_idx "+
+            "JOIN koplay.game_purpose gp ON g.game_idx = gp.game_idx "+
+            "where koplay.gd.student_idx = :studentIdx "+
+            "GROUP BY DATE(gd.created_at), gp.game_purpose, gd.game_level, gd.correct, gd.total_question "+
+            "ORDER BY DATE(gd.created_at) Desc " +
+            "LIMIT 20 "
+            ,nativeQuery = true)
+    List<Object[]> findDailySpecific(@Param("studentIdx") Long studentIdx);
 }
