@@ -1,4 +1,3 @@
-import Image from "next/image";
 import styles from "./CardFrontImage.module.scss";
 
 export default function CardFrontImage({ imgSrc, isMatch }) {

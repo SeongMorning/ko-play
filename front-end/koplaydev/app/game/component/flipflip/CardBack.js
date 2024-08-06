@@ -1,10 +1,3 @@
-// import styles from "./CardBack.module.scss";
-
-// export default function CardBack() {
-//   return (
-//       <img src="/flipflip-game-card2.png" className={styles.card}/>
-//   );
-// }
 import styles from "./CardBack.module.scss";
 
 export default function CardBack() {

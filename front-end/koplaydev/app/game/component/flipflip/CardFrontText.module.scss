@@ -1,7 +1,7 @@
 .cardOuter {
   width: 9.5vw;
   height: 9.5vw;
-  background-color: #fdd127; // 기본 배경색
+  background-color: #fdd127;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,7 +10,7 @@
 .cardInner {
   width: 83%;
   height: 83%;
-  background-color: white; // 기본 배경색
+  background-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,5 +23,5 @@
 
 .match {
   // transition: transform 0.8s;
-  background-color: rgb(255, 134, 136); // 매칭된 카드의 배경색
+  background-color: rgb(255, 134, 136);
 }
