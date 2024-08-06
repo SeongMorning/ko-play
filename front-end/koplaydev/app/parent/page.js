@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -9,38 +10,34 @@ import ChildProfileCard from "./component/ChildProfileCard";
 import AddProfileCard from "./component/AddProfileCard";
 import ParentBg from "../component/background/ParentBg";
 import InputChildInfo from "./component/InputChildInfo";
+import parentChildInfoAxios from "../axios/parentChildInfoAxios";
+import { changeParentChildsInfo, addParentChild } from "../../redux/slices/parentChaildsSlice";
+import InputInitInfo from "./component/InputInitInfo";
+import insertChildAxios from "../axios/insertChildAxios";
+import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
 
 export default function Parent() {
+    const dispatch = useDispatch();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isInitModalOpen, setIsInitModalOpen] = useState(false);
 
-    const [childProfiles, setChildProfiles] = useState([]);
 
-    const colors = [
-        "rgb(250, 201, 201)",
-        "rgb(189, 224, 254)",
-        "rgb(252, 246, 189)",
-        "rgb(175, 224, 197)",
-        "rgb(232, 208, 238)",
-        "rgb(200, 252, 250)",
-        "rgb(255, 229, 204)",
-        "rgb(250, 241, 242)"
-    ];
+    const parentChilds = useSelector((state) => state.parentChilds);
 
-    const addChildProfile = ({name, birth}) => {
-        const newIdx = (childProfiles.length + 1).toString();
-        const randomColor = colors[Math.floor(Math.random() * colors.length)];
-        const newProfile = {
-            idx: newIdx,
-            src: "hehe.png", // 새로운 프로필 이미지
-            name: name, // student Idx의 이름
-            birth: birth,
-            bgColor: randomColor
+    useEffect(() => {
+        const fetchParentChildsInfo = async () => {
+            try {
+                const response = await parentChildInfoAxios();
+                if (response) {
+                    dispatch(changeParentChildsInfo(response));
+                }
+            } catch (error) {
+                console.error('API 요청 실패:', error);
+            }
         };
 
-        setChildProfiles([...childProfiles, newProfile]);
-        setIsModalOpen(false);
-        console.log(childProfiles.length);
-    };
+        fetchParentChildsInfo();
+    }, [dispatch]);
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -48,7 +45,49 @@ export default function Parent() {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        setIsInitModalOpen(true);
     }
+
+    const closeAllModal = () => {
+        setIsModalOpen(false);
+        setIsInitModalOpen(false);
+
+    }
+
+    const closeInitModal = () => {
+        setIsInitModalOpen(false);
+        addChildProfile();
+
+        setChildInfo({
+            name: "",
+            birth: "",
+            id: "",
+            pw: "",
+            listeningLevel: '',
+            readingLevel: '',
+            speakingLevel: ''
+        });
+    }
+
+    const [childInfo, setChildInfo] = useState({
+        name: "",
+        birth: "",
+        id: "",
+        pw: "",
+        listeningLevel: '',
+        readingLevel: '',
+        speakingLevel: ''
+    });
+
+    const addChildProfile = async () => {
+        const response = await insertChildAxios(childInfo);
+        if (response != null) {
+            dispatch(addParentChild(childInfo));
+            dispatch(changeSpeechLevel(childInfo.speakingLevel))
+            dispatch(changeReadLevel(childInfo.readingLevel))
+            dispatch(changeListenLevel(childInfo.listeningLevel))
+        }
+    };
 
     const settings = {
         dots: true,
@@ -59,18 +98,17 @@ export default function Parent() {
         arrows: true,
         draggable: false,
         initialSlide: 0
-        // rtl: true
     };
 
     return (
         <>
             <div className={styles.carousel}>
-                <Slider className={styles.slider} {...settings}>
-                    {childProfiles?.map((profile) => (
-                        <div key={profile.idx} className={styles.profileCard}>
-                            <ChildProfileCard 
-                                idx={profile.idx}
-                                src={profile.src}
+                <Slider key='1' className={styles.slider} {...settings}>
+                    {parentChilds?.map((profile) => (
+                        <div key={profile.id} className={styles.profileCard}>
+                            <ChildProfileCard
+                                id={profile.id}
+                                src={profile.profileImg}
                                 name={profile.name}
                                 birth={profile.birth}
                                 bgColor={profile.bgColor}
@@ -85,7 +123,8 @@ export default function Parent() {
             </div>
             <ParentBg />
 
-            {isModalOpen && (<InputChildInfo onClose={closeModal} onAdd={addChildProfile} />)}
+            {isModalOpen && (<InputChildInfo onClose={closeModal} onAllClose={closeAllModal} childInfo={childInfo} setChildInfo={setChildInfo} />)}
+            {isInitModalOpen && (<InputInitInfo onclose={closeInitModal} setChildInfo={setChildInfo} />)}
         </>
     );
 }

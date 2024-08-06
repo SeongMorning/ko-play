@@ -53,7 +53,7 @@ export default function Profile() {
     fetchStudentInfo(); // 비동기 함수 호출
     fetchAllAvatarInfo();
     fetchMyAvatarInfo();
-  }, [dispatch]); // dispatch를 의존성으로 추가
+  }, []);
 
   useEffect(()=>{
     dispatch(changeListenLevel(userInfo.listeningLevel));
