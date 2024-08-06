@@ -1,12 +1,11 @@
 package com.edu.koplay.controller.parent;
 
-import com.edu.koplay.dto.ParentDTO;
-import com.edu.koplay.dto.ResponseDTO;
-import com.edu.koplay.dto.StudentDTO;
-import com.edu.koplay.dto.StudentLevelDTO;
+import com.edu.koplay.dto.*;
 import com.edu.koplay.model.Parent;
 import com.edu.koplay.model.RecommendLevel;
 import com.edu.koplay.model.Student;
+import com.edu.koplay.service.StudentService;
+import com.edu.koplay.service.facade.GameFacadeService;
 import com.edu.koplay.service.facade.ParentFacadeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +15,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,13 +25,17 @@ import java.util.stream.Collectors;
 @RequestMapping("/parent")
 public class ParentController {
     private static final Logger logger = LoggerFactory.getLogger(ParentController.class);
+    private final StudentService studentService;
+    private final GameFacadeService gameFacadeService;
 
     private ParentFacadeService parentService;
     private PasswordEncoder passwordEncoder;
 
-    public ParentController(ParentFacadeService parentFacadeService, PasswordEncoder passwordEncoder) {
+    public ParentController(ParentFacadeService parentFacadeService, PasswordEncoder passwordEncoder, StudentService studentService, GameFacadeService gameFacadeService) {
         this.parentService = parentFacadeService;
         this.passwordEncoder = passwordEncoder;
+        this.studentService = studentService;
+        this.gameFacadeService = gameFacadeService;
     }
 
     @DeleteMapping("/")
@@ -177,9 +182,59 @@ public class ParentController {
     }
 
     @GetMapping("/child/{childId}/statistics")
-    public String getChildStatistics(@PathVariable Long childId) {
-        //아직 미구현
-        return null;
+    public ResponseEntity<?> getChildStatistics(@PathVariable(name = "childId") String childId) {
+
+        try{
+            String email = getAuthenticationData();
+
+            //학생조회
+
+            Student student = studentService.selectOneStudent(childId);
+
+            List<Object[]> dailyResult = gameFacadeService.findDailyResult(student.getStudentIdx());
+            List<GameCorrectDTO> res = new ArrayList<>();
+            //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
+            for (Object[] result : dailyResult) {
+                // Extract values based on index
+                Date date = (Date) result[0];
+                int totalQuestion = ((Number) result[1]).intValue();
+                int correctAnswer = ((Number) result[2]).intValue();
+                String gamePurpose = (String) result[3];
+                int level = ((Number) result[4]).intValue();
+
+                // Create a new DTO and add it to the list
+                GameCorrectDTO gameResultDTO = new GameCorrectDTO(date, totalQuestion, correctAnswer,gamePurpose, level);
+                res.add(gameResultDTO);
+                //System.out.println("gameres" + gameResultDTO.toString());
+            }
+
+
+            //목적별 판수
+            List<Object[]> gameCountPerPurpose = gameFacadeService.findGameCountPerPurpose(student.getStudentIdx());
+            List<GameCountPerPurposeDTO> res2 = new ArrayList<>();
+            //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
+            for (Object[] result : gameCountPerPurpose) {
+                // Extract values based on index
+
+                int count = ((Number) result[0]).intValue();
+                String gamePurpose = (String) result[1];
+
+                // Create a new DTO and add it to the list
+                GameCountPerPurposeDTO gameResultDTO = new GameCountPerPurposeDTO(count, gamePurpose);
+                res2.add(gameResultDTO);
+                //System.out.println("gameres" + gameResultDTO.toString());
+            }
+            List<Object> res3 = new ArrayList<>();
+            res3.add(res);
+            res3.add(res2);
+            return ResponseEntity.ok().body(res3);
+        }catch (Exception e){
+            logger.info(e.getMessage());
+            ResponseDTO<GameCountPerPurposeDTO> response = ResponseDTO.<GameCountPerPurposeDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+
     }
 
     private String getAuthenticationData() {

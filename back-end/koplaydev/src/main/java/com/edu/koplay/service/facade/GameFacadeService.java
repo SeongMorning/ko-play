@@ -84,8 +84,10 @@ public class GameFacadeService {
         return gameDataRepository.getDailyExp(studentIdx);
     }
 
-//    public List<Object[]> findTotalQuestionGameDataGroupedByDateAndPurpose(Long studentIdx) {
-//        return gameRepository.findTotalQuestionGameDataGroupedByDateAndPurpose(studentIdx);
-//    }
+    public List<Object[]> findGameCountPerPurpose(Long studentIdx) {
+        return gameRepository.findGameCountPerPurpose(studentIdx);
+    }
+
+
 
 }
