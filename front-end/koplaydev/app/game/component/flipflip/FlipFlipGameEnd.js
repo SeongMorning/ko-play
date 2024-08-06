@@ -33,10 +33,16 @@ export default function FlipFlipGameEnd() {
 
   useEffect(() => {
     const postGameResult = async () => {
-      const res = await gameResultAxios(gameIdx, correctCnt, question, gameList[1], exp);
-    }
+      const res = await gameResultAxios(
+        gameIdx,
+        correctCnt,
+        question,
+        gameList[1],
+        exp
+      );
+    };
     postGameResult();
-  }, [])
+  }, []);
 
   const container = {
     hidden: { opacity: 1 },
@@ -168,7 +174,7 @@ export default function FlipFlipGameEnd() {
                   {data.wordThailand}
                   <img
                     src="/WordSound.png"
-                    onClick={() => speakForeignWord(data.text2)}
+                    onClick={() => speakForeignWord(data.wordThailand)}
                   />
                 </div>
               </motion.div>
