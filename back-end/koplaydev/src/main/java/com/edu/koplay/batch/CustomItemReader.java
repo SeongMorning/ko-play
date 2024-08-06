@@ -32,7 +32,7 @@ public class CustomItemReader implements ItemReader<List<Object[]>> {
                 .map(result -> new Top3Players((Long) result[0], (Long) result[1]))
                 .toList();
             logger.info(topPlayers.toString());
-            logger.info("!!!!!!!!!!!READ!!!!!!!!!!!!!!!"+results.get(0)[0]);
+//            logger.info("!!!!!!!!!!!READ!!!!!!!!!!!!!!!"+results.get(0)[0]);
 //            System.out.println("!!!!!!!!!!!READ!!!!!!!!!!!!!!!"+results);
             return results;
         } else {

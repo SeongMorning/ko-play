@@ -24,4 +24,7 @@ public class GamePurposeService {
                 .flatMap(Optional::stream)
                 .toList();
     }
+    public List<GamePurpose> selectAllGamesPurpose() {
+        return gamePurposeRepository.findAll();
+    }
 }
