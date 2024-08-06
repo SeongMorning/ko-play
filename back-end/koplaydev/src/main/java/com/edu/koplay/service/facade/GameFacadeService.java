@@ -2,6 +2,7 @@ package com.edu.koplay.service.facade;
 
 import com.edu.koplay.dto.GameDataDTO;
 import com.edu.koplay.model.*;
+import com.edu.koplay.repository.GameRepository;
 import com.edu.koplay.service.*;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import java.util.List;
 @Transactional
 @Service
 public class GameFacadeService {
+    private final GameRepository gameRepository;
     Logger logger = LoggerFactory.getLogger(GameFacadeService.class);
     private GameService gameService;
     private WordService wordService;
@@ -22,13 +24,20 @@ public class GameFacadeService {
     private GameDataService gameDataService;
     private RecommendLevelService recommendLevelService;
 
-    public GameFacadeService(GameService gameService, WordService wordService, StudentService studentService, GamePurposeService gamePurposeService, GameDataService gameDataService, RecommendLevelService recommendLevelService) {
+
+
+    @Autowired
+    public GameFacadeService(GameService gameService, WordService wordService, StudentService studentService, GamePurposeService gamePurposeService, GameDataService gameDataService,RecommendLevelService recommendLevelService,  GameRepository gameRepository) {
+
         this.gameService = gameService;
         this.wordService = wordService;
         this.studentService = studentService;
         this.gamePurposeService = gamePurposeService;
         this.gameDataService = gameDataService;
+
         this.recommendLevelService = recommendLevelService;
+        this.gameRepository = gameRepository;
+
     }
 
     public List<GamePurpose> getAllGames(Boolean isRank) {
@@ -58,8 +67,19 @@ public class GameFacadeService {
         return student;
     }
 
+
     public RecommendLevel getStudentLevel(Student entity) {
         return recommendLevelService.getStudentLevel(entity);
     }
+
+
+    public List<Object[]> findDailyResult(long studentIdx) {
+
+        return gameRepository.findDailyResult(studentIdx);
+    }
+
+//    public List<Object[]> findTotalQuestionGameDataGroupedByDateAndPurpose(Long studentIdx) {
+//        return gameRepository.findTotalQuestionGameDataGroupedByDateAndPurpose(studentIdx);
+//    }
 
 }

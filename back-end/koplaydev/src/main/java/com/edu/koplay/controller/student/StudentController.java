@@ -4,7 +4,10 @@ import com.edu.koplay.controller.parent.ParentController;
 import com.edu.koplay.dto.*;
 import com.edu.koplay.model.*;
 import com.edu.koplay.service.GameDataService;
+import com.edu.koplay.service.GamePurposeService;
+import com.edu.koplay.service.GameService;
 import com.edu.koplay.service.RecommendLevelService;
+import com.edu.koplay.service.facade.GameFacadeService;
 import com.edu.koplay.service.facade.StudentFacadeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +16,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
@@ -23,12 +29,18 @@ public class StudentController {
     private static final Logger logger = LoggerFactory.getLogger(ParentController.class);
     private final GameDataService gameDataService;
     private final RecommendLevelService recommendLevelService;
+    private final GamePurposeService gamePurposeService;
+    private final GameService gameService;
+    private final GameFacadeService gameFacadeService;
     private StudentFacadeService studentService;
 
-    public StudentController(StudentFacadeService studentFacadeService, GameDataService gameDataService, RecommendLevelService recommendLevelService) {
+    public StudentController(StudentFacadeService studentFacadeService, GameDataService gameDataService, RecommendLevelService recommendLevelService, GamePurposeService gamePurposeService, GameService gameService, GameFacadeService gameFacadeService) {
         this.studentService = studentFacadeService;
         this.gameDataService = gameDataService;
         this.recommendLevelService = recommendLevelService;
+        this.gamePurposeService = gamePurposeService;
+        this.gameService = gameService;
+        this.gameFacadeService = gameFacadeService;
     }
 
     @GetMapping("/info")
@@ -160,9 +172,40 @@ public class StudentController {
     }
 
     @GetMapping("/mypage")
-    public String getMyPage(@RequestParam Long studentId) {
+    public ResponseEntity<?> getMyPage(@RequestParam Long studentIdx) {
         //통계부분 아직 구현 전
-        return null;
+        try {
+            String id = getAuthenticationData();
+//            System.out.println("!!!!!!!!"+id);
+            Student entity = studentService.getStudentInfo(id);
+            List<GameData> myGames = gameDataService.getStudentGameCount(entity);
+//            System.out.println("studentIdx"+studentIdx);
+            //-- 정답률 --//
+            List<Object[]> dailyResult = gameFacadeService.findDailyResult(studentIdx);
+            List<GameCorrectDTO> res = new ArrayList<>();
+            //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
+            for (Object[] result : dailyResult) {
+                // Extract values based on index
+                Date date = (Date) result[0];
+                int totalQuestion = ((Number) result[1]).intValue();
+                int correctAnswer = ((Number) result[2]).intValue();
+                String gamePurpose = (String) result[3];
+                int level = ((Number) result[4]).intValue();
+
+                // Create a new DTO and add it to the list
+                GameCorrectDTO gameResultDTO = new GameCorrectDTO(date, totalQuestion, correctAnswer,gamePurpose, level);
+                res.add(gameResultDTO);
+                //System.out.println("gameres" + gameResultDTO.toString());
+            }
+
+
+            return ResponseEntity.ok().body(res);
+        }catch(Exception e) {
+//            System.out.println(e.getMessage());
+            ResponseDTO<GameCorrectDTO> response = ResponseDTO.<GameCorrectDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
     }
 
     @PostMapping("/avatar")

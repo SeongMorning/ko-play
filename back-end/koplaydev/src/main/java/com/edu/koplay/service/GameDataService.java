@@ -1,6 +1,5 @@
 package com.edu.koplay.service;
 
-import com.edu.koplay.batch.Top3Players;
 import com.edu.koplay.dto.GameDataDTO;
 import com.edu.koplay.model.Game;
 import com.edu.koplay.model.GameData;
@@ -11,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class GameDataService {
@@ -47,4 +45,8 @@ public class GameDataService {
     public List<GameData> getStudentGameCount(Student entity) {
         return gameDataRepository.findAllByStudent(entity);
     }
+
+
+
+
 }
