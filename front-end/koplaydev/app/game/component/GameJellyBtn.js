@@ -14,7 +14,7 @@ import { changeExp } from "@/redux/slices/expSlice";
 export default function LevelJellyBtn(props) {
     const dispatch = useDispatch();
     const router = useRouter();
-    const userInfo = useSelector((state) => state.studentInfo).speechLevel;
+    const userInfo = useSelector((state) => state.studentInfo);
     const recommendLevel = userInfo.speechLevel;
     const nowLevel = useSelector((state)=> state.level)[0];
     const correctCnt = useSelector((state) => state.correct);

@@ -36,7 +36,7 @@ export default function Score() {
       </span>
       <div className={styles.recordBox}>
         {recordList.map((data, index) => 
-          <div className={styles.recordItem}>
+          <div key={index} className={styles.recordItem}>
             <span>{data.title}</span>
             <div className={styles.recordInfo}>
                 <span>총 문제 수 : 10개, 정답 개수 : {data.correct}개</span>
