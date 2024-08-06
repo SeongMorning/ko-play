@@ -54,4 +54,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "LIMIT 7"
             ,nativeQuery = true)
     List<Object[]> findDailyResult(@Param("studentIdx") Long studentIdx);
+
+    @Query(value = "SELECT count(gd.created_at) as \"gameCount\", game_purpose"+
+            "FROM koplay.game_data gd " +
+            "JOIN koplay.game g ON gd.game_idx = g.game_idx "+
+            "JOIN koplay.game_purpose gp ON g.game_idx = gp.game_idx "+
+            "WHERE gd.student_idx = :studentIdx " +
+            "GROUP BY gp.game_purpose "
+            ,nativeQuery = true)
+    List<Object[]> findGameCountPerPurpose(@Param("studentIdx") Long studentIdx);
 }
