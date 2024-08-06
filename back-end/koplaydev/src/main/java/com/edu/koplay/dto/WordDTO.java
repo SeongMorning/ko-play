@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WordDTO {
+    private Long wordIdx;
     private String wordKor;
     private String wordThailand;
     private String wordVietnam;
@@ -16,11 +17,11 @@ public class WordDTO {
     private String imgUrl;
 
     public WordDTO(final Word word) {
+        this.wordIdx = word.getWordIdx();
         this.wordKor = word.getWordKor();
         this.wordVietnam = word.getWordVietnam();
         this.wordThailand = word.getWordThailand();
         this.wordChina = word.getWordChina();
         this.imgUrl = word.getImgUrl();
     }
-
 }
