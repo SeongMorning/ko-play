@@ -47,12 +47,13 @@ export default function LogoutModalBtn(props) {
           if (authToken == null) {
             throw error;
           }
-
-          persistor.pause();
+          persistor.purge();
 
           const response = await logoutAxios();
+
           if (response != null) {
             //null이 아니면 성공
+
             router.push("/");
           }
         } else {
