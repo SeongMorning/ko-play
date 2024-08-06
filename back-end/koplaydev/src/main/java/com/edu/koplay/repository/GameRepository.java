@@ -50,7 +50,8 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             +
             "GROUP BY DATE(gd.created_at), gp.game_purpose, gd.game_level "
             +
-            "ORDER BY DATE(gd.created_at) ASC"
+            "ORDER BY DATE(gd.created_at) DESC " +
+            "LIMIT 7"
             ,nativeQuery = true)
     List<Object[]> findDailyResult(@Param("studentIdx") Long studentIdx);
 }

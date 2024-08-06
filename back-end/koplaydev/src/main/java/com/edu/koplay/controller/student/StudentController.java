@@ -195,11 +195,32 @@ public class StudentController {
                 // Create a new DTO and add it to the list
                 GameCorrectDTO gameResultDTO = new GameCorrectDTO(date, totalQuestion, correctAnswer,gamePurpose, level);
                 res.add(gameResultDTO);
+
+
+
                 //System.out.println("gameres" + gameResultDTO.toString());
             }
 
 
-            return ResponseEntity.ok().body(res);
+            List<Object[]> dailyExp = gameFacadeService.getDailyExp(studentIdx);
+            List<ExpDTO> res2 = new ArrayList<>();
+            //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
+            for (Object[] result : dailyExp) {
+                // Extract values based on index
+
+                int exp = ((Number) result[0]).intValue();
+                Date date = (Date) result[1];
+
+
+                // Create a new DTO and add it to the list
+                ExpDTO expDTO = new ExpDTO(exp, date);
+                res2.add(expDTO);
+                //System.out.println("gameres" + gameResultDTO.toString());
+            }
+            ArrayList<Object> res3 = new ArrayList<>();
+            res3.add(res);
+            res3.add(res2);
+            return ResponseEntity.ok().body(res3);
         }catch(Exception e) {
 //            System.out.println(e.getMessage());
             ResponseDTO<GameCorrectDTO> response = ResponseDTO.<GameCorrectDTO>builder().error(e.getMessage()).build();
