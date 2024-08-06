@@ -92,4 +92,8 @@ public class GameFacadeService {
     public List<Object[]> getDailySpecific(Long studentIdx) {
         return gameRepository.findDailySpecific(studentIdx);
     }
+
+    public List<Object[]> findAllAveragePerPurpose() {
+        return gameRepository.findAllAveragePerPurpose();
+    }
 }
