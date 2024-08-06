@@ -27,7 +27,7 @@ public class Student {
     private Parent parent;
     //student를 인서트 할떄 fk값이 있어야 매핑을 하는데
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String studentId;
 
     @Column(nullable = false)
