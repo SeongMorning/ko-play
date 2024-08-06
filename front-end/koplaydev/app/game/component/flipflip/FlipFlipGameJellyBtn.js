@@ -69,7 +69,7 @@ export default function FlipFlipGameJellyBtn(props) {
           dispatch(changeExp(unitScore * correctCnt))
           dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
-        }else if(props.text === "아니요"){
+        }else if(props.text === "아니요" || props.text === "확인"){
           dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)))
           dispatch(changeInCorrect(false));
           dispatch(changeLoadingIdx(1));
