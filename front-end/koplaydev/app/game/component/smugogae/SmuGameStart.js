@@ -67,9 +67,6 @@ export default function SmuGameStart() {
 
   useEffect(() => {
     startGame();
-    console.log(hints);
-    console.log(chosenWords);
-    console.log(wordList);
   }, [wordList]);
 
   const startGame = async () => {

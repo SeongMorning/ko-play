@@ -89,10 +89,10 @@ export default function FlipFlipGameEnd() {
     }
   }, [afterExp, beforeExp, expAnimation]);
 
-   // 중복된 항목을 제거한 wrongList
-   const uniqueWrongList = Array.from(new Set(wrongList.map(item => item.idx)))
-   .map(idx => wrongList.find(item => item.idx === idx));
-
+  // 중복된 항목을 제거한 wrongList
+  const uniqueWrongList = Array.from(
+    new Set(wrongList.map((item) => item.idx))
+  ).map((idx) => wrongList.find((item) => item.idx === idx));
 
   return (
     <>
@@ -150,10 +150,13 @@ export default function FlipFlipGameEnd() {
             ))}
           </motion.div>
         ) : (
-          <img
-            className={styles.character}
-            src="/character-dancingMachine.gif"
-          />
+          <div className={styles.characterContainer}>
+            <img
+              className={styles.character}
+              src="/character-dancingMachine.gif"
+            />
+            <div className={styles.videoBack}></div>
+          </div>
         )}
       </div>
       <motion.div

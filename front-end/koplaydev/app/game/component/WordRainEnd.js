@@ -12,19 +12,25 @@ export default function WordRainEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
   const wrongList = useSelector((state) => state.wrong);
   const Incorrect = useSelector((state) => state.incorrect);
-  const correctCnt = useSelector((state) => state.correct)
+  const correctCnt = useSelector((state) => state.correct);
   const gameIdx = useSelector((state) => state.game);
   const gameList = useSelector((state) => state.level);
   const exp = useSelector((state) => state.exp);
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
 
-  useEffect(()=>{
+  useEffect(() => {
     const postGameResult = async () => {
-      const res = await gameResultAxios(gameIdx, correctCnt, 10, gameList[0], exp);
-    }
+      const res = await gameResultAxios(
+        gameIdx,
+        correctCnt,
+        10,
+        gameList[0],
+        exp
+      );
+    };
     postGameResult();
-  }, [])
+  }, []);
 
   const container = {
     hidden: { opacity: 1 },
@@ -140,24 +146,29 @@ export default function WordRainEnd() {
                 <CardFrontImage width="18" height="100" imgSrc={data.imgUrl} />
                 <div className={styles.KoreaWord}>
                   {data.wordKor}
-                  <img 
-                  src="/WordSound.png"
-                  onClick={() => speakWord(data.wordKor)} />
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakWord(data.wordKor)}
+                  />
                 </div>
                 <div className={styles.ForeignWord}>
                   {data.wordThailand}
-                  <img 
-                  src="/WordSound.png"
-                  onClick={() => speakForeignWord(data.Thailand)} />
+                  <img
+                    src="/WordSound.png"
+                    onClick={() => speakForeignWord(data.Thailand)}
+                  />
                 </div>
               </motion.div>
             ))}
           </motion.div>
         ) : (
-          <img
-            className={styles.character}
-            src="/character-dancingMachine.gif"
-          />
+          <div className={styles.characterContainer}>
+            <img
+              className={styles.character}
+              src="/character-dancingMachine.gif"
+            />
+            <div className={styles.videoBack}></div>
+          </div>
         )}
       </div>
       <motion.div
