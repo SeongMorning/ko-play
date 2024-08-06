@@ -6,16 +6,11 @@ import FlipFlipGameStart from "./FlipFlipGameStart";
 import FlipFlipGameEnd from "./FlipFlipGameEnd";
 
 export default function FlipFlipGame() {
-  // 선택한 레벨
-  const chooseLevel = 5;
-  // 현재 추천 레벨
-  const recommendLevel = 1;
-
   const loading = useSelector((state) => state.loading);
   if (loading === -1) {
     return <GameStartBtn />;
   } else if (loading === 0) {
-    return <FlipFlipGameStart Level={chooseLevel} Recommend={recommendLevel} />;
+    return <FlipFlipGameStart />;
   } else if (loading === 1) {
     return <FlipFlipGameEnd />;
   } else {

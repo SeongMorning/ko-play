@@ -3,6 +3,8 @@ import styles from "./BlueBox.module.scss";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import {motion} from 'framer-motion';
 import modifyStudentInfoAxios from "@/app/axios/modifyStudentInfoAxios";
+import studentInfo, { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
+import student from "@/app/axios/studentInfo";
 
 export default function BlueBox(props) {
   const dispatch = useDispatch();
@@ -16,6 +18,8 @@ export default function BlueBox(props) {
       }}
       onClick={async ()=>{
         await modifyStudentInfoAxios({...userInfo, visited : true, nickname : props.nickname, schoolName : props.school})
+        let firstUserInfo = await student();
+        dispatch(changeStudentInfo(firstUserInfo));
         dispatch(changeModalIdx(0));
       }}
     >

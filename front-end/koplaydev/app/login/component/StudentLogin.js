@@ -6,10 +6,14 @@ import login from "../../axios/login";
 import YellowBox from "@/app/component/boxes/YellowBox";
 import LoginModalBtn from "./LoginModalBtn";
 import {motion} from 'framer-motion';
+import student from "@/app/axios/studentInfo";
+import { useDispatch } from "react-redux";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
+import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 
 export default function StudentLogin() {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   // 각각의 입력 필드에 대한 useRef 선언
   const idRef = useRef(null);
   const passwordRef = useRef(null);
@@ -24,9 +28,17 @@ export default function StudentLogin() {
     formData.append("password", passwordRef.current.value);
     // 값 확인을 위해 콘솔에 출력
     const response = await login(formData);
-
+    console.log(response)
     if (response != null) {
       //null이 아니면 성공
+      let userInfo = await student();
+      if(!userInfo.visited){
+        dispatch(changeModalIdx(1000));
+        dispatch(changeStudentInfo(userInfo));
+      }else{
+        dispatch(changeModalIdx(0));
+        dispatch(changeStudentInfo(userInfo));
+      }
       setLoginModal(1);
     } else {
       setLoginModal(-1);

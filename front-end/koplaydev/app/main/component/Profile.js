@@ -22,13 +22,6 @@ export default function Profile() {
   const avatar = useSelector((state) => state.avatar);
   const myAvatar = useSelector((state) => state.myAvatar);
 
-  useEffect(()=>{
-    dispatch(changeLoadingIdx(-1))
-    if(!userInfo.visited){
-      dispatch(changeModalIdx(1000))
-    }
-  }, [])
-
   useEffect(() => {
     const fetchStudentInfo = async () => {
       const response = await studentInfo();
@@ -56,12 +49,22 @@ export default function Profile() {
     fetchStudentInfo(); // 비동기 함수 호출
     fetchAllAvatarInfo();
     fetchMyAvatarInfo();
+
+    dispatch(changeLoadingIdx(-1))
   }, []);
 
   useEffect(()=>{
     dispatch(changeListenLevel(userInfo.listeningLevel));
     dispatch(changeSpeechLevel(userInfo.speechLevel));
     dispatch(changeReadLevel(userInfo.readingLevel));
+
+    if(!userInfo.visited){
+      console.log("첫방문임")
+      dispatch(changeModalIdx(1000))
+    }else{
+      console.log("첫방문아님")
+      dispatch(changeModalIdx(0));
+    }
   }, [userInfo])
   return (
     <motion.div

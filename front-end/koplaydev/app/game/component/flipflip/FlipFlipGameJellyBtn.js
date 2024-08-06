@@ -7,29 +7,43 @@ import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import { useRouter } from "next/navigation";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeCorrectIdx } from "@/redux/slices/correct";
-import { changeInCorrect } from "@/redux/slices/Incorrect";
+import incorrect, { changeInCorrect } from "@/redux/slices/Incorrect";
 import { useEffect, useState } from "react";
 import { changeExp } from "@/redux/slices/expSlice";
 
 export default function FlipFlipGameJellyBtn(props) {
     const dispatch = useDispatch()
     const router = useRouter();
-    const userInfo = useSelector((state) => state.studentInfo).speechLevel;
-    const recommendLevel = userInfo.speechLevel
-    const nowLevel = useSelector((state)=> state.level)[0];
+
+    const userInfo = useSelector((state) => state.studentInfo);
+    const recommendLevel = userInfo.readingLevel;
+
+    const nowLevel = useSelector((state)=> state.level)[1];
     const correctCnt = useSelector((state) => state.correct)
-    // let unitScore = 0;
+    const FlipFlipLevel = useSelector((state) => state.level);
+
+    const getQuestion = () => { 
+      if(FlipFlipLevel[1] === 1 || FlipFlipLevel[1] === 2) {
+          return 4;
+      } else if(FlipFlipLevel[1] === 3 || FlipFlipLevel[1] === 4) {
+          return 6;
+      } else {
+          return 8;
+      }}
+  
+      const question = getQuestion();
+
     const [unitScore, setUnitScore] = useState(0);
 
     useEffect(()=>{
       if(recommendLevel - nowLevel === 0){
-        setUnitScore(30);
+        setUnitScore(30 / question);
       }else if(recommendLevel - nowLevel === 1){
-        setUnitScore(20);
+        setUnitScore(20 / question);
       }else if(recommendLevel - nowLevel >= 2){
-        setUnitScore(10);
+        setUnitScore(10 / question);
       }else{
-        setUnitScore(30);
+        setUnitScore(30 / question);
       }
     },[recommendLevel, nowLevel])
 
@@ -50,12 +64,13 @@ export default function FlipFlipGameJellyBtn(props) {
       onClick={()=>{
         if(props.text === "예"){
           console.log(unitScore)
-          // console.log(correctCnt)
-          dispatch(changeExp(unitScore))
+          console.log("맞은 개수")
+          console.log(correctCnt)
+          dispatch(changeExp(unitScore * correctCnt))
           dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
         }else if(props.text === "아니요"){
-          dispatch(changeExp(Math.round((unitScore) / 2)))
+          dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)))
           dispatch(changeInCorrect(false));
           dispatch(changeLoadingIdx(1));
         }else{
