@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import axios from 'axios';
 import logoutAxios from "@/app/axios/logoutAxios";
+import { persistor } from '../../../redux/reduxStore';
+
 
 // props : left, top, bg, shadow, imgSrc
 export default function MainMenuBtn(props) {
@@ -45,6 +47,7 @@ export default function MainMenuBtn(props) {
           if (authToken == null) {
             throw error;
           }
+          persistor.purge();
 
           const response = await logoutAxios();
           if(response != null){

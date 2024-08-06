@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { changeMyPageIdx } from "@/redux/slices/myPageSlice";
 import logoutAxios from "@/app/axios/logoutAxios";
+import { persistor } from '../../../redux/reduxStore';
+
 
 // props : left, top, score, question, text
 export default function BackScoreBtn(props) {
@@ -45,8 +47,10 @@ export default function BackScoreBtn(props) {
           if (authToken == null) {
             router.push("/")
           }
+          persistor.purge();
 
           const response = await logoutAxios();
+          
           if(response != null){
             //null이 아니면 성공
             router.push("/")
