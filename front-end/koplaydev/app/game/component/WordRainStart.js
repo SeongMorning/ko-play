@@ -63,6 +63,8 @@ export default function WordRainStart() {
       SetViewWord(viewWords);
       let a = wordObjectList.filter((data) => data.state === 1).length; // 정답
       let b = wordObjectList.filter((data) => data.state === -1).length; // 오답
+      console.log(a);
+      console.log(b);
 
       dispatch(changeCorrectIdx(a)); // a로 바꾸기
       if (a + b === 10) {

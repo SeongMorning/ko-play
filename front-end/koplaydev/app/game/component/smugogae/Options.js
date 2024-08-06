@@ -18,24 +18,25 @@ export default function Options({ words, onGuess, correctWord, reset }) {
 
   return (
     <div className={styles.optionsContainer}>
-      {words.map((word, index) => (
+      {words.map((wordObj, index) => (
         <CardText
           key={index}
           left={`${index * 10}px`}
           top="20px"
           width="14vw"
           height="14vw"
-          text={word}
+          text={wordObj.wordKor}
+          imgUrl={wordObj.imgUrl}
           isCorrect={
             selectedWord === null
               ? null
-              : word === correctWord
+              : wordObj.wordKor === correctWord
               ? true
-              : word === selectedWord
+              : wordObj.wordKor === selectedWord
               ? false
               : false
           }
-          onClick={() => handleCardClick(word)}
+          onClick={() => handleCardClick(wordObj.wordKor)}
         />
       ))}
     </div>

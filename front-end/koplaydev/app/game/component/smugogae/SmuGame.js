@@ -1,14 +1,14 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import GameStartBtn from "../GameStartBtn";
+import SmuGameStartBtn from "./SmuGameStartBtn";
 import SmuGameStart from "./SmuGameStart";
 import SmuGameEnd from "./SmuGameEnd";
 
 export default function WordRainGame() {
   const loading = useSelector((state) => state.loading);
   if (loading === -1) {
-    return <GameStartBtn />;
+    return <SmuGameStartBtn />;
   } else if (loading === 0) {
     return <SmuGameStart />;
   } else if (loading === 1) {

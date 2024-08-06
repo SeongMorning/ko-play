@@ -6,14 +6,31 @@ import CardFrontImage from "../CardFrontImage";
 import { motion, useAnimation } from "framer-motion";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
 import { useEffect } from "react";
+import gameResultAxios from "@/app/axios/gameResultAxios";
 
 export default function SmuGameEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
   const wrongList = useSelector((state) => state.wrong);
   const Incorrect = useSelector((state) => state.incorrect);
   const exp = useSelector((state) => state.exp);
+  const gameIdx = useSelector((state) => state.game);
+  const gameList = useSelector((state) => state.level);
+
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
+
+  useEffect(() => {
+    const postGameResult = async () => {
+      const res = await gameResultAxios(
+        gameIdx,
+        3 - wrongList.length,
+        3,
+        gameList[2],
+        exp
+      );
+    };
+    postGameResult();
+  }, []);
 
   const container = {
     hidden: { opacity: 1 },
@@ -34,15 +51,6 @@ export default function SmuGameEnd() {
       },
     },
   };
-  // 중국어 : zh-CN
-  // 태국어 : th-TH
-  // 베트남어 : vi-VN
-  // 한국어 : kr-KR
-  // 영어 : en-EN
-  // 부모의 국가 받아와서.
-
-  // 부모 국적 받아와서
-
   let nation = "kr-KR";
   if (userInfo.nation === "Thailand") {
     nation = "th-TH";
@@ -134,29 +142,32 @@ export default function SmuGameEnd() {
                 className={styles.wrong}
                 variants={wrongVariants}
               >
-                <CardFrontImage width="18" height="100" imgSrc={data.imgSrc} />
+                <CardFrontImage width="18" height="100" imgSrc={data.imgUrl} />
                 <div className={styles.KoreaWord}>
-                  {data.word}
+                  {data.wordKor}
                   <img
                     src="/WordSound.png"
-                    onClick={() => speakWord(data.word)}
+                    onClick={() => speakWord(data.wordKor)}
                   />
                 </div>
                 <div className={styles.ForeignWord}>
-                  {data.word2}
+                  {data.wordVietnam}
                   <img
                     src="/WordSound.png"
-                    onClick={() => speakForeignWord(data.word2)}
+                    onClick={() => speakForeignWord(data.wordVietnam)}
                   />
                 </div>
               </motion.div>
             ))}
           </motion.div>
         ) : (
-          <img
-            className={styles.character}
-            src="/character-dancingMachine.gif"
-          />
+          <div className={styles.characterContainer}>
+            <img
+              className={styles.character}
+              src="/character-dancingMachine.gif"
+            />
+            <div className={styles.videoBack}></div>
+          </div>
         )}
       </div>
       <motion.div

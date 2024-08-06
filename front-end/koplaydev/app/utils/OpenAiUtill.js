@@ -16,7 +16,7 @@ export const OpenAiUtill = {
         // model:"gpt-4o",
       });
 
-      console.log(completion.choices[0]);
+      // console.log(completion.choices[0]);
       return completion.choices[0];
     } catch (error) {
       console.log("OpenAi API 실행중 오류 발생 : " + error);

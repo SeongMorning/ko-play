@@ -23,6 +23,11 @@
       font-size: 2vw;
       font-weight: bold;
     }
+    .cardImage {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: cover;
+    }
   }
 
   .correct {

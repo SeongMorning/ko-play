@@ -21,7 +21,8 @@ public class ScheduledBatchRunner {
     }
 
     //@Scheduled(cron = "0 30 23 * * ?")
-    @Scheduled(cron = "0 * * * * ?") //: 이 크론 표현식은 매 1분마다 작업을 실행하도록 설정합니다.
+//    @Scheduled(cron = "0 * * * * ?") //: 이 크론 표현식은 매 1분마다 작업을 실행하도록 설정합니다.
+    @Scheduled(cron = "0 30 23 * * ?") // 매일 밤 11시 30분에 실행
     public void runBatchJob() {
         try {
             JobParameters jobParameters = new JobParametersBuilder()

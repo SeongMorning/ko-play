@@ -9,150 +9,30 @@ import { motion } from "framer-motion";
 import YellowBox from "@/app/component/boxes/YellowBox";
 import SmuGameJellyBtn from "./SmuGameJellyBtn";
 import styles from "./SmuGameStart.module.scss";
-import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 import TalkBalloon from "@/app/component/TalkBalloon";
 import PlayJellyBtn from "./PlayJellyBtn";
 import { changeExp } from "@/redux/slices/expSlice";
 
-const words = [
-  [
-    {
-      imgSrc: "/korea-3.png",
-      word: "사과",
-      word2: "xiǎogǒu",
-    },
-    {
-      imgSrc: "/korea-3.png",
-      word: "바나나",
-      word2: "xiǎogǒu",
-    },
-    {
-      imgSrc: "/korea-3.png",
-      word: "포도",
-      word2: "xiǎogǒu",
-    },
-  ],
-  [
-    {
-      imgSrc: "/korea-3.png",
-      word: "오렌지",
-      word2: "con hổ",
-    },
-    {
-      imgSrc: "/korea-3.png",
-      word: "딸기",
-      word2: "con hổ",
-    },
-    {
-      imgSrc: "/korea-3.png",
-      word: "키위",
-      word2: "con hổ",
-    },
-  ],
-  [
-    {
-      imgSrc: "/korea-3.png",
-      word: "배",
-      word2: "เสือ",
-    },
-    {
-      imgSrc: "/korea-3.png",
-      word: "수박",
-      word2: "เสือ",
-    },
-    {
-      imgSrc: "/korea-3.png",
-      word: "복숭아",
-      word2: "เสือ",
-    },
-  ],
-];
-function convertTo3x3Grid(data) {
-  const grid = [];
-  for (let i = 0; i < 3; i++) {
-    grid.push(data.slice(i * 3, i * 3 + 3));
-  }
-  return grid;
-}
-const data = [
-  {
-    imgUrl: "",
-    wordChina: "苹果",
-    wordKor: "사과",
-    wordThailand: "แอปเปิ้ล",
-    wordVietnam: "táo",
-  },
-  {
-    imgUrl: "",
-    wordChina: "香蕉",
-    wordKor: "바나나",
-    wordThailand: "กล้วย",
-    wordVietnam: "chuối",
-  },
-  {
-    imgUrl: "",
-    wordChina: "葡萄",
-    wordKor: "포도",
-    wordThailand: "องุ่น",
-    wordVietnam: "nho",
-  },
-  {
-    imgUrl: "",
-    wordChina: "橙子",
-    wordKor: "오렌지",
-    wordThailand: "ส้ม",
-    wordVietnam: "cam",
-  },
-  {
-    imgUrl: "",
-    wordChina: "草莓",
-    wordKor: "딸기",
-    wordThailand: "สตรอเบอร์รี่",
-    wordVietnam: "dâu",
-  },
-  {
-    imgUrl: "",
-    wordChina: "猕猴桃",
-    wordKor: "키위",
-    wordThailand: "กีวี่",
-    wordVietnam: "kiwi",
-  },
-  {
-    imgUrl: "",
-    wordChina: "梨",
-    wordKor: "배",
-    wordThailand: "ลูกแพร์",
-    wordVietnam: "lê",
-  },
-  {
-    imgUrl: "",
-    wordChina: "西瓜",
-    wordKor: "수박",
-    wordThailand: "แตงโม",
-    wordVietnam: "dưa hấu",
-  },
-  {
-    imgUrl: "",
-    wordChina: "桃子",
-    wordKor: "복숭아",
-    wordThailand: "ลูกท้อ",
-    wordVietnam: "đào",
-  },
-];
 export default function SmuGameStart() {
+  const dispatch = useDispatch();
   const wordList = useSelector((state) => state.gameWord);
-  const [wordObjectList, setWordObjectList] = useState([]);
-  const test = convertTo3x3Grid(data);
-  useEffect(() => {
-    const wordData = convertTo3x3Grid(wordList);
-    setWordObjectList(wordData);
-    console.log(wordObjectList);
-  }, [wordList]);
-
   const userInfo = useSelector((state) => state.studentInfo);
   const recommendLevel = userInfo.listeningLevel;
   const levelList = useSelector((state) => state.level);
   const listenLevel = levelList[2];
+  const { hints, chosenWords } = useSelector((state) => state.hints);
+  const exp = useSelector((state) => state.exp);
+  const wrongAnswers = useSelector((state) => state.wrong);
+  const correctAnswers = useSelector((state) => state.correct);
+
+  const [gameOver, setGameOver] = useState(false);
+  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentHintIndex, setCurrentHintIndex] = useState(0);
+  const [correctWord, setCorrectWord] = useState(null);
+  const [reset, setReset] = useState(false);
+  const [playHint, setPlayHint] = useState(false);
+  const [modal, setModal] = useState(false);
+
   let initialSpeechSpeed = 1;
   if (listenLevel === 1) {
     initialSpeechSpeed = 0.7;
@@ -165,6 +45,7 @@ export default function SmuGameStart() {
   } else if (listenLevel === 5) {
     initialSpeechSpeed = 1.3;
   }
+
   let unitScore = 0;
   let totalexp = 0;
   let pointByHints = 0;
@@ -182,63 +63,13 @@ export default function SmuGameStart() {
       unitScore = 15;
       pointByHints = 3;
     }
-  });
-  const exp = useSelector((state) => state.exp);
-
-  const [speechSpeed, setSpeechSpeed] = useState(initialSpeechSpeed);
-  const [currentWords, setCurrentWords] = useState([]);
-  const [hints, setHints] = useState([]);
-  const [gameOver, setGameOver] = useState(false);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [currentHintIndex, setCurrentHintIndex] = useState(0);
-  const [correctWord, setCorrectWord] = useState(null);
-  const [reset, setReset] = useState(false);
-  const [playHint, setPlayHint] = useState(false);
-
-  const dispatch = useDispatch();
-  const wrongAnswers = useSelector((state) => state.wrong);
-  const correctAnswers = useSelector((state) => state.correct);
-
-  const [modal, setModal] = useState(false);
+  }, [listenLevel, recommendLevel]);
 
   useEffect(() => {
     startGame();
-    console.log(test);
-  }, []);
+  }, [wordList]);
 
   const startGame = async () => {
-    // const chosenWords = words.map(
-    const chosenWords = wordObjectList.map(
-      (wordSet) => wordSet[Math.floor(Math.random() * wordSet.length)]
-    );
-    setCurrentWords(chosenWords);
-
-    try {
-      const hintsResponse = await Promise.all(
-        chosenWords.map((wordObj) => {
-          return new Promise((resolve) => {
-            let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${wordObj.word}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막으로 갈수록 구체적으로 무조건 5개의 힌트를 줘. 정답을 알려주면 안 돼. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
-            resolve(OpenAiUtill.prompt(msg));
-          })
-            .then((result) => {
-              return result.message.content
-                .split("\n")
-                .map((h) => h.trim().replace(/Hint\d+: /, ""));
-            })
-            .catch((err) => {
-              console.error("Error fetching hints:", err);
-              return ["힌트를 가져오는 데 문제가 발생했습니다."];
-            });
-        })
-      );
-      setHints(hintsResponse);
-    } catch (error) {
-      console.error("Error fetching hints:", error);
-      setHints(
-        chosenWords.map(() => ["힌트를 가져오는 데 문제가 발생했습니다."])
-      );
-    }
-
     dispatch(changeCorrectIdx(0));
     dispatch(changeWrong([]));
     setCurrentHintIndex(0);
@@ -264,19 +95,19 @@ export default function SmuGameStart() {
 
   const handleGuess = (guess) => {
     window.speechSynthesis.cancel();
-    setCorrectWord(currentWords[currentQuestion].word);
-    if (guess === currentWords[currentQuestion].word) {
+    setCorrectWord(chosenWords[currentQuestion].wordKor);
+    if (guess === chosenWords[currentQuestion].wordKor) {
       dispatch(changeCorrectIdx(correctAnswers + 1));
       totalexp += unitScore - currentHintIndex * pointByHints;
       dispatch(changeExp(totalexp));
     } else {
-      dispatch(changeWrong([...wrongAnswers, currentWords[currentQuestion]]));
+      dispatch(changeWrong([...wrongAnswers, chosenWords[currentQuestion]]));
     }
     setTimeout(handleNextQuestion, 2000);
   };
 
   const handleNextQuestion = () => {
-    if (currentQuestion < currentWords.length - 1) {
+    if (currentQuestion < chosenWords.length - 1) {
       setCurrentQuestion(currentQuestion + 1);
       setCurrentHintIndex(0);
       setCorrectWord(null);
@@ -341,7 +172,7 @@ export default function SmuGameStart() {
         <Hint
           hint={hints[currentQuestion]?.[currentHintIndex]}
           playHint={playHint}
-          rate={speechSpeed}
+          rate={initialSpeechSpeed}
           onEnd={() => setPlayHint(false)}
         />
         {!gameOver && (
@@ -355,11 +186,9 @@ export default function SmuGameStart() {
               }`}
             />
             <Options
-              words={wordObjectList[currentQuestion].map(
-                (wordObj) => wordObj.word
-              )}
+              words={wordList[currentQuestion]}
               onGuess={handleGuess}
-              correctWord={currentWords[currentQuestion]?.word}
+              correctWord={chosenWords[currentQuestion].wordKor}
               reset={reset}
             />
             <PlayJellyBtn

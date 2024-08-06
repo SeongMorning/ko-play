@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import styles from "./CardText.module.scss";
 
-// props : left, top, width, height, text, onClick, isCorrect
+// props : left, top, width, height, text, onClick, isCorrect, imgUrl
 export default function CardText(props) {
   const [color, setColor] = useState("");
 
@@ -28,7 +28,11 @@ export default function CardText(props) {
       onClick={props.onClick}
     >
       <div className={`${styles.cardInner} ${styles[color]}`}>
-        <span>{props.text}</span>
+        <img
+          src={props.imgUrl}
+          alt="카드 이미지"
+          className={styles.cardImage}
+        />
       </div>
     </div>
   );
