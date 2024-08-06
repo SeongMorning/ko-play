@@ -2,6 +2,7 @@ package com.edu.koplay.service.facade;
 
 import com.edu.koplay.dto.GameDataDTO;
 import com.edu.koplay.model.*;
+import com.edu.koplay.repository.GameDataRepository;
 import com.edu.koplay.repository.GameRepository;
 import com.edu.koplay.service.*;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,7 @@ import java.util.List;
 @Service
 public class GameFacadeService {
     private final GameRepository gameRepository;
+    private final GameDataRepository gameDataRepository;
     Logger logger = LoggerFactory.getLogger(GameFacadeService.class);
     private GameService gameService;
     private WordService wordService;
@@ -27,7 +29,7 @@ public class GameFacadeService {
 
 
     @Autowired
-    public GameFacadeService(GameService gameService, WordService wordService, StudentService studentService, GamePurposeService gamePurposeService, GameDataService gameDataService,RecommendLevelService recommendLevelService,  GameRepository gameRepository) {
+    public GameFacadeService(GameService gameService, WordService wordService, StudentService studentService, GamePurposeService gamePurposeService, GameDataService gameDataService, RecommendLevelService recommendLevelService, GameRepository gameRepository, GameDataRepository gameDataRepository) {
 
         this.gameService = gameService;
         this.wordService = wordService;
@@ -37,7 +39,7 @@ public class GameFacadeService {
 
         this.recommendLevelService = recommendLevelService;
         this.gameRepository = gameRepository;
-
+        this.gameDataRepository = gameDataRepository;
     }
 
     public List<GamePurpose> getAllGames(Boolean isRank) {
@@ -76,6 +78,10 @@ public class GameFacadeService {
     public List<Object[]> findDailyResult(long studentIdx) {
 
         return gameRepository.findDailyResult(studentIdx);
+    }
+
+    public List<Object[]> getDailyExp(Long studentIdx) {
+        return gameDataRepository.getDailyExp(studentIdx);
     }
 
 //    public List<Object[]> findTotalQuestionGameDataGroupedByDateAndPurpose(Long studentIdx) {

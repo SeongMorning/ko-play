@@ -15,7 +15,7 @@ public class GameCorrectDTO {
     private int correctAnswer;
     private String gamePurpose;
     private int level;
-
+    
     public GameCorrectDTO(Date date, int totalQuestion, int correctAnswer, String gamePurpose, int level) {
         this.date = date;
         this.totalQuestion = totalQuestion;
