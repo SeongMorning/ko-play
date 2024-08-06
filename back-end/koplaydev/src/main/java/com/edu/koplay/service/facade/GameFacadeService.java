@@ -89,5 +89,7 @@ public class GameFacadeService {
     }
 
 
-
+    public List<Object[]> getDailySpecific(Long studentIdx) {
+        return gameRepository.findDailySpecific(studentIdx);
+    }
 }

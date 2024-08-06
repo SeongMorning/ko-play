@@ -219,9 +219,31 @@ public class StudentController {
                 res2.add(expDTO);
                 //System.out.println("gameres" + gameResultDTO.toString());
             }
+
+            List<Object[]> dailySpecificRes = gameFacadeService.getDailySpecific(studentIdx);
+            List<DailySpecificDTO> res4 = new ArrayList<>();
+            //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
+            for (Object[] result : dailySpecificRes) {
+                // Extract values based on index
+
+                Date date = (Date) result[0];
+                int correct = ((Number) result[1]).intValue();
+                int question = ((Number) result[2]).intValue();
+                String gamePurpose = (String) result[3];
+                int level = ((Number) result[4]).intValue();
+
+
+
+                // Create a new DTO and add it to the list
+                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(date, correct, question, gamePurpose, level );
+                res4.add(dailySpecificDTO);
+                //System.out.println("gameres" + gameResultDTO.toString());
+            }
+
             ArrayList<Object> res3 = new ArrayList<>();
             res3.add(res);
             res3.add(res2);
+            res3.add(res4);
             return ResponseEntity.ok().body(res3);
         }catch(Exception e) {
 //            System.out.println(e.getMessage());
