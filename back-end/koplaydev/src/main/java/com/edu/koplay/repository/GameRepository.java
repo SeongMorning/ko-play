@@ -64,12 +64,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Object[]> findGameCountPerPurpose(@Param("studentIdx") Long studentIdx);
 
 
-    @Query(value = "SELECT DATE(gd.created_at) AS date, gd.correct AS correct, gd.total_question AS question, gp.game_purpose, gd.game_level "+
+    @Query(value = "SELECT DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i') AS date, gd.correct AS correct, gd.total_question AS question, gp.game_purpose, gd.game_level "+
             "FROM koplay.game_data gd JOIN game g ON gd.game_idx = g.game_idx "+
             "JOIN koplay.game_purpose gp ON g.game_idx = gp.game_idx "+
             "where koplay.gd.student_idx = :studentIdx "+
-            "GROUP BY DATE(gd.created_at), gp.game_purpose, gd.game_level, gd.correct, gd.total_question "+
-            "ORDER BY DATE(gd.created_at) Desc " +
+            "GROUP BY DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i'), gp.game_purpose, gd.game_level, gd.correct, gd.total_question "+
+            "ORDER BY DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i') Desc " +
             "LIMIT 20 "
             ,nativeQuery = true)
     List<Object[]> findDailySpecific(@Param("studentIdx") Long studentIdx);
@@ -78,7 +78,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "FROM game_data gd JOIN game g ON gd.game_idx = g.game_idx JOIN game_purpose gp ON g.game_idx = gp.game_idx " +
             "WHERE gd.created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) "+
             "GROUP BY gp.game_purpose " +
-            "ORDER BY date(created_at) desc "
+            "ORDER BY date(gd.created_at) desc "
             , nativeQuery = true)
     List<Object[]> findAllAveragePerPurpose();
 }
