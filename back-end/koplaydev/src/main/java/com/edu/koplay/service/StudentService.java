@@ -85,7 +85,7 @@ public class StudentService {
         beforeStudent.setNickname(student.getNickname());
         beforeStudent.setProfileImg(student.getProfileImg());
         beforeStudent.setSchoolName(student.getSchoolName());
-
+        beforeStudent.setVisited(student.isVisited());
         return beforeStudent;
     }
 
