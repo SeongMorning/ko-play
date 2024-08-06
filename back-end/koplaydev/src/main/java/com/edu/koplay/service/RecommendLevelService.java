@@ -30,10 +30,10 @@ public class RecommendLevelService {
         //gamepurpose gameIdx 로 purpose 조회하기.
         //perposeIdx 1:말,  2:읽, 3:듣
 //        gameLevel;
-        RecommendLevel level = recommendLevelRepository.findByStudent(student);
+        RecommendLevel level = recommendLevelRepository.findAllByStudent(student);
 
         //정답률 계산
-        double percent = (data.getCorrect() % data.getTotalQuestion()) * 100;
+        double percent = ((double) data.getCorrect() / data.getTotalQuestion()) * 100;
         if (percent >= 80) {
             //레벨 올리기
             if (purpose.getGamePurposeIdx() == 1) {

@@ -3,6 +3,7 @@ package com.edu.koplay.controller.game;
 import com.edu.koplay.batch.Top3Players;
 import com.edu.koplay.dto.*;
 import com.edu.koplay.model.GamePurpose;
+import com.edu.koplay.model.RecommendLevel;
 import com.edu.koplay.model.Student;
 import com.edu.koplay.model.Word;
 import com.edu.koplay.service.GameDataService;
@@ -84,10 +85,13 @@ public class GameController {
             String id = getAuthenticationData();
 
             Student student = gameService.addGameData(id, gameResultDataDTO);
-            //여기서 추천레벨 변경해줘야함! 로직 추가
+            int count = gameDataService.getStudentGameCount(student).size()+1;
+            RecommendLevel level = gameService.getStudentLevel(student);
+
 
             //dto 전환
-            StudentDTO dto = new StudentDTO(student);
+            StudentDTO dto = new StudentDTO(student,level);
+            dto.setTotalGameCount(count);
 
             ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
 
