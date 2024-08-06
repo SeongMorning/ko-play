@@ -1,11 +1,11 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import styles from "./SmuGameEnd.module.scss";
 import CardFrontImage from "../CardFrontImage";
 import { motion, useAnimation } from "framer-motion";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
-import { useEffect } from "react";
 import gameResultAxios from "@/app/axios/gameResultAxios";
 
 export default function SmuGameEnd() {
@@ -16,7 +16,11 @@ export default function SmuGameEnd() {
   const gameIdx = useSelector((state) => state.game);
   const gameList = useSelector((state) => state.level);
   const beforeExp = userInfo.exp % 100;
-  const afterExp = beforeExp + exp;
+  const afterExp = 120;
+
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [showBlackScreen, setShowBlackScreen] = useState(false);
+  const [showRewardButton, setShowRewardButton] = useState(false);
 
   useEffect(() => {
     const postGameResult = async () => {
@@ -75,6 +79,7 @@ export default function SmuGameEnd() {
 
   useEffect(() => {
     if (afterExp > 100) {
+      setShowLevelUp(true);
       expAnimation
         .start({
           width: "100%",
@@ -84,6 +89,7 @@ export default function SmuGameEnd() {
           },
         })
         .then(() => {
+          setShowRewardButton(true);
           expAnimation.set({ width: "0%" });
           expAnimation.start({
             width: `${afterExp % 100}%`,
@@ -104,8 +110,26 @@ export default function SmuGameEnd() {
     }
   }, [afterExp, beforeExp, expAnimation]);
 
+  const handleRewardClick = () => {
+    setShowBlackScreen(true);
+    setShowRewardButton(false);
+    setTimeout(() => {
+      document
+        .querySelector(`.${styles.blackScreen}`)
+        .classList.add(styles.show);
+    }, 10);
+  };
+
   return (
     <>
+      {showBlackScreen && (
+        <div className={styles.blackScreen}>
+          <div className={styles.nationSelect}>
+            <h2>국가를 선택하세요</h2>
+            <button onClick={() => setShowBlackScreen(false)}>확인</button>
+          </div>
+        </div>
+      )}
       <div className={styles.EndPage}>
         <motion.div
           className={styles.ExpBar}
@@ -127,6 +151,11 @@ export default function SmuGameEnd() {
             }}
             animate={expAnimation}
           ></motion.div>
+          {showLevelUp && (
+            <div className={styles.levelUpImage}>
+              <img src="/level-up.png" alt="Level Up" />
+            </div>
+          )}
         </motion.div>
         {Incorrect ? (
           <motion.div
@@ -169,6 +198,15 @@ export default function SmuGameEnd() {
           </div>
         )}
       </div>
+      {showRewardButton && (
+        <motion.div
+          className={styles.RewardButton}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 1, delay: 5 } }}
+        >
+          <button onClick={handleRewardClick}>보상 열기</button>
+        </motion.div>
+      )}
       <motion.div
         className={styles.GoMain}
         initial={{
