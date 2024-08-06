@@ -40,6 +40,7 @@ const MyPageSelector = (props) => {
   const userInfo = useSelector((state) => state.studentInfo);
   const [statistic, setStatistic] = useState([[[], [], [], [], []], [[], [], [], [], []], [[], [], [], [], []]]);
   const [expDB, setExpDB] = useState([])
+  const [score, setScore] = useState([])
   useEffect(() => {
     const fetchstudentStatistics = async () => {
       const res = await studentStatisticsAxios(userInfo.id);
@@ -58,6 +59,12 @@ const MyPageSelector = (props) => {
         pastDate.setDate(today.getDate() - daysAgo);
         return formatDate(pastDate);
       };
+
+      if(res[2]){
+        setScore(res[2]);
+      }
+
+
       if(res[1]){
         setExpDB(res[1]);
       }
@@ -68,11 +75,11 @@ const MyPageSelector = (props) => {
             for (let j = 0; j < 7; j++) {
               let list = res[0].filter((data) => data.date === getPastDate(j) && data.level === i+1);
               if(k===0){
-                list = list.filter((data) => data.gamePurpose === "말");
+                list = list.filter((data) => data.gamePurpose === "말하기");
               }else if(k===1){
-                list = list.filter((data) => data.gamePurpose === "읽");
+                list = list.filter((data) => data.gamePurpose === "읽기");
               }else{
-                list = list.filter((data) => data.gamePurpose === "듣");
+                list = list.filter((data) => data.gamePurpose === "듣기");
               }
               if(list.length > 0){
                 statistic[k][i][j] = Math.floor((list[0].correctAnswer / list[0].totalQuestion) * 100)
@@ -87,7 +94,7 @@ const MyPageSelector = (props) => {
     fetchstudentStatistics();
   }, [userInfo]);
   if (props.idx === 1) {
-    return <Score />;
+    return <Score score={score}/>;
   } else if (props.idx === 2) {
     return <Correct statistic={statistic}/>;
   } else if (props.idx === 3) {
