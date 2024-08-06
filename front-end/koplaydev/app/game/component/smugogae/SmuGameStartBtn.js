@@ -45,7 +45,7 @@ export default function SmuGameStartBtn() {
         const hintsResponse = await Promise.all(
           chosenWords.map((wordObj) => {
             return new Promise((resolve) => {
-              let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${wordObj.wordKor}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막으로 갈수록 구체적으로 무조건 5개의 힌트를 줘. 정답을 알려주면 안 돼. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
+              let msg = `나는 한국 다문화 가정의 초등학교 저학년 아이와 놀이를 하고 있어. 나는 "${wordObj.wordKor}"에 대해 힌트를 줘야 해. 시작은 매우 광범위한 힌트부터 마지막으로 갈수록 구체적으로 무조건 5개의 힌트를 줘. 단, "${wordObj.wordKor}"라는 정답을 알려주지 않고 설명해야해. 응답 방식은 Hint1:... Hint2:... 이런 식으로 줘`;
               resolve(OpenAiUtill.prompt(msg));
             })
               .then((result) => {
