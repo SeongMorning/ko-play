@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useRouter } from "next/navigation";
 import logoutAxios from "@/app/axios/logoutAxios";
+import { persistor } from '../../../redux/reduxStore';
 
 export default function LogoutModalBtn(props) {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -46,10 +47,13 @@ export default function LogoutModalBtn(props) {
           if (authToken == null) {
             throw error;
           }
+          persistor.purge();
 
           const response = await logoutAxios();
+
           if (response != null) {
             //null이 아니면 성공
+
             router.push("/");
           }
         } else {
