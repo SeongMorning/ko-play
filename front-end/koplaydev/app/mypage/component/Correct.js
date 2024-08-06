@@ -14,10 +14,6 @@ export default function Correct() {
   // 단계별 분야별 정답률 다 받아야되네요 한번에
   const userInfo = useSelector((state) => state.studentInfo);
 
-  useEffect(()=>{
-    const res = studentStatisticsAxios(userInfo.studentIdx)
-  }, [userInfo])
-
   useEffect(() => {
     if (graph.current !== null) {
       const ctx = graph.current;
@@ -33,7 +29,7 @@ export default function Correct() {
             fill: false,
             borderColor: "#bde0fe",
             tension: 0.1,
-            hoverBorderWidth: 5,
+            hoverBorderWidth: 3,
           },
           {
             label: "듣기",
@@ -41,7 +37,7 @@ export default function Correct() {
             fill: false,
             borderColor: "#ffc8dd",
             tension: 0.1,
-            hoverBorderWidth: 5,
+            hoverBorderWidth: 3,
           },
           {
             label: "읽기",
@@ -49,7 +45,7 @@ export default function Correct() {
             fill: false,
             borderColor: "#cdb4db",
             tension: 0.1,
-            hoverBorderWidth: 5,
+            hoverBorderWidth: 3,
           },
         ],
       };
@@ -63,7 +59,7 @@ export default function Correct() {
               grid: {},
               ticks: {
                 font: {
-                  size: 30,
+                  size: 10,
                 },
                 color: "black",
               },
@@ -71,7 +67,7 @@ export default function Correct() {
             x: {
               ticks: {
                 font: {
-                  size: 30,
+                  size: 20,
                 },
                 color: "black",
               },
@@ -82,7 +78,7 @@ export default function Correct() {
               // backgroundColor: "white",
             },
             line: {
-              borderWidth: 15,
+              borderWidth: 10,
             },
           },
           plugins: {
