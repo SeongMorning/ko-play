@@ -20,6 +20,7 @@ public class GameFacadeService {
     private StudentService studentService;
     private GamePurposeService gamePurposeService;
     private GameDataService gameDataService;
+    private RecommendLevelService recommendLevelService;
 
     @Autowired
     public GameFacadeService(GameService gameService, WordService wordService, StudentService studentService, GamePurposeService gamePurposeService, GameDataService gameDataService) {
@@ -47,8 +48,13 @@ public class GameFacadeService {
         Game game = gameService.selectOneGame(gameResultDataDTO.getGameIdx());
 
         //gameData 결과 insert
-        gameDataService.insertGameData(gameResultDataDTO, game, student);
+        GameData data = gameDataService.insertGameData(gameResultDataDTO, game, student);
+        
+        //해당게임의 purpose 가져오기
+        GamePurpose purpose = gamePurposeService.selectGamesPurpose(List.of(game)).get(0);
 
+        //추천레벨반영하기
+        recommendLevelService.updateRecommendLevel(student,game, data, purpose);
         return student;
     }
 

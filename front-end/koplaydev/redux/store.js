@@ -16,6 +16,7 @@ import exp from "./slices/expSlice";
 import gameWord from './slices/gameWordSlice';
 import gamePurpose from './slices/gamePurposeSlice';
 import game from './slices/gameSlice';
+import parentChilds from './slices/parentChaildsSlice'
 
 const rootReducer = combineReducers({
   modal: modal.reducer,
@@ -35,6 +36,7 @@ const rootReducer = combineReducers({
   gameWord : gameWord.reducer,
   gamePurpose : gamePurpose.reducer,
   game : game.reducer,
+  parentChilds: parentChilds.reducer,
 });
 
 export default rootReducer;

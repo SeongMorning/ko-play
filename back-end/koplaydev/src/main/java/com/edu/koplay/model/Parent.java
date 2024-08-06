@@ -22,7 +22,7 @@ public class Parent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long parentIdx;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String parentEmail;
 
     @Column(nullable = false)
