@@ -47,11 +47,10 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "JOIN koplay.game g ON gd.game_idx = g.game_idx " +
             "JOIN koplay.game_purpose gp ON g.game_idx = gp.game_idx " +
             "WHERE gd.student_idx = :studentIdx "
-            +
+            +"AND gd.created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) " +
             "GROUP BY DATE(gd.created_at), gp.game_purpose, gd.game_level "
             +
-            "ORDER BY DATE(gd.created_at) DESC " +
-            "LIMIT 7"
+            "ORDER BY DATE(gd.created_at) DESC "
             ,nativeQuery = true)
     List<Object[]> findDailyResult(@Param("studentIdx") Long studentIdx);
 
