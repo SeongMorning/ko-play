@@ -41,6 +41,7 @@ public class StudentDTO {
     //GameData
     private int totalGameCount;
     private String nation;
+    private boolean visited;
 
     public StudentDTO(final Student studentEntity
     ) {
@@ -53,6 +54,7 @@ public class StudentDTO {
         this.nickname = studentEntity.getNickname();
         this.schoolName = studentEntity.getSchoolName();
         this.exp = studentEntity.getExp();
+        this.visited = studentEntity.getVisited();
     }
 
     public StudentDTO(final Student studentEntity
@@ -71,6 +73,7 @@ public class StudentDTO {
         this.listeningLevel = recommendLevelEntity.getLevelListening();
         this.readingLevel = recommendLevelEntity.getLevelReading();
         this.nation = studentEntity.getParent().getNationality();
+        this.visited = studentEntity.getVisited();
     }
 
     public static class Base64Deserializer extends com.fasterxml.jackson.databind.JsonDeserializer<byte[]> {
