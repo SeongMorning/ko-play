@@ -54,7 +54,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             ,nativeQuery = true)
     List<Object[]> findDailyResult(@Param("studentIdx") Long studentIdx);
 
-    @Query(value = "SELECT count(gd.created_at) as \"gameCount\", game_purpose"+
+    @Query(value = "SELECT count(gd.created_at) as \"gameCount\", game_purpose "+
             "FROM koplay.game_data gd " +
             "JOIN koplay.game g ON gd.game_idx = g.game_idx "+
             "JOIN koplay.game_purpose gp ON g.game_idx = gp.game_idx "+
@@ -73,4 +73,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "LIMIT 20 "
             ,nativeQuery = true)
     List<Object[]> findDailySpecific(@Param("studentIdx") Long studentIdx);
+
+    @Query(value="SELECT SUM(gd.correct) AS correct, SUM(gd.total_question) AS question, gp.game_purpose " +
+            "FROM game_data gd JOIN game g ON gd.game_idx = g.game_idx JOIN game_purpose gp ON g.game_idx = gp.game_idx " +
+            "WHERE gd.created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) "+
+            "GROUP BY gp.game_purpose " +
+            "ORDER BY date(created_at) desc "
+            , nativeQuery = true)
+    List<Object[]> findAllAveragePerPurpose();
 }
