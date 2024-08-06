@@ -10,8 +10,8 @@ export default function ParentLogin() {
       <img
         src="/kakao_login_large_narrow.png"
         onClick={()=>{
-          // window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
-          window.location.href = "https://i11b302.p.ssafy.io/api/oauth2/authorization/kakao";
+          window.location.href = "http://localhost:8080/oauth2/authorization/kakao";
+          // window.location.href = "https://i11b302.p.ssafy.io/api/oauth2/authorization/kakao";
           }}
       />
       <img 
