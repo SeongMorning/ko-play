@@ -33,35 +33,38 @@ export default function SmuGameStart() {
   const [playHint, setPlayHint] = useState(false);
   const [modal, setModal] = useState(false);
 
-  let initialSpeechSpeed = 1;
-  if (listenLevel === 1) {
-    initialSpeechSpeed = 0.7;
-  } else if (listenLevel === 2) {
-    initialSpeechSpeed = 0.85;
-  } else if (listenLevel === 3) {
-    initialSpeechSpeed = 1;
-  } else if (listenLevel === 4) {
-    initialSpeechSpeed = 1.15;
-  } else if (listenLevel === 5) {
-    initialSpeechSpeed = 1.3;
-  }
+  const [totalExp, setTotalExp] = useState(0);
+  const [unitScore, setUnitScore] = useState(0);
+  const [pointByHints, setPointByHints] = useState(0);
+  const [speechSpeed, setSpeechSpeed] = useState(1);
 
-  let unitScore = 0;
-  let totalexp = 0;
-  let pointByHints = 0;
+  useEffect(() => {
+    if (listenLevel === 1) {
+      setSpeechSpeed(0.7);
+    } else if (listenLevel === 2) {
+      setSpeechSpeed(0.85);
+    } else if (listenLevel === 3) {
+      setSpeechSpeed(1);
+    } else if (listenLevel === 4) {
+      setSpeechSpeed(1.15);
+    } else if (listenLevel === 5) {
+      setSpeechSpeed(1.3);
+    }
+  }, [listenLevel]);
+
   useEffect(() => {
     if (listenLevel - recommendLevel <= -2) {
-      unitScore = 5;
-      pointByHints = 1;
+      setUnitScore(5);
+      setPointByHints(1);
     } else if (listenLevel - recommendLevel == -1) {
-      unitScore = 6;
-      pointByHints = 1;
+      setUnitScore(6);
+      setPointByHints(1);
     } else if (listenLevel - recommendLevel == 0) {
-      unitScore = 10;
-      pointByHints = 2;
+      setUnitScore(10);
+      setPointByHints(2);
     } else {
-      unitScore = 15;
-      pointByHints = 3;
+      setUnitScore(15);
+      setPointByHints(3);
     }
   }, [listenLevel, recommendLevel]);
 
@@ -98,8 +101,8 @@ export default function SmuGameStart() {
     setCorrectWord(chosenWords[currentQuestion].wordKor);
     if (guess === chosenWords[currentQuestion].wordKor) {
       dispatch(changeCorrectIdx(correctAnswers + 1));
-      totalexp += unitScore - currentHintIndex * pointByHints;
-      dispatch(changeExp(totalexp));
+      const expEarned = unitScore - currentHintIndex * pointByHints;
+      setTotalExp((prevTotalExp) => prevTotalExp + expEarned);
     } else {
       dispatch(changeWrong([...wrongAnswers, chosenWords[currentQuestion]]));
     }
@@ -116,6 +119,7 @@ export default function SmuGameStart() {
     } else {
       setGameOver(true);
       setModal(true);
+      dispatch(changeExp(totalExp));
     }
   };
 
@@ -172,7 +176,7 @@ export default function SmuGameStart() {
         <Hint
           hint={hints[currentQuestion]?.[currentHintIndex]}
           playHint={playHint}
-          rate={initialSpeechSpeed}
+          rate={speechSpeed}
           onEnd={() => setPlayHint(false)}
         />
         {!gameOver && (
