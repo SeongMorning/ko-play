@@ -17,8 +17,8 @@ export default function ParentLogin() {
       <img 
         src="/web_light_sq_ctn@2x.png" 
         onClick={()=>{
-          window.location.href = "http://localhost:8080/oauth2/authorization/google";
-          // window.location.href = "http://https://i11b302.p.ssafy.io/oauth2/authorization/google";
+          // window.location.href = "http://localhost:8080/oauth2/authorization/google";
+          window.location.href = "http://https://i11b302.p.ssafy.io/oauth2/authorization/google";
         }}
         />
     </div>
