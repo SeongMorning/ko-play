@@ -22,13 +22,13 @@ public class GameFacadeService {
     private GameDataService gameDataService;
     private RecommendLevelService recommendLevelService;
 
-    @Autowired
-    public GameFacadeService(GameService gameService, WordService wordService, StudentService studentService, GamePurposeService gamePurposeService, GameDataService gameDataService) {
+    public GameFacadeService(GameService gameService, WordService wordService, StudentService studentService, GamePurposeService gamePurposeService, GameDataService gameDataService, RecommendLevelService recommendLevelService) {
         this.gameService = gameService;
         this.wordService = wordService;
         this.studentService = studentService;
         this.gamePurposeService = gamePurposeService;
         this.gameDataService = gameDataService;
+        this.recommendLevelService = recommendLevelService;
     }
 
     public List<GamePurpose> getAllGames(Boolean isRank) {
@@ -56,6 +56,10 @@ public class GameFacadeService {
         //추천레벨반영하기
         recommendLevelService.updateRecommendLevel(student,game, data, purpose);
         return student;
+    }
+
+    public RecommendLevel getStudentLevel(Student entity) {
+        return recommendLevelService.getStudentLevel(entity);
     }
 
 }

@@ -8,5 +8,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RecommendLevelRepository extends JpaRepository<RecommendLevel, Long> {
     RecommendLevel findAllByStudent(Student entity);
-    RecommendLevel findByStudent(Student student);
 }
