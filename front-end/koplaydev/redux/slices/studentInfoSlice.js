@@ -14,6 +14,7 @@ export const studentInfo = createSlice({
     speechLevel: "" ,
     listeningLevel: "" ,
     readingLevel: "" ,
+    nation: "",
   },
   reducers: {
     changeStudentInfo(state, action) {
@@ -43,6 +44,9 @@ export const studentInfo = createSlice({
     setExp(state, action) {
       state.exp = action.payload;
     },
+    setNation(state, action) {
+      state.nation = action.payload;
+    },
   },
 });
 
@@ -56,6 +60,7 @@ export const {
   setBirth,
   setSchoolName,
   setExp,
+  setNation,
 } = studentInfo.actions;
 
 export default studentInfo;
