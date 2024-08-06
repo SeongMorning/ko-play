@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Base64;
 
@@ -30,7 +32,7 @@ public class StudentDTO {
     @JsonDeserialize(using = Base64Deserializer.class)
     @JsonSerialize(using = Base64Serializer.class)
     private byte[] profileImg;
-    private Date birth;
+    private String birth;
     private String schoolName;
     private int exp;
     private int speechLevel;
@@ -45,7 +47,8 @@ public class StudentDTO {
         this.id = studentEntity.getStudentId();
 //        this.pw = studentEntity.getStudentPw();
         this.name = studentEntity.getStudentName();
-        this.birth = studentEntity.getBirth();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        this.birth = format.format(studentEntity.getBirth());
         this.profileImg = studentEntity.getProfileImg();
         this.nickname = studentEntity.getNickname();
         this.schoolName = studentEntity.getSchoolName();
@@ -58,7 +61,8 @@ public class StudentDTO {
         this.id = studentEntity.getStudentId();
 //        this.pw = studentEntity.getStudentPw();
         this.name = studentEntity.getStudentName();
-        this.birth = studentEntity.getBirth();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        this.birth = format.format(studentEntity.getBirth());
         this.profileImg = studentEntity.getProfileImg();
         this.nickname = studentEntity.getNickname();
         this.schoolName = studentEntity.getSchoolName();
