@@ -5,7 +5,7 @@ import DetailBox from "./DetailBox";
 import styles from "./DetailpageChildProfileCard.module.scss";
 import CheckChildInfo from "./CheckChildInfo";
 
-export default function DetailpageChildProfileCard({ isBgBlue, name }) {
+export default function DetailpageChildProfileCard({ child }) {
     const router = useRouter();
     const [ openModal, setOpenModal ] = useState(false);
 
@@ -19,8 +19,8 @@ export default function DetailpageChildProfileCard({ isBgBlue, name }) {
 
     return (
         <><div>
-            <div className={`${styles.profileCardBg} ${isBgBlue ? styles.blueProfileCardBg : ''}`}></div>
-            <div className={`${styles.profileCard} ${isBgBlue ? styles.blueProfileCard : ''}`}>
+            <div className={`${styles.profileCardBg}`}></div>
+            <div className={`${styles.profileCard}`}>
 
                     <img
                     className={styles.settingIcon}
@@ -28,9 +28,9 @@ export default function DetailpageChildProfileCard({ isBgBlue, name }) {
                     onClick={clickIcon} />
                 <div className={styles.profileInput}>
                     <div className={styles.profileImgBg}>
-                        <img className={styles.profileImg} src="/hehe.png" />
+                        <img className={styles.profileImg} src={child.profileImg || "/hehe.png"} onError={(e) => { e.target.src = "/hehe.png"; }}/>
                     </div>
-                    <h1 className={styles.profileName}>{name}</h1>
+                    <h1 className={styles.profileName}>{child.name}</h1>
                 </div>
             </div>
 
@@ -82,7 +82,7 @@ export default function DetailpageChildProfileCard({ isBgBlue, name }) {
                 </div>
             </div>
         </div>
-        { openModal && <CheckChildInfo onClose={closeModal} />}
+        { openModal && <CheckChildInfo onClose={closeModal}  child={child} />}
         </>
     )
 }
