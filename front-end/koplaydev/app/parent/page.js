@@ -15,6 +15,7 @@ import { changeParentChildsInfo, addParentChild } from "../../redux/slices/paren
 import InputInitInfo from "./component/InputInitInfo";
 import insertChildAxios from "../axios/insertChildAxios";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import BackScoreBtn from "../component/buttons/BackScoreBtn";
 
 export default function Parent() {
     const dispatch = useDispatch();
@@ -38,6 +39,11 @@ export default function Parent() {
 
         fetchParentChildsInfo();
     }, [dispatch]);
+
+    useEffect(()=>{
+        console.log('parentChilds가 변경되었습니다:', parentChilds);
+
+    },[parentChilds])
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -63,9 +69,9 @@ export default function Parent() {
             birth: "",
             id: "",
             pw: "",
-            listeningLevel: '',
-            readingLevel: '',
-            speakingLevel: ''
+            listeningLevel: 1,
+            readingLevel: 1,
+            speechLevel: 1,
         });
     }
 
@@ -74,16 +80,18 @@ export default function Parent() {
         birth: "",
         id: "",
         pw: "",
-        listeningLevel: '',
-        readingLevel: '',
-        speakingLevel: ''
+        listeningLevel: 1,
+        readingLevel: 1,
+        speechLevel: 1,
     });
 
     const addChildProfile = async () => {
+        console.log(childInfo)
         const response = await insertChildAxios(childInfo);
+
         if (response != null) {
             dispatch(addParentChild(childInfo));
-            dispatch(changeSpeechLevel(childInfo.speakingLevel))
+            dispatch(changeSpeechLevel(childInfo.speechLevel))
             dispatch(changeReadLevel(childInfo.readingLevel))
             dispatch(changeListenLevel(childInfo.listeningLevel))
         }
@@ -101,7 +109,8 @@ export default function Parent() {
     };
 
     return (
-        <>
+        <>                            
+        <BackScoreBtn className={styles.backButton} left={27} top={20} text="로그아웃" />
             <div className={styles.carousel}>
                 <Slider key='1' className={styles.slider} {...settings}>
                     {parentChilds?.map((profile) => (

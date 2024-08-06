@@ -19,7 +19,7 @@ export default function Child({ params }) {
         <>
             <div><BackScoreBtn className={styles.backButton} left={27} top={20} text="뒤로가기" /></div>
             <div>
-                <DetailpageChildProfileCard name={profile.name} />
+                <DetailpageChildProfileCard child={profile} />
                 <ParentBg />
             </div>
         </>
