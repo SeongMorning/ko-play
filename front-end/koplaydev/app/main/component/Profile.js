@@ -24,6 +24,9 @@ export default function Profile() {
 
   useEffect(()=>{
     dispatch(changeLoadingIdx(-1))
+    if(!userInfo.visited){
+      dispatch(changeModalIdx(1000))
+    }
   }, [])
 
   useEffect(() => {

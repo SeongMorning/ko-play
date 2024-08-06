@@ -35,3 +35,22 @@
         justify-content: center;
     }
 }
+
+.input{
+    height : 80%;
+    border : none;
+    width : 80%;
+    font-size: calc((4vw + 3vh)/2);
+    font-weight: bold;
+
+    &::placeholder{
+        font-size: calc((3vw + 1vh)/2);
+    }
+}
+
+.text{
+    color : red;
+    position : relative;
+    font-size : calc((3vw + 2vh)/2);
+    font-weight : bold;
+}
