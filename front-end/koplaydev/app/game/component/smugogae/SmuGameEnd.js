@@ -7,6 +7,7 @@ import CardFrontImage from "../CardFrontImage";
 import { motion, useAnimation } from "framer-motion";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
 import gameResultAxios from "@/app/axios/gameResultAxios";
+import ChangeNation from "@/app/avatar/component/ChangeNation";
 
 export default function SmuGameEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -18,9 +19,11 @@ export default function SmuGameEnd() {
   const beforeExp = userInfo.exp % 100;
   const afterExp = 120;
 
+  const [selectedCountry, setSelectedCountry] = useState("Korea");
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
   const [showRewardButton, setShowRewardButton] = useState(false);
+  const [countryImage, setCountryImage] = useState("");
 
   useEffect(() => {
     const postGameResult = async () => {
@@ -79,7 +82,6 @@ export default function SmuGameEnd() {
 
   useEffect(() => {
     if (afterExp > 100) {
-      setShowLevelUp(true);
       expAnimation
         .start({
           width: "100%",
@@ -89,6 +91,7 @@ export default function SmuGameEnd() {
           },
         })
         .then(() => {
+          setShowLevelUp(true);
           setShowRewardButton(true);
           expAnimation.set({ width: "0%" });
           expAnimation.start({
@@ -125,7 +128,11 @@ export default function SmuGameEnd() {
       {showBlackScreen && (
         <div className={styles.blackScreen}>
           <div className={styles.nationSelect}>
-            <h2>국가를 선택하세요</h2>
+            <ChangeNation
+              setSelectedCountry={setSelectedCountry}
+              left="30vw"
+              top="30vh"
+            />
             <button onClick={() => setShowBlackScreen(false)}>확인</button>
           </div>
         </div>
@@ -152,9 +159,20 @@ export default function SmuGameEnd() {
             animate={expAnimation}
           ></motion.div>
           {showLevelUp && (
-            <div className={styles.levelUpImage}>
+            <motion.div
+              className={styles.levelUpImage}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{
+                duration: 0.5,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
               <img src="/level-up.png" alt="Level Up" />
-            </div>
+            </motion.div>
           )}
         </motion.div>
         {Incorrect ? (
