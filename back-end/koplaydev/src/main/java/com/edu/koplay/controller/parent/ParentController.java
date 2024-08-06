@@ -224,9 +224,28 @@ public class ParentController {
                 res2.add(gameResultDTO);
                 //System.out.println("gameres" + gameResultDTO.toString());
             }
+
+            List<Object[]> findAllAveragePerPurpose = gameFacadeService.findAllAveragePerPurpose();
+            List<AllAveragePerPurposeDTO> res4 = new ArrayList<>();
+            //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
+            for (Object[] result : findAllAveragePerPurpose) {
+                // Extract values based on index
+                Date date = (Date) result[0];
+                int count = ((Number) result[1]).intValue();
+                int total = ((Number) result[2]).intValue();
+                String gamePurpose = (String) result[3];
+
+                // Create a new DTO and add it to the list
+                AllAveragePerPurposeDTO allAveragePerPurposeDTO = new AllAveragePerPurposeDTO(date, count,total, gamePurpose);
+                res4.add(allAveragePerPurposeDTO);
+                //System.out.println("gameres" + gameResultDTO.toString());
+            }
+
+
             List<Object> res3 = new ArrayList<>();
             res3.add(res);
             res3.add(res2);
+            res3.add(res4);
             return ResponseEntity.ok().body(res3);
         }catch (Exception e){
             logger.info(e.getMessage());
