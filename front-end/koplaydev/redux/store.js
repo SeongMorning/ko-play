@@ -1,22 +1,23 @@
-import { combineReducers } from '@reduxjs/toolkit';
-import modal from './slices/modalSlice';
-import test from './slices/testSlice';
-import myPage from './slices/myPageSlice';
-import loading from './slices/loadingSlice';
-import token from './slices/tokenSlice';
-import correct from './slices/correct';
-import studentInfo from './slices/studentInfoSlice';
-import wrong from './slices/wrongList';
-import incorrect from './slices/Incorrect';
-import avatarSlice from './slices/avatarSlice';
-import studentAvatarSlice from './slices/studentAvatarSlice';
-import level from './slices/levelSlice';
-import graphLevel from './slices/graphLevel';
+import { combineReducers } from "@reduxjs/toolkit";
+import modal from "./slices/modalSlice";
+import test from "./slices/testSlice";
+import myPage from "./slices/myPageSlice";
+import loading from "./slices/loadingSlice";
+import token from "./slices/tokenSlice";
+import correct from "./slices/correct";
+import studentInfo from "./slices/studentInfoSlice";
+import wrong from "./slices/wrongList";
+import incorrect from "./slices/Incorrect";
+import avatarSlice from "./slices/avatarSlice";
+import studentAvatarSlice from "./slices/studentAvatarSlice";
+import level from "./slices/levelSlice";
+import graphLevel from "./slices/graphLevel";
 import exp from "./slices/expSlice";
-import gameWord from './slices/gameWordSlice';
-import gamePurpose from './slices/gamePurposeSlice';
-import game from './slices/gameSlice';
-import parentChilds from './slices/parentChaildsSlice'
+import gameWord from "./slices/gameWordSlice";
+import gamePurpose from "./slices/gamePurposeSlice";
+import game from "./slices/gameSlice";
+import parentChilds from "./slices/parentChaildsSlice";
+import hints from "./slices/hintsSlice";
 
 const rootReducer = combineReducers({
   modal: modal.reducer,
@@ -32,11 +33,12 @@ const rootReducer = combineReducers({
   avatar: avatarSlice.reducer,
   myAvatar: studentAvatarSlice.reducer,
   graphLevel: graphLevel.reducer,
-  exp : exp.reducer,
-  gameWord : gameWord.reducer,
-  gamePurpose : gamePurpose.reducer,
-  game : game.reducer,
+  exp: exp.reducer,
+  gameWord: gameWord.reducer,
+  gamePurpose: gamePurpose.reducer,
+  game: game.reducer,
   parentChilds: parentChilds.reducer,
+  hints: hints.reducer,
 });
 
 export default rootReducer;
