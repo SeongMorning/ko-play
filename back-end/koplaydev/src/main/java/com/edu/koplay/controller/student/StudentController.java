@@ -16,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -222,11 +223,12 @@ public class StudentController {
 
             List<Object[]> dailySpecificRes = gameFacadeService.getDailySpecific(studentIdx);
             List<DailySpecificDTO> res4 = new ArrayList<>();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
             for (Object[] result : dailySpecificRes) {
                 // Extract values based on index
 
-                Date date = (Date) result[0];
+                Date date = dateFormat.parse((String)result[0]) ;
                 int correct = ((Number) result[1]).intValue();
                 int question = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
