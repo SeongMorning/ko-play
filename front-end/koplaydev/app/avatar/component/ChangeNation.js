@@ -2,7 +2,7 @@
 import { motion } from "framer-motion";
 import styles from "./ChangeNation.module.scss";
 
-export default function ChangeNation({ setSelectedCountry }) {
+export default function ChangeNation(props, setSelectedCountry) {
   const nations = [
     { name: "Korea", src: "/korea-3.png" },
     { name: "Thailand", src: "/thailand-parent-choice.png" },
@@ -11,7 +11,10 @@ export default function ChangeNation({ setSelectedCountry }) {
   ];
 
   return (
-    <div className={styles.nationContainer}>
+    <div
+      className={styles.nationContainer}
+      style={{ left: props.left, top: props.top }}
+    >
       {nations.map((nation, index) => (
         <motion.img
           key={index}
