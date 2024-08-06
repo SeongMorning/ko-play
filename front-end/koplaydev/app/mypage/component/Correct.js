@@ -5,12 +5,18 @@ import styles from "./Correct.module.scss";
 import { Chart } from "chart.js/auto";
 import LevelJellyBtn from "@/app/main/component/LevelJellyBtn";
 import { useSelector } from "react-redux";
+import studentStatisticsAxios from "@/app/axios/studentStatisticsAxios";
 
 export default function Correct() {
   const graph = useRef(null);
   const levelList = useSelector((state) => state.level)
   const graphLevel = useSelector((state) => state.graphLevel)
   // 단계별 분야별 정답률 다 받아야되네요 한번에
+  const userInfo = useSelector((state) => state.studentInfo);
+
+  useEffect(()=>{
+    const res = studentStatisticsAxios(userInfo.studentIdx)
+  }, [userInfo])
 
   useEffect(() => {
     if (graph.current !== null) {
