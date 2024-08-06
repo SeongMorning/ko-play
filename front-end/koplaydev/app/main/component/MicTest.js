@@ -45,8 +45,8 @@ export default function MicTest() {
       canvasCtx.fillStyle = '#FFD6E0';
       canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
 
-      canvasCtx.lineWidth = 2;
-      canvasCtx.strokeStyle = 'rgb(255, 0, 0)';
+      canvasCtx.lineWidth = 10;
+      canvasCtx.strokeStyle = 'white';
 
       canvasCtx.beginPath();
 

@@ -6,6 +6,8 @@ import styles from "./MyPageInfo.module.scss";
 import YellowBox from "./YellowBox";
 import Score from "./Score";
 import Correct from "./Correct";
+import { useEffect } from "react";
+import studentStatisticsAxios from "@/app/axios/studentStatisticsAxios";
 
 let myPageList = ["최근 전적", "정답률", "경험치 변화", "레이팅"];
 
@@ -28,6 +30,17 @@ export default function MyPageInfo() {
 }
 
 const MyPageSelector = (props) => {
+
+  const userInfo = useSelector((state) => state.studentInfo);
+
+  useEffect(()=>{
+    const fetchstudentStatistics = async () => {
+      const res = await studentStatisticsAxios(userInfo.id)
+      console.log(res);
+
+    }
+    fetchstudentStatistics();
+  }, [userInfo])
   if (props.idx === 1) {
     return <Score/>;
   }else if(props.idx === 2){
