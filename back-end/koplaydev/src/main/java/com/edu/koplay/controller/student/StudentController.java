@@ -172,9 +172,11 @@ public class StudentController {
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<?> getMyPage(@RequestParam Long studentIdx) {
+    public ResponseEntity<?> getMyPage(@RequestParam String studentId) {
         //통계부분 아직 구현 전
         try {
+            Student student = studentService.getStudentInfo(studentId);
+            Long studentIdx = student.getStudentIdx();
             String id = getAuthenticationData();
 //            System.out.println("!!!!!!!!"+id);
             Student entity = studentService.getStudentInfo(id);
