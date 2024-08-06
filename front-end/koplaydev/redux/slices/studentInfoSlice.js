@@ -18,7 +18,7 @@ export const studentInfo = createSlice({
   },
   reducers: {
     changeStudentInfo(state, action) {
-      return { ...state, ...action.payload };
+      return action.payload;
     },
     setId(state, action) {
       state.id = action.payload;

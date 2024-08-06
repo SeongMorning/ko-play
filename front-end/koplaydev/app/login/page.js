@@ -7,12 +7,20 @@ import PromLoginBg from "../component/background/PromLoginBg";
 import StudentLogin from "./component/StudentLogin";
 import SelectStatus from "./component/SelectStatus";
 import ParentLogin from "./component/ParentLogin";
+import { useDispatch } from "react-redux";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
+import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 
 export default function Login() {
   const [selectedStatus, setSelectedStatus] = useState("");
   const handleSelectStatus = (status) => {
     setSelectedStatus(status);
   };
+  const dispatch = useDispatch();
+
+  useEffect(()=>{
+    dispatch(changeModalIdx(0));
+  },[])
 
   return (
     <>
