@@ -98,6 +98,7 @@ export default function SmuGameStart() {
 
   const handleGuess = (guess) => {
     window.speechSynthesis.cancel();
+    setPlayHint(false);
     setCorrectWord(chosenWords[currentQuestion].wordKor);
     if (guess === chosenWords[currentQuestion].wordKor) {
       dispatch(changeCorrectIdx(correctAnswers + 1));
