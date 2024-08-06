@@ -19,15 +19,6 @@ export default function SmuGameEnd() {
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
 
-  const container = {
-    hidden: { opacity: 1 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.2,
-      },
-    },
-  };
   useEffect(() => {
     const postGameResult = async () => {
       const res = await gameResultAxios(
@@ -40,6 +31,16 @@ export default function SmuGameEnd() {
     };
     postGameResult();
   }, []);
+
+  const container = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+      },
+    },
+  };
 
   const wrongVariants = {
     hidden: { opacity: 0 },
@@ -160,10 +161,13 @@ export default function SmuGameEnd() {
             ))}
           </motion.div>
         ) : (
-          <img
-            className={styles.character}
-            src="/character-dancingMachine.gif"
-          />
+          <div className={styles.characterContainer}>
+            <img
+              className={styles.character}
+              src="/character-dancingMachine.gif"
+            />
+            <div className={styles.videoBack}></div>
+          </div>
         )}
       </div>
       <motion.div

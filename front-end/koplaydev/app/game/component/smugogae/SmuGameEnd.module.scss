@@ -111,8 +111,27 @@
   height: 20%;
 }
 
-.character {
-  position: absolute;
-  bottom: -15%;
-  width: 80%;
+.characterContainer {
+  position: relative;
+  width: 90%;
+  height: 80%;
+  left: 3vw;
+
+  .character {
+    position: absolute;
+    bottom: -15%;
+    width: 80%;
+    z-index: 10;
+  }
+
+  .videoBack {
+    position: absolute;
+    top: calc(8vw + 13vh);
+    left: calc(10vw + 18vh);
+    width: calc(8vw + 10vh);
+    height: calc(8vw + 9vh);
+    border-radius: 10vh;
+    background-color: #ebffdc; // 여기 색상을 GIF의 배경색과 일치하게 수정하세요
+    z-index: 1;
+  }
 }
