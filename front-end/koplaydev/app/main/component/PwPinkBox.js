@@ -3,14 +3,15 @@
 import modifyStudentInfoAxios from "@/app/axios/modifyStudentInfoAxios";
 import styles from "./PwPinkBox.module.scss";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
 
 export default function PwPinkBox(props) {
-    
     const userInfo = useSelector((state) => state.studentInfo);
     const changePw = async ()=> {
         await modifyStudentInfoAxios({...userInfo, pw : props.afterPw})
     }
+    const dispatch = useDispatch();
 
   return (
     <motion.div
@@ -30,14 +31,18 @@ export default function PwPinkBox(props) {
       }}
       onClick={() => {
         if(props.bg==="#A1D2FF"){ // 변경
-            props.setPwFlag(!props.pwFlag);
+            props.setIsPwChange(!props.isPwChange);
             changePw();
         }else if(props.bg==="#FDD127"){ // 뒤로가기
             props.setPwFlag(!props.pwFlag);
-        }else{ // 재설정하러 가기
-            props.setAfterPw("")
-            props.setAfterPwOK("")
+        }else if(props.bg==="#FFD6E0"){ // 재설정하러 가기
+            props.setAfterPw("");
+            props.setAfterPwOK("");
             props.setPwFlag(!props.pwFlag);
+        }else{
+          dispatch(changeModalIdx(0));
+          props.setPwFlag(!props.pwFlag);
+          changePw();
         }
       }}
     >
