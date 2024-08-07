@@ -48,6 +48,7 @@ export default function NormalGame() {
     const fetchGameList = async () => {
       const data = await gameListAxios();
       if (data) {
+        console.log(data);
         let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
         let readGame = data.filter((value) => value.gamePurposeIdx === 2);
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
@@ -177,8 +178,8 @@ const GameSelect = (props) => {
               }}
             >
               {props.idx !== 0 &&
-                gameList[props.idx - 1].map((data) => (
-                  <div className={styles.gameItem}>
+                gameList[props.idx - 1].map((data, index) => (
+                  <div key={index} className={styles.gameItem}>
                     {data.gameName}
                     <motion.div
                       className={styles.gameStart}
@@ -188,7 +189,7 @@ const GameSelect = (props) => {
                       }}
                       onClick={() => {
                         dispatch(changeGameIdx(data.gameIdx))
-                        router.push(`/game/${props.idx}`);
+                        router.push(`/game/${data.gameIdx}`);
                       }}
                     >
                       시작
