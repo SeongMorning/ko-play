@@ -2,7 +2,8 @@
 import { motion } from "framer-motion";
 import styles from "./ChangeNation.module.scss";
 
-export default function ChangeNation(props, setSelectedCountry) {
+export default function ChangeNation({ setSelectedCountry, left, top }) {
+  // props를 destructuring합니다.
   const nations = [
     { name: "Korea", src: "/korea-3.png" },
     { name: "Thailand", src: "/thailand-parent-choice.png" },
@@ -11,10 +12,7 @@ export default function ChangeNation(props, setSelectedCountry) {
   ];
 
   return (
-    <div
-      className={styles.nationContainer}
-      style={{ left: props.left, top: props.top }}
-    >
+    <div className={styles.nationContainer} style={{ left: left, top: top }}>
       {nations.map((nation, index) => (
         <motion.img
           key={index}
