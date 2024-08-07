@@ -78,14 +78,22 @@ public class StudentService {
 //    }
 
     public Student updateStudentInfo(Student beforeStudent, StudentDTO student) {
-        if(student.getPw() != null){
+        if (student.getPw() != null) {
             String encodedPassword = passwordEncoder.encode(student.getPw());
             beforeStudent.setStudentPw(encodedPassword);
         }
-        beforeStudent.setNickname(student.getNickname());
-        beforeStudent.setProfileImg(student.getProfileImg());
-        beforeStudent.setSchoolName(student.getSchoolName());
-        beforeStudent.setVisited(student.isVisited());
+        if (student.getNickname() != null) {
+            beforeStudent.setNickname(student.getNickname());
+        }
+        if (student.getProfileImg() != null) {
+            beforeStudent.setProfileImg(student.getProfileImg());
+        }
+        if (student.getSchoolName() != null) {
+            beforeStudent.setSchoolName(student.getSchoolName());
+        }
+        if (student.isVisited()) {
+            beforeStudent.setVisited(student.isVisited());
+        }
         return beforeStudent;
     }
 
