@@ -26,7 +26,7 @@ export default function SmuGameEnd() {
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
   const [showRewardButton, setShowRewardButton] = useState(false);
-  const [countryImage, setCountryImage] = useState("");
+  const [newAvatarImageUrl, setNewAvatarImageUrl] = useState(null);
 
   const [allAvatars, setAllAvatars] = useState([]);
   const [newAvatars, setNewAvatars] = useState(null);
@@ -70,6 +70,7 @@ export default function SmuGameEnd() {
       },
     },
   };
+
   let nation = "kr-KR";
   if (userInfo.nation === "Thailand") {
     nation = "th-TH";
@@ -141,6 +142,13 @@ export default function SmuGameEnd() {
     const newAvatarData = await newAvatarAxios(country);
     if (newAvatarData) {
       setNewAvatars(newAvatarData.data);
+      const matchingAvatar = allAvatars.find(
+        (avatar) =>
+          avatar.avatarIdx === newAvatarData.data.studentUsableAvatarIdx
+      );
+      if (matchingAvatar) {
+        setNewAvatarImageUrl(matchingAvatar.avatarFile);
+      }
     }
     setTimeout(() => {
       document.querySelector(`.${styles.nationSelect}`).style.display = "none";
@@ -160,10 +168,10 @@ export default function SmuGameEnd() {
               left="30vw"
               top="30vh"
             />
-            {newAvatars && (
+            {newAvatarImageUrl && (
               <div className={styles.avatarContainer}>
                 <img
-                  src={newAvatars.avatarFile}
+                  src={newAvatarImageUrl}
                   alt="New Avatar"
                   className={styles.avatar}
                 />
