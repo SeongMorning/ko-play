@@ -148,7 +148,7 @@ export default function WordRainStart() {
                 top: "-17%",
                 width: "10%",
                 height: "17%",
-                opacity: `${data.state === 1 ? 0 : 1}`,
+                opacity: `${data.state === 1 || data.state === 2 ? 0 : 1}`,
               }}
               animate={{
                 translateY: "118vh",
