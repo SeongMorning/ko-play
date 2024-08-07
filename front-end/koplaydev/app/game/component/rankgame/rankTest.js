@@ -1,44 +1,40 @@
-"use client";
+'use client';
 
-import { socket } from "@/socket";
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
+import SockJS from 'sockjs-client';
+import { Stomp } from '@stomp/stompjs';
 
-export default function RankTest() {
-  const [isConnected, setIsConnected] = useState(false);
-  const [transport, setTransport] = useState("N/A");
+const RankTest = () => {
+    const [message, setMessage] = useState('');
 
-  useEffect(() => {
-    if (socket.connected) {
-      onConnect();
-    }
+    useEffect(() => {
+        const socket = new SockJS('http://localhost:8080/ws');
+        const stompClient = Stomp.over(socket);
 
-    function onConnect() {
-      setIsConnected(true);
-      setTransport(socket.io.engine.transport.name);
+        stompClient.connect({}, (frame) => {
+            console.log('Connected: ' + frame);
+            stompClient.subscribe('/topic/greetings', (greeting) => {
+                setMessage(JSON.parse(greeting.body).content);
+            });
+        });
 
-      socket.io.engine.on("upgrade", (transport) => {
-        setTransport(transport.name);
-      });
-    }
+        return () => {
+            if (stompClient) {
+                stompClient.disconnect();
+            }
+        };
+    }, []);
 
-    function onDisconnect() {
-      setIsConnected(false);
-      setTransport("N/A");
-    }
-
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
-
-    return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
+    const sendName = () => {
+        stompClient.send('/app/hello', {}, JSON.stringify({ name: 'World' }));
     };
-  }, []);
 
-  return (
-    <div>
-      <p>Status: { isConnected ? "connected" : "disconnected" }</p>
-      <p>Transport: { transport }</p>
-    </div>
-  );
-}
+    return (
+        <div>
+            <button onClick={sendName}>Send Hello</button>
+            <div>{message}</div>
+        </div>
+    );
+};
+
+export default RankTest;
