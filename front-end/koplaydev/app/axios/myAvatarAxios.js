@@ -2,8 +2,8 @@ import API from "../utils/API";
 
 export default async function myAvatarAxios() {
   try {
-    const { data } = await API.get("students/avatars");
-    return data;
+    const { data } = await API.get("/students/avatars");
+    return data.data;
   } catch (error) {
     // Error Handling
     console.log(error);

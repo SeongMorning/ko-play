@@ -39,7 +39,7 @@ export default function Cabinet() {
       <img className={styles.cabinetImg} src="/cabinet.png" />
       <div className={styles.avatarContainer}>
         {filteredAvatars.map((avatar, index) => {
-          const isOwned = myAvatars.some(
+          const isOwned = myAvatars == null ? null: myAvatars.some(
             (myAvatar) => myAvatar.studentUsableAvatarIdx === avatar.avatarIdx
           );
           return (
