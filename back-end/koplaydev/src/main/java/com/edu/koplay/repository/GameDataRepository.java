@@ -24,12 +24,9 @@ public interface GameDataRepository extends JpaRepository<GameData, Long> {
     List<Object[]> findTop3StudentsWithMostGames();
 
 
-    @Query(value = "select sum(gained_exp) as exp, date(created_at) "+
-            "from game_data " +
-            "where student_idx = :studentIdx " +
-            "group by date(created_at) " +
-            "ORDER BY date(created_at) DESC " +
-            "LIMIT 7"
+    @Query(value = "SELECT date(created_at) AS dates, exp, SUM(exp) OVER (ORDER BY date(created_at)) AS cumulative_exp "+
+            "FROM ( SELECT SUM(gained_exp) AS exp, date(created_at) AS created_at FROM game_data WHERE student_idx = :studentIdx GROUP BY date(created_at) ORDER BY date(created_at) DESC LIMIT 7 ) AS t " +
+            "ORDER BY dates ASC "
             , nativeQuery = true)
     List<Object[]> getDailyExp(@Param("studentIdx") Long studentIdx);
     //List<Object[]> findTopStudents();

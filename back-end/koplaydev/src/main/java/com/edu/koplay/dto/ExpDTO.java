@@ -6,12 +6,14 @@ import java.util.Date;
 
 @Data
 public class ExpDTO {
-    private int exp;
     private Date date;
+    private int exp;
+    private long accumExp;
 
-
-    public ExpDTO(int exp, Date date) {
+    public ExpDTO(Date date, int exp, int accumExp ) {
         this.exp = exp;
         this.date = date;
+        this.accumExp = accumExp;
+
     }
 }
