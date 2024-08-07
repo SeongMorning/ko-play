@@ -1,12 +1,16 @@
 package com.edu.koplay.batch;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 public class Top3Players {
     private Long studentIdx;
     private Long gameCount;
 
+    // Static method to get the list of top players
     // Static list to hold the top 3 players
+    @Getter
     private static List<Top3Players> topPlayers = new ArrayList<>();
 
     public Top3Players(Long studentIdx, Long gameCount) {
@@ -43,8 +47,4 @@ public class Top3Players {
         topPlayers = players;
     }
 
-    // Static method to get the list of top players
-    public static List<Top3Players> getTopPlayers() {
-        return topPlayers;
-    }
 }
