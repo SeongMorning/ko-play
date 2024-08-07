@@ -10,6 +10,7 @@ import { changeCorrectIdx } from "@/redux/slices/correct";
 import incorrect, { changeInCorrect } from "@/redux/slices/Incorrect";
 import { useEffect, useState } from "react";
 import { changeExp } from "@/redux/slices/expSlice";
+import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 
 export default function FlipFlipGameJellyBtn(props) {
     const dispatch = useDispatch()
@@ -75,6 +76,7 @@ export default function FlipFlipGameJellyBtn(props) {
           dispatch(changeLoadingIdx(1));
         }else{
         dispatch(changeModalIdx(0));
+        dispatch(changeGamePurposeIdx(0));
         dispatch(changeLoadingIdx(-1));
         dispatch(changeCorrectIdx(0));
           router.push("/main");
