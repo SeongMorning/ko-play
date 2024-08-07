@@ -52,8 +52,9 @@ export default function NormalGame() {
         let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
         let readGame = data.filter((value) => value.gamePurposeIdx === 2);
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
+        let testGame = data.filter((value) => value.gamePurposeIdx === 4);
 
-        gameList = [[...speechGame], [...readGame], [...listenGame]];
+        gameList = [[...speechGame, ...testGame], [...readGame], [...listenGame]];
       }
     };
     fetchGameList();
