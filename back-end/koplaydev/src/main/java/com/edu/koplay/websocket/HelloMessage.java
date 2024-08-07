@@ -1,4 +1,5 @@
-package com.edu.koplay.websocket.entity;
+package com.edu.koplay.websocket;
+
 
 public class HelloMessage {
 

@@ -21,7 +21,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.CorsUtils;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -49,6 +51,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+
         return httpSecurity
                 //cors
                 .cors(corsCustomizer -> corsCustomizer.configurationSource(new CorsConfigurationSource() {
@@ -58,8 +61,8 @@ public class SecurityConfig {
 
                         CorsConfiguration configuration = new CorsConfiguration();
 
-                        // configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-                       configuration.setAllowedOrigins(Collections.singletonList("https://i11b302.p.ssafy.io"));
+
+                        configuration.setAllowedOrigins(Arrays.asList("https://i11b302.p.ssafy.io","http://localhost:5500","http://127.0.0.1:5500"));
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
