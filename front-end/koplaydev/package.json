@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.7",
+    "@stomp/stompjs": "^7.0.0",
     "axios": "^1.7.3",
     "chart.js": "^4.4.3",
     "embla-carousel-react": "^8.1.7",
@@ -26,6 +27,7 @@
     "sass": "^1.77.8",
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.5",
+    "sockjs-client": "^1.6.1",
     "styled-components": "^6.1.12"
   }
 }
