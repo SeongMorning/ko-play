@@ -23,8 +23,7 @@ public class Avatar {
     @JoinColumn(name = "nation_idx", nullable = false)
     private Nation nation;
 
-    @Lob
-    private byte[] avatarFile;
+    private String avatarFile;
 
     @Builder.Default
     @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
