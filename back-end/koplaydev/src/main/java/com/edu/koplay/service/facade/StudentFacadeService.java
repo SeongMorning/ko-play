@@ -72,15 +72,16 @@ public class StudentFacadeService {
         return galleryService.deleteSnapshot(snapshotId, student);
     }
 
-    public List<StudentUsableAvatar> addAvatar(String id, String countryName) {
+    public StudentUsableAvatar addAvatar(String id, String countryName) {
         //학생조회
         Student student = studentService.selectOneStudent(id);
         //추가하게될 국가 정보 받아오기
         Nation nation = nationService.selectNationByName(countryName);
         //새로 추가하게될 아바타 랜덤으로 가져오기
         Avatar avatar = avatarService.selectRandomAvatar(countryName, student.getStudentIdx());
-        System.out.println(avatar.toString());
+//        System.out.println(avatar.toString());
         //해당아바타 usable 테이블에 isnert해주기
-        return studentUsableAvatarService.insertUsableAvatar(student, nation, avatar);
+        studentUsableAvatarService.insertUsableAvatar(student, nation, avatar);
+        return studentUsableAvatarService.selectAvatarByAvatarIdx(student, avatar);
     }
 }
