@@ -21,6 +21,7 @@ export default function Profile() {
   const userInfo = useSelector((state) => state.studentInfo);
   const avatar = useSelector((state) => state.avatar);
   const myAvatar = useSelector((state) => state.myAvatar);
+  const modal = useSelector((state) => state.modal);
 
   useEffect(() => {
     const fetchStudentInfo = async () => {
@@ -61,7 +62,9 @@ export default function Profile() {
     if(!userInfo.visited){
       dispatch(changeModalIdx(1000))
     }else{
-      dispatch(changeModalIdx(0));
+      if(modal != 2){
+        dispatch(changeModalIdx(0));
+      }
     }
   }, [userInfo])
   return (
@@ -90,7 +93,7 @@ export default function Profile() {
         <span className={styles.nickname}>{userInfo.nickname}</span>
         <span className={styles.games}>총 게임수 : 13판</span>
         <span className={styles.avatar}>
-          열린코스튬 {myAvatar.avatars.length}/{avatar.avatars.length}
+          열린코스튬 {myAvatar.avatars.length ? myAvatar.avatars.length : 0}/{avatar.avatars.length}
         </span>
       </div>
     </motion.div>
