@@ -27,7 +27,7 @@ public class StudentUsableAvatarService {
     }
 
     public StudentUsableAvatar selectAvatarByAvatarIdx(Student student, Avatar avatar) {
-        return studentUsableAvatarRepository.findByAvatarAndStudent(student, avatar).orElseThrow(()-> new NoSuchElementException("이 학생은 코스튬이 하나도 없어요"));
+        return studentUsableAvatarRepository.findByAvatarAndStudent(avatar, student).orElseThrow(()-> new NoSuchElementException("이 학생은 코스튬이 하나도 없어요"));
     }
 
     public List<StudentUsableAvatar> updateAvatar(Student student, Avatar beforeAvatar, Avatar afterAvatar) {
