@@ -11,6 +11,8 @@ export default function Cabinet() {
   const [allAvatars, setAllAvatars] = useState([]);
   const [myAvatars, setMyAvatars] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState("Korea");
+  const [currentPage, setCurrentPage] = useState(1);
+  const avatarsPerPage = 8; // 한 페이지에 표시할 아바타 수
 
   useEffect(() => {
     const fetchAllAvatars = async () => {
@@ -34,11 +36,21 @@ export default function Cabinet() {
     (avatar) => avatar.countryName === selectedCountry
   );
 
+  // 현재 페이지의 아바타만 표시
+  const indexOfLastAvatar = currentPage * avatarsPerPage;
+  const indexOfFirstAvatar = indexOfLastAvatar - avatarsPerPage;
+  const currentAvatars = filteredAvatars.slice(
+    indexOfFirstAvatar,
+    indexOfLastAvatar
+  );
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
   return (
     <div className={styles.cabinetContainer}>
       <img className={styles.cabinetImg} src="/cabinet.png" />
       <div className={styles.avatarContainer}>
-        {filteredAvatars.map((avatar, index) => {
+        {currentAvatars.map((avatar, index) => {
           const isOwned =
             myAvatars == null
               ? null
@@ -55,6 +67,24 @@ export default function Cabinet() {
             />
           );
         })}
+      </div>
+      <div className={styles.pagination}>
+        {currentPage > 1 && (
+          <button
+            className={styles.pageButton}
+            onClick={() => paginate(currentPage - 1)}
+          >
+            이전
+          </button>
+        )}
+        {indexOfLastAvatar < filteredAvatars.length && (
+          <button
+            className={styles.pageButton}
+            onClick={() => paginate(currentPage + 1)}
+          >
+            다음
+          </button>
+        )}
       </div>
       <Cam left="55vw" top="40vh" width="20vw" />
       <BtnContainer />

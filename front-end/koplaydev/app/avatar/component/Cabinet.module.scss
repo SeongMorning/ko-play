@@ -1,6 +1,6 @@
 .cabinetContainer {
   animation: slideIn 1s ease-out forwards;
-  position: relative; // 필요에 따라 추가
+  position: relative;
   z-index: 10;
 
   .cabinetImg {
@@ -29,6 +29,41 @@
 
 .avatarContainer {
   position: absolute;
-  top: 40vh;
+  top: 31vh;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2vw;
+  width: 50vw;
+  height: 50vh;
   z-index: 20;
+  padding: 1%;
+
+  .avatar {
+    width: calc(5vw + 6vh);
+    height: calc(5vw + 6vh);
+    object-fit: contain;
+  }
+}
+
+.pagination {
+  position: absolute;
+  bottom: 5vh;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  .pageButton {
+    background-color: #fdd127;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #e6b800;
+    }
+  }
 }
