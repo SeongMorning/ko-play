@@ -3,7 +3,8 @@ import MainBg from "../component/background/MainBg";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
 import Podium from "./component/Podium";
 
-export default function fame(props) {
+export default async function fame(props) {
+
   const exp = 100;
   const users = {
     user1: {
