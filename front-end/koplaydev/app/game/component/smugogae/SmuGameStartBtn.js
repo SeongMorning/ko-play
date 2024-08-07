@@ -51,7 +51,9 @@ export default function SmuGameStartBtn() {
               .then((result) => {
                 return result.message.content
                   .split("\n")
-                  .map((h) => h.trim().replace(/Hint\d+: /, ""));
+                  .map((h) => h.trim().replace(/Hint\d+: /, ""))
+                  .filter((h) => h !== "")
+                  .slice(0, 5);
               })
               .catch((err) => {
                 console.error("Error fetching hints:", err);
