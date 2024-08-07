@@ -187,7 +187,7 @@ export default function SmuGameStart() {
               left="45vw"
               bottom="25vh"
               text={`문제 남은 힌트 ${
-                hints[currentQuestion]?.length - currentHintIndex || 0
+                hints[currentQuestion]?.length - currentHintIndex - 1 || 0
               }`}
             />
             <Options
