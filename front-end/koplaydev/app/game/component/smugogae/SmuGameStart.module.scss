@@ -66,27 +66,28 @@
 }
 
 .characterContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  width: calc(15vw + 20vh);
-  height: calc(15vw + 20vh);
-  left: 3vw;
+  box-sizing: border-box;
+  width: 40%;
+  height: 60%;
+  left: 30vw;
 
-  .myVideo {
+  .character {
     position: absolute;
-    left: 30vw;
+    top: 0;
     width: 100%;
     height: 100%;
     z-index: 10;
   }
 
   .videoBack {
-    position: absolute;
-    top: calc(6vw + 6vh);
-    left: calc(28vw + 23vh);
-    width: calc(4vw + 5vh);
-    height: calc(4vw + 5vh);
-    border-radius: 5vw;
-    background-color: #ebffdc; // 여기 색상을 GIF의 배경색과 일치하게 수정하세요
+    width: 30%;
+    height: 20%;
+    border-radius: 10vh;
+    background-color: #ebffdc;
     z-index: 1;
   }
 }
