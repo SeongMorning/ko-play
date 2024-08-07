@@ -8,6 +8,9 @@ import { motion, useAnimation } from "framer-motion";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
 import gameResultAxios from "@/app/axios/gameResultAxios";
 import ChangeNation from "@/app/avatar/component/ChangeNation";
+import allAvatarAxios from "@/app/axios/allAvatarAxios";
+import newAvatarAxios from "@/app/axios/newAvatarAxios";
+import RewardJellyBtn from "../RewardJellyBtn";
 
 export default function SmuGameEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -19,11 +22,14 @@ export default function SmuGameEnd() {
   const beforeExp = userInfo.exp % 100;
   const afterExp = 120;
 
-  const [selectedCountry, setSelectedCountry] = useState("Korea");
+  const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
   const [showRewardButton, setShowRewardButton] = useState(false);
   const [countryImage, setCountryImage] = useState("");
+
+  const [allAvatars, setAllAvatars] = useState([]);
+  const [newAvatars, setNewAvatars] = useState(null);
 
   useEffect(() => {
     const postGameResult = async () => {
@@ -35,6 +41,13 @@ export default function SmuGameEnd() {
         exp
       );
     };
+    const fetchAllAvatars = async () => {
+      const data = await allAvatarAxios();
+      if (data) {
+        setAllAvatars(data);
+      }
+    };
+    fetchAllAvatars();
     postGameResult();
   }, []);
 
@@ -123,17 +136,39 @@ export default function SmuGameEnd() {
     }, 10);
   };
 
+  const handleCountrySelect = async (country) => {
+    setSelectedCountry(country);
+    const newAvatarData = await newAvatarAxios(country);
+    if (newAvatarData) {
+      setNewAvatars(newAvatarData.data);
+    }
+    setTimeout(() => {
+      document.querySelector(`.${styles.nationSelect}`).style.display = "none";
+    }, 1000);
+    setTimeout(() => {
+      setShowBlackScreen(false);
+    }, 6000);
+  };
+
   return (
     <>
       {showBlackScreen && (
         <div className={styles.blackScreen}>
           <div className={styles.nationSelect}>
             <ChangeNation
-              setSelectedCountry={setSelectedCountry}
+              setSelectedCountry={handleCountrySelect}
               left="30vw"
               top="30vh"
             />
-            <button onClick={() => setShowBlackScreen(false)}>확인</button>
+            {newAvatars && (
+              <div className={styles.avatarContainer}>
+                <img
+                  src={newAvatars.avatarFile}
+                  alt="New Avatar"
+                  className={styles.avatar}
+                />
+              </div>
+            )}
           </div>
         </div>
       )}
@@ -222,7 +257,15 @@ export default function SmuGameEnd() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 1, delay: 5 } }}
         >
-          <button onClick={handleRewardClick}>보상 열기</button>
+          <RewardJellyBtn
+            width="100"
+            height="100"
+            bg="#FFD6E0"
+            shadow="#E07A93"
+            text="보상열기"
+            bottom="3"
+            onClick={handleRewardClick}
+          />
         </motion.div>
       )}
       <motion.div
