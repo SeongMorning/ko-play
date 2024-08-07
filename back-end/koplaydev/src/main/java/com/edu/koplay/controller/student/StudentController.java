@@ -260,10 +260,10 @@ public class StudentController {
         try {
             String id = getAuthenticationData();
 
-            List<StudentUsableAvatar> myAvatar = studentService.addAvatar(id, countryName);
+            StudentUsableAvatar myAvatar = studentService.addAvatar(id, countryName);
+            StudentUsableAvatarDTO dto = new StudentUsableAvatarDTO(myAvatar);
 
-            List<StudentUsableAvatarDTO> dtos = myAvatar.stream().map(StudentUsableAvatarDTO::new).collect(Collectors.toList());
-            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<StudentUsableAvatarDTO>builder().data(dtos).build();
+            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<StudentUsableAvatarDTO>builder().data(List.of(dto)).build();
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
