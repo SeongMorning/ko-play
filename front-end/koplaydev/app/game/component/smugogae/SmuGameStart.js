@@ -133,7 +133,7 @@ export default function SmuGameStart() {
   return (
     <>
       <div className={styles.characterContainer}>
-        <img className={styles.myVideo} src="/character-dancingMachine.gif" />
+        <img className={styles.character} src="/character-dancingMachine.gif" />
         <div className={styles.videoBack}></div>
       </div>
       {gameOver && modal && (
@@ -190,7 +190,7 @@ export default function SmuGameStart() {
           <div style={{ width: "100%" }}>
             <TalkBalloon
               width="15vw"
-              left="45vw"
+              left="50vw"
               bottom="25vh"
               text={`문제 남은 힌트 ${
                 hints[currentQuestion]?.length - currentHintIndex - 1 || 0
