@@ -6,6 +6,7 @@ import { Stomp } from '@stomp/stompjs';
 
 const RankTest = () => {
     const [message, setMessage] = useState('');
+    console.log(message)
 
     useEffect(() => {
         const socket = new SockJS('http://localhost:8080/ws');
