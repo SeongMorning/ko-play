@@ -19,12 +19,14 @@ export default function Cabinet() {
       const data = await allAvatarAxios();
       if (data) {
         setAllAvatars(data);
+        console.log(data);
       }
     };
     const fetchMyAvatars = async () => {
       const data = await myAvatarAxios();
       if (data) {
-        setMyAvatars(data.data);
+        setMyAvatars(data);
+        console.log(data);
       }
     };
 
@@ -55,8 +57,7 @@ export default function Cabinet() {
             myAvatars == null
               ? null
               : myAvatars.some(
-                  (myAvatar) =>
-                    myAvatar.studentUsableAvatarIdx === avatar.avatarIdx
+                  (myAvatar) => myAvatar.avatarIdx === avatar.avatarIdx
                 );
           return (
             <img
