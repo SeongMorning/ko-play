@@ -8,6 +8,7 @@ const RankTest = () => {
     const [message, setMessage] = useState('');
     const stompClientRef = useRef(null);
     const connectedRef = useRef(false); // 연결 상태를 추적하는 ref
+    const [frame, setFrame] = useState('');
     useEffect(()=>{
         console.log(message);
         setMessage("12")
@@ -19,6 +20,7 @@ const RankTest = () => {
         stompClientRef.current = stompClient;
         stompClient.connect({}, (frame) => {
             console.log('Connected: ' + frame);
+            setFrame(frame);
             connectedRef.current = true; // 연결 상태를 true로 설정
             stompClient.subscribe('/topic/greetings', (greeting) => {
                 setMessage(JSON.parse(greeting.body).content);
@@ -35,7 +37,7 @@ const RankTest = () => {
 
     const sendName = () => {
         if (connectedRef.current && stompClientRef.current) {
-            stompClientRef.current.send('/app/hello', {}, JSON.stringify({ name: 'World' }));
+            stompClientRef.current.send('/app/hello', {}, JSON.stringify({ name: String(frame) }));
         } else {
             console.log('STOMP client is not connected.');
         }
