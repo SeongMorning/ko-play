@@ -211,14 +211,14 @@ public class StudentController {
             for (Object[] result : dailyExp) {
                 // Extract values based on index
 
-                int exp = ((Number) result[0]).intValue();
-                Date date = (Date) result[1];
-
+                Date date = (Date) result[0];
+                int exp = ((Number) result[1]).intValue();
+                int accumSum = ((Number) result[2]).intValue();
 
                 // Create a new DTO and add it to the list
-                ExpDTO expDTO = new ExpDTO(exp, date);
+                ExpDTO expDTO = new ExpDTO(date,exp, accumSum);
                 res2.add(expDTO);
-                //System.out.println("gameres" + gameResultDTO.toString());
+
             }
 
             List<Object[]> dailySpecificRes = gameFacadeService.getDailySpecific(studentIdx);
