@@ -28,6 +28,7 @@
     "slick-carousel": "^1.8.1",
     "socket.io-client": "^4.7.5",
     "sockjs-client": "^1.6.1",
-    "styled-components": "^6.1.12"
+    "styled-components": "^6.1.12",
+    "supports-color": "^8.1.1"
   }
 }
