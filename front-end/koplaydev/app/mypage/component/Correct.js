@@ -107,9 +107,6 @@ export default function Correct(props) {
 
   return (
     <div className={styles.CorrectMain}>
-      <div className={styles.graph}>
-        <canvas ref={graph} />
-      </div>
       <div className={styles.levelBtn}>
         {[1,2,3,4,5].map((data, index)=>
           <LevelJellyBtn
@@ -122,6 +119,9 @@ export default function Correct(props) {
             height={"60"}
           />
         )}
+      </div>
+      <div className={styles.graph}>
+        <canvas ref={graph} />
       </div>
     </div>
   );
