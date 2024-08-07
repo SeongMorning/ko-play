@@ -21,14 +21,15 @@ export default function ExpBar(props) {
   useEffect(() => {
     if (graph.current !== null) {
       const exp = props.expDB.map((data)=> data.exp)
+      console.log(exp)
       const ctx = graph.current;
-      const labels = [...exp,0].reverse().map((data)=> Math.trunc(data / 100) + 1);
+      const labels = [...exp].reverse().map((data)=> Math.trunc(data / 100) + 1);
       const data = {
         labels: labels,
         datasets: [
           {
             label: "경험치",
-            data: [...exp,0].reverse(),
+            data: [...exp].reverse().map((data)=> data % 100),
             fill: false,
             borderColor: "black",
             tension: 0.1,

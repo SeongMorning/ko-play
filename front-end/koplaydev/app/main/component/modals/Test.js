@@ -27,7 +27,7 @@ export default function Test() {
           <TestSelector idx={testIdx} />
         </div>
         {testList.map((data, index) => (
-          <WhiteTestBtn text={data} idx={index} />
+          <WhiteTestBtn key={index} text={data} idx={index} />
         ))}
       </div>
     </YellowBox>

@@ -14,7 +14,6 @@ export default function Score(props) {
     const diffMin = Math.floor(diff / (1000 * 60));
     const diffHour = Math.floor(diff / (1000 * 60 * 60));
     const diffInDay = Math.floor(diff / (1000 * 60 * 60 * 24));
-
     if(diffInDay >= 1){
       return `${diffInDay}일`;
     }else if(diffHour >= 1){
@@ -30,7 +29,6 @@ export default function Score(props) {
       setTotalCnt(totalCnt + data.question);
     })
   },[props.score])
-
   return (
     <div className={styles.ScoreMain}>
       <span className={styles.ScoreTotal}>
@@ -44,7 +42,7 @@ export default function Score(props) {
                 <span>총 문제 수 : {data.question}개, 정답 개수 : {data.correct}개</span>
                 <span>정답률 {Math.floor((data.correct / data.question) * 100)}%</span>
             </div>
-            <span>{calcDay(data.date)}</span>
+            <span>{`${calcDay(data.date)} 전`}</span>
           </div>
         )}
       </div>

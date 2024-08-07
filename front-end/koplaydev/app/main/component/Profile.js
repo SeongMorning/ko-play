@@ -59,10 +59,8 @@ export default function Profile() {
     dispatch(changeReadLevel(userInfo.readingLevel));
 
     if(!userInfo.visited){
-      console.log("첫방문임")
       dispatch(changeModalIdx(1000))
     }else{
-      console.log("첫방문아님")
       dispatch(changeModalIdx(0));
     }
   }, [userInfo])
