@@ -3,14 +3,8 @@ import API from "../utils/API";
 export default async function newAvatarAxios(countryName) {
   console.log(countryName);
   try {
-    const formData = new FormData();
-    formData.append("countryName", countryName);
 
-    const { data } = await API.post("/students/avatar", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
+    const { data } = await API.post(`/students/avatar?countryName=${countryName}`);
     console.log(data);
     return data.data;
   } catch (error) {
