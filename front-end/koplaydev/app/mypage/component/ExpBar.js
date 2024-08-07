@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 export default function ExpBar(props) {
   const graph = useRef(null);
   // 단계별 분야별 정답률 다 받아야되네요 한번에
+  console.log(props.expDB)
   const calcDate = (beforeDay)=>{
     const today = new Date();
     const pastDate = new Date(today);
@@ -20,16 +21,16 @@ export default function ExpBar(props) {
 
   useEffect(() => {
     if (graph.current !== null) {
-      const exp = props.expDB.map((data)=> data.exp)
+      const exp = props.expDB.map((data)=> data.accumExp)
       console.log(exp)
       const ctx = graph.current;
-      const labels = [...exp].reverse().map((data)=> Math.trunc(data / 100) + 1);
+      const labels = [...exp].map((data)=> Math.trunc(data / 100) + 1);
       const data = {
         labels: labels,
         datasets: [
           {
             label: "경험치",
-            data: [...exp].reverse().map((data)=> data % 100),
+            data: [...exp].map((data)=> data % 100),
             fill: false,
             borderColor: "black",
             tension: 0.1,
@@ -63,19 +64,25 @@ export default function ExpBar(props) {
           },
           elements: {
             bar: {
-              backgroundColor : "white",
-              borderWidth: 10,
+              backgroundColor : "#c8b6ff"
             },
           },
           plugins: {
             legend: {
+              position : "bottom",
+
               labels: {
+                boxWidth : 10,
+                boxHeight : 10,
                 font: {
                   size: 20,
                 },
               },
             },
           },
+          layout : {
+            autoPadding : false,
+          }
         },
       });
 
