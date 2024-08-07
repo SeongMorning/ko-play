@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class AvatarDTO {
     private Long avatarIdx;
     private String countryName;
-    private byte[] avatarFile;
+    private String avatarFile;
 
     public AvatarDTO(Avatar avatar) {
         this.avatarFile = avatar.getAvatarFile();
