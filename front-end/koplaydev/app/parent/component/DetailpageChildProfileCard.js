@@ -7,7 +7,7 @@ import CheckChildInfo from "./CheckChildInfo";
 
 export default function DetailpageChildProfileCard({ child }) {
     const router = useRouter();
-    const [ openModal, setOpenModal ] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
 
     const clickIcon = () => {
         setOpenModal(true);
@@ -15,74 +15,78 @@ export default function DetailpageChildProfileCard({ child }) {
 
     const closeModal = () => {
         setOpenModal(false);
-    }
+    };
+
+    const handleDetailBoxClick = (view) => {
+        router.push(`/parent/child/${child.id}/statistic?view=${view}`);
+    };
 
     return (
-        <><div>
-            <div className={`${styles.profileCardBg}`}></div>
-            <div className={`${styles.profileCard}`}>
-
+        <>
+            <div>
+                <div className={styles.profileCardBg}></div>
+                <div className={styles.profileCard}>
                     <img
-                    className={styles.settingIcon}
-                    src="/settingIcon2.png"
-                    onClick={clickIcon} />
-                <div className={styles.profileInput}>
-                    <div className={styles.profileImgBg}>
-                        <img className={styles.profileImg} src={child.profileImg || "/hehe.png"} onError={(e) => { e.target.src = "/hehe.png"; }}/>
+                        className={styles.settingIcon}
+                        src="/settingIcon2.png"
+                        onClick={clickIcon}
+                    />
+                    <div className={styles.profileInput}>
+                        <div className={styles.profileImgBg}>
+                            <img
+                                className={styles.profileImg}
+                                src={child.profileImg || "/hehe.png"}
+                                onError={(e) => { e.target.src = "/hehe.png"; }}
+                            />
+                        </div>
+                        <h1 className={styles.profileName}>{child.name}</h1>
                     </div>
-                    <h1 className={styles.profileName}>{child.name}</h1>
                 </div>
-            </div>
 
-            <div className={styles.inputTotal}>
-                <div className={styles.inputContainer}>
-                    <div className={styles.detailBox}>
-                        <DetailBox
-                            onClick={() => router.push("/parent/child/statistic")}
-                            text="분야별, 레벨별 정답률"
-                            width={220}
-                            height={92} />
+                <div className={styles.inputTotal}>
+                    <div className={styles.inputContainer}>
+                        <div className={styles.detailBox}>
+                            <DetailBox
+                                onClick={() => handleDetailBoxClick('correctAnswerRate')}
+                                text="분야별, 레벨별 정답률"
+                                width={220}
+                                height={92}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className={styles.inputContainer}>
-                    <div className={styles.detailBox}>
-                        <DetailBox
-                            onClick={() => router.push("/parent/child/statistic")}
-                            text="학습 진도 현황"
-                            width={220}
-                            height={92} />
+                    <div className={styles.inputContainer}>
+                        <div className={styles.detailBox}>
+                            <DetailBox
+                                onClick={() => handleDetailBoxClick('progress')}
+                                text="학습 진도 현황"
+                                width={220}
+                                height={92}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className={styles.inputContainer}>
-                    <div className={styles.detailBox}>
-                        <DetailBox
-                            onClick={() => router.push("/parent/child/statistic")}
-                            text="학습 성취도 비교"
-                            width={220}
-                            height={92} />
+                    <div className={styles.inputContainer}>
+                        <div className={styles.detailBox}>
+                            <DetailBox
+                                onClick={() => handleDetailBoxClick('comparison')}
+                                text="학습 성취도 비교"
+                                width={220}
+                                height={92}
+                            />
+                        </div>
                     </div>
-                </div>
-                <div className={styles.inputContainer}>
-                    <div className={styles.detailBox}>
-                        <DetailBox
-                            onClick={() => router.push("/parent/child/statistic")}
-                            text="주간 학습 리포트"
-                            width={220}
-                            height={92} />
-                    </div>
-                </div>
-                <div className={styles.inputContainer}>
-                    <div className={styles.detailBox}>
-                        <DetailBox
-                            onClick={() => router.push("/parent/child/statistic")}
-                            text="스냅샷"
-                            width={220}
-                            height={92} />
+                    <div className={styles.inputContainer}>
+                        <div className={styles.detailBox}>
+                            <DetailBox
+                                onClick={() => handleDetailBoxClick('snapshot')}
+                                text="스냅샷"
+                                width={220}
+                                height={92}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        { openModal && <CheckChildInfo onClose={closeModal}  child={child} />}
+            {openModal && <CheckChildInfo onClose={closeModal} child={child} />}
         </>
-    )
+    );
 }
