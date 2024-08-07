@@ -7,6 +7,7 @@ import BackScoreBtn from "@/app/component/buttons/BackScoreBtn";
 import { useSelector } from "react-redux";
 
 
+
 export default function Child({ params }) {
     //id로 해당 계정 정보 가져오기
     const selectProfileById = (state, id) => {
@@ -14,6 +15,7 @@ export default function Child({ params }) {
     };
 
     const profile = useSelector(state => selectProfileById(state, params.id));
+    console.log(params.id)
 
     return (
         <>
