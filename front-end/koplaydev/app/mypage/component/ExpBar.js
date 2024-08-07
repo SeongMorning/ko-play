@@ -8,7 +8,6 @@ import { useSelector } from "react-redux";
 export default function ExpBar(props) {
   const graph = useRef(null);
   // 단계별 분야별 정답률 다 받아야되네요 한번에
-  console.log(props.expDB)
   const calcDate = (beforeDay)=>{
     const today = new Date();
     const pastDate = new Date(today);
