@@ -37,6 +37,7 @@ export default function SmuGameStart() {
   const [unitScore, setUnitScore] = useState(0);
   const [pointByHints, setPointByHints] = useState(0);
   const [speechSpeed, setSpeechSpeed] = useState(1);
+  const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
     if (listenLevel === 1) {
@@ -81,6 +82,7 @@ export default function SmuGameStart() {
     setGameOver(false);
     setReset((prev) => !prev);
     setModal(false);
+    setIsDisabled(false);
   };
 
   const handleNextHint = () => {
@@ -97,6 +99,9 @@ export default function SmuGameStart() {
   };
 
   const handleGuess = (guess) => {
+    if (isDisabled) return;
+    setIsDisabled(true);
+
     window.speechSynthesis.cancel();
     setPlayHint(false);
     setCorrectWord(chosenWords[currentQuestion].wordKor);
@@ -116,6 +121,7 @@ export default function SmuGameStart() {
       setCurrentHintIndex(0);
       setCorrectWord(null);
       setReset((prev) => !prev);
+      setIsDisabled(false);
       setPlayHint(false);
     } else {
       setGameOver(true);
