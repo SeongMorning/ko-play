@@ -11,7 +11,7 @@ export default function YellowBox(props) {
         }}
       >
         <div className={styles.YellowBoxTop}>
-          <img src="/star-bg.png" />
+          <img src="/Star-bg.png" />
           <img src="/ufo-bg.png" />
           <img src="/planet-bg.png" />
 
