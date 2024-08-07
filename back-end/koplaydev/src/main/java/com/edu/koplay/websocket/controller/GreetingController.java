@@ -1,8 +1,9 @@
 package com.edu.koplay.websocket.controller;
 
 
-import com.edu.koplay.websocket.entity.Greeting;
-import com.edu.koplay.websocket.entity.HelloMessage;
+
+import com.edu.koplay.websocket.Greeting;
+import com.edu.koplay.websocket.HelloMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
