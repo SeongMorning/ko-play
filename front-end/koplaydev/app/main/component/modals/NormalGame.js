@@ -188,7 +188,7 @@ const GameSelect = (props) => {
                       }}
                       onClick={() => {
                         dispatch(changeGameIdx(data.gameIdx))
-                        router.push(`/game/${props.idx}`);
+                        router.push(`/game/${data.gameIdx}`);
                       }}
                     >
                       시작
