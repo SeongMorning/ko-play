@@ -49,33 +49,74 @@ export default function Progress({ childId }) {
 
   
   useEffect(() => {
-    async function fetchData() {
-      if (!childId) {
-        console.error("childId가 유효하지 않습니다.");
-        return;
-      }
-
+    const fetchParentStatistics = async () => {
       try {
         const data = await parentChildStatisticsAxios(childId);
-        if (data && data[0]) {
-          setScoreData(data[0]);
 
-          const total = getQuestion();
-          setTotalCnt(total);
-
-          let correct = 0;
-          data[0].forEach(item => {
-            correct += item.count;
-          });
-
-          setCorrectCnt(correct);
+        function formatDate(date) {
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1
+          const day = String(date.getDate()).padStart(2, "0");
+          return `${year}-${month}-${day}`;
         }
+
+        const getPastDate = (daysAgo) => {
+          const today = new Date();
+          const pastDate = new Date(today);
+          pastDate.setDate(today.getDate() - daysAgo);
+          return formatDate(pastDate);
+        };
+
+        if(res[2]){
+          setScore(res[2]);
+        }
+  
+  
+        if(res[1]){
+          setExpDB(res[1]);
+        }
+        
+        if (res[0]) {
+          for (let k = 0; k < 3; k++) {
+            for (let i = 0; i < 5; i++) {
+              for (let j = 0; j < 7; j++) {
+                let list = res[0].filter((data) => data.date === getPastDate(j) && data.level === i+1);
+                if(k===0){
+                  list = list.filter((data) => data.gamePurpose === "말하기");
+                }else if(k===1){
+                  list = list.filter((data) => data.gamePurpose === "읽기");
+                }else{
+                  list = list.filter((data) => data.gamePurpose === "듣기");
+                }
+                if(list.length > 0){
+                  statistic[k][i][j] = Math.floor((list[0].correctAnswer / list[0].totalQuestion) * 100)
+                }else{
+                  statistic[k][i][j] = 0;
+                }
+              }
+            }
+          }
+        }
+
+        // if (data && data[0]) {
+        //   setScoreData(data[0]);
+
+        //   const total = getQuestion();
+        //   setTotalCnt(total);
+
+        //   let correct = 0;
+        //   data[0].forEach(item => {
+        //     correct += item.count;
+        //   });
+
+        //   setCorrectCnt(correct);
+        // }
       } catch (error) {
         console.error("데이터를 가져오는 도중 오류가 발생했습니다:", error);
       }
     }
 
-    fetchData();
+    fetchParentStatistics();
   }, [childId, gameList]);
 
   return (

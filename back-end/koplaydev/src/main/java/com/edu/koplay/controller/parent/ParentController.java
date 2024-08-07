@@ -4,6 +4,7 @@ import com.edu.koplay.dto.*;
 import com.edu.koplay.model.Parent;
 import com.edu.koplay.model.RecommendLevel;
 import com.edu.koplay.model.Student;
+import com.edu.koplay.repository.ParentRepository;
 import com.edu.koplay.service.StudentService;
 import com.edu.koplay.service.facade.GameFacadeService;
 import com.edu.koplay.service.facade.ParentFacadeService;
@@ -180,7 +181,22 @@ public class ParentController {
             return ResponseEntity.badRequest().body(response);
         }
     }
-
+    @PutMapping("/visit")
+    public ResponseEntity<?> putVisited() {
+        try {
+            String email = getAuthenticationData();
+            Parent p = parentService.getParentInfo(email);
+            p.setVisited(true);
+            ParentDTO dto = new ParentDTO(p);
+            ResponseDTO<ParentDTO> response = ResponseDTO.<ParentDTO>builder().data(List.of(dto)).build();
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            //예외 발생 시 error에 메세지를 넣어 리턴
+            logger.info(e.getMessage());
+            ResponseDTO<ParentDTO> response = ResponseDTO.<ParentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
     @GetMapping("/child/{childId}/statistics")
     public ResponseEntity<?> getChildStatistics(@PathVariable(name = "childId") String childId) {
 
