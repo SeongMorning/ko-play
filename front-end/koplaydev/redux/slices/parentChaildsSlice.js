@@ -15,14 +15,7 @@ const getRandomColor = () => {
 
 export const parentChildsSlice = createSlice({
     name: "parentChilds",
-    initialState: [{
-        id: "",
-        pw: "",
-        profileImg: "",
-        name: "", 
-        birth: "",
-        bgColor: colors[Math.floor(Math.random() * colors.length)]
-    }],
+    initialState: null,
     reducers: {
         changeParentChildsInfo: (state, action) => {
             return action.payload.map(profile => ({
