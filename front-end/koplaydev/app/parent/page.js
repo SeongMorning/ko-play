@@ -13,35 +13,31 @@ import ParentBg from "../component/background/ParentBg";
 import InputChildInfo from "./component/InputChildInfo";
 import parentChildInfoAxios from "../axios/parentChildInfoAxios";
 import {
-  changeParentChildsInfo,
-  addParentChild,
+  changeParentChildsInfo
 } from "../../redux/slices/parentChaildsSlice";
-import InputInitInfo from "./component/InputInitInfo";
-import insertChildAxios from "../axios/insertChildAxios";
-import {
-  changeListenLevel,
-  changeReadLevel,
-  changeSpeechLevel,
-} from "@/redux/slices/levelSlice";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
 import parentInfoAxios from "../axios/parentInfoAxios";
+import FirstVisitModal from "./component/FirstVisitModal";
+import { changeParentInfo } from "@/redux/slices/parentSlice";
 
 export default function Parent() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInitModalOpen, setIsInitModalOpen] = useState(false);
+  const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);
 
   const parentChilds = useSelector((state) => state.parentChilds);
-  
-  useEffect(()=>{
-    const fetchParentInfo = async () => {
-        const data = await parentInfoAxios();
 
-        if(data){
-            if(!data.visited){
-                setIsInitModalOpen(true);
-            }
+  useEffect(() => {
+    const fetchParentInfo = async () => {
+      const data = await parentInfoAxios();
+
+      if (data) {
+        changeParentInfo(data)
+        if (!data.visited) {
+          setIsFirstModalOpen(true);
         }
+      }
     }
     fetchParentInfo();
   }, [])
@@ -61,10 +57,6 @@ export default function Parent() {
     fetchParentChildsInfo();
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log("parentChilds가 변경되었습니다:", parentChilds);
-  }, [parentChilds]);
-
   const openModal = () => {
     setIsModalOpen(true);
   };
@@ -79,20 +71,9 @@ export default function Parent() {
     setIsInitModalOpen(false);
   };
 
-  const closeInitModal = () => {
-    setIsInitModalOpen(false);
-    addChildProfile();
-
-    setChildInfo({
-      name: "",
-      birth: "",
-      id: "",
-      pw: "",
-      listeningLevel: 1,
-      readingLevel: 1,
-      speechLevel: 1,
-    });
-  };
+  const closeFirstModal = () => {
+    setIsFirstModalOpen(false);
+  }
 
   const [childInfo, setChildInfo] = useState({
     name: "",
@@ -103,18 +84,6 @@ export default function Parent() {
     readingLevel: 1,
     speechLevel: 1,
   });
-
-  const addChildProfile = async () => {
-    console.log(childInfo);
-    const response = await insertChildAxios(childInfo);
-
-    if (response != null) {
-      dispatch(addParentChild(childInfo));
-      dispatch(changeSpeechLevel(childInfo.speechLevel));
-      dispatch(changeReadLevel(childInfo.readingLevel));
-      dispatch(changeListenLevel(childInfo.listeningLevel));
-    }
-  };
 
   const settings = {
     dots: true,
@@ -167,20 +136,20 @@ export default function Parent() {
         )}
       </div>
       <motion.div
-      initial = {{
-        opacity : 0,
-      }}
-      animate={{
-        opacity : 1,
-        transition : {
-            duration : 2,
-            delay : 3,
-        }
-      }}
+        initial={{
+          opacity: 0,
+        }}
+        animate={{
+          opacity: 1,
+          transition: {
+            duration: 2,
+            delay: 3,
+          }
+        }}
       >
-    
-        {isInitModalOpen && (
-          <InputInitInfo onclose={closeInitModal} setChildInfo={setChildInfo} />
+
+        {isFirstModalOpen && (
+          <FirstVisitModal onclose={closeFirstModal} />
         )}
       </motion.div>
     </>
