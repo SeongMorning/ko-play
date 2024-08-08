@@ -77,16 +77,27 @@
 }
 
 .inputTotal {
-    gap: 1vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    position : absolute;
+    top : 0;
+    left : 0;
+    width : 100%;
+    height : 100%;
+    display : flex;
     justify-content: center;
-    position: absolute;
-    top: 47.5%;
-    left: 52%;
-    transform: translate(-50%, -50%);
-    z-index: 4;
+    gap : 3%;
+    padding-top : 10%;
+
+    .MyPagePink{
+        display : flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width : 40%;
+        height : 60%;
+    }
+    .MyPageYellow{
+        width : 50%;
+        height : 70%;
+    }
 }
 
 .detailBox {
