@@ -1,9 +1,36 @@
+"use client"
 import AlbumFameBg from "../component/background/AlbumFameBg";
 import MainBg from "../component/background/MainBg";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
 import Podium from "./component/Podium";
+import fameAxios from "../axios/fameAxios";
+import { useEffect } from "react";
+import student from "../axios/studentInfo";
+
 
 export default async function fame(props) {
+  useEffect(() => {
+    const fetchUserList = async () => {
+      const data = await fameAxios();
+      if (data) {
+        console.log(data);
+        // let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
+        // let readGame = data.filter((value) => value.gamePurposeIdx === 2);
+        // let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
+        // let testGame = data.filter((value) => value.gamePurposeIdx === 4);
+
+        // gameList = [[...speechGame, ...testGame], [...readGame], [...listenGame]];
+      }
+    };
+    fetchUserList();
+    const fetchStudentInfo = async () => {
+      const data = await student();
+      if(data){
+        console.log(data);
+      }
+    }
+    fetchStudentInfo();
+  }, []);
 
   const exp = 100;
   const users = {

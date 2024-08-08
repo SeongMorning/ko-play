@@ -73,12 +73,12 @@ public class RankGameController {
     @MessageMapping("/game/{roomId}")
     public void handleGameMessage(@DestinationVariable Long roomId, GameMessage message) {
         // 방 ID로 해당 방을 가져옴
-        System.out.println("game1!!!!!!!!!!!!!!");
+//        System.out.println("game1!!!!!!!!!!!!!!");
         GameRoom room = roomManager.getRoom(roomId);
         if (room == null) {
             return; // 방이 없을 경우 처리하지 않음
         }
-        System.out.println("game2!!!!!!!!!!!!!!");
+//        System.out.println("game2!!!!!!!!!!!!!!");
         // 방의 게임 상태를 가져옴
         GameState gameState = room.getGameState();
         // 게임 상태 업데이트 (점수 추가)
