@@ -5,6 +5,7 @@ import com.edu.koplay.dto.WordDTO;
 import com.edu.koplay.model.Word;
 import com.edu.koplay.service.WordService;
 import com.edu.koplay.websocket.*;
+import org.slf4j.Logger;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -32,10 +33,10 @@ public class RankGameController {
 
     // 클라이언트가 게임에 참여할 때 호출되는 메서드
     @MessageMapping("/join")
-    @SendTo("/topic/game/1")
+//    @SendTo("/topic/game/1")
     public String joinGame(String playerId) throws Exception{
         // 클라이언트를 방에 추가하거나 새 방을 생성
-        Thread.sleep(1000); // simulated delay
+//        Thread.sleep(1000); // simulated delay
         GameRoom room = roomManager.createOrJoinRoom(playerId);
         System.out.println("room!!!!!!!!!!!!!!!");
         // 방 ID를 클라이언트에게 반환
