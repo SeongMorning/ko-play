@@ -27,7 +27,10 @@ export default function CardText(props) {
       }}
       onClick={props.onClick}
     >
-      <div className={`${styles.cardInner} ${styles[color]}`}>
+      <div
+        className={`${styles.cardInner} ${styles[color]}`}
+        // style={{ backgroundImage: `url(${props.imgUrl})` }}
+      >
         <img
           src={props.imgUrl}
           alt="카드 이미지"
