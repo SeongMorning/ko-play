@@ -17,6 +17,7 @@ public class CustomItemWriter implements ItemWriter<String> {
     @Override
     public void write(Chunk<? extends String> chunk) throws Exception {
         for (String item : chunk) {
+            logger.info("!!!!!");
             logger.info(item);
         }
     }
