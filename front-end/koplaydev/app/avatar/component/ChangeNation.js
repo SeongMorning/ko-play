@@ -2,7 +2,12 @@
 import { motion } from "framer-motion";
 import styles from "./ChangeNation.module.scss";
 
-export default function ChangeNation({ setSelectedCountry, left, top }) {
+export default function ChangeNation({
+  setSelectedCountry,
+  left,
+  top,
+  imgSize,
+}) {
   // props를 destructuring합니다.
   const nations = [
     { name: "Korea", src: "/korea-3.png" },
@@ -21,6 +26,7 @@ export default function ChangeNation({ setSelectedCountry, left, top }) {
           whileHover={{
             scale: 1.1,
           }}
+          style={{ width: imgSize }}
           className={styles.nationImg}
         />
       ))}
