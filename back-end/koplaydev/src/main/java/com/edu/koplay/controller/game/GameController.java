@@ -8,12 +8,14 @@ import com.edu.koplay.model.Student;
 import com.edu.koplay.model.Word;
 import com.edu.koplay.service.GameDataService;
 import com.edu.koplay.service.facade.GameFacadeService;
+import com.edu.koplay.websocket.GameRoomManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,13 +23,14 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/games")
 public class GameController {
-
+    private GameRoomManager gameRoomManager;
     private GameFacadeService gameService;
     private GameDataService gameDataService;
     @Autowired
-    public GameController(GameFacadeService gameFacadeService, GameDataService gameDataService) {
+    public GameController(GameFacadeService gameFacadeService, GameDataService gameDataService, GameRoomManager gameRoomManager) {
         this.gameService = gameFacadeService;
         this.gameDataService = gameDataService;
+        this.gameRoomManager = gameRoomManager;
     }
 
     @GetMapping("/")
@@ -116,11 +119,18 @@ public class GameController {
 
         return ResponseEntity.ok().body(response);
     }
-//
-//    @GetMapping("/top3students")
-//    public List<Top3Players> getTop3Students() {
-//        return Top3Players.getTopPlayers();
-//    }
+    @GetMapping("/gameRoom")
+    private ResponseEntity<?> getEmptyRoom(){
+        long number = gameRoomManager.getNewRoomId();
+        ResponseDTO<Long> response = null;
+
+
+        response = ResponseDTO.<Long>builder().data(Collections.singletonList(number)).build();
+
+
+
+        return ResponseEntity.ok().body(response);
+    }
     private String getAuthenticationData() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
