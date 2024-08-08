@@ -53,7 +53,7 @@ public class ParentController {
     }
 
     @PutMapping("/nation")
-    public ResponseEntity<?> changeNation(@RequestParam(name = "id") String nation) {
+    public ResponseEntity<?> changeNation(@RequestParam(name = "nation") String nation) {
         try {
             String email = getAuthenticationData();
             logger.info("email: " + email);
@@ -185,8 +185,7 @@ public class ParentController {
     public ResponseEntity<?> putVisited() {
         try {
             String email = getAuthenticationData();
-            Parent p = parentService.getParentInfo(email);
-            p.setVisited(true);
+            Parent p = parentService.updateParentVisited(email);
             ParentDTO dto = new ParentDTO(p);
             ResponseDTO<ParentDTO> response = ResponseDTO.<ParentDTO>builder().data(List.of(dto)).build();
             return ResponseEntity.ok().body(response);
@@ -202,7 +201,6 @@ public class ParentController {
 
         try{
             String email = getAuthenticationData();
-
             //학생조회
 
             Student student = studentService.selectOneStudent(childId);
