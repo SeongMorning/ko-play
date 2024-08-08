@@ -26,7 +26,7 @@ export default function RankGame() {
   })
 
   useEffect(() => {
-    const url = "http://localhost:8080/gs-guide-websocket";
+    const url = `${process.env.customKey}/gs-guide-websocket`;
     dispatch(connectWebSocket(url));
   }, [dispatch]);
 

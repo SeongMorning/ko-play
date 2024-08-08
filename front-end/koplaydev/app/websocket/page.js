@@ -15,7 +15,7 @@ const RankTest = () => {
     }, [message])
     
     useEffect(() => {
-        const socket = new SockJS('http://localhost:8080/gs-guide-websocket');
+        const socket = new SockJS(`${process.env.customKey}/gs-guide-websocket`);
         const stompClient = Stomp.over(socket);
         stompClientRef.current = stompClient;
         stompClient.connect({}, (frame) => {
