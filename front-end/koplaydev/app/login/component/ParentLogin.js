@@ -10,14 +10,14 @@ export default function ParentLogin() {
       <img
         src="/kakao_login_large_narrow.png"
         onClick={()=>{
-          window.location.href = `${process.env.customKey}/oauth2/authorization/kakao`;
+          window.location.href = `${process.env.customKey}/api/oauth2/authorization/kakao`;
 
           }}
       />
       <img 
         src="/web_light_sq_ctn@2x.png" 
         onClick={()=>{
-          window.location.href = `${process.env.customKey}/oauth2/authorization/google`;
+          window.location.href = `${process.env.customKey}/api/oauth2/authorization/google`;
 
         }}
         />
