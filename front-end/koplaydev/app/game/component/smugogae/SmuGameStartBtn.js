@@ -27,7 +27,6 @@ export default function SmuGameStartBtn() {
     const fetchGameWord = async () => {
       const data = await gameWordAxios(
         gameIdx,
-        // levelList[gameIdx - 1],
         1,
         [
           [10, 10, 10, 10, 10],
@@ -61,7 +60,46 @@ export default function SmuGameStartBtn() {
               });
           })
         );
-        dispatch(changeHints({ hints: hintsResponse, chosenWords }));
+        const convertTextToSpeech = async (text) => {
+          const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyD1B-sZqzSBPxN33TPmv2XkKUuL08_ejkI`;
+          const data = {
+            input: { text },
+            voice: {
+              languageCode: "ko-KR",
+              name: "ko-KR-Neural2-c",
+              ssmlGender: "MALE",
+            },
+            audioConfig: { audioEncoding: "MP3" },
+          };
+          const otherparam = {
+            headers: { "content-type": "application/json; charset=UTF-8" },
+            body: JSON.stringify(data),
+            method: "POST",
+          };
+
+          try {
+            const response = await fetch(url, otherparam);
+            const result = await response.json();
+            return result.audioContent;
+          } catch (error) {
+            console.error("Error converting text to speech:", error);
+            return null;
+          }
+        };
+
+        const audioHintsResponse = await Promise.all(
+          hintsResponse.map((hints) =>
+            Promise.all(hints.map((hint) => convertTextToSpeech(hint)))
+          )
+        );
+
+        dispatch(
+          changeHints({
+            hints: hintsResponse,
+            chosenWords,
+            audioHints: audioHintsResponse,
+          })
+        );
       }
     };
     fetchGameWord();
