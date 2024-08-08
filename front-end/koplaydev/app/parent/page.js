@@ -30,7 +30,6 @@ export default function Parent() {
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInitModalOpen, setIsInitModalOpen] = useState(false);
-  const [isVisited, setIsVisited] = useState(false);
 
   const parentChilds = useSelector((state) => state.parentChilds);
   
@@ -39,7 +38,9 @@ export default function Parent() {
         const data = await parentInfoAxios();
 
         if(data){
-            
+            if(!data.visited){
+                setIsInitModalOpen(true);
+            }
         }
     }
     fetchParentInfo();
