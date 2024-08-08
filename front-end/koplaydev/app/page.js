@@ -1,4 +1,5 @@
 import PromLoginBg from "./component/background/PromLoginBg";
+import TextToSpeech from "./game/component/smugogae/TextToSpeech";
 import styles from "./page.module.scss";
 import StartButton from "./promotion/component/StartButton";
 import Title from "./promotion/component/Title";
@@ -15,6 +16,7 @@ export default async function Home() {
   return (
     <>
       <main className={styles.main}>
+        <TextToSpeech />
         <Title />
         <img className={styles.logo} src="/logo.png" />
         <StartButton

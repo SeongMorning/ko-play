@@ -2,19 +2,19 @@
 import { useEffect, useRef } from "react";
 
 export default function Hint({ hint, rate = 1.0, playHint, onEnd }) {
-  const utteranceRef = useRef(null);
+  const audioRef = useRef(null);
 
   useEffect(() => {
     if (playHint && hint) {
-      if (utteranceRef.current) {
-        window.speechSynthesis.cancel();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
       }
-      const utterance = new SpeechSynthesisUtterance(hint);
-      utterance.lang = "ko-KR";
-      utterance.rate = rate;
-      utterance.onend = onEnd;
-      window.speechSynthesis.speak(utterance);
-      utteranceRef.current = utterance;
+      const audio = new Audio(`data:audio/mp3;base64,${hint}`);
+      audioRef.current = audio;
+      audio.playbackRate = rate;
+      audio.onended = onEnd;
+      audio.play();
     }
   }, [playHint, hint, rate, onEnd]);
 
