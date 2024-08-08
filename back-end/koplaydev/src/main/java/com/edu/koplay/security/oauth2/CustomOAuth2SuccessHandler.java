@@ -19,7 +19,7 @@ import java.io.IOException;
 @Component
 public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtUtil jwtUtil;
-    private ServerConfig config;
+    private final ServerConfig config;
 
     public CustomOAuth2SuccessHandler(JwtUtil jwtUtil, ServerConfig config) {
         this.jwtUtil = jwtUtil;
@@ -38,7 +38,7 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         logger.info("jwtAccessToken = " + token.getAccessToken());
         response.addCookie(createCookie("Authorization", token.getAccessToken()));
 
-        response.sendRedirect(config.getUrl());
+        response.sendRedirect(config.getUrl()+"/parent");
 //        response.sendRedirect("http://localhost:3000/parent");
 //        response.sendRedirect("https://i11b302.p.ssafy.io/parent");
     }

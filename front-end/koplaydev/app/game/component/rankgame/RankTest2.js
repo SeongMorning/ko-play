@@ -46,7 +46,7 @@ export default function RankTest2() {
     SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
 
     // SockJS를 통해 WebSocket 클라이언트를 생성합니다.
-    const socket = new SockJS("http://localhost:8080/gs-guide-websocket");
+    const socket = new SockJS(`${process.env.customKey}/gs-guide-websocket`);
     const client = Stomp.over(socket); // Stomp 클라이언트를 SockJS와 함께 사용
 
     // WebSocket 연결이 수립되었을 때 실행될 함수
