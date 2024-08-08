@@ -57,7 +57,7 @@ public class GameController {
             int difficulty = (wordDTO.getLevel() + 1) / 2;
             //개수
             int amount = wordDTO.getAmount();
-            List<Word> words = null;
+            List<Word> words = null; //
             //레벨이 2, 4레벨일경우는 word difficulty 2개 섞어서 가져와야한다. = isDouble변수
             if (wordDTO.getLevel() % 2 == 0) {
                 //한가지 레벨 수준만
