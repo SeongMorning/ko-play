@@ -1,50 +1,27 @@
 package com.edu.koplay.batch;
 
+import com.edu.koplay.dto.StudentDTO;
+import lombok.Data;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+@Data
 public class Top3Players {
-    private Long studentIdx;
+    private StudentDTO student;
     private Long gameCount;
 
     // Static method to get the list of top players
     // Static list to hold the top 3 players
-    @Getter
-    private static List<Top3Players> topPlayers = new ArrayList<>();
 
-    public Top3Players(Long studentIdx, Long gameCount) {
-        this.studentIdx = studentIdx;
+
+    public Top3Players(StudentDTO student, Long gameCount) {
+        this.student = student;
         this.gameCount = gameCount;
     }
 
-    public Long getStudentIdx() {
-        return studentIdx;
-    }
 
-    public void setStudentIdx(Long studentIdx) {
-        this.studentIdx = studentIdx;
-    }
 
-    public Long getGameCount() {
-        return gameCount;
-    }
-
-    public void setGameCount(Long gameCount) {
-        this.gameCount = gameCount;
-    }
-
-    @Override
-    public String toString() {
-        return "Top3Players{" +
-                "studentIdx=" + studentIdx +
-                ", gameCount=" + gameCount +
-                '}';
-    }
-
-    // Static method to update the list of top players
-    public static void updateTopPlayers(List<Top3Players> players) {
-        topPlayers = players;
-    }
 
 }

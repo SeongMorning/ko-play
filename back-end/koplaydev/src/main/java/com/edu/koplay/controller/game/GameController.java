@@ -1,5 +1,6 @@
 package com.edu.koplay.controller.game;
 
+import com.edu.koplay.batch.CustomItemProcessor;
 import com.edu.koplay.batch.Top3Players;
 import com.edu.koplay.dto.*;
 import com.edu.koplay.model.GamePurpose;
@@ -107,7 +108,7 @@ public class GameController {
     }
     @GetMapping("/loadTop3students")
     public ResponseEntity<?> loadTop3Students() {
-        List<Top3Players> topPlayers = Top3Players.getTopPlayers();
+        List<Top3Players> topPlayers = CustomItemProcessor.getTopPlayers();
         ResponseDTO<Top3Players> response = null;
         if(topPlayers.isEmpty()) {
             response = ResponseDTO.<Top3Players>builder().error("데이터 없어용~").build();
@@ -119,6 +120,7 @@ public class GameController {
 
         return ResponseEntity.ok().body(response);
     }
+
     @GetMapping("/gameRoom")
     private ResponseEntity<?> getEmptyRoom(){
         long number = gameRoomManager.getNewRoomId();
