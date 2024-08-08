@@ -23,8 +23,8 @@ export default function Options({ words, onGuess, correctWord, reset }) {
           key={index}
           left={`${index * 10}px`}
           top="20px"
-          width="14vw"
-          height="14vw"
+          width="calc(9vw + 11vh)"
+          height="calc(9vw + 11vh)"
           text={wordObj.wordKor}
           imgUrl={wordObj.imgUrl}
           isCorrect={

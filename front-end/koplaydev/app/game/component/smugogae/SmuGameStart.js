@@ -189,8 +189,8 @@ export default function SmuGameStart() {
         {!gameOver && (
           <div style={{ width: "100%" }}>
             <TalkBalloon
-              width="15vw"
-              left="50vw"
+              width="calc(10vw + 7vh)"
+              left="75%"
               bottom="25vh"
               text={`문제 남은 힌트 ${
                 hints[currentQuestion]?.length - currentHintIndex - 1 || 0

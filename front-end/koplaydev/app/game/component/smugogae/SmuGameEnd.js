@@ -8,7 +8,6 @@ import { motion, useAnimation } from "framer-motion";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
 import gameResultAxios from "@/app/axios/gameResultAxios";
 import ChangeNation from "@/app/avatar/component/ChangeNation";
-import allAvatarAxios from "@/app/axios/allAvatarAxios";
 import newAvatarAxios from "@/app/axios/newAvatarAxios";
 import RewardJellyBtn from "../RewardJellyBtn";
 
@@ -26,10 +25,8 @@ export default function SmuGameEnd() {
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
   const [showRewardButton, setShowRewardButton] = useState(false);
-  const [newAvatarImageUrl, setNewAvatarImageUrl] = useState(null);
-
-  const [allAvatars, setAllAvatars] = useState([]);
   const [newAvatars, setNewAvatars] = useState(null);
+  const [showAvatar, setShowAvatar] = useState(false);
 
   useEffect(() => {
     const postGameResult = async () => {
@@ -41,13 +38,7 @@ export default function SmuGameEnd() {
         exp
       );
     };
-    const fetchAllAvatars = async () => {
-      const data = await allAvatarAxios();
-      if (data) {
-        setAllAvatars(data);
-      }
-    };
-    fetchAllAvatars();
+
     postGameResult();
   }, []);
 
@@ -141,19 +132,14 @@ export default function SmuGameEnd() {
     setSelectedCountry(country);
     const newAvatarData = await newAvatarAxios(country);
     if (newAvatarData) {
-      setNewAvatars(newAvatarData.data);
-      const matchingAvatar = allAvatars.find(
-        (avatar) =>
-          avatar.avatarIdx === newAvatarData.data.studentUsableAvatarIdx
-      );
-      if (matchingAvatar) {
-        setNewAvatarImageUrl(matchingAvatar.avatarFile);
-      }
+      setNewAvatars(newAvatarData);
+      setShowAvatar(true);
     }
     setTimeout(() => {
       document.querySelector(`.${styles.nationSelect}`).style.display = "none";
-    }, 1000);
+    }, 0);
     setTimeout(() => {
+      setShowAvatar(false);
       setShowBlackScreen(false);
     }, 6000);
   };
@@ -161,24 +147,40 @@ export default function SmuGameEnd() {
   return (
     <>
       {showBlackScreen && (
-        <div className={styles.blackScreen}>
-          <div className={styles.nationSelect}>
+        <motion.div
+          className={`${styles.blackScreen} ${showAvatar ? styles.show : ""}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showBlackScreen ? 1 : 0 }}
+          transition={{ duration: 1 }}
+        >
+          <motion.div
+            className={styles.nationSelect}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
             <ChangeNation
               setSelectedCountry={handleCountrySelect}
-              left="30vw"
-              top="30vh"
+              left="25vw"
+              top="40vh"
+              imgSize="calc(5vw + 7vh)"
             />
-            {newAvatarImageUrl && (
-              <div className={styles.avatarContainer}>
-                <img
-                  src={newAvatarImageUrl}
-                  alt="New Avatar"
-                  className={styles.avatar}
-                />
-              </div>
-            )}
-          </div>
-        </div>
+          </motion.div>
+          {showAvatar && newAvatars && (
+            <motion.div
+              className={styles.avatarContainer}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <img
+                src={newAvatars[0].avatar.avatarFile}
+                alt="New Avatar"
+                className={styles.avatar}
+              />
+            </motion.div>
+          )}
+        </motion.div>
       )}
       <div className={styles.EndPage}>
         <motion.div
@@ -263,7 +265,7 @@ export default function SmuGameEnd() {
         <motion.div
           className={styles.RewardButton}
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1, transition: { duration: 1, delay: 5 } }}
+          animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
         >
           <RewardJellyBtn
             width="100"
