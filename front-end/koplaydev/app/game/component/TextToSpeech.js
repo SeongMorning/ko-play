@@ -4,7 +4,7 @@ import { useEffect } from "react";
 export default function TextToSpeech({ text, languageCode, modelName }) {
   useEffect(() => {
     const handleButtonClick = async () => {
-      const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=AIzaSyD1B-sZqzSBPxN33TPmv2XkKUuL08_ejkI`;
+      const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.GOOGLE_TEXT_TO_SPEECH_KEY}`;
       const data = {
         input: {
           text: text,
