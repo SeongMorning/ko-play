@@ -6,9 +6,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "front.server")
+@ConfigurationProperties(prefix = "server.url")
 public class ServerConfig {
 
-    private String url;
+    private String front;
+    private String back;
 
 }
