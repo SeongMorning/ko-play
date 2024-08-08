@@ -5,12 +5,20 @@ public class GameState {
     private int player2Score;
     private String winner;
     private boolean gameFinished;
+    private boolean gameStarted;
 
     public GameState() {
         this.player1Score = 0;
         this.player2Score = 0;
         this.winner = null;
         this.gameFinished = false;
+        this.gameStarted = false;
+    }
+    public void startGame(){
+        this.gameStarted = true;
+    }
+    public boolean isGameStarted(){
+        return this.gameStarted;
     }
 
     public void updateScore(String playerId, int score) {
