@@ -10,6 +10,7 @@ import gameResultAxios from "@/app/axios/gameResultAxios";
 import ChangeNation from "@/app/avatar/component/ChangeNation";
 import newAvatarAxios from "@/app/axios/newAvatarAxios";
 import RewardJellyBtn from "./RewardJellyBtn";
+import TextToSpeech from "./TextToSpeech";
 
 export default function WordRainEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -28,6 +29,7 @@ export default function WordRainEnd() {
   const [showRewardButton, setShowRewardButton] = useState(false);
   const [newAvatars, setNewAvatars] = useState(null);
   const [showAvatar, setShowAvatar] = useState(false);
+  const [ttsText, setTtsText] = useState(null);
 
   useEffect(() => {
     const postGameResult = async () => {
@@ -62,16 +64,33 @@ export default function WordRainEnd() {
     },
   };
 
-  const expAnimation = useAnimation();
+  const [languageConfig, setLanguageConfig] = useState({
+    nation: "kr-KR",
+    foreign: "wordKor",
+    modelname: "ko-KR-Neural2-C",
+  });
 
-  let nation = "kr-KR";
-  if (userInfo.nation === "Thailand") {
-    nation = "th-TH";
-  } else if (userInfo.nation === "Vietnam") {
-    nation = "vi-VN";
-  } else if (userInfo.nation === "China") {
-    nation = "zh-CN";
-  }
+  useEffect(() => {
+    let nation = "kr-KR";
+    let foreign = "wordKor";
+    let modelname = "ko-KR-Neural2-C";
+
+    if (userInfo.nation === "Thailand") {
+      nation = "th-TH";
+      foreign = "wordThailand";
+      modelname = "th-TH-Neural2-C";
+    } else if (userInfo.nation === "Vietnam") {
+      nation = "vi-VN";
+      foreign = "wordVietnam";
+      modelname = "vi-VN-Neural2-D";
+    } else if (userInfo.nation === "China") {
+      nation = "zh-CN";
+      foreign = "wordChina";
+      modelname = "zh-CN-Neural2-C";
+    }
+
+    setLanguageConfig({ nation, foreign, modelname });
+  }, [userInfo.nation]);
 
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);
@@ -80,10 +99,16 @@ export default function WordRainEnd() {
   };
 
   const speakForeignWord = (word) => {
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = nation;
-    window.speechSynthesis.speak(utterance);
+    if (languageConfig.nation === "zh-CN") {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = languageConfig.nation;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      setTtsText(word);
+    }
   };
+
+  const expAnimation = useAnimation();
 
   useEffect(() => {
     if (afterExp > 100) {
@@ -231,11 +256,18 @@ export default function WordRainEnd() {
                     onClick={() => speakWord(data.wordKor)}
                   />
                 </div>
+                <TextToSpeech
+                  text={ttsText}
+                  languageCode={languageConfig.nation}
+                  modelName={languageConfig.modelname}
+                />
                 <div className={styles.ForeignWord}>
-                  {data.wordThailand}
+                  {data[languageConfig.foreign]}
                   <img
                     src="/WordSound.png"
-                    onClick={() => speakForeignWord(data.Thailand)}
+                    onClick={() =>
+                      speakForeignWord(data[languageConfig.foreign])
+                    }
                   />
                 </div>
               </motion.div>

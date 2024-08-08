@@ -10,6 +10,7 @@ import CardFrontImage from "../CardFrontImage";
 import GameJellyBtn from "@/app/game/component/GameJellyBtn";
 import ChangeNation from "@/app/avatar/component/ChangeNation";
 import RewardJellyBtn from "../RewardJellyBtn";
+import TextToSpeech from "../TextToSpeech";
 
 export default function SmuGameEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -27,6 +28,7 @@ export default function SmuGameEnd() {
   const [showRewardButton, setShowRewardButton] = useState(false);
   const [newAvatars, setNewAvatars] = useState(null);
   const [showAvatar, setShowAvatar] = useState(false);
+  const [ttsText, setTtsText] = useState(null);
 
   useEffect(() => {
     const postGameResult = async () => {
@@ -62,14 +64,33 @@ export default function SmuGameEnd() {
     },
   };
 
-  let nation = "kr-KR";
-  if (userInfo.nation === "Thailand") {
-    nation = "th-TH";
-  } else if (userInfo.nation === "Vietnam") {
-    nation = "vi-VN";
-  } else if (userInfo.nation === "China") {
-    nation = "zh-CN";
-  }
+  const [languageConfig, setLanguageConfig] = useState({
+    nation: "kr-KR",
+    foreign: "wordKor",
+    modelname: "ko-KR-Neural2-C",
+  });
+
+  useEffect(() => {
+    let nation = "kr-KR";
+    let foreign = "wordKor";
+    let modelname = "ko-KR-Neural2-C";
+
+    if (userInfo.nation === "Thailand") {
+      nation = "th-TH";
+      foreign = "wordThailand";
+      modelname = "th-TH-Neural2-C";
+    } else if (userInfo.nation === "Vietnam") {
+      nation = "vi-VN";
+      foreign = "wordVietnam";
+      modelname = "vi-VN-Neural2-D";
+    } else if (userInfo.nation === "China") {
+      nation = "zh-CN";
+      foreign = "wordChina";
+      modelname = "zh-CN-Neural2-C";
+    }
+
+    setLanguageConfig({ nation, foreign, modelname });
+  }, [userInfo.nation]);
 
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);
@@ -78,9 +99,13 @@ export default function SmuGameEnd() {
   };
 
   const speakForeignWord = (word) => {
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = nation;
-    window.speechSynthesis.speak(utterance);
+    if (languageConfig.nation === "zh-CN") {
+      const utterance = new SpeechSynthesisUtterance(word);
+      utterance.lang = languageConfig.nation;
+      window.speechSynthesis.speak(utterance);
+    } else {
+      setTtsText(word);
+    }
   };
 
   const expAnimation = useAnimation();
@@ -241,11 +266,18 @@ export default function SmuGameEnd() {
                     onClick={() => speakWord(data.wordKor)}
                   />
                 </div>
+                <TextToSpeech
+                  text={ttsText}
+                  languageCode={languageConfig.nation}
+                  modelName={languageConfig.modelname}
+                />
                 <div className={styles.ForeignWord}>
-                  {data.wordVietnam}
+                  {data[languageConfig.foreign]}
                   <img
                     src="/WordSound.png"
-                    onClick={() => speakForeignWord(data.wordVietnam)}
+                    onClick={() =>
+                      speakForeignWord(data[languageConfig.foreign])
+                    }
                   />
                 </div>
               </motion.div>
