@@ -1,12 +1,15 @@
 "use client";
 
-import gameResultAxios from "@/app/axios/gameResultAxios";
 import { useSelector } from "react-redux";
 import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
-import FlipFlipGameJellyBtn from "./FlipFlipGameJellyBtn";
-import CardFrontImage from "../CardFrontImage";
+import { useState, useEffect } from "react";
 import styles from "./FlipFlipGameEnd.module.scss";
+import gameResultAxios from "@/app/axios/gameResultAxios";
+import newAvatarAxios from "@/app/axios/newAvatarAxios";
+import CardFrontImage from "../CardFrontImage";
+import ChangeNation from "@/app/avatar/component/ChangeNation";
+import FlipFlipGameJellyBtn from "./FlipFlipGameJellyBtn";
+import RewardJellyBtn from "../RewardJellyBtn";
 
 export default function FlipFlipGameEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -19,6 +22,13 @@ export default function FlipFlipGameEnd() {
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
 
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const [showLevelUp, setShowLevelUp] = useState(false);
+  const [showBlackScreen, setShowBlackScreen] = useState(false);
+  const [showRewardButton, setShowRewardButton] = useState(false);
+  const [newAvatars, setNewAvatars] = useState(null);
+  const [showAvatar, setShowAvatar] = useState(false);
+
   const getQuestion = () => {
     if (gameList[1] === 1 || gameList[1] === 2) {
       return 4;
@@ -27,7 +37,7 @@ export default function FlipFlipGameEnd() {
     } else {
       return 8;
     }
-  }
+  };
 
   const question = getQuestion();
 
@@ -98,6 +108,8 @@ export default function FlipFlipGameEnd() {
           },
         })
         .then(() => {
+          setShowLevelUp(true);
+          setShowRewardButton(true);
           expAnimation.set({ width: "0%" });
           expAnimation.start({
             width: `${afterExp % 100}%`,
@@ -121,12 +133,74 @@ export default function FlipFlipGameEnd() {
   // 중복된 항목을 제거한 wrongList
   //  const uniqueWrongList = Array.from(new Set(wrongList.map(item => item.idx)))
   //  .map(idx => wrongList.find(item => item.idx === idx));
+  const handleRewardClick = () => {
+    setShowBlackScreen(true);
+    setShowRewardButton(false);
+    setTimeout(() => {
+      document
+        .querySelector(`.${styles.blackScreen}`)
+        .classList.add(styles.show);
+    }, 10);
+  };
 
-  const uniqueWrongList = Array.from(new Set(wrongList.map(item => item.wordIdx)))
-    .map(wordIdx => wrongList.find(item => item.wordIdx === wordIdx));
+  const handleCountrySelect = async (country) => {
+    setSelectedCountry(country);
+    const newAvatarData = await newAvatarAxios(country);
+    if (newAvatarData) {
+      setNewAvatars(newAvatarData);
+      setShowAvatar(true);
+    }
+    setTimeout(() => {
+      document.querySelector(`.${styles.nationSelect}`).style.display = "none";
+    }, 0);
+    setTimeout(() => {
+      setShowAvatar(false);
+      setShowBlackScreen(false);
+    }, 6000);
+  };
+
+  const uniqueWrongList = Array.from(
+    new Set(wrongList.map((item) => item.wordIdx))
+  ).map((wordIdx) => wrongList.find((item) => item.wordIdx === wordIdx));
 
   return (
     <>
+      {showBlackScreen && (
+        <motion.div
+          className={`${styles.blackScreen} ${showAvatar ? styles.show : ""}`}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: showBlackScreen ? 1 : 0 }}
+          transition={{ duration: 1 }}
+        >
+          <motion.div
+            className={styles.nationSelect}
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <ChangeNation
+              setSelectedCountry={handleCountrySelect}
+              left="25vw"
+              top="40vh"
+              imgSize="calc(5vw + 7vh)"
+            />
+          </motion.div>
+          {showAvatar && newAvatars && (
+            <motion.div
+              className={styles.avatarContainer}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+            >
+              <img
+                src={newAvatars[0].avatar.avatarFile}
+                alt="New Avatar"
+                className={styles.avatar}
+              />
+            </motion.div>
+          )}
+        </motion.div>
+      )}
       <div className={styles.EndPage}>
         <motion.div
           className={styles.ExpBar}
@@ -148,6 +222,22 @@ export default function FlipFlipGameEnd() {
             }}
             animate={expAnimation}
           ></motion.div>
+          {showLevelUp && (
+            <motion.div
+              className={styles.levelUpImage}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.5 }}
+              transition={{
+                duration: 0.5,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "reverse",
+              }}
+            >
+              <img src="/level-up.png" alt="Level Up" />
+            </motion.div>
+          )}
         </motion.div>
         {Incorrect ? (
           <motion.div
@@ -190,6 +280,23 @@ export default function FlipFlipGameEnd() {
           </div>
         )}
       </div>
+      {showRewardButton && (
+        <motion.div
+          className={styles.RewardButton}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
+        >
+          <RewardJellyBtn
+            width="100"
+            height="100"
+            bg="#FFD6E0"
+            shadow="#E07A93"
+            text="보상열기"
+            bottom="3"
+            onClick={handleRewardClick}
+          />
+        </motion.div>
+      )}
       <motion.div
         className={styles.GoMain}
         initial={{
