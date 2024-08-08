@@ -26,7 +26,7 @@ const RankTest = () => {
                 setMessage(JSON.parse(greeting.body).content);
             });
         });
-
+        
         return () => {
             if (stompClientRef.current) {
                 stompClientRef.current.disconnect();
