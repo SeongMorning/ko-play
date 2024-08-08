@@ -1,5 +1,7 @@
 package com.edu.koplay.security.oauth2;
 
+import com.edu.koplay.config.ServerConfig;
+import com.edu.koplay.security.config.SecurityConfig;
 import com.edu.koplay.security.dto.CustomOAuth2User;
 import com.edu.koplay.security.dto.GeneratedToken;
 import com.edu.koplay.security.jwt.JwtUtil;
@@ -17,10 +19,11 @@ import java.io.IOException;
 @Component
 public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final JwtUtil jwtUtil;
+    private final ServerConfig config;
 
-    public CustomOAuth2SuccessHandler(JwtUtil jwtUtil) {
-
+    public CustomOAuth2SuccessHandler(JwtUtil jwtUtil, ServerConfig config) {
         this.jwtUtil = jwtUtil;
+        this.config = config;
     }
 
     @Override
@@ -34,8 +37,10 @@ public class CustomOAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHa
         GeneratedToken token = jwtUtil.generateToken(email, role);
         logger.info("jwtAccessToken = " + token.getAccessToken());
         response.addCookie(createCookie("Authorization", token.getAccessToken()));
-        //response.sendRedirect("http://localhost:3000/parent");
-        response.sendRedirect("https://i11b302.p.ssafy.io/parent");
+
+        response.sendRedirect(config.getUrl()+"/parent");
+//        response.sendRedirect("http://localhost:3000/parent");
+//        response.sendRedirect("https://i11b302.p.ssafy.io/parent");
     }
 
     private Cookie createCookie(String key, String value) {
