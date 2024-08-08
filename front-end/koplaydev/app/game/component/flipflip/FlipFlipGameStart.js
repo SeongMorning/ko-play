@@ -48,8 +48,8 @@ export default function FlipFlipGameStart() {
       } else {
         return 30;
       }
-    }
-  }, [recommendLevel, nowLevel])
+    };
+  }, [recommendLevel, nowLevel]);
 
   const wordList = useSelector((state) => state.gameWord);
   // console.log(wordList);
@@ -85,7 +85,6 @@ export default function FlipFlipGameStart() {
   useEffect(() => {
     const randomCardIndices = generateRandomCardIndices(boardSize);
 
-
     // 카드 쌍을 만들고 섞기
     let pairedCards = randomCardIndices.flatMap((randomIdx) => {
       const card = wordObjectList[randomIdx];
@@ -99,7 +98,7 @@ export default function FlipFlipGameStart() {
     pairedCards = pairedCards.sort(() => Math.random() - 0.5); // 카드 덱을 섞음
 
     setCardDeck(pairedCards);
-    console.log("카드덱!!!!")
+    console.log("카드덱!!!!");
     console.log(cardDeck);
 
     const initialStates = pairedCards.map(() => ({
@@ -112,7 +111,6 @@ export default function FlipFlipGameStart() {
     dispatch(changeCorrectIdx(0));
     // dispatch(changeWrong([]));
   }, [wordObjectList]);
-
 
   // 게임 시작 시 초기 카드 뒤집기 및 카드 클릭 가능 상태 설정
   useEffect(() => {
@@ -138,7 +136,7 @@ export default function FlipFlipGameStart() {
             timerRef.current = null; // 타이머 초기화
             setCanFlip(false); // 시간이 끝나면 카드 클릭 비활성화
             setTotalScore(0); // 시간 초과 시 점수 0으로 설정
-            setModal('timeout');
+            setModal("timeout");
             // let copy2 = [...wordObjectList];
             // copy2
             return 0;
@@ -157,14 +155,14 @@ export default function FlipFlipGameStart() {
     }
 
     const matchedCount = matchedCards.size;
-    const incorrectCount = (boardSize / 2) - matchedCount;
+    const incorrectCount = boardSize / 2 - matchedCount;
 
     setCorrect(matchedCount);
     setIncorrect(incorrectCount);
 
     setTimeout(() => {
       if (modal === null) {
-        setModal('complete');
+        setModal("complete");
       }
     }, 2000);
   };
@@ -185,7 +183,7 @@ export default function FlipFlipGameStart() {
       const firstCard = cardDeck[firstIdx];
       const secondCard = cardDeck[secondIdx];
 
-      console.log("first")
+      console.log("first");
       console.dir(firstCard);
       console.dir(secondCard);
 
@@ -201,9 +199,9 @@ export default function FlipFlipGameStart() {
           setMatchedCards((prev) => {
             const newMatchedCards = new Set(prev).add(firstCard.wordIdx);
             const newCorrectCount = newMatchedCards.size;
-            const newIncorrectCount = (boardSize / 2) - newCorrectCount;
-            setCorrect(newCorrectCount)
-            setIncorrect(newIncorrectCount)
+            const newIncorrectCount = boardSize / 2 - newCorrectCount;
+            setCorrect(newCorrectCount);
+            setIncorrect(newIncorrectCount);
             dispatch(changeCorrectIdx(newCorrectCount));
             if (newCorrectCount === boardSize / 2) {
               stopTimer(); // 모든 카드가 매칭되면 타이머 중지
@@ -224,11 +222,11 @@ export default function FlipFlipGameStart() {
               i === firstIdx || i === secondIdx
                 ? { ...state, flipped: false, isMatch: false }
                 : state
-            ));
+            )
+          );
           setCanFlip(true); // 다시 카드 클릭 가능
           addToWrongList(firstCard.wordIdx); // 중복 체크 후 wrong 배열에 추가
           addToWrongList(secondCard.wordIdx); // 중복 체크 후 wrong 배열에 추가
-
         }, 1000);
       }
     }
@@ -236,18 +234,19 @@ export default function FlipFlipGameStart() {
 
   // 게임 종료 시 오답 목록을 Redux 상태로 디스패치
   useEffect(() => {
-    if (modal === 'complete' || modal === 'timeout') {
-      const wrongCards = cardDeck.filter(card => !matchedCards.has(card.wordIdx));
+    if (modal === "complete" || modal === "timeout") {
+      const wrongCards = cardDeck.filter(
+        (card) => !matchedCards.has(card.wordIdx)
+      );
       dispatch(changeWrong(wrongCards)); // 오답 목록을 Redux 상태로 디스패치
 
       const matchedCount = matchedCards.size;
-      const incorrectCount = (boardSize / 2) - matchedCount;
+      const incorrectCount = boardSize / 2 - matchedCount;
 
       setCorrect(matchedCount);
       setIncorrect(incorrectCount);
     }
   }, [modal, matchedCards, cardDeck, dispatch]);
-
 
   // 중복 체크 함수
   const addToWrongList = (index) => {
@@ -260,10 +259,13 @@ export default function FlipFlipGameStart() {
     });
   };
 
-
   // 카드 클릭 처리 함수
   const handleCardClick = (index) => {
-    if (canFlip && !flippedIndices.includes(index) && !matchedCards.has(cardDeck[index].wordIdx)) {
+    if (
+      canFlip &&
+      !flippedIndices.includes(index) &&
+      !matchedCards.has(cardDeck[index].wordIdx)
+    ) {
       setFlippedIndices((prev) => [...prev, index]);
       setCardStates((prev) =>
         prev.map((state, i) =>
@@ -280,20 +282,21 @@ export default function FlipFlipGameStart() {
       matchedCards.has(cardDeck[index].wordIdx) ||
       showAll
     );
-  }
+  };
 
   // 타이머를 M:SS 형식으로 변환
   const formatTime = (seconds) => {
     const minutes = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${minutes}:${secs.toString().padStart(2, '0')}`;
+    return `${minutes}:${secs.toString().padStart(2, "0")}`;
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.timerContainer}>
         <img className={styles.alarm} src="/flipflip-game-alarm2.png" />
-        <div className={styles.timer}>{formatTime(timeLeft)}</div> {/* 타이머 표시 */}
+        <div className={styles.timer}>{formatTime(timeLeft)}</div>{" "}
+        {/* 타이머 표시 */}
       </div>
       <div className={styles.cardContainer}>
         {cardDeck.map((card, index) => (
@@ -301,7 +304,7 @@ export default function FlipFlipGameStart() {
             key={index}
             className={`
               ${styles.cardDeck}
-              ${cardStates[index]?.flipped ? styles.flipped : ''}
+              ${cardStates[index]?.flipped ? styles.flipped : ""}
               `}
             onClick={() => handleCardClick(index)}
           >
@@ -329,7 +332,7 @@ export default function FlipFlipGameStart() {
 
       <div>
         {/* 모두 맞았을 때 모달 */}
-        {modal === 'complete' && (
+        {modal === "complete" && (
           <motion.div
             className={styles.modal}
             initial={{
@@ -345,20 +348,24 @@ export default function FlipFlipGameStart() {
               <div className={styles.text}>
                 <span className={styles.finish}>게임종료</span>
                 <span className={styles.correct}>정답 개수 : {correct}</span>
-                <span className={styles.incorrect}>오답 개수 : {incorrect}</span>
-                <span className={styles.comment}>
-                  모든 단어를 맞혔습니다.
+                <span className={styles.incorrect}>
+                  오답 개수 : {incorrect}
                 </span>
+                <span className={styles.comment}>모든 단어를 맞혔습니다.</span>
                 <div className={styles.buttons}>
                   <div className={styles.check}>
-                    <FlipFlipGameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="확인" />
+                    <FlipFlipGameJellyBtn
+                      bg="#A2D2FF"
+                      shadow="#4DA3F2"
+                      text="확인"
+                    />
                   </div>
                 </div>
               </div>
             </YellowBox>
           </motion.div>
         )}
-        {modal === 'timeout' && (
+        {modal === "timeout" && (
           <motion.div
             className={styles.modal}
             initial={{
@@ -374,7 +381,9 @@ export default function FlipFlipGameStart() {
               <div className={styles.text}>
                 <span className={styles.finish}>게임종료</span>
                 <span className={styles.correct}>정답 개수 : {correct}</span>
-                <span className={styles.incorrect}>오답 개수 : {incorrect}</span>
+                <span className={styles.incorrect}>
+                  오답 개수 : {incorrect}
+                </span>
                 <span className={styles.retry}>
                   틀린 단어를 다시 학습하시겠습니까?
                 </span>
@@ -383,10 +392,18 @@ export default function FlipFlipGameStart() {
                 </span>
                 <div className={styles.buttons}>
                   <div className={styles.Yes}>
-                    <FlipFlipGameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
+                    <FlipFlipGameJellyBtn
+                      bg="#FFD6E0"
+                      shadow="#E07A93"
+                      text="예"
+                    />
                   </div>
                   <div className={styles.No}>
-                    <FlipFlipGameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="아니요" />
+                    <FlipFlipGameJellyBtn
+                      bg="#A2D2FF"
+                      shadow="#4DA3F2"
+                      text="아니요"
+                    />
                   </div>
                 </div>
               </div>
