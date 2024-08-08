@@ -33,7 +33,18 @@ export default function MainIcons() {
           rotate: "10deg",
         }}
       />
-      <motion.img className={styles.rankGame} src="rank-game.png" alt="" />
+      <motion.img 
+      className={styles.rankGame} 
+      src="rank-game.png" 
+      alt=""
+      onClick={()=>{
+        dispatch(changeModalIdx(4));
+      }}
+      whileHover={{
+        scale : 1.1,
+        rotate : "-10deg",
+      }}
+      />
       <motion.img
         className={styles.speechBubble}
         src="speechBubble.png"
