@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import styles from "./SmuGameEnd.module.scss";
-import CardFrontImage from "../CardFrontImage";
 import { motion, useAnimation } from "framer-motion";
-import GameJellyBtn from "@/app/game/component/GameJellyBtn";
+import styles from "./SmuGameEnd.module.scss";
 import gameResultAxios from "@/app/axios/gameResultAxios";
-import ChangeNation from "@/app/avatar/component/ChangeNation";
 import newAvatarAxios from "@/app/axios/newAvatarAxios";
+import CardFrontImage from "../CardFrontImage";
+import GameJellyBtn from "@/app/game/component/GameJellyBtn";
+import ChangeNation from "@/app/avatar/component/ChangeNation";
 import RewardJellyBtn from "../RewardJellyBtn";
 
 export default function SmuGameEnd() {
@@ -19,7 +19,7 @@ export default function SmuGameEnd() {
   const gameIdx = useSelector((state) => state.game);
   const gameList = useSelector((state) => state.level);
   const beforeExp = userInfo.exp % 100;
-  const afterExp = 120;
+  const afterExp = beforeExp + exp;
 
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
