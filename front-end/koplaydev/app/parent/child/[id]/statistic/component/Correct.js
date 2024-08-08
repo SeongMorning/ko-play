@@ -1,37 +1,65 @@
-"use client";
-
-import { useEffect, useRef, useState } from "react";
-import styles from "./CorrectAnswerRate.module.scss";
-import { Chart } from "chart.js/auto";
+import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import styles from "./Correct.module.scss";
 import LevelJellyBtn from "@/app/main/component/LevelJellyBtn";
-import { useSelector, useDispatch } from "react-redux";
-import parentChildStatisticsAxios from "@/app/axios/parentChildStatisticsAxios";
+import { useState } from "react";
+import { Chart } from "chart.js/auto";
 
-// Action Types
-const SET_GRAPH_LEVEL = "SET_GRAPH_LEVEL";
-
-// Action Creators
-const setGraphLevel = (level) => ({
-  type: SET_GRAPH_LEVEL,
-  payload: level,
-});
-
-export default function CorrectAnswerRate() {
+export default function Progress(props) {
+  const statisticData = useSelector((state) => state.parentChaildStatistic)
   const graph = useRef(null);
-  const dispatch = useDispatch();
-  const levelList = useSelector((state) => state.level);
-  const graphLevel = useSelector((state) => state.graphLevel);
-  const userInfo = useSelector((state) => state.studentInfo);
+  const graphLevel = useSelector((state) => state.graphLevel)
+  const levelList = useSelector((state) => state.level)
+  const [statistic, setStatistic] = useState([[[], [], [], [], []], [[], [], [], [], []], [[], [], [], [], []]]);
 
-  const calcDate = (beforeDay)=>{
+  const calcDate = (beforeDay) => {
     const today = new Date();
     const pastDate = new Date(today);
     pastDate.setDate(today.getDate() - beforeDay);
-    const month = pastDate.getMonth()+1;
+    const month = pastDate.getMonth() + 1;
     const day = pastDate.getDate();
 
     return `${month}/${day}`;
   }
+
+  useEffect(() => {
+    const fetchstudentStatistics = async () => {
+      function formatDate(date) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 +1
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      }
+
+      const getPastDate = (daysAgo) => {
+        const today = new Date();
+        const pastDate = new Date(today);
+        pastDate.setDate(today.getDate() - daysAgo);
+        return formatDate(pastDate);
+      };
+
+      for (let k = 0; k < 3; k++) {
+        for (let i = 0; i < 5; i++) {
+          for (let j = 0; j < 7; j++) {
+            let list = statisticData[0].filter((data) => data.date === getPastDate(j) && data.level === i + 1);
+            if (k === 0) {
+              list = list.filter((data) => data.gamePurpose === "말하기");
+            } else if (k === 1) {
+              list = list.filter((data) => data.gamePurpose === "읽기");
+            } else {
+              list = list.filter((data) => data.gamePurpose === "듣기");
+            }
+            if (list.length > 0) {
+              statistic[k][i][j] = Math.floor((list[0].correctAnswer / list[0].totalQuestion) * 100)
+            } else {
+              statistic[k][i][j] = 0;
+            }
+          }
+        }
+      }
+    };
+    fetchstudentStatistics();
+  }, []);
 
   useEffect(() => {
     if (graph.current !== null) {
@@ -42,7 +70,7 @@ export default function CorrectAnswerRate() {
         datasets: [
           {
             label: "말하기",
-            data: props.statistic[0][graphLevel-1],
+            data: statistic[0][graphLevel - 1],
             fill: false,
             borderColor: "#bde0fe",
             tension: 0.1,
@@ -50,7 +78,7 @@ export default function CorrectAnswerRate() {
           },
           {
             label: "읽기",
-            data: props.statistic[1][graphLevel-1],
+            data: statistic[1][graphLevel - 1],
             fill: false,
             borderColor: "#ffc8dd",
             tension: 0.1,
@@ -58,7 +86,7 @@ export default function CorrectAnswerRate() {
           },
           {
             label: "듣기",
-            data: props.statistic[2][graphLevel-1],
+            data: statistic[2][graphLevel - 1],
             fill: false,
             borderColor: "#cdb4db",
             tension: 0.1,
@@ -114,15 +142,14 @@ export default function CorrectAnswerRate() {
         myLineChart.destroy();
       };
     }
-  },[graphLevel]);
+    console.log('test')
+  }, [graphLevel, statistic]);
 
   return (
+    <>
     <div className={styles.CorrectMain}>
-      <div className={styles.graph}>
-        <canvas ref={graph} />
-      </div>
       <div className={styles.levelBtn}>
-        {[1,2,3,4,5].map((data, index)=>
+        {[1, 2, 3, 4, 5].map((data, index) =>
           <LevelJellyBtn
             key={index}
             level={data}
@@ -134,6 +161,10 @@ export default function CorrectAnswerRate() {
           />
         )}
       </div>
+      <div className={styles.graph}>
+        <canvas ref={graph} />
+      </div>
     </div>
+    </>    
   );
 }
