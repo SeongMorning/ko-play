@@ -1,6 +1,6 @@
 import API from "../utils/API";
 
-export default async function allAvatarAxios() {
+export default async function fameAxios() {
   try {
     const { data } = await API.get("/games/loadTop3students");
     return data;
