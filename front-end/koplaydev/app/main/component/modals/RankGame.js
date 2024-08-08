@@ -9,10 +9,13 @@ import {
   connectWebSocket,
   getStompClient,
 } from "@/redux/slices/webSocketSlice";
+import { useRouter } from "next/navigation";
+import { changeGameWord } from "@/redux/slices/gameWordSlice";
 
 export default function RankGame() {
   const dispatch = useDispatch();
   const isConnected = useSelector((state) => state.webSocket.isConnected);
+  const router = useRouter();
 
   useEffect(() => {
     const url = "http://localhost:8080/gs-guide-websocket";
@@ -22,7 +25,20 @@ export default function RankGame() {
   useEffect(() => {
     if (isConnected) {
       const client = getStompClient();
-      
+      client.connect({}, (frame) => {
+        client.subscribe("/topic/game/1", (message) => {
+          if (message.body.startsWith("Joined")) {
+            router.push("/game/4");
+            console.log("Received message: ", message.body);
+          } else {
+            console.log("Received message: ", JSON.parse(message.body).message.data);
+            if(JSON.parse(message.body).message.data){
+              dispatch(changeGameWord(JSON.parse(message.body).message.data))
+            }
+          }
+        });
+        client.send("/app/join", {}, JSON.stringify("player1"));
+      });
     }
   }, [isConnected]);
 

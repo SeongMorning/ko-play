@@ -22,6 +22,7 @@ export default function RankTest2() {
 
   useEffect(() => {
     setWordObjectList(wordList);
+    console.log(wordList);
   }, [wordList]);
 
   let { transcript, listening, resetTranscript } = useSpeechRecognition();
