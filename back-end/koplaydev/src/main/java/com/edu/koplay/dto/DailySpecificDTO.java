@@ -7,17 +7,17 @@ import java.util.Date;
 @Data
 public class DailySpecificDTO {
     private Date date;
-    private int correct;
-    private int question;
+    private int correctAnswer;
+    private int totalQuestion;
     private String gamePurpose;
-    private int gameLevel;
+    private int level;
 
     public DailySpecificDTO(Date date, int correct, int question, String gamePurpose, int gameLevel) {
         this.date = date;
-        this.correct = correct;
-        this.question = question;
+        this.correctAnswer = correct;
+        this.totalQuestion = question;
         this.gamePurpose = gamePurpose;
-        this.gameLevel = gameLevel;
+        this.level = gameLevel;
     }
 
 }
