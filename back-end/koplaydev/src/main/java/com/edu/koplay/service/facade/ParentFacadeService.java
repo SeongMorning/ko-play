@@ -42,6 +42,11 @@ public class ParentFacadeService {
         return recommendationLevelService.insertRecommendLevel(parent, studentDTO, student);
 
     }
+    public Parent updateParentVisited(String email) {
+        Parent parent = parentService.selectParentInfoByEmail(email);
+        parent.setVisited(true);
+        return parent;
+    }
 
     public Parent getParentInfo(String email) {
         return parentService.selectParentInfoByEmail(email);
