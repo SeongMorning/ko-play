@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const API = axios.create({
 	// baseURL: `${process.env.customKey}`,
-    baseURL:  `${process.env.customKey}/api`,
+    baseURL:  `${process.env.customKey}`,
     withCredentials: true,
 });
 
