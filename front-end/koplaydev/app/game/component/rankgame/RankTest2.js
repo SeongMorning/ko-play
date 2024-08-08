@@ -58,7 +58,7 @@ export default function RankTest2() {
         }
       });
     });
-
+    
     setClient(client);
 
     // 컴포넌트가 언마운트될 때 WebSocket 연결을 닫습니다.
