@@ -24,23 +24,21 @@ export const connectWebSocket = (url) => (dispatch) => {
   stompClient = Stomp.over(socket);
 
   stompClient.debug = (str) => console.log(str);
-  stompClient.connect(
-    {},
-    () => {
-      console.log("STOMP connected");
-      dispatch(setConnected(true));
-      stompClient.subscribe("/topic/game/1", (message) => {
-        console.log("Received message: ", message.body);
-      });
-      stompClient.send("/join",{},JSON.stringify({
-        playerId: "player1", // 실제 플레이어 ID를 넣으세요
-      }));
-    },
-    (error) => {
-      console.log("STOMP disconnected", error);
-      dispatch(setConnected(false));
-    }
-  );
+//   stompClient.connect(
+//     {},
+//     () => {
+//       console.log("STOMP connected");
+//       dispatch(setConnected(true));
+//       stompClient.subscribe("/topic/game/1", (message) => {
+//         console.log("Received message: ", message.body);
+//       });
+//       stompClient.send("/join",{},JSON.stringify("player1"));
+//     },
+//     (error) => {
+//       console.log("STOMP disconnected", error);
+//       dispatch(setConnected(false));
+//     }
+//   );
 
   return () => {
     if (stompClient) {
