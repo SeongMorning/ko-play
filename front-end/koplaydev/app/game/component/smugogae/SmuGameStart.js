@@ -20,7 +20,9 @@ export default function SmuGameStart() {
   const recommendLevel = userInfo.listeningLevel;
   const levelList = useSelector((state) => state.level);
   const listenLevel = levelList[2];
-  const { hints, chosenWords } = useSelector((state) => state.hints);
+  const { hints, chosenWords, audioHints } = useSelector(
+    (state) => state.hints
+  );
   const exp = useSelector((state) => state.exp);
   const wrongAnswers = useSelector((state) => state.wrong);
   const correctAnswers = useSelector((state) => state.correct);
@@ -86,23 +88,24 @@ export default function SmuGameStart() {
   };
 
   const handleNextHint = () => {
-    window.speechSynthesis.cancel();
-    if (currentHintIndex < hints[currentQuestion].length - 1) {
-      setCurrentHintIndex(currentHintIndex + 1);
-      setPlayHint(true);
+    if (audioHints[currentQuestion]?.[currentHintIndex]) {
+      if (currentHintIndex < hints[currentQuestion].length - 1) {
+        setCurrentHintIndex(currentHintIndex + 1);
+        setPlayHint(true);
+      }
     }
   };
 
   const handleRepeatHint = () => {
-    window.speechSynthesis.cancel();
-    setPlayHint(true);
+    if (audioHints[currentQuestion]?.[currentHintIndex]) {
+      setPlayHint(true);
+    }
   };
 
   const handleGuess = (guess) => {
     if (isDisabled) return;
     setIsDisabled(true);
 
-    window.speechSynthesis.cancel();
     setPlayHint(false);
     setCorrectWord(chosenWords[currentQuestion].wordKor);
     if (guess === chosenWords[currentQuestion].wordKor) {
@@ -181,7 +184,7 @@ export default function SmuGameStart() {
       )}
       <div className={styles.gameContainer}>
         <Hint
-          hint={hints[currentQuestion]?.[currentHintIndex]}
+          hint={audioHints[currentQuestion]?.[currentHintIndex]}
           playHint={playHint}
           rate={speechSpeed}
           onEnd={() => setPlayHint(false)}
@@ -190,7 +193,7 @@ export default function SmuGameStart() {
           <div style={{ width: "100%" }}>
             <TalkBalloon
               width="calc(10vw + 7vh)"
-              left="75%"
+              left="70%"
               bottom="25vh"
               text={`문제 남은 힌트 ${
                 hints[currentQuestion]?.length - currentHintIndex - 1 || 0
@@ -205,10 +208,10 @@ export default function SmuGameStart() {
             <PlayJellyBtn
               top="-10vh"
               onClick={handleRepeatHint}
-              imgSrc="/replay.png"
+              imgSrc="/play.png"
             />
             <PlayJellyBtn
-              left="10vw"
+              left="62vw"
               top="-10vh"
               onClick={handleNextHint}
               disabled={
