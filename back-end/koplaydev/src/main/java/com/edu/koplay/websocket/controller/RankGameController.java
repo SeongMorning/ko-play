@@ -6,6 +6,7 @@ import com.edu.koplay.model.Word;
 import com.edu.koplay.service.WordService;
 import com.edu.koplay.websocket.*;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
@@ -31,10 +32,12 @@ public class RankGameController {
 
     // 클라이언트가 게임에 참여할 때 호출되는 메서드
     @MessageMapping("/join")
-    @SendToUser("/queue/reply")
-    public String joinGame(String playerId) {
+    @SendTo("/topic/game/1")
+    public String joinGame(String playerId) throws Exception{
         // 클라이언트를 방에 추가하거나 새 방을 생성
+        Thread.sleep(1000); // simulated delay
         GameRoom room = roomManager.createOrJoinRoom(playerId);
+        System.out.println("room!!!!!!!!!!!!!!!");
         // 방 ID를 클라이언트에게 반환
         if (room.isFull()) {
             startGame(room.getRoomId());
@@ -54,6 +57,7 @@ public class RankGameController {
         List<Word> words= makeGameData();
         List<WordDTO> dtos = words.stream().map(WordDTO::new).collect(Collectors.toList());
         ResponseDTO<WordDTO> response = ResponseDTO.<WordDTO>builder().data(dtos).build();
+        System.out.println("!!!!!!!!"+response.getData());
         messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameWordMessage(response));
     }
 
@@ -66,11 +70,12 @@ public class RankGameController {
     @MessageMapping("/game/{roomId}")
     public void handleGameMessage(@DestinationVariable Long roomId, GameMessage message) {
         // 방 ID로 해당 방을 가져옴
+        System.out.println("game1!!!!!!!!!!!!!!");
         GameRoom room = roomManager.getRoom(roomId);
         if (room == null) {
             return; // 방이 없을 경우 처리하지 않음
         }
-
+        System.out.println("game2!!!!!!!!!!!!!!");
         // 방의 게임 상태를 가져옴
         GameState gameState = room.getGameState();
         // 게임 상태 업데이트 (점수 추가)
