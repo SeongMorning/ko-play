@@ -1,7 +1,22 @@
+import modifyParentNationAxios from "@/app/axios/modifyParentNationAxios";
 import styles from "./FirstVisitModal.module.scss"; 
+import modifyParentVisitAxios from "@/app/axios/modifyParentVisitAxios";
+import { changeParentInfo, setNationality, setVisited } from "@/redux/slices/parentSlice";
+import { useDispatch,useSelector } from "react-redux";
 
-export default function FirstVisitModal() {
-    // DB parent 테이블의 nationality가 null이면 모달?
+export default function FirstVisitModal({ onclose }) {
+    const dispatch = useDispatch();
+    const parentChilds = useSelector((state) => state.parent);
+
+    const nationClick = async (nation) =>{
+        // console.log(nation)
+        const modifyNation = await modifyParentNationAxios(nation);
+        const modifyVisited = await modifyParentVisitAxios();
+        if(modifyVisited != null){
+            changeParentInfo(modifyVisited)
+        }
+        onclose();
+    }
     return (
         <>
             <div className={styles.overlay} ></div>
@@ -10,10 +25,10 @@ export default function FirstVisitModal() {
                 <div className={styles.modalContent}>
                     <h1>당신의 국적을 선택하세요</h1>
                     <div className={styles.imgContent}>
-                    <img src="korea-parent-choice.png" alt="" />
-                    <img src="thailand-parent-choice.png" alt="" />
-                    <img src="china-parent-choice.png" alt="" />
-                    <img src="vietnam-parent-choice.png" alt="" />
+                    <img src="korea-parent-choice.png" alt="" onClick={()=>nationClick('Korea')}/>
+                    <img src="thailand-parent-choice.png" alt="" onClick={()=>nationClick('Tailand')} />
+                    <img src="china-parent-choice.png" alt="" onClick={()=>nationClick('China')}/>
+                    <img src="vietnam-parent-choice.png" alt="" onClick={()=>nationClick('Vietnam')}/>
                     </div>
                 </div>
             </div>
