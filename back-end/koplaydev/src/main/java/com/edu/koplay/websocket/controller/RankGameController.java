@@ -2,17 +2,16 @@ package com.edu.koplay.websocket.controller;
 
 import com.edu.koplay.dto.ResponseDTO;
 import com.edu.koplay.dto.WordDTO;
+import com.edu.koplay.dto.WordGameDataDTO;
 import com.edu.koplay.model.Word;
 import com.edu.koplay.service.WordService;
 import com.edu.koplay.websocket.*;
-import org.slf4j.Logger;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.stereotype.Controller;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,7 +37,7 @@ public class RankGameController {
         // 클라이언트를 방에 추가하거나 새 방을 생성
 //        Thread.sleep(1000); // simulated delay
         GameRoom room = roomManager.createOrJoinRoom(playerId);
-        System.out.println("room!!!!!!!!!!!!!!!");
+//        System.out.println("room!!!!!!!!!!!!!!!");
         // 방 ID를 클라이언트에게 반환
         if (room.isFull()) {
             startGame(room.getRoomId());
@@ -56,9 +55,12 @@ public class RankGameController {
         // 방의 모든 클라이언트에게 게임 시작 메시지 전송
         messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameStartMessage("Game started"));
         List<Word> words= makeGameData();
+        List<Object> res = new ArrayList<>();
         List<WordDTO> dtos = words.stream().map(WordDTO::new).collect(Collectors.toList());
-        ResponseDTO<WordDTO> response = ResponseDTO.<WordDTO>builder().data(dtos).build();
-        System.out.println("!!!!!!!!"+response.getData());
+        res.add(dtos);
+        res.add(new WordGameDataDTO());
+        ResponseDTO<Object> response = ResponseDTO.<Object>builder().data(res).build();
+//        System.out.println("!!!!!!!!"+response.getData());
         messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameWordMessage(response));
     }
 
