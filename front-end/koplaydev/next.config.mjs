@@ -1,7 +1,5 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-
   reactStrictMode: false,
   env: {
     // customKey: 'https://i11b302.p.ssafy.io/api',
@@ -12,4 +10,3 @@ const nextConfig = {
 };
 
 export default nextConfig;
-

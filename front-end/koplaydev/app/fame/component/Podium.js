@@ -11,19 +11,19 @@ export default function Podium(props) {
         style={{ left: props.left, top: props.top }}
       >
         <img src="/podium.png" alt="시상대" />
-        <div className={styles.face1}>
+        <div className={`${styles.face1}`}>
           <img src={props.users[0].student.profileImg|| "hehe.png"} alt="1등"
           onError={(e) => { e.target.src = "hehe.png"; }}
           />
         </div>
         <div className={styles.light1}></div>
-        <div className={styles.face2}>
+        <div className={`${styles.face2}`}>
           <img src={props.users[1].student.profileImg|| "hehe.png"} alt="2등"
            onError={(e) => { e.target.src = "hehe.png"; }}
           />
         </div>
         <div className={styles.light2}></div>
-        <div className={styles.face3}>
+        <div className={`${styles.face3}`}>
           <img src={props.users[2].student.profileImg|| "hehe.png"} alt="3등" 
           onError={(e) => { e.target.src = "hehe.png"; }}
  />
