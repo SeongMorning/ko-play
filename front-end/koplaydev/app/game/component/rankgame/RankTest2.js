@@ -19,6 +19,7 @@ import SockJS from "sockjs-client"; // SockJS 임포트
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
   const [wordObjectList, setWordObjectList] = useState(wordList);
+  const wordLeft = useSelector((state) => state.gameLeft);
 
   useEffect(() => {
     setWordObjectList(wordList);
@@ -186,7 +187,7 @@ export default function RankTest2() {
               key={index}
               className={styles.CardMain}
               style={{
-                left: `${data.left}%`,
+                left: `${wordLeft[index].left}%`,
                 top: "-17%",
                 width: "10%",
                 height: "17%",
