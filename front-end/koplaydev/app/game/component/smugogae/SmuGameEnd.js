@@ -20,7 +20,7 @@ export default function SmuGameEnd() {
   const gameIdx = useSelector((state) => state.game);
   const gameList = useSelector((state) => state.level);
   const beforeExp = userInfo.exp % 100;
-  const afterExp = beforeExp + exp;
+  const afterExp = 120;
 
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
@@ -29,6 +29,7 @@ export default function SmuGameEnd() {
   const [newAvatars, setNewAvatars] = useState(null);
   const [showAvatar, setShowAvatar] = useState(false);
   const [ttsText, setTtsText] = useState(null);
+  const [isGoMainClickable, setIsGoMainClickable] = useState(false);
 
   useEffect(() => {
     const postGameResult = async () => {
@@ -150,7 +151,7 @@ export default function SmuGameEnd() {
       document
         .querySelector(`.${styles.blackScreen}`)
         .classList.add(styles.show);
-    }, 10);
+    }, 0);
   };
 
   const handleCountrySelect = async (country) => {
@@ -296,6 +297,9 @@ export default function SmuGameEnd() {
       {showRewardButton && (
         <motion.div
           className={styles.RewardButton}
+          style={{
+            pointerEvents: showRewardButton ? "auto" : "none",
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
         >
@@ -312,6 +316,9 @@ export default function SmuGameEnd() {
       )}
       <motion.div
         className={styles.GoMain}
+        style={{
+          pointerEvents: isGoMainClickable ? "auto" : "none",
+        }}
         initial={{
           opacity: 0,
         }}
@@ -322,6 +329,7 @@ export default function SmuGameEnd() {
             delay: 5,
           },
         }}
+        onAnimationComplete={() => setIsGoMainClickable(true)}
       >
         <GameJellyBtn
           width="100"
