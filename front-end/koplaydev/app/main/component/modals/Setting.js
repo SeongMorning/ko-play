@@ -32,7 +32,7 @@ export default function Setting() {
   const nickNameHandleClick = async () => {
     dispatch(setNickname(myNickname));
 
-    const response = await modifyStudentInfo(userInfo);
+    const response = await modifyStudentInfo({...userInfo, nickname : myNickname});
     if (response != null) {
       console.log("변경완료");
     }
@@ -40,7 +40,7 @@ export default function Setting() {
   const schoolNameHandleClick = async () => {
     dispatch(setSchoolName(mySchoolName));
 
-    const response = await modifyStudentInfo(userInfo);
+    const response = await modifyStudentInfo({...userInfo, schoolName : mySchoolName});
     if (response != null) {
       console.log("변경완료");
     }
