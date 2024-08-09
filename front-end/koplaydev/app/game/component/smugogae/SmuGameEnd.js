@@ -20,8 +20,7 @@ export default function SmuGameEnd() {
   const gameIdx = useSelector((state) => state.game);
   const gameList = useSelector((state) => state.level);
   const beforeExp = userInfo.exp % 100;
-  // const afterExp = beforeExp + exp;
-  const afterExp = 120;
+  const afterExp = beforeExp + exp;
 
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
