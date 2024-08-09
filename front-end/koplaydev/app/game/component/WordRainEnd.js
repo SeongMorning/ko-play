@@ -143,16 +143,6 @@ export default function WordRainEnd() {
     }
   }, [afterExp, beforeExp, expAnimation]);
 
-  const handleRewardClick = () => {
-    setShowBlackScreen(true);
-    setShowRewardButton(false);
-    setTimeout(() => {
-      document
-        .querySelector(`.${styles.blackScreen}`)
-        .classList.add(styles.show);
-    }, 10);
-  };
-
   const handleCountrySelect = async (country) => {
     setSelectedCountry(country);
     const newAvatarData = await newAvatarAxios(country);
