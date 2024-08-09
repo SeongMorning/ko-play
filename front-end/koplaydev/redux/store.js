@@ -22,6 +22,7 @@ import webSocket from "./slices/webSocketSlice";
 import parentSlice from "./slices/parentSlice";
 import parentChaildStatisticSlice from "./slices/parentChaildStatisticSlice";
 import gameLeft from "./slices/gameLeftSlice";
+import roomId from "./slices/roomIdSlice";
 
 
 const rootReducer = combineReducers({
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
   parent: parentSlice.reducer,
   parentChaildStatistic: parentChaildStatisticSlice.reducer,
   gameLeft : gameLeft.reducer,
+  roomId : roomId.reducer,
 });
 
 export default rootReducer;

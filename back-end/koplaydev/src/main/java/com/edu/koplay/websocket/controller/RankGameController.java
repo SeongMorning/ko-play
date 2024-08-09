@@ -145,5 +145,3 @@ public class RankGameController {
         messagingTemplate.convertAndSend("/topic/game/" + roomId, resultMessage);
     }
 }
-
-
