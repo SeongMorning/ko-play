@@ -24,9 +24,15 @@ export default function Score(props) {
   }
 
   useEffect(()=>{
-    props.score.forEach((data)=>{
-      setCorrectCnt(correctCnt + data.correct);
-      setTotalCnt(totalCnt + data.question);
+    let correctCount = 0;
+    let totalCount = 0;
+
+     props.score.forEach((data)=>{
+      correctCount += data.correctAnswer;
+      totalCount += data.totalQuestion;
+      
+      setCorrectCnt(correctCount);
+      setTotalCnt(totalCount);
     })
   },[props.score])
   return (
@@ -37,10 +43,10 @@ export default function Score(props) {
       <div className={styles.recordBox}>
         {props.score.map((data, index) => 
           <div key={index} className={styles.recordItem}>
-            <span>{data.gamePurpose}({data.gameLevel})</span>
+            <span>{data.gamePurpose}({data.level})</span>
             <div className={styles.recordInfo}>
-                <span>총 문제 수 : {data.question}개, 정답 개수 : {data.correct}개</span>
-                <span>정답률 {Math.floor((data.correct / data.question) * 100)}%</span>
+                <span>총 문제 수 : {data.totalQuestion}개, 정답 개수 : {data.correctAnswer}개</span>
+                <span>정답률 {Math.floor((data.correctAnswer / data.totalQuestion) * 100)}%</span>
             </div>
             <span>{`${calcDay(data.date)} 전`}</span>
           </div>
