@@ -12,6 +12,7 @@
     width: calc((14vw + 14vh)/2);
     height: calc((14vw + 14vh)/2);
     border-radius: 50%;
+    justify-content: center;
     overflow: hidden;
     bottom: 40vh;
     left: 50%;
@@ -29,6 +30,7 @@
     position: absolute;
     width: calc((12vw + 12vh)/2);
     height: calc((12vw + 12vh)/2);
+    justify-content: center;
     border-radius: 50%;
     overflow: hidden;
     bottom: 30vh;
@@ -48,6 +50,8 @@
     position: absolute;
     width: calc((10vw + 10vh)/2);
     height: calc((10vw + 10vh)/2);
+    justify-content: center;
+    
     border-radius: 50%;
     overflow: hidden;
     animation: shine 2s infinite;
