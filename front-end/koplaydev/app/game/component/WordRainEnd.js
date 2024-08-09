@@ -93,6 +93,17 @@ export default function WordRainEnd() {
     setLanguageConfig({ nation, foreign, modelname });
   }, [userInfo.nation]);
 
+
+  const handleRewardClick = () => {
+    setShowBlackScreen(true);
+    setShowRewardButton(false);
+    setTimeout(() => {
+      document
+        .querySelector(`.${styles.blackScreen}`)
+        .classList.add(styles.show);
+    }, 0);
+  };
+
   const speakWord = (word) => {
     const utterance = new SpeechSynthesisUtterance(word);
     utterance.lang = "kr-KR";
