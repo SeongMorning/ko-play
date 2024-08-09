@@ -1,6 +1,6 @@
 import CompleteBox from "./CompleteBox";
-import DetailBox from "./DetailBox";
 import styles from "./CheckChildInfo.module.scss";
+import DetailBox from "./DetailBox";
 
 // 자녀 정보 확인 모달
 export default function CheckChildInfo({ onClose, child }) {
