@@ -4,16 +4,19 @@ import MainBg from "../component/background/MainBg";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
 import Podium from "./component/Podium";
 import fameAxios from "../axios/fameAxios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import student from "../axios/studentInfo";
 
 
 export default async function fame(props) {
+  const [users, setUsers] = useState("")
   useEffect(() => {
     const fetchUserList = async () => {
       const data = await fameAxios();
       if (data) {
         console.log(data);
+        setUsers(data);
+
         // let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
         // let readGame = data.filter((value) => value.gamePurposeIdx === 2);
         // let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
@@ -30,26 +33,9 @@ export default async function fame(props) {
       }
     }
     fetchStudentInfo();
-  }, []);
+  }, [users]);
 
   const exp = 100;
-  const users = {
-    user1: {
-      name: "김싸피",
-      image: "/korea-3.png",
-      plays: 300,
-    },
-    user2: {
-      name: "박싸피",
-      image: "/vietnam-3.png",
-      plays: 200,
-    },
-    user3: {
-      name: "최싸피",
-      image: "/china-3.png",
-      plays: 100,
-    },
-  };
   return (
     <>
       <BackScoreBtn text="뒤로가기" left="1vw" top="1vh" />
