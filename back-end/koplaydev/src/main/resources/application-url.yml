@@ -1,6 +1,6 @@
 server:
     url:
-#      front: https://i11b302.p.ssafy.io
-      front: http://192.168.31.173:3000
-#      back: https://i11b302.p.ssafy.io/api
-      back: http://192.168.31.173:8080
+      front: https://i11b302.p.ssafy.io
+#      front: http://192.168.31.173:3000
+      back: https://i11b302.p.ssafy.io/api
+#      back: http://192.168.31.173:8080
