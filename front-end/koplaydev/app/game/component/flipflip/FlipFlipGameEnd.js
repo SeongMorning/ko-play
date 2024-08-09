@@ -117,7 +117,8 @@ export default function FlipFlipGameEnd() {
       utterance.lang = languageConfig.nation;
       window.speechSynthesis.speak(utterance);
     } else {
-      setTtsText(word);
+      setTtsText(null);
+      setTimeout(() => setTtsText(word), 10);
     }
   };
 

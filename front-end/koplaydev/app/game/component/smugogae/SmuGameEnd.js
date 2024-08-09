@@ -20,6 +20,7 @@ export default function SmuGameEnd() {
   const gameIdx = useSelector((state) => state.game);
   const gameList = useSelector((state) => state.level);
   const beforeExp = userInfo.exp % 100;
+  // const afterExp = beforeExp + exp;
   const afterExp = 120;
 
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -105,7 +106,8 @@ export default function SmuGameEnd() {
       utterance.lang = languageConfig.nation;
       window.speechSynthesis.speak(utterance);
     } else {
-      setTtsText(word);
+      setTtsText(null);
+      setTimeout(() => setTtsText(word), 10);
     }
   };
 
