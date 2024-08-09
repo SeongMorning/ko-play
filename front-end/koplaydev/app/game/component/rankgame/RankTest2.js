@@ -36,39 +36,42 @@ export default function RankTest2() {
   const [viewWord, SetViewWord] = useState([]);
   const WordRainLevel = useSelector((state) => state.level);
   const [client, setClient] = useState(null);
+  const roomId = useSelector((state) => state.roomId);
   useEffect(() => {
     console.log("컴포넌트 렌더링 확인");
     setWordObjectList(wordList);
   }, [wordList]);
 
   useEffect(() => {
-    console.log("연결합니다")
-    // 한국어로 음성 인식 시작
-    SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
-
-    // SockJS를 통해 WebSocket 클라이언트를 생성합니다.
-    const socket = new SockJS(`${process.env.customKey}/gs-guide-websocket`);
-    const client = Stomp.over(socket); // Stomp 클라이언트를 SockJS와 함께 사용
-
-    // WebSocket 연결이 수립되었을 때 실행될 함수
-    client.connect({}, () => {
-      client.subscribe(`/topic/game/1`, (message) => {
-        const result = JSON.parse(message.body);
-        if (result.winner) {
-          alert(`${result.winner} 이(가) 승리했습니다!`);
-          setModal(true);
-        }
+    if(roomId){
+      console.log("연결합니다")
+      // 한국어로 음성 인식 시작
+      SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
+  
+      // SockJS를 통해 WebSocket 클라이언트를 생성합니다.
+      const socket = new SockJS(`${process.env.customKey}/gs-guide-websocket`);
+      const client = Stomp.over(socket); // Stomp 클라이언트를 SockJS와 함께 사용
+  
+      // WebSocket 연결이 수립되었을 때 실행될 함수
+      client.connect({}, () => {
+        client.subscribe(`/topic/game/${roomId}`, (message) => {
+          const result = JSON.parse(message.body);
+          if (result.winner) {
+            alert(`${result.winner} 이(가) 승리했습니다!`);
+            setModal(true);
+          }
+        });
       });
-    });
-    
-    setClient(client);
+      
+      setClient(client);
+    }
 
     // 컴포넌트가 언마운트될 때 WebSocket 연결을 닫습니다.
     return () => {
       client.disconnect();
       SpeechRecognition.stopListening();
     };
-  }, []);
+  }, [roomId]);
 
   useEffect(() => {
     // 사용자가 말한 단어가 화면에 나타나는 단어와 일치하는지 확인
@@ -83,7 +86,7 @@ export default function RankTest2() {
 
       // 점수 업데이트 메시지를 서버에 전송
       if (client) {
-        client.send("/app/game/1", {}, JSON.stringify({
+        client.send(`/app/game/${roomId}`, {}, JSON.stringify({
           playerId: "player1", // 실제 플레이어 ID를 넣으세요
           score: 1,
         }));
@@ -130,6 +133,7 @@ export default function RankTest2() {
       let wrong2 = [...wrong];
       wrong2.push(wordObjectList[index]);
       setWrong(wrong2);
+      
     }
   });
 
@@ -187,7 +191,7 @@ export default function RankTest2() {
               key={index}
               className={styles.CardMain}
               style={{
-                left: `${wordLeft[index].left}%`,
+                left: `${wordLeft ? `${wordLeft[index].left}%` : "0%"}`,
                 top: "-17%",
                 width: "10%",
                 height: "17%",
