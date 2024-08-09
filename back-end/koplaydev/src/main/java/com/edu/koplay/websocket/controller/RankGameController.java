@@ -13,6 +13,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,8 +22,7 @@ import java.util.stream.Collectors;
 @Controller
 public class RankGameController {
     Logger logger = LoggerFactory.getLogger(getClass());
-    private final WordService wordService;
-    ;
+    private final WordService wordService;;
     // GameRoomManager 인스턴스 생성
     private final GameRoomManager roomManager;
     // SimpMessagingTemplate 인스턴스를 주입받음 (메시지 전송을 위해)
@@ -38,52 +38,21 @@ public class RankGameController {
     // 클라이언트가 게임에 참여할 때 호출되는 메서드
     @MessageMapping("/join")
     @SendTo("/topic/game")
-    public String joinGame(String playerId) throws Exception {
-        //반배정 계속 할거야
-        Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
-        if(roomId == null) return null;
-        GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
+    public String joinGame(String playerId) throws Exception{
+        // 클라이언트를 방에 추가하거나 새 방을 생성
+//
 
-        //키가 있으면 방배정 된거니까 게임 시작하면 될듯
-        if (gameRoom.isFull()) {
-            startGame(roomId);
-            return null;
+        GameRoom room = roomManager.createOrJoinRoom(playerId);
+//        System.out.println("room!!!!!!!!!!!!!!!");
+        // 방 ID를 클라이언트에게 반환
+        logger.info("조인게임"+roomManager.getAllRoomsStatus());
+
+        if (room.isFull()) {
+            startGame(room.getRoomId());
+
         }
-
-        return playerId;
+        return ""+room.getRoomId();
     }
-
-    @MessageMapping("/match")
-    @SendTo("/topic/game/match")
-    public String matchGame(String playerId) throws Exception {
-        //반배정 계속 할거야
-        waitGame();
-
-        Long roomId = 0L;
-        if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
-            roomId = GameRoomManager.userIdAndRoom.get(playerId);
-            roomManager.createOrJoinRoom(roomId, playerId);
-        }
-        if (roomId == 0) {
-            return null;
-        }
-        return String.valueOf(roomId);
-    }
-
-    long roomNumber = 1;
-
-    public void waitGame() throws Exception {
-//        아이디당 룸 아이디를 배정해주는 메서드
-//        모두 배정하고 true 리턴
-        while (GameRoomManager.waitingQueue.size() >= 2) {
-            String id1 = GameRoomManager.waitingQueue.poll();
-            String id2 = GameRoomManager.waitingQueue.poll();
-            GameRoomManager.userIdAndRoom.put(id1, roomNumber);
-            GameRoomManager.userIdAndRoom.put(id2, roomNumber);
-            roomNumber++;
-        }
-    }
-
     private void startGame(Long roomId) throws InterruptedException {
         GameRoom room = roomManager.getRoom(roomId);
         if (room == null) {
@@ -93,12 +62,12 @@ public class RankGameController {
         // 게임 상태를 시작 상태로 변경
         room.getGameState().startGame();
         // 방의 모든 클라이언트에게 게임 시작 메시지 전송
-        List<Word> words = makeGameData();
+        List<Word> words= makeGameData();
         List<Object> res = new ArrayList<>();
         List<WordDTO> dtos = words.stream().map(WordDTO::new).collect(Collectors.toList());
         res.add(dtos);
         List<WordGameDataDTO> wordGameDataDTOS = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for(int i=0; i<10; i++){
             wordGameDataDTOS.add(new WordGameDataDTO());
         }
         res.add(wordGameDataDTOS);
@@ -110,6 +79,7 @@ public class RankGameController {
     }
 
 
+
     private List<Word> makeGameData() {
 
         return wordService.getWordsForGame(20, 3, true);
@@ -117,7 +87,7 @@ public class RankGameController {
 
     // 클라이언트가 게임 중에 메시지를 보낼 때 호출되는 메서드
     @MessageMapping("/game/{roomId}")
-    public void handleGameMessage(@DestinationVariable Long roomId, GameMessage message, String userId) {
+    public void handleGameMessage(@DestinationVariable Long roomId, GameMessage message) {
         // 방 ID로 해당 방을 가져옴
 //        System.out.println("game1!!!!!!!!!!!!!!");
         GameRoom room = roomManager.getRoom(roomId);
@@ -134,7 +104,6 @@ public class RankGameController {
         if (gameState.isGameFinished()) {
             String winner = gameState.getWinner();
             notifyClients(roomId, new GameResultMessage(winner));
-            GameRoomManager.userIdAndRoom.remove(userId);
         }
     }
 
@@ -145,3 +114,5 @@ public class RankGameController {
         messagingTemplate.convertAndSend("/topic/game/" + roomId, resultMessage);
     }
 }
+
+

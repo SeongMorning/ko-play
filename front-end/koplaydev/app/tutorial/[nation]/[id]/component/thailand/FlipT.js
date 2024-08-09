@@ -8,20 +8,10 @@ export default function FlipT() {
   const router = useRouter();
 
   const tutorialImages = [
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT1.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT2.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT3.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/flipflip/flipT1.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/flipflip/flipT2.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/flipflip/flipT3.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/flipflip/flipT4.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/flipflip/flipT5.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT4.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT5.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT6.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT7.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT8.png",
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT9.png",
+    "/images/tutorial1.png",
+    "/images/tutorial2.png",
+    "/images/tutorial3.png",
+    // 필요한 만큼 이미지를 추가합니다.
   ];
 
   const handleNextStep = () => {
