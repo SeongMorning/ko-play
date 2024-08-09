@@ -37,25 +37,31 @@ export default function WordRainStart() {
   }, []);
 
   useEffect(() => {
-    if (transcript.length > 0) {
-      let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
-      if (CorrectWord.length === 1) {
-        let index = wordObjectList.findIndex(
-          (data) => data.wordKor === transcript
-        );
-        let wordObjectCopy = [...wordObjectList];
-        wordObjectCopy[index].state = 1;
-        setWordObjectList(wordObjectCopy);
+    console.log("Transcript:", transcript);
+    console.log("View Words:", viewWord);
+    console.log("Word Object List:", wordObjectList);
+
+    // 기존 코드...
+  }, [transcript, viewWord, wordObjectList]);
+
+  useEffect(() => {
+    let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
+    if (CorrectWord.length === 1) {
+      let index = wordObjectList.findIndex(
+        (data) => data.wordKor === transcript
+      );
+      let wordObjectCopy = [...wordObjectList];
+      wordObjectCopy[index].state = 1;
+      setWordObjectList(wordObjectCopy);
+    }
+    if (transcript) {
+      if (timer) {
+        clearTimeout(timer);
       }
-      if (transcript) {
-        if (timer) {
-          clearTimeout(timer);
-        }
-        const newTimer = setTimeout(() => {
-          resetTranscript();
-        }, 1000);
-        setTimer(newTimer);
-      }
+      const newTimer = setTimeout(() => {
+        resetTranscript();
+      }, 1000);
+      setTimer(newTimer);
     }
   }, [transcript]);
 
@@ -83,6 +89,7 @@ export default function WordRainStart() {
   // 시간초과시 실행되는 함수
   const changeResultList = useCallback((index) => {
     if (wordObjectList[index].state !== 1) {
+      console.log("화면에서사리짐");
       let copy2 = [...wordObjectList];
       copy2[index].state = -1;
       setWordObjectList(copy2);
@@ -94,6 +101,7 @@ export default function WordRainStart() {
 
   // 화면에 보이면 실행되는 함수
   const changeResultList2 = useCallback((index) => {
+    console.log("화면보임");
     let copy3 = wordObjectList.map((wordObject) => ({ ...wordObject }));
     copy3[index].state = 10;
     setWordObjectList(copy3);
@@ -147,13 +155,13 @@ export default function WordRainStart() {
               className={styles.CardMain}
               style={{
                 left: `${data.left}%`,
-                top: "-25%",
+                top: "-17%",
                 width: "10%",
-                height: "25%",
+                height: "17%",
                 opacity: `${data.state === 1 || data.state === 2 ? 0 : 1}`,
               }}
               animate={{
-                translateY: "130vh",
+                translateY: "117vh",
                 transition: {
                   duration: 10,
                   delay: index * [10, 5, 5, 3, 3][WordRainLevel[0] - 1],

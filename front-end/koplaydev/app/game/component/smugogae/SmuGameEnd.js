@@ -113,7 +113,7 @@ export default function SmuGameEnd() {
   const expAnimation = useAnimation();
 
   useEffect(() => {
-    if (afterExp > 100) {
+    if (afterExp >= 100) {
       expAnimation
         .start({
           width: "100%",
