@@ -1,5 +1,6 @@
 package com.edu.koplay.security.config;
 
+import com.edu.koplay.config.ServerConfig;
 import com.edu.koplay.security.jwt.JwtFilter;
 import com.edu.koplay.security.jwt.JwtUtil;
 import com.edu.koplay.security.oauth2.CustomLogoutHandler;
@@ -30,7 +31,7 @@ import java.util.Collections;
 @EnableWebSecurity
 
 public class SecurityConfig {
-
+    private final ServerConfig serverConfig;
     private final JwtUtil jwtUtil;
     private final CustomOAuth2UserService customOAuth2UserService;
     private final CustomUserSuccessHandler customUserSuccessHandler;
@@ -39,8 +40,8 @@ public class SecurityConfig {
     private final CustomUserFailureHandler customUserFailureHandler;
 
     @Autowired
-    public SecurityConfig(JwtUtil jwtUtil, CustomOAuth2UserService customOAuth2UserService, CustomUserSuccessHandler customSuccessHandler, CustomOAuth2SuccessHandler customOAuth2SuccessHandler, CustomLogoutHandler customLogoutHandler, CustomUserFailureHandler customOAuth2FailureHandler) {
-
+    public SecurityConfig(ServerConfig serverConfig, JwtUtil jwtUtil, CustomOAuth2UserService customOAuth2UserService, CustomUserSuccessHandler customSuccessHandler, CustomOAuth2SuccessHandler customOAuth2SuccessHandler, CustomLogoutHandler customLogoutHandler, CustomUserFailureHandler customOAuth2FailureHandler) {
+        this.serverConfig = serverConfig;
         this.jwtUtil = jwtUtil;
         this.customOAuth2UserService = customOAuth2UserService;
         this.customUserSuccessHandler = customSuccessHandler;
@@ -62,7 +63,7 @@ public class SecurityConfig {
                         CorsConfiguration configuration = new CorsConfiguration();
 
 
-                        configuration.setAllowedOrigins(Arrays.asList("http://192.168.31.173:3000","http://192.168.31.189:3000","https://i11b302.p.ssafy.io","http://localhost:5500","http://127.0.0.1:5500", "http://localhost:3000", "http://127.0.0.1:3000"));
+                        configuration.setAllowedOrigins(Arrays.asList("http://192.168.31.173:3000","http://192.168.31.189:3000",serverConfig.getBack(), serverConfig.getFront(),"http://localhost:5500","http://127.0.0.1:5500", "http://localhost:3000", "http://127.0.0.1:3000"));
 
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
