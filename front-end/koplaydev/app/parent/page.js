@@ -13,12 +13,16 @@ import ParentBg from "../component/background/ParentBg";
 import InputChildInfo from "./component/InputChildInfo";
 import parentChildInfoAxios from "../axios/parentChildInfoAxios";
 import {
+  addParentChild,
   changeParentChildsInfo
 } from "../../redux/slices/parentChaildsSlice";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
 import parentInfoAxios from "../axios/parentInfoAxios";
 import FirstVisitModal from "./component/FirstVisitModal";
 import { changeParentInfo } from "@/redux/slices/parentSlice";
+import InputInitInfo from "./component/InputInitInfo";
+import insertChildAxios from "../axios/insertChildAxios";
+import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
 
 export default function Parent() {
   const dispatch = useDispatch();
@@ -69,11 +73,24 @@ export default function Parent() {
   const closeAllModal = () => {
     setIsModalOpen(false);
     setIsInitModalOpen(false);
+    addChildProfile();
   };
 
   const closeFirstModal = () => {
     setIsFirstModalOpen(false);
   }
+
+  const addChildProfile = async () => {
+    // console.log(childInfo);
+    const response = await insertChildAxios(childInfo);
+
+    if (response != null) {
+      dispatch(addParentChild(childInfo));
+      dispatch(changeSpeechLevel(childInfo.speechLevel));
+      dispatch(changeReadLevel(childInfo.readingLevel));
+      dispatch(changeListenLevel(childInfo.listeningLevel));
+    }
+  };
 
   const [childInfo, setChildInfo] = useState({
     name: "",
@@ -135,6 +152,10 @@ export default function Parent() {
           />
         )}
       </div>
+      {isInitModalOpen && (
+          <InputInitInfo onclose={closeAllModal} setChildInfo={setChildInfo} />
+      )}
+
       <motion.div
         initial={{
           opacity: 0,
