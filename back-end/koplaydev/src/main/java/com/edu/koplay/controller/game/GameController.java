@@ -9,7 +9,10 @@ import com.edu.koplay.model.Student;
 import com.edu.koplay.model.Word;
 import com.edu.koplay.service.GameDataService;
 import com.edu.koplay.service.facade.GameFacadeService;
+import com.edu.koplay.websocket.GameRoom;
 import com.edu.koplay.websocket.GameRoomManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -24,6 +27,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/games")
 public class GameController {
+    Logger logger = LoggerFactory.getLogger(GameController.class);
     private GameRoomManager gameRoomManager;
     private GameFacadeService gameService;
     private GameDataService gameDataService;
@@ -123,15 +127,22 @@ public class GameController {
 
     @GetMapping("/gameRoom")
     private ResponseEntity<?> getEmptyRoom(){
-        long number = GameRoomManager.newRoomId;
-        ResponseDTO<Long> response = null;
+        try{
+            String id = getAuthenticationData();
+            logger.info("que add before"+GameRoomManager.waitingQueue.size());
+            GameRoomManager.waitingQueue.add(id);
+            logger.info("que add after"+GameRoomManager.waitingQueue.size());
+            ResponseDTO<String> response = null;
+
+            response = ResponseDTO.<String>builder().data(Collections.singletonList(id)).build();
+            return ResponseEntity.ok().body(response);
+        }catch(Exception e){
+            e.printStackTrace();
+            ResponseDTO<String> response = ResponseDTO.<String>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
 
 
-        response = ResponseDTO.<Long>builder().data(Collections.singletonList(number)).build();
-
-
-
-        return ResponseEntity.ok().body(response);
     }
     private String getAuthenticationData() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
