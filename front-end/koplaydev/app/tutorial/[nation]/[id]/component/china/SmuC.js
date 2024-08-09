@@ -8,10 +8,21 @@ export default function SmuC() {
   const router = useRouter();
 
   const tutorialImages = [
-    "/images/tutorial1.png",
-    "/images/tutorial2.png",
-    "/images/tutorial3.png",
-    // 필요한 만큼 이미지를 추가합니다.
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC1.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC2.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC3.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/smugogae/smuC1.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/smugogae/smuC2.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/smugogae/smuC3.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/smugogae/smuC4.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/smugogae/smuC5.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/smugogae/smuC6.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC4.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC5.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC6.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC7.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC8.png",
+    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC9.png",
   ];
 
   const handleNextStep = () => {
