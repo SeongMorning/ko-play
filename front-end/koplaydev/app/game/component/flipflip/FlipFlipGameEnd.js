@@ -30,6 +30,7 @@ export default function FlipFlipGameEnd() {
   const [newAvatars, setNewAvatars] = useState(null);
   const [showAvatar, setShowAvatar] = useState(false);
   const [ttsText, setTtsText] = useState(null);
+  const [isGoMainClickable, setIsGoMainClickable] = useState(false);
 
   const getQuestion = () => {
     if (gameList[1] === 1 || gameList[1] === 2) {
@@ -315,6 +316,9 @@ export default function FlipFlipGameEnd() {
       {showRewardButton && (
         <motion.div
           className={styles.RewardButton}
+          style={{
+            pointerEvents: showRewardButton ? "auto" : "none",
+          }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1, transition: { duration: 1, delay: 1 } }}
         >
@@ -331,6 +335,9 @@ export default function FlipFlipGameEnd() {
       )}
       <motion.div
         className={styles.GoMain}
+        style={{
+          pointerEvents: isGoMainClickable ? "auto" : "none",
+        }}
         initial={{
           opacity: 0,
         }}
@@ -341,6 +348,7 @@ export default function FlipFlipGameEnd() {
             delay: 5,
           },
         }}
+        onAnimationComplete={() => setIsGoMainClickable(true)}
       >
         <FlipFlipGameJellyBtn
           width="100"
