@@ -14,6 +14,7 @@ import { changeGameWord } from "@/redux/slices/gameWordSlice";
 import axios from "axios";
 import API from "@/app/utils/API";
 import { changegameLeft } from "@/redux/slices/gameLeftSlice";
+import { changeroomId } from "@/redux/slices/roomIdSlice";
 
 export default function RankGame() {
   const dispatch = useDispatch();
@@ -21,14 +22,14 @@ export default function RankGame() {
   const router = useRouter();
   let [roomId, setRoomId] = useState();
   const [flag, setFlag] = useState(true);
+  const userInfo = useSelector((state) => state.studentInfo)
 
   useEffect(() => {
     const fetchRoomId = async () => {
       API.get("/games/gameRoom")
         .then((res) => {
-          console.log(res.data.data[0] + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-          roomId = res.data.data[0];
-          setRoomId(res.data.data[0]);
+          console.log(res.data.data + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+          console.log("대기열 등록 완료!!! 기다리세요 ~~")
         })
         .catch((e) => {
           console.log(e);
@@ -46,33 +47,38 @@ export default function RankGame() {
     if (isConnected) {
       const client = getStompClient();
       client.connect({}, (frame) => {
-        console.log("roomID : " + roomId);
+        console.log("loginId : " + roomId);
+
+        client.subscribe("/topic/game/match", (message1) => {
+
+          let roomId = message1.body.message;
+          console.log("첫번째구독" + message1.body.message);
+
+          if(roomId != null && roomId != undefined && roomId != 0){
+            client.subscribe(`/topic/game/${roomId}`, (message2) => {
+              console.log("consolegameroomID: " + message2.body);
+              if (message2.body.startsWith("Joined")) {
+                console.log(message2.body);
+              } else if (JSON.parse(message2.body).message === "Game started") {
+                setTimeout(() => router.push("/game/4"), 2000);
+                // router.push("/game/4");
+              } else {
+                console.log(JSON.parse(message2.body).message.data);
+                dispatch(changeGameWord(JSON.parse(message2.body).message.data[0]));
+                dispatch(changegameLeft(JSON.parse(message2.body).message.data[1]));
+              }
+            })
+          }
+
+        });
         
-        // client.subscribe("/topic/game", (message1) => {
-        //   let room = message1.body;
-        //   console.log("첫번째구독"+message1.body);
+        client.send("/app/match", {}, JSON.stringify(userInfo.id));
+        client.send("/app/join", {}, JSON.stringify(userInfo.id));
 
-
-          client.subscribe(`/topic/game/${roomId}`, (message2)=>{
-            console.log(message2.body);
-            if(message2.body.startsWith("Joined")){
-              console.log(message2.body);
-            }else if(JSON.parse(message2.body).message === "Game started"){
-              setTimeout(()=>router.push("/game/4"), 2000);
-              // router.push("/game/4");
-            }else{
-              console.log(JSON.parse(message2.body).message.data);
-              dispatch(changeGameWord(JSON.parse(message2.body).message.data[0]));
-              dispatch(changegameLeft(JSON.parse(message2.body).message.data[1]));
-            }
-          })
-          
-          // });
-          client.send("/app/join", {}, JSON.stringify("player1"));
-          setFlag(!flag);
+        setFlag(!flag);
       });
     }
-  }, [isConnected]);
+  }, [isConnected, roomId]);
 
   return (
     <>
