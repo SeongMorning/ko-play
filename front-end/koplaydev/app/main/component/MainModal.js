@@ -9,6 +9,7 @@ import NormalGame from "./modals/NormalGame";
 import Setting from "./modals/Setting";
 import Test from "./modals/Test";
 import RankGame from "./modals/RankGame";
+import GameTutorial from "./modals/GameTutorial";
 
 export default function MainModal() {
   const modalNum = useSelector((state) => state.modal);
@@ -40,9 +41,11 @@ const SelectModal = ({ idx }) => {
     return <Setting />;
   } else if (idx === 3) {
     return <Test />;
-  } else if (idx === 4){
-    return <RankGame/>;
-  }else{
+  } else if (idx === 4) {
+    return <RankGame />;
+  } else if (idx === 5) {
+    return <GameTutorial />;
+  } else {
     return null;
   }
 };
