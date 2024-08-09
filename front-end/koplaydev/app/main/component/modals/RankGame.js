@@ -14,6 +14,7 @@ import { changeGameWord } from "@/redux/slices/gameWordSlice";
 import axios from "axios";
 import API from "@/app/utils/API";
 import { changegameLeft } from "@/redux/slices/gameLeftSlice";
+import { changeroomId } from "@/redux/slices/roomIdSlice";
 
 export default function RankGame() {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export default function RankGame() {
     const fetchRoomId = async () => {
       API.get("/games/gameRoom")
         .then((res) => {
-          console.log(res.data.data + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+           console.log(res.data.data + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
           setRoomId(res.data.data);
         })
         .catch((e) => {
@@ -43,7 +44,7 @@ export default function RankGame() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (isConnected) {
+    if (isConnected && roomId) {
       const client = getStompClient();
       client.connect({}, (frame) => {
         // console.log("roomID : " + roomId);
@@ -82,7 +83,7 @@ export default function RankGame() {
         setFlag(!flag);
       });
     }
-  }, [isConnected]);
+  }, [isConnected, roomId]);
 
   return (
     <>
