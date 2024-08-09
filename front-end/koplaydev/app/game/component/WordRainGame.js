@@ -11,7 +11,7 @@ export default function WordRainGame(){
     if(loading === -1){
         return <GameStartBtn/>
     }else if(loading === 0){
-        return <WordRainStart/>
+        return <RankTest2/>
     }else if(loading === 1){
         return <WordRainEnd />
     }else{
