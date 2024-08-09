@@ -19,7 +19,6 @@ export default function FirstVisitModal({ onclose }) {
     }
     return (
         <>
-            <div className={styles.overlay} ></div>
             <div className={styles.modalBg}></div>
             <div className={styles.modal}>
                 <div className={styles.modalContent}>
