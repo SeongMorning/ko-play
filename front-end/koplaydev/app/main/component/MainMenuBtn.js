@@ -20,16 +20,17 @@ export default function MainMenuBtn(props) {
   return (
     <>
       {logoutModal && (
-        <motion.div
-          className={styles.logoutModal}
-          initial={{
-            translateY: "5px",
-            opacity: 0,
-          }}
-          animate={{
-            translateY: "0px",
-            opacity: 1,
-          }}
+        <motion.div 
+        className={styles.logoutModal}
+        initial={{
+          translateY : "5px",
+          opacity : 0
+        }}
+
+        animate={{
+          translateY : "0px",
+          opacity : 1
+        }}
         >
           <YellowBox width="40" height="30">
             <div className={styles.textBox}>
@@ -72,8 +73,8 @@ export default function MainMenuBtn(props) {
             router.push("/mypage");
           } else if (props.idx === 1003) {
             router.push("/avatar");
-          } else if (props.idx === 1004) {
-            dispatch(changeModalIdx(5));
+          } else if (props.idx === 10000) {
+            router.push("/123");
           } else if (props.idx === -1) {
             // 쿠키에서 특정 값을 가져오는 함수
             setLogoutModal(!logoutModal);
