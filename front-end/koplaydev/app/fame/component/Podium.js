@@ -59,17 +59,17 @@ export default function Podium(props) {
           </div>
           <div className={styles.info}>
             <div className={`${styles.info} ${styles.info1}`}>
-              이름 : {users[0].student.name}
+              닉네임 : {users[0].student.nickname}
               <br />
               주간 판 수 : {users[0].gameCount}
             </div>
             <div className={`${styles.info} ${styles.info2}`}>
-              이름 : {users[1].student.name}
+              닉네임 : {users[1].student.nickname}
               <br />
               주간 판 수 : {users[1].gameCount}
             </div>
             <div className={`${styles.info} ${styles.info3}`}>
-              이름 : {users[2].student.name}
+              닉네임 : {users[2].student.nickname}
               <br />
               주간 판 수 : {users[2].gameCount}
             </div>
