@@ -37,23 +37,25 @@ export default function WordRainStart() {
   }, []);
 
   useEffect(() => {
-    let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
-    if (CorrectWord.length === 1) {
-      let index = wordObjectList.findIndex(
-        (data) => data.wordKor === transcript
-      );
-      let wordObjectCopy = [...wordObjectList];
-      wordObjectCopy[index].state = 1;
-      setWordObjectList(wordObjectCopy);
-    }
-    if (transcript) {
-      if (timer) {
-        clearTimeout(timer);
+    if (transcript.length > 0) {
+      let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
+      if (CorrectWord.length === 1) {
+        let index = wordObjectList.findIndex(
+          (data) => data.wordKor === transcript
+        );
+        let wordObjectCopy = [...wordObjectList];
+        wordObjectCopy[index].state = 1;
+        setWordObjectList(wordObjectCopy);
       }
-      const newTimer = setTimeout(() => {
-        resetTranscript();
-      }, 1000);
-      setTimer(newTimer);
+      if (transcript) {
+        if (timer) {
+          clearTimeout(timer);
+        }
+        const newTimer = setTimeout(() => {
+          resetTranscript();
+        }, 1000);
+        setTimer(newTimer);
+      }
     }
   }, [transcript]);
 
@@ -92,7 +94,7 @@ export default function WordRainStart() {
 
   // 화면에 보이면 실행되는 함수
   const changeResultList2 = useCallback((index) => {
-    let copy3 = wordObjectList.map(wordObject => ({...wordObject}))
+    let copy3 = wordObjectList.map((wordObject) => ({ ...wordObject }));
     copy3[index].state = 10;
     setWordObjectList(copy3);
   });
