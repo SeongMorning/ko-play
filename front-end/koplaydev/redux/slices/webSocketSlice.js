@@ -23,22 +23,23 @@ export const connectWebSocket = (url) => (dispatch) => {
   const socket = new SockJS(url);
   stompClient = Stomp.over(socket);
 
-  stompClient.debug = (str) => console.log(str);
-//   stompClient.connect(
-//     {},
-//     () => {
-//       console.log("STOMP connected");
-//       dispatch(setConnected(true));
-//       stompClient.subscribe("/topic/game/1", (message) => {
-//         console.log("Received message: ", message.body);
-//       });
-//       stompClient.send("/join",{},JSON.stringify("player1"));
-//     },
-//     (error) => {
-//       console.log("STOMP disconnected", error);
-//       dispatch(setConnected(false));
-//     }
-//   );
+  // stompClient.debug = (str) => console.log(str);
+  dispatch(setConnected(true));
+  // stompClient.connect(
+  //   {},
+  //   () => {
+  //     console.log("STOMP connected");
+  //     dispatch(setConnected(true));
+  //     stompClient.subscribe("/topic/game/1", (message) => {
+  //       console.log("Received message: ", message.body);
+  //     });
+  //     stompClient.send("/join",{},JSON.stringify("player1"));
+  //   },
+  //   (error) => {
+  //     console.log("STOMP disconnected", error);
+  //     dispatch(setConnected(false));
+  //   }
+  // );
 
   return () => {
     if (stompClient) {

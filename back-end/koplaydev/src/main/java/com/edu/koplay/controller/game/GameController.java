@@ -123,7 +123,7 @@ public class GameController {
 
     @GetMapping("/gameRoom")
     private ResponseEntity<?> getEmptyRoom(){
-        long number = gameRoomManager.getNewRoomId();
+        long number = GameRoomManager.newRoomId;
         ResponseDTO<Long> response = null;
 
 

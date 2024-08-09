@@ -21,6 +21,8 @@ import hints from "./slices/hintsSlice";
 import webSocket from "./slices/webSocketSlice";
 import parentSlice from "./slices/parentSlice";
 import parentChaildStatisticSlice from "./slices/parentChaildStatisticSlice";
+import gameLeft from "./slices/gameLeftSlice";
+
 
 const rootReducer = combineReducers({
   modal: modal.reducer,
@@ -45,6 +47,7 @@ const rootReducer = combineReducers({
   webSocket : webSocket.reducer,
   parent: parentSlice.reducer,
   parentChaildStatistic: parentChaildStatisticSlice.reducer,
+  gameLeft : gameLeft.reducer,
 });
 
 export default rootReducer;

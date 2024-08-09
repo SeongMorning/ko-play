@@ -35,4 +35,13 @@ public class GameRoom {
     public List<String> getClients() {
         return clients;
     }
+    @Override
+    public String toString() {
+        return "GameRoom{" +
+                "roomId=" + roomId +
+                ", clients=" + clients +
+                ", isFull=" + isFull() +
+                ", gameState=" + gameState +
+                '}';
+    }
 }

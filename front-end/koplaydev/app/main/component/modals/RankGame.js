@@ -4,7 +4,7 @@ import YellowBox from "@/app/component/boxes/YellowBox";
 import styles from "./RankGame.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   connectWebSocket,
   getStompClient,
@@ -12,18 +12,30 @@ import {
 import { useRouter } from "next/navigation";
 import { changeGameWord } from "@/redux/slices/gameWordSlice";
 import axios from "axios";
+import API from "@/app/utils/API";
+import { changegameLeft } from "@/redux/slices/gameLeftSlice";
 
 export default function RankGame() {
   const dispatch = useDispatch();
   const isConnected = useSelector((state) => state.webSocket.isConnected);
   const router = useRouter();
+  let [roomId, setRoomId] = useState();
+  const [flag, setFlag] = useState(true);
 
-  const roomId = axios.get("/games/gameRoom")
-  .then((res)=>{
-    console.log(res.data)
-  }).catch((e)=>{
-    console.log(e)
-  })
+  useEffect(() => {
+    const fetchRoomId = async () => {
+      API.get("/games/gameRoom")
+        .then((res) => {
+          console.log(res.data.data[0] + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
+          roomId = res.data.data[0];
+          setRoomId(res.data.data[0]);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+    fetchRoomId();
+  }, []);
 
   useEffect(() => {
     const url = `${process.env.customKey}/gs-guide-websocket`;
@@ -34,17 +46,30 @@ export default function RankGame() {
     if (isConnected) {
       const client = getStompClient();
       client.connect({}, (frame) => {
-        client.subscribe("/topic/game/1", (message) => {
-          if (JSON.parse(message.body).message === "Game started") {
-            router.push("/game/4");
-          } else {
-            if(JSON.parse(message.body).message.data){
-              dispatch(changeGameWord(JSON.parse(message.body).message.data))
+        console.log("roomID : " + roomId);
+        
+        // client.subscribe("/topic/game", (message1) => {
+        //   let room = message1.body;
+        //   console.log("첫번째구독"+message1.body);
+
+
+          client.subscribe(`/topic/game/${roomId}`, (message2)=>{
+            console.log(message2.body);
+            if(message2.body.startsWith("Joined")){
+              console.log(message2.body);
+            }else if(JSON.parse(message2.body).message === "Game started"){
+              setTimeout(()=>router.push("/game/4"), 2000);
+              // router.push("/game/4");
+            }else{
+              console.log(JSON.parse(message2.body).message.data);
+              dispatch(changeGameWord(JSON.parse(message2.body).message.data[0]));
+              dispatch(changegameLeft(JSON.parse(message2.body).message.data[1]));
             }
-          }
-          console.log(message.body);
-        });
-        client.send("/app/join", {}, JSON.stringify("player1"));
+          })
+          
+          // });
+          client.send("/app/join", {}, JSON.stringify("player1"));
+          setFlag(!flag);
       });
     }
   }, [isConnected]);
