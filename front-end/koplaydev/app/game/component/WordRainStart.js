@@ -147,13 +147,13 @@ export default function WordRainStart() {
               className={styles.CardMain}
               style={{
                 left: `${data.left}%`,
-                top: "-17%",
+                top: "-25%",
                 width: "10%",
-                height: "17%",
+                height: "25%",
                 opacity: `${data.state === 1 || data.state === 2 ? 0 : 1}`,
               }}
               animate={{
-                translateY: "118vh",
+                translateY: "130vh",
                 transition: {
                   duration: 10,
                   delay: index * [10, 5, 5, 3, 3][WordRainLevel[0] - 1],
