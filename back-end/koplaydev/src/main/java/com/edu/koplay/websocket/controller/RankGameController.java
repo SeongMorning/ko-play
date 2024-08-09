@@ -40,18 +40,34 @@ public class RankGameController {
     @SendTo("/topic/game")
     public String joinGame(String playerId) throws Exception {
         //반배정 계속 할거야
-        waitGame();
-        if(GameRoomManager.userIdAndRoom.containsKey(playerId)){
-            Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
-            GameRoom gameRoom = roomManager.createOrJoinRoom(roomId,playerId);
-            //키가 있으면 방배정 된거니까 게임 시작하면 될듯
-            if(gameRoom.isFull()){
-                startGame(roomId);
-                return null;
-            }
+        Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
+        if(roomId == null) return null;
+        GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
+
+        //키가 있으면 방배정 된거니까 게임 시작하면 될듯
+        if (gameRoom.isFull()) {
+            startGame(roomId);
+            return null;
         }
 
         return playerId;
+    }
+
+    @MessageMapping("/match")
+    @SendTo("/topic/game/match")
+    public String matchGame(String playerId) throws Exception {
+        //반배정 계속 할거야
+        waitGame();
+
+        Long roomId = 0L;
+        if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
+            roomId = GameRoomManager.userIdAndRoom.get(playerId);
+            roomManager.createOrJoinRoom(roomId, playerId);
+        }
+        if (roomId == 0) {
+            return null;
+        }
+        return String.valueOf(roomId);
     }
 
     long roomNumber = 1;
@@ -100,7 +116,7 @@ public class RankGameController {
     }
 
     // 클라이언트가 게임 중에 메시지를 보낼 때 호출되는 메서드
-        @MessageMapping("/game/{roomId}")
+    @MessageMapping("/game/{roomId}")
     public void handleGameMessage(@DestinationVariable Long roomId, GameMessage message, String userId) {
         // 방 ID로 해당 방을 가져옴
 //        System.out.println("game1!!!!!!!!!!!!!!");
