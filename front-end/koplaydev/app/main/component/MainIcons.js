@@ -49,7 +49,11 @@ export default function MainIcons() {
             rotate: "-10deg",
           }}
         />
-        <div className={styles.rankGameText}>랭크게임</div>
+        <div className={styles.rankGameText}>
+          랭크
+          <br />
+          게임
+        </div>
       </div>
       <motion.img
         className={styles.speechBubble}
