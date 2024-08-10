@@ -19,7 +19,8 @@ export default function GoogleTranslate() {
       addScript.id = "google_translate_script";
       addScript.setAttribute(
         "src",
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
+        "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit",
+        // "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"
       );
       document.body.appendChild(addScript);
       window.googleTranslateElementInit = googleTranslateElementInit;
