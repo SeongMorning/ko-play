@@ -10,12 +10,18 @@ import logoutAxios from "@/app/axios/logoutAxios";
 import { useState } from "react";
 import YellowBox from "@/app/component/boxes/YellowBox";
 import LogoutModalBtn from "./LogoutModalBtn";
+// import useSound from '@/app/utils/useSound'
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 // props : left, top, bg, shadow, imgSrc
 export default function MainMenuBtn(props) {
   const [logoutModal, setLogoutModal] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const es = effectSound(buttonSound, 1);
 
   return (
     <>
@@ -64,6 +70,8 @@ export default function MainMenuBtn(props) {
         style={{ left: props.left, top: props.top }}
         className={styles.MainMenuBtn}
         onClick={async () => {
+          es.play();
+
           if (props.idx > 0 && props.idx <= 1000) {
             dispatch(changeModalIdx(props.idx));
           } else if (props.idx === 1001) {
