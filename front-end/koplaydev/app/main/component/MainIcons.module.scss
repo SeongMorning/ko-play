@@ -30,7 +30,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  font-size: calc(4vw + 4vh);
+  font-size: calc(3vw + 3vh);
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
@@ -62,11 +62,11 @@
 
 .rankGameText {
   position: absolute;
-  top: 45%;
+  top: 48%;
   left: 55%;
   transform: translate(-50%, -50%);
   font-weight: bold;
-  font-size: calc(4vw + 4vh);
+  font-size: calc(3vw + 3vh);
   color: white;
   opacity: 0;
   transition: opacity 0.3s ease, transform 0.3s ease;
