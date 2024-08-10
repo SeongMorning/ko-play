@@ -13,17 +13,16 @@ import { changeWrong } from "@/redux/slices/wrongList";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { Stomp } from "@stomp/stompjs";
-import SockJS from "sockjs-client"; // SockJS 임포트
 import {
   disconnectWebSocket,
   getWebSocketClient,
 } from "@/app/utils/websockectManager";
 import { setConnected } from "@/redux/slices/webSocketSlice";
+import produce from "immer";
 
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
-  const [wordObjectList, setWordObjectList] = useState(wordList);
+  const [wordObjectList, setWordObjectList] = useState(()=> wordList.map((word)=> ({...word})));
   const wordLeft = useSelector((state) => state.gameLeft);
   let { transcript, listening, resetTranscript } = useSpeechRecognition();
   const [wrong, setWrong] = useState([]);
@@ -37,11 +36,8 @@ export default function RankTest2() {
   const [client, setClient] = useState(getWebSocketClient());
   const roomId = useSelector((state) => state.roomId);
   const userInfo = useSelector((state) => state.studentInfo);
-
   useEffect(() => {
     setWordObjectList(wordList);
-    console.log(wordList);
-    console.log(wordLeft);
   }, [wordList]);
 
   useEffect(() => {
@@ -63,34 +59,43 @@ export default function RankTest2() {
   }, []);
 
   useEffect(() => {
-    if (client) {
-      client.subscribe(`/user/topic/game/${roomId}`, (message) => {
-        const idx = JSON.parse(message.body).index;
-        const cor = JSON.parse(message.body).data[0].correct;
-        if (idx === 3) {
-          if (cor) {
-            let wordObjectCopy = wordObjectList.map((wordObject) => ({...wordObject}));
-            wordObjectCopy[idx].state = 1;
-            setWordObjectList(wordObjectCopy);
-          } else {
-            let wordObjectCopy = wordObjectList.map((wordObject) => ({...wordObject}));
-            wordObjectCopy[idx].state = -1;
-            setWordObjectList(wordObjectCopy);
-            console.log(Object.isExtensible(wordObjectCopy))
-            let wrong2 = [...wrong];
-            wrong2.push(wordObjectList[idx]);
-            setWrong(wrong2);
-          }
+    client.subscribe(`/user/topic/game/${roomId}`, (message) => {
+      const idx = JSON.parse(message.body).index;
+      const cor = JSON.parse(message.body).data[0].correct;
+      const wordIdx = JSON.parse(message.body).data[0].wordIdx;
+      if (idx === 3 || idx === 4) {
+        console.log(cor);
+        if (cor) {
+          let wordObjectCopy2 = [...wordObjectList];
+          let wordObjectCopy = wordObjectCopy2.map((wordObject) => {
+            let copy = {...wordObject};
+            return copy;
+          });
+          wordObjectCopy[wordIdx].state = 1;
+          setWordObjectList(wordObjectCopy);
+          console.log(wordObjectList);
+        } else {
+          let wordObjectCopy2 = [...wordObjectList];
+          let wordObjectCopy = wordObjectCopy2.map((wordObject) => {
+            let copy = {...wordObject};
+            return copy;
+          });
+          console.log(wordIdx);
+          wordObjectCopy[wordIdx].state = -1;
+          setWordObjectList(wordObjectCopy);
+          let wrong2 = [...wrong];
+          wrong2.push(wordObjectList[idx]);
+          setWrong(wrong2);
+          console.log(wordObjectList);
         }
-      });
-    }
-  }, [client]);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     // 사용자가 말한 단어가 화면에 나타나는 단어와 일치하는지 확인
     let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
     if (CorrectWord.length === 1) {
-      console.log("정답");
       let index = wordObjectList.findIndex(
         (data) => data.wordKor === transcript
       );
@@ -105,21 +110,18 @@ export default function RankTest2() {
           })
         );
       }
-      let wordObjectCopy = wordObjectList.map((wordObject) => ({...wordObject}));
-      wordObjectCopy[index].state = 1;
-      setWordObjectList(wordObjectCopy);
 
       // 점수 업데이트 메시지를 서버에 전송
-      if (client) {
-        client.send(
-          "/app/game/1",
-          {},
-          JSON.stringify({
-            playerId: "player1", // 실제 플레이어 ID를 넣으세요
-            score: 1,
-          })
-        );
-      }
+      // if (client) {
+      //   client.send(
+      //     "/app/game/1",
+      //     {},
+      //     JSON.stringify({
+      //       playerId: "player1", // 실제 플레이어 ID를 넣으세요
+      //       score: 1,
+      //     })
+      //   );
+      // }
     }
 
     // 사용자가 음성을 인식했을 때 타이머를 설정하여 특정 시간 후에 인식을 초기화
@@ -137,6 +139,7 @@ export default function RankTest2() {
   useEffect(() => {
     if (wordObjectList) {
       let viewWords = wordObjectList.filter((data) => data.state === 10);
+      console.log(viewWords);
       SetViewWord(viewWords);
       let a = wordObjectList.filter((data) => data.state === 1).length; // 정답
       let b = wordObjectList.filter((data) => data.state === -1).length; // 오답
@@ -155,21 +158,31 @@ export default function RankTest2() {
 
   // 시간초과시 실행되는 함수
   const changeResultList = useCallback((index) => {
-    console.log("화면에 사라짐");
     if (wordObjectList[index].state !== 1) {
-      let copy2 = wordObjectList.map((wordObject) => ({...wordObject}));
-      copy2[index].state = -1;
-      setWordObjectList(copy2);
-      let wrong2 = wrong.map((wrongItem) => ({...wrongItem}));
-      wrong2.push(wordObjectList[index]);
-      setWrong(wrong2);
+      if (client) {
+        client.send(
+          "/app/incorrect",
+          {},
+          JSON.stringify({
+            wordIdx: index,
+            roomId: roomId,
+            playerId: userInfo.id,
+          })
+        );
+      }
+      // let copy2 = wordObjectList.map((wordObject) => ({...wordObject}));
+      // copy2[index].state = -1;
+      // setWordObjectList(copy2);
+      // let wrong2 = wrong.map((wrongItem) => ({...wrongItem}));
+      // wrong2.push(wordObjectList[index]);
+      // setWrong(wrong2);
     }
   });
 
   // 화면에 보이면 실행되는 함수
   const changeResultList2 = useCallback((index) => {
-    console.log("화면에 보임");
-    let copy3 = wordObjectList.map((wordObject) => ({ ...wordObject }));
+    let copy4 = [...wordObjectList];
+    let copy3 = copy4.map((wordObject) => ({ ...wordObject }));
     copy3[index].state = 10;
     setWordObjectList(copy3);
   });
