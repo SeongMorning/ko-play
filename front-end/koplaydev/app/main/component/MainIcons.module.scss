@@ -1,37 +1,89 @@
-.hehe{
-    position : absolute;
-    top : 25vh;
-    left : 40vw;
-    width : 20vw;
-    height : 30vh;
-    z-index : 10;
+.hehe {
+  position: absolute;
+  top: 25vh;
+  left: 40vw;
+  width: 20vw;
+  height: 30vh;
+  z-index: 10;
 }
 
-.normalGame{
-    position : absolute;
-    top : 13vh;
-    left : 5vw;
-    width : 25vw;
-    height : 40vh;
-    z-index : 0;
-    cursor : pointer;
+.normalGameContainer {
+  position: absolute;
+  top: 13vh;
+  left: 5vw;
+  width: 25vw;
+  height: 40vh;
+  z-index: 0;
+  cursor: pointer;
+  text-align: center;
 }
 
-.rankGame{
-    position : absolute;
-    top : 0vh;
-    right : 1vw;
-    width : 35vw;
-    height : 65vh;
-    z-index : 10;
-    cursor : pointer;
+.normalGame {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
 }
 
-.speechBubble{
-    position : absolute;
-    top : 9vh;
-    left : 38vw;
-    width : 24vw;
-    height : 15vh;
-    z-index : 10;
+.normalGameText {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: calc(4vw + 4vh);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  text-shadow: -5px -5px black;
+}
+
+.normalGameContainer:hover .normalGameText {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.rankGameContainer {
+  position: absolute;
+  top: 0vh;
+  right: 1vw;
+  width: 35vw;
+  height: 65vh;
+  z-index: 10;
+  cursor: pointer;
+  text-align: center;
+}
+
+.rankGame {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+.rankGameText {
+  position: absolute;
+  top: 45%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  font-weight: bold;
+  font-size: calc(4vw + 4vh);
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  text-shadow: -5px -5px black;
+}
+
+.rankGameContainer:hover .rankGameText {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+.speechBubble {
+  position: absolute;
+  top: 9vh;
+  left: 38vw;
+  width: 24vw;
+  height: 15vh;
+  z-index: 10;
 }
