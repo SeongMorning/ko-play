@@ -1,12 +1,15 @@
 package com.edu.koplay.websocket.controller;
 
-import com.edu.koplay.dto.ResponseDTO;
 import com.edu.koplay.dto.WordDTO;
 import com.edu.koplay.dto.WordGameDataDTO;
 import com.edu.koplay.model.Word;
 import com.edu.koplay.service.WordService;
 import com.edu.koplay.websocket.*;
+import com.edu.koplay.websocket.dto.CorrectDTO;
+import com.edu.koplay.websocket.dto.GameDTO;
 import com.edu.koplay.websocket.dto.JoinDTO;
+import com.edu.koplay.websocket.dto.ResponseDTO;
+import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -16,6 +19,7 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,26 +40,20 @@ public class RankGameController {
 
         this.messagingTemplate = messagingTemplate;
     }
+
     Long roomId = 1L;
 
     @MessageMapping("/match")
     @SendTo("/topic/game/match")
     public void matchGame(String playerId) throws Exception {
         //반배정 계속 할거야
-        logger.info("before");
         waitGame();
-        logger.info("after");
-        logger.info("플레이어아이디: "+playerId);
-        logger.info("check"+playerId.equals("1234"));
         logger.info(String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
             roomId = GameRoomManager.userIdAndRoom.get(playerId);
             roomManager.createOrJoinRoom(roomId, playerId);
             messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(roomId)));
         }
-//        System.out.println(roomId+":roomId");
-//        System.out.println(new GameStartMessage(String.valueOf(roomId)));
-
 
     }
 
@@ -66,40 +64,24 @@ public class RankGameController {
         String playerId = joinDTO.getPlayerId();
         Long roomId = joinDTO.getRoomId();
 
-        System.out.println("드러가 ");
-
-        logger.info(String.valueOf(GameRoomManager.userIdAndRoom.size()));
-
-        //반배정 계속 할거야
-        System.out.println(playerId);
-        System.out.println(GameRoomManager.userIdAndRoom.containsKey("1234"));
-        System.out.println(GameRoomManager.userIdAndRoom.get("1234"));
-        System.out.println(String.valueOf(roomId));
-//        Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
-
-//        if(roomId == null) return;
         GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
-        System.out.println("test"+gameRoom.isFull());
         //키가 있으면 방배정 된거니까 게임 시작하면 될듯
         if (gameRoom.isFull()) {
             startGame(roomId);
         }
-        logger.info(String.valueOf(GameRoomManager.userIdAndRoom.size()));
-
     }
 
     public void waitGame() throws Exception {
 //        아이디당 룸 아이디를 배정해주는 메서드
 //        모두 배정하고 true 리턴
-        logger.info("waitGamesize"+GameRoomManager.waitingQueue.size());
         while (GameRoomManager.waitingQueue.size() >= 2) {
             logger.info("여기 배정했어요");
             String id1 = GameRoomManager.waitingQueue.poll();
             String id2 = GameRoomManager.waitingQueue.poll();
-            System.out.println(id1+id2);
+            System.out.println(id1 + id2);
             GameRoomManager.userIdAndRoom.put(id1, roomId);
             GameRoomManager.userIdAndRoom.put(id2, roomId);
-            logger.info("roomId"+roomId);
+            logger.info("roomId" + roomId);
             roomId++;
         }
     }
@@ -109,8 +91,13 @@ public class RankGameController {
         if (room == null) {
             return;
         }
-
+        // 게임 참가자를 저장하고
         // 게임 상태를 시작 상태로 변경
+        List<String> clients = room.getClients();
+        //ㅎㅎ 세상 별로인 코드... 눈감아다들 바빠.
+        room.getGameState().setPlayer1(clients.get(0));
+        room.getGameState().setPlayer2(clients.get(1));
+
         room.getGameState().startGame();
         // 방의 모든 클라이언트에게 게임 시작 메시지 전송
         List<Word> words = makeGameData();
@@ -122,41 +109,91 @@ public class RankGameController {
             wordGameDataDTOS.add(new WordGameDataDTO());
         }
         res.add(wordGameDataDTOS);
-        ResponseDTO<Object> response = ResponseDTO.<Object>builder().data(res).build();
+        ResponseDTO<Object> response = ResponseDTO.<Object>builder().index(2).data(res).build();
 //        System.out.println("!!!!!!!!"+response.getData());
         Thread.sleep(1000); // simulated delay
-//        messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameWordMessage(response));
-        messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameStartMessage("Game started"));
+        //게임 단어전달 2번 index
+        messagingTemplate.convertAndSend("/topic/game/" + roomId, response);
+        //게임시작 1번 index
+        messagingTemplate.convertAndSend("/topic/game/" + roomId, ResponseDTO.<Object>builder().index(1).build());
     }
-
 
     private List<Word> makeGameData() {
-
-        return wordService.getWordsForGame(20, 3, true);
+        return wordService.getRandomWordsForRankGame(20);
     }
 
-    // 클라이언트가 게임 중에 메시지를 보낼 때 호출되는 메서드
-    @MessageMapping("/game/{roomId}")
-    public void handleGameMessage(@DestinationVariable Long roomId, GameMessage message, String userId) {
-        // 방 ID로 해당 방을 가져옴
-//        System.out.println("game1!!!!!!!!!!!!!!");
+    //누군가가 정답을 맞췄을 때 처리하는 로직
+    @MessageMapping("/correct")
+    public void correctWord(@Payload GameDTO gameDTO) throws Exception {
+        Long roomId = gameDTO.getRoomId();
+        String playerId = gameDTO.getPlayerId();
+        String wordIdx = gameDTO.getWordIdx();
+
         GameRoom room = roomManager.getRoom(roomId);
-        if (room == null) {
-            return; // 방이 없을 경우 처리하지 않음
-        }
-//        System.out.println("game2!!!!!!!!!!!!!!");
+
         // 방의 게임 상태를 가져옴
         GameState gameState = room.getGameState();
         // 게임 상태 업데이트 (점수 추가)
-        gameState.updateScore(message.getPlayerId(), message.getScore());
+        gameState.updateScore(playerId);
 
-        // 게임이 종료되었는지 확인하고, 종료되었으면 클라이언트에게 결과 전송
-        if (gameState.isGameFinished()) {
-            String winner = gameState.getWinner();
-            notifyClients(roomId, new GameResultMessage(winner));
-            GameRoomManager.userIdAndRoom.remove(userId);
+        CorrectDTO returnDTOFalse = CorrectDTO.builder().wordIdx(wordIdx).isCorrect(false).build();
+        ResponseDTO<CorrectDTO> responseFalse = ResponseDTO.<CorrectDTO>builder().index(3).data(List.of(returnDTOFalse)).build();
+        CorrectDTO returnDTOTrue = CorrectDTO.builder().wordIdx(wordIdx).isCorrect(true).build();
+        ResponseDTO<CorrectDTO> responseTrue = ResponseDTO.<CorrectDTO>builder().index(3).data(List.of(returnDTOTrue)).build();
+
+        //리턴은 플레이어 id랑 isCorrect boolean 보내주기 3번
+        if(playerId.equals(gameState.getPlayer1())){
+            messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
+        }else{
+            messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/game/" + roomId, responseFalse);
         }
+        messagingTemplate.convertAndSendToUser(playerId, "/topic/game/" + roomId, responseTrue);
     }
+
+    //정답을 아무도 못맞췄을 때 처리하는 로직
+    @MessageMapping("/incorrect")
+    public void inCorrectWord(@Payload GameDTO gameDTO) throws Exception {
+        Long roomId = gameDTO.getRoomId();
+        String playerId = gameDTO.getPlayerId();
+        String wordIdx = gameDTO.getWordIdx();
+
+        GameRoom room = roomManager.getRoom(roomId);
+
+        // 방의 게임 상태를 가져옴
+        GameState gameState = room.getGameState();
+
+        CorrectDTO returnDTOFalse = CorrectDTO.builder().wordIdx(wordIdx).isCorrect(false).build();
+        ResponseDTO<CorrectDTO> responseFalse = ResponseDTO.<CorrectDTO>builder().index(4).data(List.of(returnDTOFalse)).build();
+        //다 틀린것 4번
+        messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
+        messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
+
+    }
+
+//    // 클라이언트가 게임 중에 누군가가 정답을 맞췄을 때
+//    @MessageMapping("/game/{roomId}")
+//    public void handleGameMessage(@Payload GameDTO gameDTO) {
+//        // 방 ID로 해당 방을 가져옴
+//        Long roomId = gameDTO.getRoomId();
+//        String playerId = gameDTO.getPlayerId();
+//        String wordIdx = gameDTO.getWordIdx();
+//
+//        GameRoom room = roomManager.getRoom(roomId);
+//        if (room == null) {
+//            return; // 방이 없을 경우 처리하지 않음
+//        }
+//        // 방의 게임 상태를 가져옴
+//        GameState gameState = room.getGameState();
+//        // 게임 상태 업데이트 (점수 추가)
+//        gameState.updateScore(message.getPlayerId(), message.getScore());
+//
+//        // 게임이 종료되었는지 확인하고, 종료되었으면 클라이언트에게 결과 전송
+//        if (gameState.isGameFinished()) {
+//            String winner = gameState.getWinner();
+//            notifyClients(roomId, new GameResultMessage(winner));
+//            GameRoomManager.userIdAndRoom.remove(userId);
+//        }
+//    }
 
 
     // 방의 모든 클라이언트에게 게임 결과를 알림
