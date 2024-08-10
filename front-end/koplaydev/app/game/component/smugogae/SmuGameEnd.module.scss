@@ -26,6 +26,14 @@
     border-radius: 40px;
   }
 
+  .level {
+    position: absolute;
+    top: 2vh;
+    font-weight: bold;
+    font-size: calc(1.5vw + 1.5vh);
+    color: white;
+  }
+
   .levelUpImage {
     position: absolute;
     top: 5%;

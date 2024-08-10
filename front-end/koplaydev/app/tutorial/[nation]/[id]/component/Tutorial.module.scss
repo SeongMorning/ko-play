@@ -22,7 +22,7 @@
   border: none;
   padding: 10px;
   cursor: pointer;
-  font-size: 24px;
+  font-size: calc(2vw + 2vh);
   z-index: 10;
   user-select: none;
 
@@ -33,9 +33,9 @@
 }
 
 .leftButton {
-  left: 10px;
+  left: 2vw;
 }
 
 .rightButton {
-  right: 10px;
+  right: 2vw;
 }
