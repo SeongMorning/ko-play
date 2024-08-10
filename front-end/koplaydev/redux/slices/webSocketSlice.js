@@ -1,56 +1,29 @@
-// store/webSocketSlice.js
-import { createSlice } from "@reduxjs/toolkit";
-import SockJS from "sockjs-client";
-import { Stomp } from "@stomp/stompjs";
+// store/websocketSlice.js
 
-let stompClient = null;
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  connected: false,
+  subscriptions: {},
+};
 
 const webSocket = createSlice({
-  name: "webSocket",
-  initialState: {
-    isConnected: false,
-  },
+  name: 'websocket',
+  initialState,
   reducers: {
-    setConnected: (state, action) => {
-      state.isConnected = action.payload;
+    setConnected(state, action) {
+      state.connected = action.payload;
+    },
+    setSubscription(state, action) {
+      const { destination, subscription } = action.payload;
+      state.subscriptions[destination] = subscription;
+    },
+    clearSubscriptions(state) {
+      state.subscriptions = {};
     },
   },
 });
 
-export const { setConnected } = webSocket.actions;
-
-export const connectWebSocket = (url) => (dispatch) => {
-  const socket = new SockJS(url);
-  stompClient = Stomp.over(socket);
-
-  // stompClient.debug = (str) => console.log(str);
-  dispatch(setConnected(true));
-  // stompClient.connect(
-  //   {},
-  //   () => {
-  //     console.log("STOMP connected");
-  //     dispatch(setConnected(true));
-  //     stompClient.subscribe("/topic/game/1", (message) => {
-  //       console.log("Received message: ", message.body);
-  //     });
-  //     stompClient.send("/join",{},JSON.stringify("player1"));
-  //   },
-  //   (error) => {
-  //     console.log("STOMP disconnected", error);
-  //     dispatch(setConnected(false));
-  //   }
-  // );
-
-  return () => {
-    if (stompClient) {
-      stompClient.disconnect(() => {
-        console.log("STOMP disconnected");
-        dispatch(setConnected(false));
-      });
-    }
-  };
-};
-
-export const getStompClient = () => stompClient;
+export const { setConnected, setSubscription, clearSubscriptions } = webSocket.actions;
 
 export default webSocket;
