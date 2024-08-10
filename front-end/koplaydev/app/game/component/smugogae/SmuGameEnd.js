@@ -22,6 +22,7 @@ export default function SmuGameEnd() {
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
 
+  const [level, setLevel] = useState(Math.floor(userInfo.exp / 100));
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
@@ -133,6 +134,7 @@ export default function SmuGameEnd() {
               ease: "easeInOut",
             },
           });
+          setLevel((prevLevel) => prevLevel + 1);
         });
     } else {
       expAnimation.start({
@@ -246,6 +248,14 @@ export default function SmuGameEnd() {
               <img src="/level-up.png" alt="Level Up" />
             </motion.div>
           )}
+          <div
+            className={styles.level}
+            style={{
+              left: `calc(-${level.toString().length + 3} * (1vw + 1vh))`,
+            }}
+          >
+            LV.{level}
+          </div>
         </motion.div>
         {Incorrect ? (
           <motion.div

@@ -23,6 +23,7 @@ export default function WordRainEnd() {
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
 
+  const [level, setLevel] = useState(Math.floor(userInfo.exp / 100));
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
@@ -93,7 +94,6 @@ export default function WordRainEnd() {
     setLanguageConfig({ nation, foreign, modelname });
   }, [userInfo.nation]);
 
-
   const handleRewardClick = () => {
     setShowBlackScreen(true);
     setShowRewardButton(false);
@@ -144,6 +144,7 @@ export default function WordRainEnd() {
               ease: "easeInOut",
             },
           });
+          setLevel((prevLevel) => prevLevel + 1);
         });
     } else {
       expAnimation.start({
@@ -247,6 +248,14 @@ export default function WordRainEnd() {
               <img src="/level-up.png" alt="Level Up" />
             </motion.div>
           )}
+          <div
+            className={styles.level}
+            style={{
+              left: `calc(-${level.toString().length + 3} * (1vw + 1vh))`,
+            }}
+          >
+            LV.{level}
+          </div>
         </motion.div>
         {Incorrect ? (
           <motion.div
