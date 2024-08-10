@@ -90,14 +90,14 @@ export default function RankGame() {
             dispatch(
               setSubscription({
                 destination: `/topic/game/${roomId}`,
-                subscription2,
+                subscription : subscription2,
               })
             );
           }
         }
       );
       dispatch(
-        setSubscription({ destination: "/topic/game/match", subscription1 })
+        setSubscription({ destination: "/topic/game/match", subscription :subscription1 })
       );
       client.send("/app/match", {}, userInfo.id);
 
