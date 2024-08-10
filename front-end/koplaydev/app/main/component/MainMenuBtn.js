@@ -105,6 +105,9 @@ export default function MainMenuBtn(props) {
           style={{ backgroundColor: `${props.shadow}` }}
           className={styles.MainMenuBtnBottom}
         />
+        {props.tooltip && ( // 툴팁이 존재하면 툴팁을 표시
+          <span className={styles.tooltip}>{props.tooltip}</span>
+        )}
       </motion.div>
     </>
   );
