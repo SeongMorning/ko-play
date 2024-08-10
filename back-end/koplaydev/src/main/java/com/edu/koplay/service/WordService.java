@@ -33,4 +33,8 @@ public class WordService {
         }
         return word;
     }
+    public List<Word> getRandomWordsForRankGame(int amount) {
+        List<Word> word = wordRepository.findRandomWord(amount).orElseThrow(() -> new NoSuchElementException("단어가 존재하지않아요"));
+        return word;
+    }
 }

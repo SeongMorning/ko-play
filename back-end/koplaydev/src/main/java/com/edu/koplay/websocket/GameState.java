@@ -1,6 +1,11 @@
 package com.edu.koplay.websocket;
 
+import lombok.Data;
+
+@Data
 public class GameState {
+    private String player1;
+    private String player2;
     private int player1Score;
     private int player2Score;
     private String winner;
@@ -21,21 +26,21 @@ public class GameState {
         return this.gameStarted;
     }
 
-    public void updateScore(String playerId, int score) {
-        if (playerId.equals("player1")) {
-            player1Score += score;
-        } else if (playerId.equals("player2")) {
-            player2Score += score;
+    public void updateScore(String playerId) {
+        if (playerId.equals(this.player1)) {
+            player1Score ++;
+        } else if (playerId.equals(this.player2)) {
+            player2Score ++;
         }
         checkWinCondition();
     }
 
     private void checkWinCondition() {
-        if (player1Score >= 10) {
-            winner = "player1";
+        if (player1Score >= 20) {
+            winner = this.player1;
             gameFinished = true;
-        } else if (player2Score >= 10) {
-            winner = "player2";
+        } else if (player2Score >= 20) {
+            winner = this.player2;
             gameFinished = true;
         }
     }
