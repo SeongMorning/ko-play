@@ -30,6 +30,7 @@ export default function RankGame() {
         .then((res) => {
           console.log(res.data.data + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
           console.log("대기열 등록 완료!!! 기다리세요 ~~")
+          setFlag(!flag);
         })
         .catch((e) => {
           console.log(e);
@@ -47,15 +48,18 @@ export default function RankGame() {
     if (isConnected) {
       const client = getStompClient();
       client.connect({}, (frame) => {
-        console.log("loginId : " + roomId);
-
         client.subscribe("/topic/game/match", (message1) => {
-
-          let roomId = message1.body.message;
-          console.log("첫번째구독" + message1.body.message);
+            
+          let roomId = JSON.parse(message1.body).message;
+          console.log("첫번째구독" + JSON.parse(message1.body).message);
+          console.log(message1.body)
 
           if(roomId != null && roomId != undefined && roomId != 0){
+            console.log('testnn'+roomId)
+            client.send("/app/join", {}, JSON.stringify({ playerId: userInfo.id, roomId: roomId }));
+
             client.subscribe(`/topic/game/${roomId}`, (message2) => {
+              console.log('test')
               console.log("consolegameroomID: " + message2.body);
               if (message2.body.startsWith("Joined")) {
                 console.log(message2.body);
@@ -72,13 +76,11 @@ export default function RankGame() {
 
         });
         
-        client.send("/app/match", {}, JSON.stringify(userInfo.id));
-        client.send("/app/join", {}, JSON.stringify(userInfo.id));
+        client.send("/app/match", {},userInfo.id);
 
-        setFlag(!flag);
       });
     }
-  }, [isConnected, roomId]);
+  }, [flag]);
 
   return (
     <>

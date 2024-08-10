@@ -6,9 +6,11 @@ import com.edu.koplay.dto.WordGameDataDTO;
 import com.edu.koplay.model.Word;
 import com.edu.koplay.service.WordService;
 import com.edu.koplay.websocket.*;
+import com.edu.koplay.websocket.dto.JoinDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -34,21 +36,7 @@ public class RankGameController {
 
         this.messagingTemplate = messagingTemplate;
     }
-
-    // 클라이언트가 게임에 참여할 때 호출되는 메서드
-    @MessageMapping("/join")
-    @SendTo("/topic/game")
-    public void joinGame(String playerId) throws Exception {
-        //반배정 계속 할거야
-        Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
-        if(roomId == null) return;
-        GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
-
-        //키가 있으면 방배정 된거니까 게임 시작하면 될듯
-        if (gameRoom.isFull()) {
-            startGame(roomId);
-        }
-    }
+    Long roomId = 1L;
 
     @MessageMapping("/match")
     @SendTo("/topic/game/match")
@@ -57,21 +45,48 @@ public class RankGameController {
         logger.info("before");
         waitGame();
         logger.info("after");
-        Long roomId = 0L;
         logger.info("플레이어아이디: "+playerId);
+        logger.info("check"+playerId.equals("1234"));
         logger.info(String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
-        logger.info(String.valueOf(GameRoomManager.userIdAndRoom.size()));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
             roomId = GameRoomManager.userIdAndRoom.get(playerId);
             roomManager.createOrJoinRoom(roomId, playerId);
+            messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(roomId)));
         }
-        System.out.println(roomId+":roomId");
-        messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(roomId)));
+//        System.out.println(roomId+":roomId");
+//        System.out.println(new GameStartMessage(String.valueOf(roomId)));
 
 
     }
 
-    long roomNumber = 1;
+    // 클라이언트가 게임에 참여할 때 호출되는 메서드
+    @MessageMapping("/join")
+    @SendTo("/topic/game")
+    public void joinGame(@Payload JoinDTO joinDTO) throws Exception {
+        String playerId = joinDTO.getPlayerId();
+        Long roomId = joinDTO.getRoomId();
+
+        System.out.println("드러가 ");
+
+        logger.info(String.valueOf(GameRoomManager.userIdAndRoom.size()));
+
+        //반배정 계속 할거야
+        System.out.println(playerId);
+        System.out.println(GameRoomManager.userIdAndRoom.containsKey("1234"));
+        System.out.println(GameRoomManager.userIdAndRoom.get("1234"));
+        System.out.println(String.valueOf(roomId));
+//        Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
+
+//        if(roomId == null) return;
+        GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
+        System.out.println("test"+gameRoom.isFull());
+        //키가 있으면 방배정 된거니까 게임 시작하면 될듯
+        if (gameRoom.isFull()) {
+            startGame(roomId);
+        }
+        logger.info(String.valueOf(GameRoomManager.userIdAndRoom.size()));
+
+    }
 
     public void waitGame() throws Exception {
 //        아이디당 룸 아이디를 배정해주는 메서드
@@ -82,9 +97,10 @@ public class RankGameController {
             String id1 = GameRoomManager.waitingQueue.poll();
             String id2 = GameRoomManager.waitingQueue.poll();
             System.out.println(id1+id2);
-            GameRoomManager.userIdAndRoom.put(id1, roomNumber);
-            GameRoomManager.userIdAndRoom.put(id2, roomNumber);
-            roomNumber++;
+            GameRoomManager.userIdAndRoom.put(id1, roomId);
+            GameRoomManager.userIdAndRoom.put(id2, roomId);
+            logger.info("roomId"+roomId);
+            roomId++;
         }
     }
 
@@ -109,7 +125,7 @@ public class RankGameController {
         ResponseDTO<Object> response = ResponseDTO.<Object>builder().data(res).build();
 //        System.out.println("!!!!!!!!"+response.getData());
         Thread.sleep(1000); // simulated delay
-        messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameWordMessage(response));
+//        messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameWordMessage(response));
         messagingTemplate.convertAndSend("/topic/game/" + roomId, new GameStartMessage("Game started"));
     }
 
