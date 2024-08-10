@@ -87,17 +87,8 @@ export default function RankGame() {
                 }
               }
             );
-            dispatch(
-              setSubscription({
-                destination: `/topic/game/${roomId}`,
-                subscription : subscription2,
-              })
-            );
           }
         }
-      );
-      dispatch(
-        setSubscription({ destination: "/topic/game/match", subscription :subscription1 })
       );
       client.send("/app/match", {}, userInfo.id);
 
