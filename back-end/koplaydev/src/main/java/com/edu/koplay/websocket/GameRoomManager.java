@@ -33,10 +33,11 @@ public class GameRoomManager {
         for (GameRoom room : rooms.values()) {  // 현재 존재하는 모든 방을 탐색
             if(room.getRoomId() == roomId){
                 room.addClient(clientId);
-                rooms.put(roomId, room);
+                rooms.put(room.getRoomId(), room);
                 return room;
             }
         }
+
         GameRoom newRoom = new GameRoom(roomId);  // 새로운 GameRoom 객체 생성
         newRoom.addClient(clientId);  // 클라이언트를 새로운 방에 추가
         rooms.put(newRoomId, newRoom);  // 방을 맵에 추가
