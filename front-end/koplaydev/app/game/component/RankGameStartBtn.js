@@ -3,13 +3,25 @@ import { useState, useEffect } from "react";
 import styles from "./RankGameStartBtn.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
+import { changeGameWord } from "@/redux/slices/gameWordSlice";
 
 export default function RankGameStartBtn() {
   const [countdown, setCountdown] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
   const dispatch = useDispatch();
-  const gameIdx = useSelector((state) => state.game);
-  const levelList = useSelector((state) => state.level);
+  const wordList = useSelector((state) => state.gameWord);
+  const wordleft = useSelector((state) => state.gameLeft);
+
+  useEffect(()=>{
+    const copy = wordList.map((word) => ({...word}));
+    copy.map((word, index) => {
+      word["left"] = wordleft[index].left;
+      word["state"] = wordleft[index].state;
+    })
+    console.log(copy);
+    dispatch(changeGameWord(copy));
+    handleStartClick();
+  },[])
 
   useEffect(() => {
     let timer;
