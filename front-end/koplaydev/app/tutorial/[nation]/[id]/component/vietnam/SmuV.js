@@ -55,7 +55,6 @@ export default function SmuV() {
       <button
         className={`${styles.navButton} ${styles.rightButton}`}
         onClick={handleNextStep}
-        disabled={currentStep === tutorialImages.length - 1}
       >
         ▶
       </button>
