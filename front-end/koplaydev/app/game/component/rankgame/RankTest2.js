@@ -15,17 +15,12 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client"; // SockJS 임포트
+import { getWebSocketClient } from "@/app/utils/websockectManager";
 
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
   const [wordObjectList, setWordObjectList] = useState(wordList);
   const wordLeft = useSelector((state) => state.gameLeft);
-
-  useEffect(() => {
-    setWordObjectList(wordList);
-    console.log(wordList);
-  }, [wordList]);
-
   let { transcript, listening, resetTranscript } = useSpeechRecognition();
   const [wrong, setWrong] = useState([]);
   const dispatch = useDispatch();
@@ -36,36 +31,26 @@ export default function RankTest2() {
   const [viewWord, SetViewWord] = useState([]);
   const WordRainLevel = useSelector((state) => state.level);
   const [client, setClient] = useState(null);
+
   useEffect(() => {
-    console.log("컴포넌트 렌더링 확인");
     setWordObjectList(wordList);
+    console.log(wordList);
   }, [wordList]);
 
   useEffect(() => {
-    console.log("연결합니다")
+    setClient(getWebSocketClient());
     // 한국어로 음성 인식 시작
     SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
 
-    // SockJS를 통해 WebSocket 클라이언트를 생성합니다.
-    const socket = new SockJS(`${process.env.customKey}/gs-guide-websocket`);
-    const client = Stomp.over(socket); // Stomp 클라이언트를 SockJS와 함께 사용
-
-    // WebSocket 연결이 수립되었을 때 실행될 함수
-    client.connect({}, () => {
-      client.subscribe(`/topic/game/1`, (message) => {
-        const result = JSON.parse(message.body);
-        if (result.winner) {
-          alert(`${result.winner} 이(가) 승리했습니다!`);
-          setModal(true);
-        }
-      });
-    });
-    
-    setClient(client);
-
     // 컴포넌트가 언마운트될 때 WebSocket 연결을 닫습니다.
     return () => {
-      client.disconnect();
+      if(client){
+        client.unsubscribe('/topic/game/match');
+        client.unsubscribe(`/topic/game/${roomId}`);
+      }
+      disconnectWebSocket();
+      setClient(null);
+      dispatch(setConnected(false));
       SpeechRecognition.stopListening();
     };
   }, []);
@@ -191,13 +176,13 @@ export default function RankTest2() {
                 top: "-17%",
                 width: "10%",
                 height: "17%",
-                opacity: `${data.state === 1 ? 0 : 1}`,
+                opacity: `${data.state === 1 || data.state === -1? 0 : 1}`,
               }}
               animate={{
                 translateY: "118vh",
                 transition: {
                   duration: 10,
-                  delay: index * [10, 5, 5, 3, 3][WordRainLevel[0] - 1],
+                  delay: index * 3,
                 },
               }}
               onViewportEnter={() => changeResultList2(index)}
