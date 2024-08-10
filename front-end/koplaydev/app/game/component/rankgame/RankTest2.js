@@ -65,17 +65,19 @@ export default function RankTest2() {
   useEffect(() => {
     if (client) {
       client.subscribe(`/user/topic/game/${roomId}`, (message) => {
-        if (JSON.parse(message.body).index === 3) {
-          if (JSON.parse(message.body).data[0].correct) {
+        const idx = JSON.parse(message.body).index;
+        const cor = JSON.parse(message.body).data[0].correct;
+        if (idx === 3) {
+          if (cor) {
             let wordObjectCopy = [...wordObjectList];
-            wordObjectCopy[JSON.parse(message.body).data[0].wordIdx].state = 1;
+            wordObjectCopy[idx].state = 1;
             setWordObjectList(wordObjectCopy);
           } else {
             let wordObjectCopy = [...wordObjectList];
-            wordObjectCopy[JSON.parse(message.body).data[0].wordIdx].state = -1;
+            wordObjectCopy[idx].state = -1;
             setWordObjectList(wordObjectCopy);
             let wrong2 = [...wrong];
-            wrong2.push(wordObjectList[JSON.parse(message.body).data[0].wordIdx]);
+            wrong2.push(wordObjectList[idx]);
             setWrong(wrong2);
           }
         }
