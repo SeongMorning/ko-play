@@ -6,11 +6,15 @@ import { useState } from "react";
 import { Chart } from "chart.js/auto";
 
 export default function Progress(props) {
-  const statisticData = useSelector((state) => state.parentChaildStatistic)
+  const statisticData = useSelector((state) => state.parentChaildStatistic);
   const graph = useRef(null);
-  const graphLevel = useSelector((state) => state.graphLevel)
-  const levelList = useSelector((state) => state.level)
-  const [statistic, setStatistic] = useState([[[], [], [], [], []], [[], [], [], [], []], [[], [], [], [], []]]);
+  const graphLevel = useSelector((state) => state.graphLevel);
+  const levelList = useSelector((state) => state.level);
+  const [statistic, setStatistic] = useState([
+    [[], [], [], [], []],
+    [[], [], [], [], []],
+    [[], [], [], [], []],
+  ]);
 
   const calcDate = (beforeDay) => {
     const today = new Date();
@@ -20,7 +24,7 @@ export default function Progress(props) {
     const day = pastDate.getDate();
 
     return `${month}/${day}`;
-  }
+  };
 
   useEffect(() => {
     const fetchstudentStatistics = async () => {
@@ -41,7 +45,9 @@ export default function Progress(props) {
       for (let k = 0; k < 3; k++) {
         for (let i = 0; i < 5; i++) {
           for (let j = 0; j < 7; j++) {
-            let list = statisticData[0].filter((data) => data.date === getPastDate(j) && data.level === i + 1);
+            let list = statisticData[0].filter(
+              (data) => data.date === getPastDate(j) && data.level === i + 1
+            );
             if (k === 0) {
               list = list.filter((data) => data.gamePurpose === "말하기");
             } else if (k === 1) {
@@ -50,7 +56,9 @@ export default function Progress(props) {
               list = list.filter((data) => data.gamePurpose === "듣기");
             }
             if (list.length > 0) {
-              statistic[k][i][j] = Math.floor((list[0].correctAnswer / list[0].totalQuestion) * 100)
+              statistic[k][i][j] = Math.floor(
+                (list[0].correctAnswer / list[0].totalQuestion) * 100
+              );
             } else {
               statistic[k][i][j] = 0;
             }
@@ -64,7 +72,15 @@ export default function Progress(props) {
   useEffect(() => {
     if (graph.current !== null) {
       const ctx = graph.current;
-      const labels = [calcDate(6), calcDate(5), calcDate(4), calcDate(3), calcDate(2), calcDate(1), calcDate(0)];
+      const labels = [
+        calcDate(6),
+        calcDate(5),
+        calcDate(4),
+        calcDate(3),
+        calcDate(2),
+        calcDate(1),
+        calcDate(0),
+      ];
       const data = {
         labels: labels,
         datasets: [
@@ -142,14 +158,12 @@ export default function Progress(props) {
         myLineChart.destroy();
       };
     }
-    console.log('test')
   }, [graphLevel, statistic]);
 
   return (
-    <>
     <div className={styles.CorrectMain}>
       <div className={styles.levelBtn}>
-        {[1, 2, 3, 4, 5].map((data, index) =>
+        {[1, 2, 3, 4, 5].map((data, index) => (
           <LevelJellyBtn
             key={index}
             level={data}
@@ -159,12 +173,11 @@ export default function Progress(props) {
             width={"15"}
             height={"60"}
           />
-        )}
+        ))}
       </div>
       <div className={styles.graph}>
         <canvas ref={graph} />
       </div>
     </div>
-    </>    
   );
 }

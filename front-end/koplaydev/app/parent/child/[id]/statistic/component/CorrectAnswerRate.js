@@ -10,7 +10,6 @@ export default function CorrectAnswerRate({ childId }) {
   const statisticData = useSelector((state) => state.parentChaildStatistic);
   const graphLevel = useSelector((state) => state.graphLevel);
 
-
   const graphPersonal = useRef(null);
   const chartPersonalInstance = useRef(null); // 차트 인스턴스를 저장할 ref
 
@@ -28,7 +27,9 @@ export default function CorrectAnswerRate({ childId }) {
         // console.log("API Response:", statisticData);
 
         if (!Array.isArray(statisticData) || statisticData.length < 3) {
-          throw new Error("Unexpected data structure from API. Expected an array with at least 3 elements.");
+          throw new Error(
+            "Unexpected data structure from API. Expected an array with at least 3 elements."
+          );
         }
 
         const personalData = statisticData[0]; // 데이터 배열 선택
@@ -39,32 +40,46 @@ export default function CorrectAnswerRate({ childId }) {
 
         // '단어비', '플립플립', '스무고개'로 필터링
         const purposeMapping = {
-          '말하기': '단어비',
-          '읽기': '플립플립',
-          '듣기': '스무고개'
+          말하기: "단어비",
+          읽기: "플립플립",
+          듣기: "스무고개",
         };
 
         // 선택된 레벨에 대한 데이터 필터링
-        const levelData = personalData.filter(item => item.level === selectedLevel);
+        const levelData = personalData.filter(
+          (item) => item.level === selectedLevel
+        );
         // console.log("Filtered Level Data:", levelData);
 
         // 최근 일주일 간의 데이터 필터링
-        const weeklyDataPersonal = levelData.filter(item => new Date(item.date) >= oneWeekAgo);
+        const weeklyDataPersonal = levelData.filter(
+          (item) => new Date(item.date) >= oneWeekAgo
+        );
         // console.log("Weekly Data Personal:", weeklyDataPersonal);
 
         // 각 게임별 정답률 계산
-        const gamePurposeAveragesPersonal = Object.keys(purposeMapping).map(purpose => {
-          const mappedPurpose = purposeMapping[purpose];
-          const purposeData = weeklyDataPersonal.filter(item => item.gamePurpose === purpose);
-          // console.log(`Purpose Data for ${purpose}:`, purposeData);
+        const gamePurposeAveragesPersonal = Object.keys(purposeMapping).map(
+          (purpose) => {
+            const mappedPurpose = purposeMapping[purpose];
+            const purposeData = weeklyDataPersonal.filter(
+              (item) => item.gamePurpose === purpose
+            );
+            // console.log(`Purpose Data for ${purpose}:`, purposeData);
 
-          const totalCorrect = purposeData.reduce((sum, item) => sum + item.correctAnswer, 0);
-          const totalQuestions = purposeData.reduce((sum, item) => sum + item.totalQuestion, 0);
-          // console.log(`Total Correct for ${purpose}:`, totalCorrect);
-          // console.log(`Total Questions for ${purpose}:`, totalQuestions);
+            const totalCorrect = purposeData.reduce(
+              (sum, item) => sum + item.correctAnswer,
+              0
+            );
+            const totalQuestions = purposeData.reduce(
+              (sum, item) => sum + item.totalQuestion,
+              0
+            );
+            // console.log(`Total Correct for ${purpose}:`, totalCorrect);
+            // console.log(`Total Questions for ${purpose}:`, totalQuestions);
 
-          return totalQuestions ? (totalCorrect / totalQuestions) * 100 : 0;
-        });
+            return totalQuestions ? (totalCorrect / totalQuestions) * 100 : 0;
+          }
+        );
 
         // console.log("Game Purpose Averages Personal:", gamePurposeAveragesPersonal);
 
@@ -80,10 +95,9 @@ export default function CorrectAnswerRate({ childId }) {
               backgroundColor: "#4CAF50",
               tension: 0.1,
               hoverBorderWidth: 3,
-            }
+            },
           ],
         });
-
       } catch (error) {
         console.error("Error fetching data:", error.message);
         console.error("Error details:", error);
@@ -103,7 +117,7 @@ export default function CorrectAnswerRate({ childId }) {
         chartPersonalInstance.current.destroy();
       }
 
-      const ctxPersonal = graphPersonal.current.getContext('2d');
+      const ctxPersonal = graphPersonal.current.getContext("2d");
       chartPersonalInstance.current = new Chart(ctxPersonal, {
         type: "line",
         data: chartDataPersonal,
@@ -160,9 +174,7 @@ export default function CorrectAnswerRate({ childId }) {
   return (
     <div className={styles.Main}>
       <div className={styles.graphContainer}>
-        <div className={styles.graphSection}>
-          <canvas ref={graphPersonal} />
-        </div>
+        <canvas ref={graphPersonal} />
       </div>
       <div className={styles.levelBtn}>
         {[1, 2, 3, 4, 5].map((data, index) => (
@@ -174,7 +186,7 @@ export default function CorrectAnswerRate({ childId }) {
             color={"white"}
             width={"16"}
             height={"50"}
-          // onClick={() => handleLevelClick(data)}
+            // onClick={() => handleLevelClick(data)}
           />
         ))}
       </div>
