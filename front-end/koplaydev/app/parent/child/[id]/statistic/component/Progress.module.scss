@@ -1,61 +1,60 @@
 .ScoreMain {
+  position: absolute;
+  margin-top: 8%;
+  left: 47%;
+  width: calc(25vw + 45vh);
+  height: calc(15vw + 25vh);
+  z-index: 100;
+
+  .ScoreTotal {
+    font-weight: bold;
+    font-size: calc(1vw + 1vh);
+  }
+
+  .recordBox {
+    border-bottom: calc((0.5vw + 0.5vh) / 2) solid rgba(128, 128, 128, 0.3);
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-top: 2%;
-    box-sizing: border-box;
-    padding-left: 2%;
-    gap: 5%;
-  
-    .ScoreTotal {
-      font-weight: bold;
-      font-size: calc((2vw + 2vh) / 2);
-      margin-left: 3%;
+    gap: 3%;
+    overflow-y: scroll;
+    z-index: 100;
+
+    &::-webkit-scrollbar {
+      height: 0px;
     }
-  
-    .recordBox {
-      width: 95%;
-      height: 83%;
-      padding-left: 2%;
-      gap: 3%;
-      overflow-y: scroll;
-  
-      &::-webkit-scrollbar {
-          height : 0px;
-      }
-  
-      &::-webkit-scrollbar-thumb {
-        background-color: #fdd127;
-      }
-  
-      &::-webkit-scrollbar-track {
-        background-color: white;
-      }
-  
-  
-    }
-  
-    .recordItem {
-      display: flex;
-      width: 95%;
-      height: 25%;
-      margin-bottom: 2%;
+
+    &::-webkit-scrollbar-thumb {
       background-color: #fdd127;
-      border-radius: 40px;
-      justify-content: space-around;
-      align-items: center;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: white;
+    }
+
+    .groupDate {
+      font-size: calc((1.5vw + 1.5vh) / 2);
       font-weight: bold;
-      font-size: calc((2vw + 2vh) / 2);
-      position: relative;
-  
-      .recordInfo {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-      }
     }
   }
-  
-  
+
+  .recordItem {
+    display: flex;
+    width: 95%;
+    height: 10%;
+    margin-bottom: 2%;
+    background-color: #fdd127;
+    border-radius: 40px;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
+    font-size: calc(1vw + 1vh);
+    position: relative;
+    z-index: 100;
+
+    .recordInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
