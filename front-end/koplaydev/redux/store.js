@@ -18,11 +18,11 @@ import gamePurpose from "./slices/gamePurposeSlice";
 import game from "./slices/gameSlice";
 import parentChilds from "./slices/parentChaildsSlice";
 import hints from "./slices/hintsSlice";
-import webSocket from "./slices/webSocketSlice";
 import parentSlice from "./slices/parentSlice";
 import parentChaildStatisticSlice from "./slices/parentChaildStatisticSlice";
 import gameLeft from "./slices/gameLeftSlice";
 import roomId from "./slices/roomIdSlice";
+import webSocket from "./slices/webSocketSlice";
 
 
 const rootReducer = combineReducers({
@@ -45,11 +45,11 @@ const rootReducer = combineReducers({
   game: game.reducer,
   parentChilds: parentChilds.reducer,
   hints: hints.reducer,
-  webSocket : webSocket.reducer,
   parent: parentSlice.reducer,
   parentChaildStatistic: parentChaildStatisticSlice.reducer,
   gameLeft : gameLeft.reducer,
   roomId : roomId.reducer,
+  webSocket : webSocket.reducer,
 });
 
 export default rootReducer;
