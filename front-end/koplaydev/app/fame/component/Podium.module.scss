@@ -78,25 +78,42 @@
   font-weight: 800;
   z-index: 30;
   font-size: calc((2vw + 2vh)/2);
+  margin-top: 3vh;
+  text-align: center;
 
   .info1 {
     left: 43.5vw;
-    // top: 80vh;
     top: 73vh;
     border-radius: 1vw;
-  }
+    background-color: gold; /* Highlight 1st place with gold color */
+    box-shadow: 0 0 10px gold, 0 0 20px gold; /* Add a glowing effect */
+    color: white; /* White text for contrast */
+    font-weight: bold; /* Make the text bold */
+    padding: 0.5vw;
+}
 
-  .info2 {
+.info2 {
     left: 26vw;
     top: 73vh;
     border-radius: 1vw;
-  }
+    background-color: silver; /* Highlight 2nd place with silver color */
+    box-shadow: 0 0 5px silver, 0 0 10px silver; /* Add a glowing effect */
+    color: rgb(255, 255, 255); /* Black text for contrast */
+    font-weight: bold; /* Make the text bold */
+    padding: 0.5vw;
+}
 
-  .info3 {
+.info3 {
     left: 61vw;
     top: 73vh;
     border-radius: 1vw;
-  }
+    background-color: #cd7f32; /* Highlight 3rd place with bronze color */
+    box-shadow: 0 0 5px #cd7f32, 0 0 10px #cd7f32; /* Add a glowing effect */
+    color: white; /* White text for contrast */
+    font-weight: bold; /* Make the text bold */
+    padding: 0.5vw;
+}
+
 }
 
 .light1 {
