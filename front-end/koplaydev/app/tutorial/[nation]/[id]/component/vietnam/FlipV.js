@@ -54,7 +54,6 @@ export default function FlipV() {
       <button
         className={`${styles.navButton} ${styles.rightButton}`}
         onClick={handleNextStep}
-        disabled={currentStep === tutorialImages.length - 1}
       >
         ▶
       </button>
