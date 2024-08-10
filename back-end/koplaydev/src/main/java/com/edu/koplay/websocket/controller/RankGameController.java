@@ -105,7 +105,7 @@ public class RankGameController {
         List<WordDTO> dtos = words.stream().map(WordDTO::new).collect(Collectors.toList());
         res.add(dtos);
         List<WordGameDataDTO> wordGameDataDTOS = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             wordGameDataDTOS.add(new WordGameDataDTO());
         }
         res.add(wordGameDataDTOS);
@@ -124,7 +124,7 @@ public class RankGameController {
 
     //누군가가 정답을 맞췄을 때 처리하는 로직
     @MessageMapping("/correct")
-    public void correctWord(@Payload GameDTO gameDTO) throws Exception {
+    public void correctWord(Principal p,@Payload GameDTO gameDTO) throws Exception {
         Long roomId = gameDTO.getRoomId();
         String playerId = gameDTO.getPlayerId();
         String wordIdx = gameDTO.getWordIdx();
@@ -135,17 +135,18 @@ public class RankGameController {
         GameState gameState = room.getGameState();
         // 게임 상태 업데이트 (점수 추가)
         gameState.updateScore(playerId);
-
+        System.out.println(roomId + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         CorrectDTO returnDTOFalse = CorrectDTO.builder().wordIdx(wordIdx).isCorrect(false).build();
         ResponseDTO<CorrectDTO> responseFalse = ResponseDTO.<CorrectDTO>builder().index(3).data(List.of(returnDTOFalse)).build();
         CorrectDTO returnDTOTrue = CorrectDTO.builder().wordIdx(wordIdx).isCorrect(true).build();
+        System.out.println(p.getName()+"dddddddddddddddddddddddddddd");
         ResponseDTO<CorrectDTO> responseTrue = ResponseDTO.<CorrectDTO>builder().index(3).data(List.of(returnDTOTrue)).build();
 
         //리턴은 플레이어 id랑 isCorrect boolean 보내주기 3번
         if(playerId.equals(gameState.getPlayer1())){
-            messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
-        }else{
             messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/game/" + roomId, responseFalse);
+        }else{
+            messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
         }
         messagingTemplate.convertAndSendToUser(playerId, "/topic/game/" + roomId, responseTrue);
     }
@@ -166,7 +167,7 @@ public class RankGameController {
         ResponseDTO<CorrectDTO> responseFalse = ResponseDTO.<CorrectDTO>builder().index(4).data(List.of(returnDTOFalse)).build();
         //다 틀린것 4번
         messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
-        messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
+        messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/game/" + roomId, responseFalse);
 
     }
 

@@ -6,9 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useEffect, useState } from "react";
 import {
-  connect,
-  disconnect,
-  getStompClient,
+  clearSubscriptions,
   setConnected,
   setSubscription,
 } from "@/redux/slices/webSocketSlice";
@@ -17,7 +15,11 @@ import { changeGameWord } from "@/redux/slices/gameWordSlice";
 import API from "@/app/utils/API";
 import { changegameLeft } from "@/redux/slices/gameLeftSlice";
 import { changeroomId } from "@/redux/slices/roomIdSlice";
-import { connectWebSocket, disconnectWebSocket, getWebSocketClient } from "@/app/utils/websockectManager";
+import {
+  connectWebSocket,
+  disconnectWebSocket,
+  getWebSocketClient,
+} from "@/app/utils/websockectManager";
 
 export default function RankGame() {
   const roomId = useSelector((state) => state.roomId);
@@ -25,16 +27,13 @@ export default function RankGame() {
   const isConnected = useSelector((state) => state.webSocket.connected);
   const router = useRouter();
   const [flag, setFlag] = useState(true);
-  const userInfo = useSelector((state) => state.studentInfo)
-  const client = useSelector((state)=>state.webSocket.client)
-  
+  const userInfo = useSelector((state) => state.studentInfo);
+  const [client, setClient] = useState(null);
 
   useEffect(() => {
     const fetchRoomId = async () => {
       API.get("/games/gameRoom")
         .then((res) => {
-          console.log(res.data.data + "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-          console.log("대기열 등록 완료!!! 기다리세요 ~~")
           setFlag(!flag);
         })
         .catch((e) => {
@@ -45,11 +44,13 @@ export default function RankGame() {
   }, []);
 
   useEffect(() => {
-    const url = `${process.env.customKey}/gs-guide-websocket`;
-    connectWebSocket(url, ()=>{
-      dispatch(setConnected(true));
-    })
-
+    const fetchClient = async () => {
+      const url = `${process.env.customKey}/gs-guide-websocket`;
+      setClient(await connectWebSocket(url, () => {
+        dispatch(setConnected(true));
+      }));
+    }
+    fetchClient();
     // return ()=>{
     //   disconnectWebSocket();
     //   dispatch(setConnected(false));
@@ -57,42 +58,60 @@ export default function RankGame() {
   }, []);
 
   useEffect(() => {
+    console.log(isConnected)
+    // if (isConnected) {
+    //   setClient(getWebSocketClient());
+    //   console.log(getWebSocketClient());
+    // }
     if (isConnected && client) {
-      const client = getWebSocketClient();
-      const subscription1 = client.subscribe('/topic/game/match', (message1)=>{
-        let roomId = JSON.parse(message1.body).message
-        if(roomId){
-          dispatch(changeroomId(roomId));
-          client.send('/app/join', {}, JSON.stringify({ playerId : userInfo.id, roomId : roomId}));
-
-          const subscription2 = client.subscribe(`/topic/game/${roomId}`, (message2) => {
-            if(JSON.parse(message2.body).message === "Game started"){
-              setTimeout(() => router.push("/game/4"), 2000);
-            }else{
-              console.log(JSON.parse(message2.body).message.data[0]);
-              dispatch(changeGameWord(JSON.parse(message2.body).message.data[0]));
-              dispatch(changegameLeft(JSON.parse(message2.body).message.data[1]));
-            }
-          })
-          dispatch(setSubscription({destination : `/topic/game/${roomId}`, subscription2}))
+      console.log("매치 연결됨")
+      const subscription1 = client.subscribe(
+        "/topic/game/match",
+        (message1) => {
+          let roomId = JSON.parse(message1.body).message;
+          if (roomId) {
+            dispatch(changeroomId(roomId));
+            client.send(
+              "/app/join",
+              {},
+              JSON.stringify({ playerId: userInfo.id, roomId: roomId })
+            );
+            const subscription2 = client.subscribe(
+              `/topic/game/${roomId}`,
+              (message2) => {
+                if (JSON.parse(message2.body).index === 1) {
+                  setTimeout(() => router.push("/game/4"), 2000);
+                } else if (JSON.parse(message2.body).index === 2) {
+                  dispatch(changeGameWord(JSON.parse(message2.body).data[0]));
+                  dispatch(changegameLeft(JSON.parse(message2.body).data[1]));
+                }
+              }
+            );
+            dispatch(
+              setSubscription({
+                destination: `/topic/game/${roomId}`,
+                subscription2,
+              })
+            );
+          }
         }
-      }
-    )
-    dispatch(setSubscription({destination : '/topic/game/match', subscription1}))
-    client.send("/app/match", {}, userInfo.id)
+      );
+      dispatch(
+        setSubscription({ destination: "/topic/game/match", subscription1 })
+      );
+      client.send("/app/match", {}, userInfo.id);
 
-    return ()=>{
-      const client = getWebSocketClient();
-      if(client){
-        client.unsubscribe('/topic/game/match');
-        client.unsubscribe(`/topic/game/${roomId}`);
-      }
-    }
+      return () => {
+        if (client) {
+          client.unsubscribe("/topic/game/match");
+          client.unsubscribe(`/topic/game/${roomId}`);
+          dispatch(clearSubscriptions());
+        }
+      };
 
-      
       // client.connect({}, (frame) => {
       //   client.subscribe("/topic/game/match", (message1) => {
-            
+
       //     let roomId = JSON.parse(message1.body).message;
 
       //     if(roomId != null && roomId != undefined && roomId != 0){
@@ -113,12 +132,12 @@ export default function RankGame() {
       //     }
 
       //   });
-        
+
       //   client.send("/app/match", {},userInfo.id);
 
       // });
     }
-  }, [flag, isConnected]);
+  }, [isConnected, client]);
 
   return (
     <>

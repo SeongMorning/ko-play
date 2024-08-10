@@ -15,7 +15,11 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { Stomp } from "@stomp/stompjs";
 import SockJS from "sockjs-client"; // SockJS 임포트
-import { getWebSocketClient } from "@/app/utils/websockectManager";
+import {
+  disconnectWebSocket,
+  getWebSocketClient,
+} from "@/app/utils/websockectManager";
+import { setConnected } from "@/redux/slices/webSocketSlice";
 
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
@@ -30,11 +34,14 @@ export default function RankTest2() {
   const [timer, setTimer] = useState(null);
   const [viewWord, SetViewWord] = useState([]);
   const WordRainLevel = useSelector((state) => state.level);
-  const [client, setClient] = useState(null);
+  const [client, setClient] = useState(getWebSocketClient());
+  const roomId = useSelector((state) => state.roomId);
+  const userInfo = useSelector((state) => state.studentInfo);
 
   useEffect(() => {
     setWordObjectList(wordList);
     console.log(wordList);
+    console.log(wordLeft);
   }, [wordList]);
 
   useEffect(() => {
@@ -44,8 +51,8 @@ export default function RankTest2() {
 
     // 컴포넌트가 언마운트될 때 WebSocket 연결을 닫습니다.
     return () => {
-      if(client){
-        client.unsubscribe('/topic/game/match');
+      if (client) {
+        client.unsubscribe("/topic/game/match");
         client.unsubscribe(`/topic/game/${roomId}`);
       }
       disconnectWebSocket();
@@ -56,22 +63,59 @@ export default function RankTest2() {
   }, []);
 
   useEffect(() => {
+    if (client) {
+      client.subscribe(`/user/topic/game/${roomId}`, (message) => {
+        if (JSON.parse(message.body).index === 3) {
+          if (JSON.parse(message.body).data[0].correct) {
+            let wordObjectCopy = [...wordObjectList];
+            wordObjectCopy[JSON.parse(message.body).data[0].wordIdx].state = 1;
+            setWordObjectList(wordObjectCopy);
+          } else {
+            let wordObjectCopy = [...wordObjectList];
+            wordObjectCopy[JSON.parse(message.body).data[0].wordIdx].state = -1;
+            setWordObjectList(wordObjectCopy);
+            let wrong2 = [...wrong];
+            wrong2.push(wordObjectList[JSON.parse(message.body).data[0].wordIdx]);
+            setWrong(wrong2);
+          }
+        }
+      });
+    }
+  }, [client]);
+
+  useEffect(() => {
     // 사용자가 말한 단어가 화면에 나타나는 단어와 일치하는지 확인
     let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
     if (CorrectWord.length === 1) {
+      console.log("정답");
       let index = wordObjectList.findIndex(
         (data) => data.wordKor === transcript
       );
+      if (client) {
+        client.send(
+          "/app/correct",
+          {},
+          JSON.stringify({
+            wordIdx: index,
+            roomId: roomId,
+            playerId: userInfo.id,
+          })
+        );
+      }
       let wordObjectCopy = [...wordObjectList];
       wordObjectCopy[index].state = 1;
       setWordObjectList(wordObjectCopy);
 
       // 점수 업데이트 메시지를 서버에 전송
       if (client) {
-        client.send("/app/game/1", {}, JSON.stringify({
-          playerId: "player1", // 실제 플레이어 ID를 넣으세요
-          score: 1,
-        }));
+        client.send(
+          "/app/game/1",
+          {},
+          JSON.stringify({
+            playerId: "player1", // 실제 플레이어 ID를 넣으세요
+            score: 1,
+          })
+        );
       }
     }
 
@@ -95,7 +139,7 @@ export default function RankTest2() {
       let b = wordObjectList.filter((data) => data.state === -1).length; // 오답
 
       dispatch(changeCorrectIdx(a)); // a로 바꾸기
-      if (a + b === 10) {
+      if (a + b === 20) {
         setCorrect(a);
         setIncorrect(b);
         dispatch(changeCorrectIdx(a));
@@ -108,6 +152,7 @@ export default function RankTest2() {
 
   // 시간초과시 실행되는 함수
   const changeResultList = useCallback((index) => {
+    console.log("화면에 사라짐");
     if (wordObjectList[index].state !== 1) {
       let copy2 = [...wordObjectList];
       copy2[index].state = -1;
@@ -120,6 +165,7 @@ export default function RankTest2() {
 
   // 화면에 보이면 실행되는 함수
   const changeResultList2 = useCallback((index) => {
+    console.log("화면에 보임");
     let copy3 = wordObjectList.map((wordObject) => ({ ...wordObject }));
     copy3[index].state = 10;
     setWordObjectList(copy3);
@@ -170,15 +216,19 @@ export default function RankTest2() {
           return (
             <motion.div
               key={index}
+              initial={{
+                display: "none",
+              }}
               className={styles.CardMain}
               style={{
-                left: `${wordLeft[index].left}%`,
+                left: `${wordLeft ? wordLeft[index].left : 0}%`,
                 top: "-17%",
                 width: "10%",
                 height: "17%",
-                opacity: `${data.state === 1 || data.state === -1? 0 : 1}`,
+                opacity: `${data.state === 1 || data.state === -1 ? 0 : 1}`,
               }}
               animate={{
+                display: "block",
                 translateY: "118vh",
                 transition: {
                   duration: 10,
