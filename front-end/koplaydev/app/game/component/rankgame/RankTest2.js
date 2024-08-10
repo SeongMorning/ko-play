@@ -69,13 +69,14 @@ export default function RankTest2() {
         const cor = JSON.parse(message.body).data[0].correct;
         if (idx === 3) {
           if (cor) {
-            let wordObjectCopy = [...wordObjectList];
+            let wordObjectCopy = wordObjectList.map((wordObject) => ({...wordObject}));
             wordObjectCopy[idx].state = 1;
             setWordObjectList(wordObjectCopy);
           } else {
-            let wordObjectCopy = [...wordObjectList];
+            let wordObjectCopy = wordObjectList.map((wordObject) => ({...wordObject}));
             wordObjectCopy[idx].state = -1;
             setWordObjectList(wordObjectCopy);
+            console.log(Object.isExtensible(wordObjectCopy))
             let wrong2 = [...wrong];
             wrong2.push(wordObjectList[idx]);
             setWrong(wrong2);
@@ -104,7 +105,7 @@ export default function RankTest2() {
           })
         );
       }
-      let wordObjectCopy = [...wordObjectList];
+      let wordObjectCopy = wordObjectList.map((wordObject) => ({...wordObject}));
       wordObjectCopy[index].state = 1;
       setWordObjectList(wordObjectCopy);
 
@@ -156,10 +157,10 @@ export default function RankTest2() {
   const changeResultList = useCallback((index) => {
     console.log("화면에 사라짐");
     if (wordObjectList[index].state !== 1) {
-      let copy2 = [...wordObjectList];
+      let copy2 = wordObjectList.map((wordObject) => ({...wordObject}));
       copy2[index].state = -1;
       setWordObjectList(copy2);
-      let wrong2 = [...wrong];
+      let wrong2 = wrong.map((wrongItem) => ({...wrongItem}));
       wrong2.push(wordObjectList[index]);
       setWrong(wrong2);
     }
