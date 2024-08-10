@@ -33,12 +33,31 @@ export default function SmuC() {
     }
   };
 
+  const handlePrevStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   return (
-    <div className={styles.tutorialContainer} onClick={handleNextStep}>
+    <div className={styles.tutorialContainer}>
       <img
         src={tutorialImages[currentStep]}
         alt={`Tutorial Step ${currentStep + 1}`}
       />
+      <button
+        className={`${styles.navButton} ${styles.leftButton}`}
+        onClick={handlePrevStep}
+        disabled={currentStep === 0}
+      >
+        ◀
+      </button>
+      <button
+        className={`${styles.navButton} ${styles.rightButton}`}
+        onClick={handleNextStep}
+      >
+        ▶
+      </button>
     </div>
   );
 }
