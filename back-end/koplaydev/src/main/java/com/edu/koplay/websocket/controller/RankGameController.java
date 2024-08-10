@@ -157,12 +157,13 @@ public class RankGameController {
         Long roomId = gameDTO.getRoomId();
         String playerId = gameDTO.getPlayerId();
         String wordIdx = gameDTO.getWordIdx();
-
+        logger.info(playerId);
+        logger.info("여기" + gameDTO.toString());
         GameRoom room = roomManager.getRoom(roomId);
 
         // 방의 게임 상태를 가져옴
         GameState gameState = room.getGameState();
-
+        logger.info("d"+gameState.getPlayer1());
         CorrectDTO returnDTOFalse = CorrectDTO.builder().wordIdx(wordIdx).isCorrect(false).build();
         ResponseDTO<CorrectDTO> responseFalse = ResponseDTO.<CorrectDTO>builder().index(4).data(List.of(returnDTOFalse)).build();
         //다 틀린것 4번
