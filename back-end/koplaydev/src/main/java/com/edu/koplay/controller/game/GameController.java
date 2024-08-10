@@ -131,6 +131,7 @@ public class GameController {
             String id = getAuthenticationData();
             logger.info("que add before"+GameRoomManager.waitingQueue.size());
             GameRoomManager.waitingQueue.add(id);
+            logger.info(id);
             logger.info("que add after"+GameRoomManager.waitingQueue.size());
             ResponseDTO<String> response = null;
 
