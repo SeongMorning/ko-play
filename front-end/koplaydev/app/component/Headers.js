@@ -5,6 +5,9 @@ import styles from "./Headers.module.scss";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import effectSound from '@/app/utils/effectSound'
+
+const mouseClickSound = '/audios/mouseClickSound.mp3';
 
 export default function Headers() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -30,6 +33,7 @@ export default function Headers() {
   };
 
   const shouldHideHeader = exceptList.some((word) => pathName.includes(word));
+  const es = effectSound(mouseClickSound, 0.5);
 
   return (
     <>
@@ -39,7 +43,10 @@ export default function Headers() {
             <motion.img
               key={index}
               src={nation.src}
-              onClick={() => handleNationClick(nation)}
+              onClick={() => {
+                es.play();
+                handleNationClick(nation);
+              }}
               whileHover={{
                 scale: 1.2,
                 transition: { duration: 0.2 },

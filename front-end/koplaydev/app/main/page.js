@@ -8,7 +8,6 @@ import MainMenu from "./component/MainMenu";
 import MainModal from "./component/MainModal";
 import Profile from "./component/Profile";
 import useSound from "@/app/utils/useSound";
-import { useEffect } from "react";
 
 
 const mainBGM = '/audios/mainBGM.mp3';
@@ -16,7 +15,7 @@ const mainBGM2 = '/audios/mainBGM2.wav';
 
 export default function Main() {
 
-    useSound(mainBGM2, 0.6, 2000);  
+   useSound(mainBGM2, 0.6, 2000);  
 
   return (
     <>

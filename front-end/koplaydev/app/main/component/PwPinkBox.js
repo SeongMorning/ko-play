@@ -5,6 +5,9 @@ import styles from "./PwPinkBox.module.scss";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 export default function PwPinkBox(props) {
     const userInfo = useSelector((state) => state.studentInfo);
@@ -12,6 +15,7 @@ export default function PwPinkBox(props) {
         await modifyStudentInfoAxios({...userInfo, pw : props.afterPw})
     }
     const dispatch = useDispatch();
+    const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
@@ -30,6 +34,8 @@ export default function PwPinkBox(props) {
         }
       }}
       onClick={() => {
+        es.play();
+        
         if(props.bg==="#A1D2FF"){ // 변경
             props.setIsPwChange(!props.isPwChange);
             changePw();

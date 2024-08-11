@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeMyPageIdx } from "@/redux/slices/myPageSlice";
 import logoutAxios from "@/app/axios/logoutAxios";
 import { persistor } from '../../../redux/reduxStore';
+import effectSound from '@/app/utils/effectSound'
 
+const buttonSound = '/audios/buttonSound.mp3';
 
 // props : left, top, score, question, text
 export default function BackScoreBtn(props) {
@@ -26,10 +28,13 @@ export default function BackScoreBtn(props) {
     }
   };
 
+  const es = effectSound(buttonSound, 1);
+
   return (
     <div
       className={styles.BackScoreBtn}
       onClick={async () => {
+        es.play();
         if (props.text =='로그아웃') {
           // 쿠키에서 특정 값을 가져오는 함수
           function getCookieValue(name) {
