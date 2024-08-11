@@ -5,7 +5,7 @@ import { OpenVidu } from "openvidu-browser";
 import axios from "axios";
 import UserVideo from "./UserVideo";
 import { useSelector } from "react-redux";
-import styles from './OpenVidu.module.scss';
+import styles from "./OpenVidu.module.scss";
 
 const APPLICATION_SERVER_URL =
   process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
@@ -148,34 +148,18 @@ export default function OpenViduItem() {
   return (
     <div className={styles.main}>
       {session && (
-        <div id="session">
-          <div id="session-header">
-            <h1 id="session-title">{roomId}</h1>
-            {/* <input
-              type="button"
-              id="buttonLeaveSession"
-              onClick={leaveSession}
-              value="Leave session"
-            /> */}
-          </div>
-
-          <div id="video-container" className={styles.publisher}>
-            {publisher && (
-              <div
-                onClick={() => setMainStreamManager(publisher)}
-              >
-                <UserVideo  streamManager={publisher} />
-              </div>
-            )}
-            {subscriber && (
-              <div
-                onClick={() => setMainStreamManager(subscriber)}
-              >
-                <UserVideo streamManager={subscriber} />
-              </div>
-            )}
-          </div>
-        </div>
+        <>
+          {publisher && (
+            <div className={styles.publish}>
+              <UserVideo streamManager={publisher} />
+            </div>
+          )}
+          {subscriber && (
+            <div className={styles.subscriber}>
+              <UserVideo streamManager={subscriber} />
+            </div>
+          )}
+        </>
       )}
     </div>
   );
