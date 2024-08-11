@@ -8,7 +8,7 @@ export default function rankTest() {
   return (
     <>
       <GameBg />
-      <BackScoreBtn score="10" question="10" left="86vw" top="3vh" />
+      <BackScoreBtn score="10" question="20" left="86vw" top="3vh" />
       <RankWordRainGame />
     </>
   );
