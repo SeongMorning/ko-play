@@ -11,6 +11,9 @@ import { changeInCorrect } from "@/redux/slices/Incorrect";
 import { useEffect, useState } from "react";
 import { changeExp } from "@/redux/slices/expSlice";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 export default function LevelJellyBtn(props) {
   const dispatch = useDispatch();
@@ -20,6 +23,7 @@ export default function LevelJellyBtn(props) {
   const nowLevel = useSelector((state) => state.level)[0];
   const correctCnt = useSelector((state) => state.correct);
   let [unitScore, setUnitScore] = useState(0);
+  const es = effectSound(buttonSound, 1);
 
   useEffect(() => {
     if (nowLevel - recommendLevel <= -3) {
@@ -49,6 +53,7 @@ export default function LevelJellyBtn(props) {
         },
       }}
       onClick={() => {
+        es.play();
         if (props.text === "예") {
           dispatch(changeExp(unitScore * correctCnt));
           dispatch(changeInCorrect(true));

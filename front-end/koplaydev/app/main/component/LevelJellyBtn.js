@@ -5,15 +5,22 @@ import styles from "./LevelJellyBtn.module.scss";
 import { motion } from "framer-motion";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
 import { changeGraphLevel } from "@/redux/slices/graphLevel";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 export default function LevelJellyBtn(props) {
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
   let gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const graphLevel = useSelector((state)=> state.graphLevel);
+  const es = effectSound(buttonSound, 1);
+
   return (
     <motion.div
       onClick={()=>{
+        es.play();
+        
         if(gamePurposeIdx===1){
           dispatch(changeSpeechLevel(props.level));
         }else if(gamePurposeIdx===2){

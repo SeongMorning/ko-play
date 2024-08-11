@@ -14,6 +14,9 @@ import myAvatarAxios from "@/app/axios/myAvatarAxios";
 import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice"
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const slowMouseClickSound = '/audios/slowMouseClickSound.mp3';
 
 
 export default function Profile() {
@@ -22,6 +25,7 @@ export default function Profile() {
   const avatar = useSelector((state) => state.avatar);
   const myAvatar = useSelector((state) => state.myAvatar);
   const modal = useSelector((state) => state.modal);
+  const es = effectSound(slowMouseClickSound, 0.5);
 
   useEffect(() => {
     const fetchStudentInfo = async () => {
@@ -75,6 +79,7 @@ export default function Profile() {
         background: "rgba(255, 255, 255, 1)",
       }}
       onClick={() => {
+        es.play();
         dispatch(changeModalIdx(2));
       }}
     >
