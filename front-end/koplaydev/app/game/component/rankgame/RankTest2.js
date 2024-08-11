@@ -199,7 +199,7 @@ export default function RankTest2() {
             animate={{
               display: "block",
               translateY: "118vh",
-              transition: { duration: 1, delay: index * 0.2 },
+              transition: { duration: 10, delay: index * 3 },
             }}
             onViewportEnter={() => changeResultList2(index)}
             onViewportLeave={() => changeResultList(index)}
