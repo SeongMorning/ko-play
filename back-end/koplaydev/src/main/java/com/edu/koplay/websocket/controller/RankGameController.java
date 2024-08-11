@@ -48,8 +48,9 @@ public class RankGameController {
     public void matchGame(String playerId) throws Exception {
         //반배정 계속 할거야
         waitGame();
-        logger.info(String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
+        logger.info("방배정되어있는 상태인가? "+ String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
+            logger.info("방 배정이 되어있다면 해당 방에 입장시키겠어요...");
             roomId = GameRoomManager.userIdAndRoom.get(playerId);
             roomManager.createOrJoinRoom(roomId, playerId);
             messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(roomId)));
@@ -163,12 +164,14 @@ public class RankGameController {
 
         // 방의 게임 상태를 가져옴
         GameState gameState = room.getGameState();
-        logger.info("d"+gameState.getPlayer1());
+        logger.info(playerId);
         CorrectDTO returnDTOFalse = CorrectDTO.builder().wordIdx(wordIdx).isCorrect(false).build();
         ResponseDTO<CorrectDTO> responseFalse = ResponseDTO.<CorrectDTO>builder().index(4).data(List.of(returnDTOFalse)).build();
         //다 틀린것 4번
-        messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
-        messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/game/" + roomId, responseFalse);
+//        messagingTemplate.convertAndSend("/topic/game/" + roomId, responseFalse);
+
+        messagingTemplate.convertAndSendToUser(playerId, "/topic/game/" + roomId, responseFalse);
+//        messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/game/" + roomId, responseFalse);
 
     }
 

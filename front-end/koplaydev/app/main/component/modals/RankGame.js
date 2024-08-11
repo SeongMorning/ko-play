@@ -58,7 +58,7 @@ export default function RankGame() {
   }, []);
 
   useEffect(() => {
-    console.log(isConnected)
+    // console.log(isConnected)
     // if (isConnected) {
     //   setClient(getWebSocketClient());
     //   console.log(getWebSocketClient());
@@ -68,14 +68,12 @@ export default function RankGame() {
       const subscription1 = client.subscribe(
         "/topic/game/match",
         (message1) => {
+          console.log("이거는 대기열에 넣는 작업이었습니다. ")
           let roomId = JSON.parse(message1.body).message;
           if (roomId) {
             dispatch(changeroomId(roomId));
-            client.send(
-              "/app/join",
-              {},
-              JSON.stringify({ playerId: userInfo.id, roomId: roomId })
-            );
+            //방 배정이 완료되었다면?
+            // console.log();
             const subscription2 = client.subscribe(
               `/topic/game/${roomId}`,
               (message2) => {
@@ -87,18 +85,23 @@ export default function RankGame() {
                 }
               }
             );
+            client.send(
+              "/app/join",
+              {},
+              JSON.stringify({ playerId: userInfo.id, roomId: roomId })
+            );
           }
         }
       );
       client.send("/app/match", {}, userInfo.id);
 
-      return () => {
-        if (client) {
-          client.unsubscribe("/topic/game/match");
-          client.unsubscribe(`/topic/game/${roomId}`);
-          dispatch(clearSubscriptions());
-        }
-      };
+      // return () => {
+      //   if (client) {
+      //     client.unsubscribe("/topic/game/match");
+      //     client.unsubscribe(`/topic/game/${roomId}`);
+      //     dispatch(clearSubscriptions());
+      //   }
+      // };
 
       // client.connect({}, (frame) => {
       //   client.subscribe("/topic/game/match", (message1) => {
