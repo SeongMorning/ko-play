@@ -7,13 +7,15 @@ import styles from "./RankTest2.module.scss";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import YellowBox from "@/app/component/boxes/YellowBox";
-import GameJellyBtn from "@/app/main/component/GameJellyBtn";
+
 import { changeCorrectIdx } from "@/redux/slices/correct";
 import { changeWrong } from "@/redux/slices/wrongList";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { disconnectWebSocket, getWebSocketClient } from "@/app/utils/websockectManager";
 import { setConnected } from "@/redux/slices/webSocketSlice";
 import produce from "immer";
+import LevelJellyBtn from "@/app/game/component/GameJellyBtn";
+import RankGameJellyBtn from "../RankGameJellyBtn";
 
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
@@ -100,6 +102,7 @@ export default function RankTest2() {
       const b = wordObjectList.filter((data) => data.state === -1).length;
       dispatch(changeCorrectIdx(a));
       if (a + b === 20) {
+        dispatch(changeWrong(wordObjectList.filter((data) => data.state === -1)))
         setCorrect(a);
         setIncorrect(b);
         client.send("/app/out", {}, JSON.stringify({playerId: userInfo.id}));
@@ -171,10 +174,10 @@ export default function RankTest2() {
                 <span className={styles.addExp}>학습 시 추가 경험치가 있습니다.</span>
                 <div className={styles.buttons}>
                   <div className={styles.Yes}>
-                    <GameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
+                    <RankGameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
                   </div>
                   <div className={styles.No}>
-                    <GameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="아니요" />
+                    <RankGameJellyBtn bg="#A2D2FF" shadow="#4DA3F2" text="아니요" />
                   </div>
                 </div>
               </div>
