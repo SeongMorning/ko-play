@@ -1,0 +1,63 @@
+.DifficultyBtn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  .DifficultyBtnTap {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 32;
+    display: flex;
+    align-items: center;
+
+    .text {
+      position: relative;
+      z-index: 32;
+      font-weight: bold;
+      font-size: calc((3vw + 1vh) / 2);
+      color: #df7b93;
+      margin-left : 15%;
+    }
+  }
+
+  .DifficultyBtnTop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 31;
+  }
+  .DifficultyBtnBottom {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 6px;
+    z-index: 29;
+  }
+
+  .DifficultyBtnDot {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 30%;
+    height: 13%;
+    transform: rotate(27.07deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 33;
+  }
+
+  .DifficultyBtnDot2 {
+    position: absolute;
+    top: 15%;
+    left: 25%;
+    width: 20%;
+    height: 10%;
+    transform: rotate(27.07deg);
+    transform-origin: 0 0;
+    background-color: white;
+    border-radius: 50%;
+    z-index: 32;
+  }
+}

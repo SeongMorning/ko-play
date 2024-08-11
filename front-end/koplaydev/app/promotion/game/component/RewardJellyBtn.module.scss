@@ -1,0 +1,66 @@
+.LevelJellyBtn {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+
+  .LevelJellyBtnTop {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 150px;
+    background: #ffd6e0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    font-size: calc((3vw + 1vh) / 2);
+  }
+
+  .LevelJellyBtnBottom {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 7px;
+    left: 0;
+    border-radius: 150px;
+    background: #e07a93;
+    z-index: 10;
+  }
+  .LevelJellyBtnDot {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    width: 20%;
+    height: 10%;
+    border-radius: 50%;
+    transform: rotate(-37.47deg);
+    transform-origin: 0 0;
+    background-color: white;
+    z-index: 25;
+  }
+
+  .LevelJellyBtnDot2 {
+    position: absolute;
+    top: 15%;
+    left: 30%;
+    width: 15%;
+    height: 6%;
+    border-radius: 50%;
+    transform: rotate(-32.1deg);
+    transform-origin: 0 0;
+    background-color: white;
+    z-index: 25;
+  }
+}
+
+.LevelJellyBtnHover {
+  position: absolute;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  z-index: 20;
+}
