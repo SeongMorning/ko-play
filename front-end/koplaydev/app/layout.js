@@ -18,6 +18,7 @@ export const metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
+    orientation: "landscape-primary",
     title: "koplay",
   },
   // Viewport 설정을 포함한 메타데이터
