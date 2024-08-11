@@ -1,0 +1,17 @@
+.myVideo {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  width: 40vw;
+  height: auto;
+}
+.container {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  left: 10%;
+  top: 60%;
+  padding-bottom: 5vh;
+  z-index: 40;
+}

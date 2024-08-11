@@ -1,0 +1,184 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.timerContainer {
+  position: relative;
+  width: 19.2%;
+  top: 46vh;
+  left: 80.1vw;
+  background-color: rgba(255, 42, 0, 0.833);
+  padding: 0.2vw;
+  border-radius: 35px;
+  display: flex;
+  align-items: center;
+
+}
+
+.alarm {
+  margin-left: 0.3vw;
+  margin-right: -1.4vw;
+  margin-bottom: 0.2vw;
+  padding: 0.8vw;
+  width: 29%;
+
+}
+
+.timer {
+  position: relative;
+  width: 80%;
+  text-align: center;
+  // transform: translate(300%, 50%);
+  font-size: 4.5vw;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  padding: 10px;
+  z-index: 11;
+}
+
+.cardContainer {
+  position: absolute;
+  top: 28%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.2vw;
+  width: 44vw;
+  height: 44vh;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.cardDeck {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.5s;
+  transform-style: preserve-3d;
+  perspective: 1100px;
+}
+
+.flipped {
+  transform: rotateY(360deg);
+  // backface-visibility: hidden;
+}
+
+.cardBack,
+.cardFrontImage,
+.cardFrontText {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.cardBack {
+  background: #ccc;
+  transform: rotateY(0deg);
+  // transition: transform 0.8s;
+}
+
+.cardFrontImage,
+.cardFrontText {
+  transform: rotateY(180deg);
+  // transition: transform 0.8s;
+}
+
+.flipped .cardFrontImage,
+.flipped .cardFrontText {
+  transform: rotateY(0deg);
+}
+
+.modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 98%;
+  z-index: 2;
+
+  .text {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    box-sizing: border-box;
+    padding-top: 5%;
+
+    .finish {
+      font-size: calc((5vw + 5vh) / 2);
+      font-weight: bold;
+      color: black;
+      letter-spacing: calc(1vw + 1vh);
+      margin-bottom: 4vh;
+    }
+
+    .correct {
+      font-size: calc((5vw + 3vh) / 2);
+      font-weight: bold;
+      color: #a2d2ff;
+      letter-spacing: calc(0.4vw + 0.4vh);
+    }
+
+    .incorrect {
+      font-size: calc((5vw + 3vh) / 2);
+      font-weight: bold;
+      color: #eb88a1;
+      letter-spacing: calc(0.4vw + 0.4vh);
+      margin-bottom: 3vh;
+    }
+
+    .comment {
+      font-size: calc((3vw + 1.5vh) / 2);
+      font-weight: bold;
+      margin-top: calc((1vh + 1vw)/2);
+      margin-bottom: calc((7vh + 1vw)/2);
+    }
+
+    .retry {
+      font-size: calc((3vw + 1.5vh) / 2);
+      font-weight: bold;
+      margin-top: calc((-1vh + 0vw)/2);
+    }
+
+    .addExp {
+      font-size: calc((3vw + 1.5vh) / 2);
+      font-weight: bold;
+      margin-bottom: calc((2vh + 1vw)/2);
+    }
+
+    .buttons {
+      display: flex;
+      width: 100%;
+      height: 30%;
+      justify-content: center;
+      gap: 10%;
+      font-size: 20px;
+
+      .Yes {
+        width: 25%;
+        height: 88%;
+
+      }
+
+      .No {
+        width: 25%;
+        height: 88%;
+
+      }
+
+      .check {
+        width: 25%;
+        height: 78%;
+      }
+    }
+  }
+}
