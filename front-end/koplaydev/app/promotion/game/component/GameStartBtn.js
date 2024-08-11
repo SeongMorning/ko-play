@@ -17,7 +17,6 @@ export default function GameStartBtn() {
     const fetchGameWord = async () => {
       const data = await gameWordAxios(
         gameIdx,
-        // levelList[gameIdx - 1],
         1,
         [10,4,9][gameIdx - 1]
       );
