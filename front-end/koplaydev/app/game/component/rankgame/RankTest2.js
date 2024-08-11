@@ -10,19 +10,14 @@ import YellowBox from "@/app/component/boxes/YellowBox";
 import GameJellyBtn from "@/app/main/component/GameJellyBtn";
 import { changeCorrectIdx } from "@/redux/slices/correct";
 import { changeWrong } from "@/redux/slices/wrongList";
-import SpeechRecognition, {
-  useSpeechRecognition,
-} from "react-speech-recognition";
-import {
-  disconnectWebSocket,
-  getWebSocketClient,
-} from "@/app/utils/websockectManager";
+import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
+import { disconnectWebSocket, getWebSocketClient } from "@/app/utils/websockectManager";
 import { setConnected } from "@/redux/slices/webSocketSlice";
 import produce from "immer";
 
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
-  const [wordObjectList, setWordObjectList] = useState(()=> wordList.map((word)=> ({...word})));
+  const [wordObjectList, setWordObjectList] = useState(() => wordList.map((word) => ({ ...word })));
   const wordLeft = useSelector((state) => state.gameLeft);
   let { transcript, listening, resetTranscript } = useSpeechRecognition();
   const [wrong, setWrong] = useState([]);
@@ -36,18 +31,20 @@ export default function RankTest2() {
   const [client, setClient] = useState(getWebSocketClient());
   const roomId = useSelector((state) => state.roomId);
   const userInfo = useSelector((state) => state.studentInfo);
+
   useEffect(() => {
     setWordObjectList(wordList);
   }, [wordList]);
 
   useEffect(() => {
-    setClient(getWebSocketClient());
-    // 한국어로 음성 인식 시작
+    const websocketClient = getWebSocketClient();
+    setClient(websocketClient);
+
     SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
 
-    // 컴포넌트가 언마운트될 때 WebSocket 연결을 닫습니다.
     return () => {
       if (client) {
+        console.log('언마운트됨');
         client.unsubscribe("/topic/game/match");
         client.unsubscribe(`/topic/game/${roomId}`);
       }
@@ -56,75 +53,37 @@ export default function RankTest2() {
       dispatch(setConnected(false));
       SpeechRecognition.stopListening();
     };
-  }, []);
+  }, [client, roomId, dispatch]);
 
   useEffect(() => {
-    client.subscribe(`/user/topic/game/${roomId}`, (message) => {
-      const idx = JSON.parse(message.body).index;
-      const cor = JSON.parse(message.body).data[0].correct;
-      const wordIdx = JSON.parse(message.body).data[0].wordIdx;
-      if (idx === 3 || idx === 4) {
-        console.log(cor);
-        if (cor) {
-          let wordObjectCopy2 = [...wordObjectList];
-          let wordObjectCopy = wordObjectCopy2.map((wordObject) => {
-            let copy = {...wordObject};
-            return copy;
-          });
-          wordObjectCopy[wordIdx].state = 1;
-          setWordObjectList(wordObjectCopy);
-          console.log(wordObjectList);
-        } else {
-          let wordObjectCopy2 = [...wordObjectList];
-          let wordObjectCopy = wordObjectCopy2.map((wordObject) => {
-            let copy = {...wordObject};
-            return copy;
-          });
-          console.log(wordIdx);
-          wordObjectCopy[wordIdx].state = -1;
-          setWordObjectList(wordObjectCopy);
-          let wrong2 = [...wrong];
-          wrong2.push(wordObjectList[idx]);
-          setWrong(wrong2);
-          console.log(wordObjectList);
+    if (client) {
+      client.subscribe(`/user/topic/game/${roomId}`, (message) => {
+        const { index, data } = JSON.parse(message.body);
+        const { correct: cor, wordIdx } = data[0];
+
+        if (index === 3 || index === 4) {
+          let updatedWordObjectList = [...wordObjectList];
+          updatedWordObjectList[wordIdx].state = cor ? 1 : -1;
+          setWordObjectList(updatedWordObjectList);
+
+          if (cor) {
+            setCorrect((prev) => prev + 1);
+          } else {
+            setWrong((prev) => [...prev, updatedWordObjectList[wordIdx]]);
+            setIncorrect((prev) => prev + 1);
+          }
+
+          if (correct + incorrect === 20) {
+            console.log('게임종료!');
+            setModal(true);
+            SpeechRecognition.stopListening();
+          }
         }
-      }
-    });
-  }, []);
+      });
+    }
+  }, [client, roomId, wordObjectList, correct, incorrect]);
 
   useEffect(() => {
-    // 사용자가 말한 단어가 화면에 나타나는 단어와 일치하는지 확인
-    let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
-    if (CorrectWord.length === 1) {
-      let index = wordObjectList.findIndex(
-        (data) => data.wordKor === transcript
-      );
-      if (client) {
-        client.send(
-          "/app/correct",
-          {},
-          JSON.stringify({
-            wordIdx: index,
-            roomId: roomId,
-            playerId: userInfo.id,
-          })
-        );
-      }
-
-      // 점수 업데이트 메시지를 서버에 전송
-      // if (client) {
-      //   client.send(
-      //     "/app/game/1",
-      //     {},
-      //     JSON.stringify({
-      //       playerId: "player1", // 실제 플레이어 ID를 넣으세요
-      //       score: 1,
-      //     })
-      //   );
-      // }
-    }
-
-    // 사용자가 음성을 인식했을 때 타이머를 설정하여 특정 시간 후에 인식을 초기화
     if (transcript) {
       if (timer) {
         clearTimeout(timer);
@@ -136,56 +95,28 @@ export default function RankTest2() {
     }
   }, [transcript]);
 
-  useEffect(() => {
-    if (wordObjectList) {
-      let viewWords = wordObjectList.filter((data) => data.state === 10);
-      console.log(viewWords);
-      SetViewWord(viewWords);
-      let a = wordObjectList.filter((data) => data.state === 1).length; // 정답
-      let b = wordObjectList.filter((data) => data.state === -1).length; // 오답
-
-      dispatch(changeCorrectIdx(a)); // a로 바꾸기
-      if (a + b === 20) {
-        setCorrect(a);
-        setIncorrect(b);
-        dispatch(changeCorrectIdx(a));
-        setModal(true);
-        dispatch(changeWrong(wrong));
-        SpeechRecognition.stopListening();
-      }
-    }
-  }, [wordObjectList]);
-
-  // 시간초과시 실행되는 함수
   const changeResultList = useCallback((index) => {
-    if (wordObjectList[index].state !== 1) {
-      if (client) {
-        client.send(
-          "/app/incorrect",
-          {},
-          JSON.stringify({
-            wordIdx: index,
-            roomId: roomId,
-            playerId: userInfo.id,
-          })
-        );
-      }
-      // let copy2 = wordObjectList.map((wordObject) => ({...wordObject}));
-      // copy2[index].state = -1;
-      // setWordObjectList(copy2);
-      // let wrong2 = wrong.map((wrongItem) => ({...wrongItem}));
-      // wrong2.push(wordObjectList[index]);
-      // setWrong(wrong2);
+    if (wordObjectList[index].state !== 1 && client) {
+      client.send(
+        "/app/incorrect",
+        {},
+        JSON.stringify({
+          wordIdx: index,
+          roomId: roomId,
+          playerId: userInfo.id,
+        })
+      );
     }
-  });
+  }, [wordObjectList, client, roomId, userInfo.id]);
 
-  // 화면에 보이면 실행되는 함수
   const changeResultList2 = useCallback((index) => {
-    let copy4 = [...wordObjectList];
-    let copy3 = copy4.map((wordObject) => ({ ...wordObject }));
-    copy3[index].state = 10;
-    setWordObjectList(copy3);
-  });
+    setWordObjectList((prevList) => {
+      const updatedList = [...prevList];
+      updatedList[index].state = 10;
+      return updatedList;
+    });
+  }, []);
+  
 
   return (
     <>
@@ -194,28 +125,16 @@ export default function RankTest2() {
         {modal && (
           <motion.div
             className={styles.modal}
-            initial={{
-              opacity: 0,
-              translateY: 10,
-            }}
-            animate={{
-              opacity: 1,
-              translateY: 0,
-            }}
+            initial={{ opacity: 0, translateY: 10 }}
+            animate={{ opacity: 1, translateY: 0 }}
           >
             <YellowBox width="40" height="70">
               <div className={styles.text}>
                 <span className={styles.finish}>게임종료</span>
                 <span className={styles.correct}>정답 개수 : {correct}</span>
-                <span className={styles.incorrect}>
-                  오답 개수 : {incorrect}
-                </span>
-                <span className={styles.retry}>
-                  틀린 단어를 다시 학습하시겠습니까?
-                </span>
-                <span className={styles.addExp}>
-                  학습 시 추가 경험치가 있습니다.
-                </span>
+                <span className={styles.incorrect}>오답 개수 : {incorrect}</span>
+                <span className={styles.retry}>틀린 단어를 다시 학습하시겠습니까?</span>
+                <span className={styles.addExp}>학습 시 추가 경험치가 있습니다.</span>
                 <div className={styles.buttons}>
                   <div className={styles.Yes}>
                     <GameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
@@ -228,36 +147,29 @@ export default function RankTest2() {
             </YellowBox>
           </motion.div>
         )}
-        {wordObjectList.map((data, index) => {
-          return (
-            <motion.div
-              key={index}
-              initial={{
-                display: "none",
-              }}
-              className={styles.CardMain}
-              style={{
-                left: `${wordLeft ? wordLeft[index].left : 0}%`,
-                top: "-17%",
-                width: "10%",
-                height: "17%",
-                opacity: `${data.state === 1 || data.state === -1 ? 0 : 1}`,
-              }}
-              animate={{
-                display: "block",
-                translateY: "118vh",
-                transition: {
-                  duration: 10,
-                  delay: index * 3,
-                },
-              }}
-              onViewportEnter={() => changeResultList2(index)}
-              onViewportLeave={() => changeResultList(index)}
-            >
-              <CardFrontImage imgSrc={data.imgUrl} />
-            </motion.div>
-          );
-        })}
+        {wordObjectList.map((data, index) => (
+          <motion.div
+            key={index}
+            initial={{ display: "none" }}
+            className={styles.CardMain}
+            style={{
+              left: `${wordLeft ? wordLeft[index].left : 0}%`,
+              top: "-17%",
+              width: "10%",
+              height: "17%",
+              opacity: `${data.state === 1 || data.state === -1 ? 0 : 1}`,
+            }}
+            animate={{
+              display: "block",
+              translateY: "118vh",
+              transition: { duration: 10, delay: index * 3 },
+            }}
+            onViewportEnter={() => changeResultList2(index)}
+            onViewportLeave={() => changeResultList(index)}
+          >
+            <CardFrontImage imgSrc={data.imgUrl} />
+          </motion.div>
+        ))}
       </div>
     </>
   );
