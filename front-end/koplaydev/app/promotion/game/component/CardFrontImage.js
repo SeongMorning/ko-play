@@ -13,7 +13,7 @@ export default function CardFrontImage(props) {
         height: `${props.height}%`,
       }}
     >
-      <div style={{backgroundImage : `url(${props.imgSrc})`, backgroundSize : "cover"}} className={styles.cardInner}>
+      <div style={{backgroundImage : `url(${props.imgSrc})`, backgroundSize : "contain", backgroundRepeat:"no-repeat", backgroundPosition:"center"}} className={styles.cardInner}>
         {/* <img src={props.imgSrc} alt="Card Front" className={styles.cardImage} /> */}
       </div>
     </div>
