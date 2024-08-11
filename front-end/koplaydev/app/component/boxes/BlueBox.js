@@ -5,10 +5,15 @@ import {motion} from 'framer-motion';
 import modifyStudentInfoAxios from "@/app/axios/modifyStudentInfoAxios";
 import studentInfo, { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import student from "@/app/axios/studentInfo";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 export default function BlueBox(props) {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.studentInfo)
+  const es = effectSound(buttonSound, 1);
+
   return (
     <div
       className={styles.BlueBox}
@@ -17,6 +22,7 @@ export default function BlueBox(props) {
         height: `${props.height}%`,
       }}
       onClick={async ()=>{
+        es.play();
         await modifyStudentInfoAxios({...userInfo, visited : true, nickname : props.nickname, schoolName : props.school})
         let firstUserInfo = await student();
         dispatch(changeStudentInfo(firstUserInfo));
