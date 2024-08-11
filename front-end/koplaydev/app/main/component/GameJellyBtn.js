@@ -4,10 +4,16 @@ import { motion, useAnimate } from "framer-motion";
 import styles from "./GameJellyBtn.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
+import effectSound from '@/app/utils/effectSound'
+
+
+const slidingSound = '/audios/slowSlidingSound.mp3';
 
 export default function GameJellyBtn(props) {
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const dispatch = useDispatch();
+  const es = effectSound(slidingSound, 1);
+
   return (
     <>
       <motion.div
