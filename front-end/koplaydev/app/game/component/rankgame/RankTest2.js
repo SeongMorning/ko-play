@@ -195,7 +195,7 @@ export default function RankTest2() {
       }
       const newTimer = setTimeout(() => {
         resetTranscript();
-      }, 1000);
+      }, 500);
       setTimer(newTimer);
     }
   }, [transcript]);
