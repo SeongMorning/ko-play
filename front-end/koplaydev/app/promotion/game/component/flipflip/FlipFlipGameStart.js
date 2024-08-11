@@ -385,10 +385,10 @@ export default function FlipFlipGameStart() {
                   오답 개수 : {incorrect}
                 </span>
                 <span className={styles.retry}>
-                  틀린 단어를 다시 학습하시겠습니까?
+                더욱 다양한 게임은 로그인 후 가능합니다.
                 </span>
                 <span className={styles.addExp}>
-                  학습 시 추가 경험치가 있습니다.
+                로그인 하시겠습니까?
                 </span>
                 <div className={styles.buttons}>
                   <div className={styles.Yes}>

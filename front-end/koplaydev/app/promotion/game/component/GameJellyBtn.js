@@ -50,21 +50,15 @@ export default function LevelJellyBtn(props) {
       }}
       onClick={() => {
         if (props.text === "예") {
-          // dispatch(changeExp(unitScore * correctCnt));
-          // dispatch(changeInCorrect(true));
-          // dispatch(changeLoadingIdx(1));
-          router.push('/')
-        } else if (props.text === "아니요") {
-          // dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)));
-          // dispatch(changeInCorrect(false));
-          // dispatch(changeLoadingIdx(1));
           router.push('/login')
+        } else if (props.text === "아니요") {
+          router.push('/')
         } else {
           // dispatch(changeModalIdx(0));
           // dispatch(changeLoadingIdx(-1));
           // dispatch(changeCorrectIdx(0));
           // dispatch(changeGamePurposeIdx(0));
-          // router.push("/main");
+          router.push("/");
         }
       }}
     >
