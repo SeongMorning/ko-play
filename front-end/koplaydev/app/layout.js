@@ -6,7 +6,30 @@ import ReduxProvider from "@/redux/provider";
 
 
 const inter = Inter({ subsets: ["latin"] });
+import { useEffect } from 'react';
 
+useEffect(() => {
+  // 현재 화면 방향을 콘솔에 출력
+  console.log(screen.orientation.type); // logs the current orientation
+
+  // 화면을 가로모드로 잠금
+  screen.orientation.lock('landscape-primary').catch((err) => {
+    console.error('Failed to lock orientation:', err);
+  });
+
+  // 화면 방향 변경 감지
+  const handleOrientationChange = () => {
+    console.log('Orientation Changed');
+  };
+
+  screen.orientation.addEventListener('change', handleOrientationChange);
+
+  // 컴포넌트 언마운트 시 이벤트 리스너 정리 및 화면 잠금 해제
+  return () => {
+    screen.orientation.unlock();
+    screen.orientation.removeEventListener('change', handleOrientationChange);
+  };
+}, []);
 
 export const metadata = {
   title: "Ko-play",
