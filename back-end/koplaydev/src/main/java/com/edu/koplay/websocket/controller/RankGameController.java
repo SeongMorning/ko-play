@@ -72,6 +72,12 @@ public class RankGameController {
         }
     }
 
+    @MessageMapping("/out")
+    public void outGame(String playerId) throws Exception {
+        //모든것을 삭제해버려요
+        roomManager.deleteRoom(playerId);
+    }
+
     public void waitGame() throws Exception {
 //        아이디당 룸 아이디를 배정해주는 메서드
 //        모두 배정하고 true 리턴
