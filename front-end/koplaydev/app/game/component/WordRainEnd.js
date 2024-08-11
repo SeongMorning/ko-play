@@ -11,6 +11,7 @@ import ChangeNation from "@/app/avatar/component/ChangeNation";
 import newAvatarAxios from "@/app/axios/newAvatarAxios";
 import RewardJellyBtn from "./RewardJellyBtn";
 import TextToSpeech from "./TextToSpeech";
+import RankGameJellyBtn from "./RankGameJellyBtn";
 
 export default function WordRainEnd() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -22,6 +23,7 @@ export default function WordRainEnd() {
   const exp = useSelector((state) => state.exp);
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
+  const isRank = useSelector((state) => state.isRank);
 
   const [level, setLevel] = useState(Math.floor(userInfo.exp / 100));
   const [selectedCountry, setSelectedCountry] = useState(null);
@@ -38,9 +40,9 @@ export default function WordRainEnd() {
       const res = await gameResultAxios(
         gameIdx,
         correctCnt,
-        10,
+        `${isRank ? 20 : 10}`,
         gameList[0],
-        exp
+        exp,
       );
     };
     postGameResult();
@@ -342,7 +344,7 @@ export default function WordRainEnd() {
         }}
         onAnimationComplete={() => setIsGoMainClickable(true)}
       >
-        <GameJellyBtn
+        <RankGameJellyBtn
           width="100"
           height="100"
           bg="#FFD6E0"

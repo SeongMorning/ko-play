@@ -20,6 +20,7 @@ import {
   disconnectWebSocket,
   getWebSocketClient,
 } from "@/app/utils/websockectManager";
+import { changeIsRank } from "@/redux/slices/isRankSlice";
 
 export default function RankGame() {
   const roomId = useSelector((state) => state.roomId);
@@ -31,6 +32,7 @@ export default function RankGame() {
   const [client, setClient] = useState(null);
 
   useEffect(() => {
+    dispatch(changeIsRank(true))
     const fetchRoomId = async () => {
       API.get("/games/gameRoom")
         .then((res) => {
@@ -41,6 +43,10 @@ export default function RankGame() {
         });
     };
     fetchRoomId();
+
+    return ()=>{
+      dispatch(changeIsRank(false))
+    }
   }, []);
 
   useEffect(() => {

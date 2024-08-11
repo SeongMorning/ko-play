@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import { changeExp } from "@/redux/slices/expSlice";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import effectSound from '@/app/utils/effectSound'
+import { changeIsRank } from "@/redux/slices/isRankSlice";
 
 const buttonSound = '/audios/buttonSound.mp3';
 
@@ -44,15 +45,18 @@ export default function RankGameJellyBtn(props) {
           dispatch(changeExp(unitScore * correctCnt));
           dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
+          dispatch(changeGamePurposeIdx(4));
         } else if (props.text === "아니요") {
           dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)));
           dispatch(changeInCorrect(false));
           dispatch(changeLoadingIdx(1));
+          dispatch(changeGamePurposeIdx(4));
         } else {
           dispatch(changeModalIdx(0));
           dispatch(changeLoadingIdx(-1));
           dispatch(changeCorrectIdx(0));
           dispatch(changeGamePurposeIdx(0));
+          dispatch(changeIsRank(false));
           router.push("/main");
         }
       }}
