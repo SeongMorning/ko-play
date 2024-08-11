@@ -34,7 +34,7 @@
     "background_color": "#FFFFFF",
     "start_url": "/",
     "display": "standalone",
-    "orientation": "landscape",
+    "orientation": "landscape-primary",
     "prefer_related_applications": true,
     "description": "Hope Education - Learning Korean with koplay",
     "display_override": [
@@ -49,4 +49,5 @@
     "games",
     "social"
     ]
+    
 }
