@@ -14,6 +14,9 @@ import DifficultyBtn from "../DifficultyBtn";
 import gameListAxios from "@/app/axios/gameListAxios";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import { changeGameIdx } from "@/redux/slices/gameSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 let propObject = [
   {
@@ -43,6 +46,7 @@ export default function NormalGame() {
   const dispatch = useDispatch();
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const ref = useRef(null);
+  const buttonEs = effectSound(buttonSound, 1);
 
   useEffect(() => {
     const fetchGameList = async () => {
@@ -69,6 +73,7 @@ export default function NormalGame() {
               <img
                 src="/back2.png"
                 onClick={() => {
+                  buttonEs.play();
                   dispatch(changeGamePurposeIdx(0));
                 }}
               ></img>
@@ -79,6 +84,7 @@ export default function NormalGame() {
             <img
               src="/close.png"
               onClick={() => {
+                buttonEs.play();
                 dispatch(changeGamePurposeIdx(0));
                 dispatch(changeModalIdx(0));
               }}

@@ -2,6 +2,9 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeNation.module.scss";
+import effectSound from '@/app/utils/effectSound'
+
+const mouseClickSound = '/audios/mouseClickSound.mp3';
 
 export default function ChangeNation({
   setSelectedCountry,
@@ -22,13 +25,18 @@ export default function ChangeNation({
     setSelectedCountry(nation.name);
   };
 
+  const es = effectSound(mouseClickSound, 0.7);
+
   return (
     <div className={styles.nationContainer} style={{ left: left, top: top }}>
       {nations.map((nation, index) => (
         <motion.img
           key={index}
           src={nation.src}
-          onClick={() => handleNationClick(nation)}
+          onClick={() => {
+            es.play();
+            handleNationClick(nation);
+          }}
           whileHover={{
             scale: selectedNation === nation.name ? 1.2 : 1.2,
           }}

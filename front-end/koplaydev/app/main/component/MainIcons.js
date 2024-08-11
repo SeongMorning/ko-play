@@ -4,9 +4,17 @@ import { useDispatch } from "react-redux";
 import styles from "./MainIcons.module.scss";
 import { motion } from "framer-motion";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const planetButtonSound = '/audios/planetButtonSound.wav';
+const planetButtonSound2 = '/audios/planetButtonSound2.mp3';
+const planetButtonSound3 = '/audios/planetButtonSound3.wav';
+
 
 export default function MainIcons() {
   const dispatch = useDispatch();
+  const es = effectSound(planetButtonSound3, 0.2);
+
   return (
     <>
       <motion.img
@@ -27,6 +35,7 @@ export default function MainIcons() {
           src="/realnormal.png"
           alt=""
           onClick={() => {
+            es.play();
             dispatch(changeModalIdx(1));
           }}
           whileHover={{
@@ -42,6 +51,7 @@ export default function MainIcons() {
           src="rank-game.png"
           alt=""
           onClick={() => {
+            es.play();
             dispatch(changeModalIdx(4));
           }}
           whileHover={{

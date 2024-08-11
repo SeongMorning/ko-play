@@ -5,6 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import gameWordAxios from "@/app/axios/gameWordAxios";
 import { changeGameWord } from "@/redux/slices/gameWordSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const countdownSound = '/audios/countdownSound.mp3';
 
 export default function GameStartBtn() {
   const [countdown, setCountdown] = useState(null);
@@ -12,6 +15,7 @@ export default function GameStartBtn() {
   const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
   const levelList = useSelector((state) => state.level);
+  const es = effectSound(countdownSound, 1);
 
   useEffect(() => {
     const fetchGameWord = async () => {
