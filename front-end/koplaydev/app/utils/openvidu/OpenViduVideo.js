@@ -9,7 +9,7 @@ const OpenViduVideo = ({ streamManager }) => {
         }
     }, [streamManager]);
 
-    return <video autoPlay={true} ref={videoRef} />;
+    return <video style={{width : "100px"}} autoPlay={true} ref={videoRef} />;
 };
 
 export default OpenViduVideo;
