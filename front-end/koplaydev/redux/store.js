@@ -23,6 +23,7 @@ import parentChaildStatisticSlice from "./slices/parentChaildStatisticSlice";
 import gameLeft from "./slices/gameLeftSlice";
 import roomId from "./slices/roomIdSlice";
 import webSocket from "./slices/webSocketSlice";
+import isRank from "./slices/isRankSlice";
 
 
 const rootReducer = combineReducers({
@@ -50,6 +51,7 @@ const rootReducer = combineReducers({
   gameLeft : gameLeft.reducer,
   roomId : roomId.reducer,
   webSocket : webSocket.reducer,
+  isRank : isRank.reducer,
 });
 
 export default rootReducer;
