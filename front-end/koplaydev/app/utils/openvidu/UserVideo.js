@@ -1,15 +1,11 @@
 import React from "react";
 import OpenViduVideo from "./OpenViduVideo";
+import styles from "./UserVideo.module.scss";
 
 const UserVideo = ({ streamManager }) => {
-
   return (
     <div>
-      {streamManager ? (
-        <div className="streamcomponent">
-          <OpenViduVideo streamManager={streamManager} />
-        </div>
-      ) : null}
+      {streamManager ? <OpenViduVideo streamManager={streamManager} /> : null}
     </div>
   );
 };

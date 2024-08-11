@@ -42,13 +42,14 @@ export default function RankGameJellyBtn(props) {
       onClick={() => {
         es.play();
         if (props.text === "예") {
-          dispatch(changeExp(unitScore * correctCnt));
-          dispatch(changeInCorrect(true));
-          dispatch(changeLoadingIdx(1));
-          dispatch(changeGamePurposeIdx(4));
+          props.setModalFlag(false);
+          // dispatch(changeExp(unitScore * correctCnt));
+          // dispatch(changeInCorrect(true));
+          // dispatch(changeLoadingIdx(1));
+          // dispatch(changeGamePurposeIdx(4));
         } else if (props.text === "아니요") {
-          dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)));
-          dispatch(changeInCorrect(false));
+          dispatch(changeExp((unitScore * correctCnt)));
+          dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
           dispatch(changeGamePurposeIdx(4));
         } else {
