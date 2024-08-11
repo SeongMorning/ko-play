@@ -16,6 +16,8 @@ import { setConnected } from "@/redux/slices/webSocketSlice";
 import produce from "immer";
 import LevelJellyBtn from "@/app/game/component/GameJellyBtn";
 import RankGameJellyBtn from "../RankGameJellyBtn";
+import OpenVidu from "@/app/utils/openvidu/OpenVidu";
+import OpenViduItem from "@/app/utils/openvidu/OpenVidu";
 
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
@@ -157,6 +159,7 @@ export default function RankTest2() {
 
   return (
     <>
+      <OpenViduItem/>
       <span className={styles.InputBox}>{transcript}</span>
       <div>
         {modal && (
