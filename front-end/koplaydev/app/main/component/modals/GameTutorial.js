@@ -12,6 +12,15 @@ import { changeGameIdx } from "@/redux/slices/gameSlice";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import gameListAxios from "@/app/axios/gameListAxios";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
+const slowSlidingSound = '/audios/slowSlidingSound.mp3';
+const mouseClickSound = '/audios/mouseClickSound.mp3';
+
+const buttonEs = effectSound(buttonSound, 1);
+const slowSlidingEs = effectSound(slowSlidingSound, 1);
+const mouseClickEs = effectSound(mouseClickSound, 1);
 
 let propObject = [
   {
@@ -65,6 +74,7 @@ export default function GameTutorial() {
               <img
                 src="/back2.png"
                 onClick={() => {
+                  buttonEs.play();
                   dispatch(changeGamePurposeIdx(0));
                 }}
               ></img>
@@ -75,6 +85,8 @@ export default function GameTutorial() {
             <img
               src="/close.png"
               onClick={() => {
+                buttonEs.play();
+
                 dispatch(changeGamePurposeIdx(0));
                 dispatch(changeModalIdx(0));
               }}
@@ -108,6 +120,8 @@ export default function GameTutorial() {
 }
 
 const GameSelect = ({ idx, selectedCountry }) => {
+
+  // slowSlidingEs.play();
   let widthList = Array(3).fill(26);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -162,6 +176,7 @@ const GameSelect = ({ idx, selectedCountry }) => {
                         color: "rgba(154, 205, 50, 1)",
                       }}
                       onClick={() => {
+                        mouseClickEs.play();
                         dispatch(changeGameIdx(data.gameIdx));
                         router.push(
                           `/tutorial/${selectedCountry}/${data.gameIdx}`
