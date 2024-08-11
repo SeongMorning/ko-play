@@ -33,10 +33,6 @@ export default function WordRainStart() {
   const WordRainLevel = useSelector((state) => state.level);
 
   useEffect(() => {
-    SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
-  }, []);
-
-  useEffect(() => {
     console.log("Transcript:", transcript);
     console.log("View Words:", viewWord);
     console.log("Word Object List:", wordObjectList);
@@ -60,7 +56,7 @@ export default function WordRainStart() {
       }
       const newTimer = setTimeout(() => {
         resetTranscript();
-      }, 1000);
+      }, 500);
       setTimer(newTimer);
     }
   }, [transcript]);
@@ -76,12 +72,12 @@ export default function WordRainStart() {
 
       dispatch(changeCorrectIdx(a)); // a로 바꾸기
       if (a + b === 10) {
+        SpeechRecognition.stopListening();
         setCorrect(a);
         setIncorrect(b);
         dispatch(changeCorrectIdx(a));
         setModal(true);
         dispatch(changeWrong(wrong));
-        SpeechRecognition.stopListening();
       }
     }
   }, [wordObjectList]);
