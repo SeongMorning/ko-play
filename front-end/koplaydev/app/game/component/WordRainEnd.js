@@ -32,7 +32,7 @@ export default function WordRainEnd() {
   const [showAvatar, setShowAvatar] = useState(false);
   const [ttsText, setTtsText] = useState(null);
   const [isGoMainClickable, setIsGoMainClickable] = useState(false);
-
+  console.log(wrongList);
   useEffect(() => {
     const postGameResult = async () => {
       const res = await gameResultAxios(
