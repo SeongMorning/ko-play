@@ -2,11 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./DifficultyBtn.module.scss";
 import { motion } from "framer-motion";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 export default function DifficultyBtn(props) {
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
   const gamePurposeIdx = useSelector((state) => state.gamePurpose)
+  const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
@@ -18,6 +22,8 @@ export default function DifficultyBtn(props) {
         },
       }}
       onClick={() => {
+        es.play();
+
         if (levelList[gamePurposeIdx - 1] !== 5) {
           if (gamePurposeIdx === 1) {
             dispatch(changeSpeechLevel(levelList[gamePurposeIdx - 1] + 1));

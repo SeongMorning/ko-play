@@ -10,10 +10,17 @@ import { useEffect, useState } from "react";
 import modifyStudentInfo from "../../../axios/modifyStudentInfoAxios";
 import PwPinkBox from "../PwPinkBox";
 import {motion} from 'framer-motion';
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
+const mouseClickSound = '/audios/mouseClickSound.mp3';
+
 
 export default function Setting() {
   const userInfo = useSelector((state) => state.studentInfo);
   const dispatch = useDispatch();
+  const buttonEs = effectSound(buttonSound, 1);
+  const mouseClickEs = effectSound(mouseClickSound, 1);
 
   // 상태 변수 선언
   const [myNickname, setMyNickname] = useState(userInfo.nickname);
@@ -81,6 +88,7 @@ export default function Setting() {
             src="/close.png"
             className={styles.backBtn}
             onClick={() => {
+              buttonEs.play();
               dispatch(changeModalIdx(0));
             }}
           ></img>
@@ -166,7 +174,9 @@ export default function Setting() {
                   <img
                     className={styles.modifyImg}
                     src="/modify.png"
-                    onClick={() => nickNameHandleClick()}
+                    onClick={() => {
+                      nickNameHandleClick()
+                    }}
                   />
                 </WhiteBox>
                 <WhiteBox width={"60"} height={"10"}>

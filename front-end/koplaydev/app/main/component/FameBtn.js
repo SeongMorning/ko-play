@@ -4,11 +4,17 @@ import { useAnimate } from "framer-motion";
 import styles from "./FameBtn.module.scss";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 export default function FameBtn() {
   const [scope, animate] = useAnimate();
   let array = Array(30).fill(0);
   const router = useRouter();
+
+  const es = effectSound(buttonSound, 1);
+
   return (
     <>
       <div className={styles.FameText}>
@@ -21,6 +27,7 @@ export default function FameBtn() {
             animate(scope.current, {backgroundColor : "rgba(115, 238, 194, 0.302)"});
           }}
           onClick={()=>{
+            es.play();
             router.push('/fame');
           }}
         >

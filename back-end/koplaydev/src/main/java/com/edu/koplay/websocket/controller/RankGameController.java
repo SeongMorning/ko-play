@@ -72,6 +72,12 @@ public class RankGameController {
         }
     }
 
+    @MessageMapping("/out")
+    public void outGame(String playerId) throws Exception {
+        //모든것을 삭제해버려요
+        roomManager.deleteRoom(playerId);
+    }
+
     public void waitGame() throws Exception {
 //        아이디당 룸 아이디를 배정해주는 메서드
 //        모두 배정하고 true 리턴
@@ -145,11 +151,11 @@ public class RankGameController {
 
         //리턴은 플레이어 id랑 isCorrect boolean 보내주기 3번
         if(playerId.equals(gameState.getPlayer1())){
-            messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/game/" + roomId, responseFalse);
+            messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/ingame/" + roomId, responseFalse);
         }else{
-            messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/game/" + roomId, responseFalse);
+            messagingTemplate.convertAndSendToUser(gameState.getPlayer1(), "/topic/ingame/" + roomId, responseFalse);
         }
-        messagingTemplate.convertAndSendToUser(playerId, "/topic/game/" + roomId, responseTrue);
+        messagingTemplate.convertAndSendToUser(playerId, "/topic/ingame/" + roomId, responseTrue);
     }
 
     //정답을 아무도 못맞췄을 때 처리하는 로직
@@ -170,7 +176,7 @@ public class RankGameController {
         //다 틀린것 4번
 //        messagingTemplate.convertAndSend("/topic/game/" + roomId, responseFalse);
 
-        messagingTemplate.convertAndSendToUser(playerId, "/topic/game/" + roomId, responseFalse);
+        messagingTemplate.convertAndSendToUser(playerId, "/topic/ingame/" + roomId, responseFalse);
 //        messagingTemplate.convertAndSendToUser(gameState.getPlayer2(), "/topic/game/" + roomId, responseFalse);
 
     }
