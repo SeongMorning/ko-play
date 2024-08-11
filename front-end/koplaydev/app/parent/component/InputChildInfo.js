@@ -56,7 +56,9 @@ export default function InputChildInfo({ onClose, onAllClose, childInfo, setChil
                                 onChange={(e) => {setChildInfo((prevState) => ({
                                     ...prevState,
                                     birth: e.target.value,
-                                }))}} /></div></div>
+                                }))}}
+                                max={new Date().toISOString().split("T")[0]} // 오늘 날짜까지만 선택 가능
+                                 /></div></div>
                     </div>
                     <div className={styles.generateBoxContainer} onClick={createProfile}>
                         <CompleteBox text="다음" width={46} height={88} />
