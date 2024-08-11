@@ -1,0 +1,124 @@
+.NormalGameMain {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2%;
+  gap: 2%;
+
+  .header {
+    display: flex;
+    z-index: 20;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+
+    .headerleft {
+      display: flex;
+      width: 20%;
+      align-items: center;
+      box-sizing: border-box;
+      padding-left: 3%;
+
+      img {
+        width: 2.5vw;
+        cursor: pointer;
+      }
+    }
+
+    .headerright {
+      display: flex;
+      width: 20%;
+      justify-content: flex-end;
+      box-sizing: border-box;
+      padding-right: 3%;
+
+      img {
+        width: 2.5vw;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .NormalGameTitle {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    color: #ff8b00;
+    font-weight: bold;
+    font-size: calc((4.5vw + 4.5vh) / 2);
+  }
+}
+
+.GameJelly {
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  gap: 5%;
+
+  .Btn {
+    width: 27%;
+    height: 100%;
+  }
+}
+
+.LevelJellyBtn {
+  display: flex;
+  height: 30%;
+  width: 100%;
+  justify-content: space-around;
+  align-items: center;
+  box-sizing: border-box;
+  padding-left: 5%;
+  padding-right: 5%;
+  cursor: pointer;
+
+  .EasyBtn{
+    width: 13%;
+    height : 70%;
+  }
+
+  .LevelBtn {
+    width: 11%;
+    height: 55%;
+  }
+}
+
+.gameItems{
+    display : flex;
+    width : 100%;
+    height : 100%;
+    justify-content: flex-start;
+    align-items: center;
+    gap : 3%;
+    margin-right : 3%;
+    box-sizing: border-box;
+}
+
+.gameItem {
+  position : relative;
+  width: 30%;
+  height: 70%;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  display: flex;
+  background-color: #040F36;
+  justify-content: center;
+  align-items: center;
+  flex : 0 0 auto;
+
+  .gameStart{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position :absolute;
+    width : 100%;
+    height : 100%;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0);
+    color : rgba(154, 205, 50, 0);
+    cursor : pointer;
+  }
+}

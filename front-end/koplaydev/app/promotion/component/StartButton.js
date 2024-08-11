@@ -3,12 +3,26 @@
 import styles from "./StartButton.module.scss";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { changeGraphLevel } from "@/redux/slices/graphLevel";
 
 export default function StartButton(props) {
   const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(()=>
+  {
+    dispatch(changeModalIdx(0));
+  },[])
 
   const handleClick = () => {
-    router.push("/login"); // 로그인 페이지로 라우팅
+    if(props.text=='비회원'){
+      dispatch(changeModalIdx(6));
+    }else{
+      router.push("/login"); // 로그인 페이지로 라우팅
+    }
   };
   return (
     <motion.div 

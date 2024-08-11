@@ -1,0 +1,32 @@
+.cardOuter {
+  width: 9.5vw;
+  height: 9.5vw;
+  background-color: #fdd127;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+
+}
+
+.cardInner {
+  width: 83%;
+  height: 83%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.cardImage {
+  width: 88%;
+  height: 88%;
+  object-fit: cover;
+}
+
+.match {
+  // transition: transform 0.8s;
+  background-color: rgb(255, 134, 136);
+}

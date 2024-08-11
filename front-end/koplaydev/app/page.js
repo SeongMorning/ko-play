@@ -1,5 +1,6 @@
 import PromLoginBg from "./component/background/PromLoginBg";
 import styles from "./page.module.scss";
+import MainModal from "./promotion/component/MainModal";
 import StartButton from "./promotion/component/StartButton";
 import Title from "./promotion/component/Title";
 
@@ -11,6 +12,7 @@ async function fetchData() {
 
 export default async function Home() {
   await fetchData(); // 데이터 패칭
+
 
   return (
     <>
@@ -30,6 +32,7 @@ export default async function Home() {
           text={"비회원"}
         />
       </main>
+      <MainModal />
       <PromLoginBg />
     </>
   );

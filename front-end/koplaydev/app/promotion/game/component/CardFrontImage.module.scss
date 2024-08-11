@@ -1,0 +1,25 @@
+.cardOuter {
+  background-color: #fdd127;
+  width : 100%;
+  height : 100%;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 20;
+
+  .cardInner {
+    width: 85%;
+    height: 85%;
+    background-color: white;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cardImage {
+      width: 80%; /* 이미지 크기를 조절 */
+      height: auto;
+    }
+  }
+}

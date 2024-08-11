@@ -1,0 +1,21 @@
+.cardOuter {
+  position: absolute;
+  background-color: #fdd127;
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .cardInner {
+    width: 85%;
+    height: 85%;
+    background-color: white;
+    border-radius: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .cardText {
+    }
+  }
+}
