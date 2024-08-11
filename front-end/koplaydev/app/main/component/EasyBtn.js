@@ -6,11 +6,15 @@ import {
   changeReadLevel,
   changeSpeechLevel,
 } from "@/redux/slices/levelSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = '/audios/buttonSound.mp3';
 
 export default function EasyBtn(props) {
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
+  const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
@@ -22,6 +26,7 @@ export default function EasyBtn(props) {
         },
       }}
       onClick={() => {
+        es.play();
         if (gamePurposeIdx === 1 && levelList[gamePurposeIdx - 1] !== 1) {
           dispatch(changeSpeechLevel(levelList[gamePurposeIdx - 1] - 1));
         } else if (gamePurposeIdx === 2 && levelList[gamePurposeIdx - 1] !== 1) {

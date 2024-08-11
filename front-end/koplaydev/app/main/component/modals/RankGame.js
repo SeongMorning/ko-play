@@ -95,6 +95,12 @@ export default function RankGame() {
       );
       client.send("/app/match", {}, userInfo.id);
 
+
+      return () => {
+        client.unsubscribe("/topic/game/match");
+        client.unsubscribe(`/topic/game/${roomId}`);
+      }
+
       // return () => {
       //   if (client) {
       //     client.unsubscribe("/topic/game/match");

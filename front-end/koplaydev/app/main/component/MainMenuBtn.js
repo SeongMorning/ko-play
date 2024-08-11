@@ -20,7 +20,6 @@ export default function MainMenuBtn(props) {
   const [logoutModal, setLogoutModal] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
-
   const es = effectSound(buttonSound, 1);
 
   return (

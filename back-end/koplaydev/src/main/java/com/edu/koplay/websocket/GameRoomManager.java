@@ -44,6 +44,17 @@ public class GameRoomManager {
         return newRoom;  // 생성된 방을 반환
     }
 
+    public void deleteRoom(String clientId) {
+        if(userIdAndRoom.containsKey(clientId)) {
+            Long roomId = userIdAndRoom.get(clientId);
+            //사용자와 방 매핑된거 지워주기
+            userIdAndRoom.remove(clientId);
+            if(rooms.containsKey(roomId)) {
+                rooms.remove(roomId);
+            }
+        }
+    }
+
     /**
      * 특정 방 ID로 방을 가져옵니다.
      *
