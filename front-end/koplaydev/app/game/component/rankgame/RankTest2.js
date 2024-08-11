@@ -46,7 +46,7 @@ export default function RankTest2() {
       if (client) {
         console.log('언마운트됨');
         client.unsubscribe("/topic/game/match");
-        client.unsubscribe(`/topic/game/${roomId}`);
+        client.unsubscribe(`/topic/ingame/${roomId}`);
       }
       disconnectWebSocket();
       setClient(null);
@@ -57,22 +57,26 @@ export default function RankTest2() {
 
   useEffect(() => {
     if (client) {
-      client.subscribe(`/user/topic/game/${roomId}`, (message) => {
+      const subscription = client.subscribe(`/user/topic/ingame/${roomId}`, (message) => {
         const { index, data } = JSON.parse(message.body);
         const { correct: cor, wordIdx } = data[0];
-
+  
         if (index === 3 || index === 4) {
-          let updatedWordObjectList = [...wordObjectList];
-          updatedWordObjectList[wordIdx].state = cor ? 1 : -1;
-          setWordObjectList(updatedWordObjectList);
-
-          if (cor) {
-            setCorrect((prev) => prev + 1);
-          } else {
-            setWrong((prev) => [...prev, updatedWordObjectList[wordIdx]]);
-            setIncorrect((prev) => prev + 1);
-          }
-
+          setWordObjectList((prevList) => {
+            const updatedList = [...prevList].map((wordObject) => ({ ...wordObject }));
+            updatedList[wordIdx].state = cor ? 1 : -1;
+            
+            if (cor) {
+              // setCorrect(correct + 1);
+              // dispatch(changeCorrectIdx(correct));
+            } else {
+              setWrong((prev) => [...prev, updatedList[wordIdx]]);
+              // setIncorrect(incorrect + 1);
+              dispatch(changeWrong(wrong));
+            }
+  
+            return updatedList;
+          });
           if (correct + incorrect === 20) {
             console.log('게임종료!');
             setModal(true);
@@ -80,10 +84,40 @@ export default function RankTest2() {
           }
         }
       });
+  
+      return () => {
+        subscription.unsubscribe();
+      };
     }
-  }, [client, roomId, wordObjectList, correct, incorrect]);
+  }, [client, roomId, dispatch]);
 
   useEffect(() => {
+    if (wordObjectList) {
+      let viewWords = wordObjectList.filter((data) => data.state === 10);
+      SetViewWord(viewWords);
+
+      const a = wordObjectList.filter((data) => data.state === 1).length;
+      const b = wordObjectList.filter((data) => data.state === -1).length;
+      dispatch(changeCorrectIdx(a));
+      if (a + b === 20) {
+        setCorrect(a);
+        setIncorrect(b);
+        client.send("/app/out", {}, JSON.stringify({playerId: userInfo.id}));
+        console.log('게임종료!');
+        setModal(true);
+        SpeechRecognition.stopListening();
+      }
+    }
+  }, [wordObjectList]);
+
+  useEffect(() => {
+    let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
+    if (CorrectWord.length === 1){
+      let index = wordObjectList.findIndex((data) => data.wordKor === transcript);
+      if(client){
+        client.send("/app/correct", {}, JSON.stringify({wordIdx : index, roomId : roomId, playerId : userInfo.id}))
+      }
+    }
     if (transcript) {
       if (timer) {
         clearTimeout(timer);
@@ -111,7 +145,7 @@ export default function RankTest2() {
 
   const changeResultList2 = useCallback((index) => {
     setWordObjectList((prevList) => {
-      const updatedList = [...prevList];
+      const updatedList = [...prevList].map((prev) => ({...prev}));
       updatedList[index].state = 10;
       return updatedList;
     });
