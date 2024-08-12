@@ -6,14 +6,14 @@ import { motion } from "framer-motion";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import effectSound from '@/app/utils/effectSound'
 
-const planetButtonSound = '/audios/planetButtonSound.wav';
-const planetButtonSound2 = '/audios/planetButtonSound2.mp3';
-const planetButtonSound3 = '/audios/planetButtonSound3.wav';
+const planetButtonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/planetButtonSound.wav';
+const planetButtonSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/planetButtonSound2.mp3';
+const planetButtonSound3 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/planetButtonSound3.wav';
 
 
 export default function MainIcons() {
   const dispatch = useDispatch();
-  const es = effectSound(planetButtonSound3, 0.2);
+  const es = effectSound(planetButtonSound3, 0.5);
 
   return (
     <>

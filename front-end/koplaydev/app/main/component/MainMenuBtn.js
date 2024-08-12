@@ -10,10 +10,9 @@ import logoutAxios from "@/app/axios/logoutAxios";
 import { useState } from "react";
 import YellowBox from "@/app/component/boxes/YellowBox";
 import LogoutModalBtn from "./LogoutModalBtn";
-// import useSound from '@/app/utils/useSound'
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 // props : left, top, bg, shadow, imgSrc
 export default function MainMenuBtn(props) {

@@ -37,24 +37,46 @@
 //     }, [src, volume, fadeoutTime]);
 // }
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react';
 import { Howl } from 'howler';
 
 export default function useSound(src, volume = 1, fadeoutTime = 0) {
-    let sound;
-    const soundStop = () => sound.stop();
-    const soundPlay = (src) => {
-        sound = new Howl({ src });
-        sound.volume(volume);
-        sound.play();
-    }
+    const soundRef = useRef(null);
+
+    const soundStop = () => {
+        if (soundRef.current) {
+            if (fadeoutTime > 0 && soundRef.current.playing()) {
+                soundRef.current.fade(volume, 0, fadeoutTime);
+                setTimeout(() => soundRef.current.stop(), fadeoutTime);
+            } else {
+                soundRef.current.stop();
+            }
+        }
+    };
 
     useEffect(() => {
-        soundPlay(src);
-        sound.on('play', () => {
-            const fadeouttime = fadeoutTime;
-            setTimeout(() => sound.fade(volume, 0, fadeouttime), (sound.duration() - sound.seek()) * 1000 - fadeouttime);
-        });
+        if (!soundRef.current) {
+            soundRef.current = new Howl({
+                src,
+                volume,
+                loop: true, // 반복 재생 설정
+            });
+
+            soundRef.current.play();
+
+            if (fadeoutTime > 0) {
+                soundRef.current.on('play', () => {
+                    const duration = soundRef.current.duration() * 1000;
+                    const currentPosition = soundRef.current.seek() * 1000;
+                    const timeRemaining = duration - currentPosition;
+
+                    if (timeRemaining > fadeoutTime) {
+                        setTimeout(() => soundRef.current.fade(volume, 0, fadeoutTime), timeRemaining - fadeoutTime);
+                    }
+                });
+            }
+        }
+
         return soundStop;
-    }, []);
+    }, [src, volume, fadeoutTime]);
 }

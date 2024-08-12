@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import styles from "./ChangeNation.module.scss";
 import effectSound from '@/app/utils/effectSound'
 
-const mouseClickSound = '/audios/mouseClickSound.mp3';
+const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 export default function ChangeNation({
   setSelectedCountry,
