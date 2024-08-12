@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const translationWords = createSlice({
     name : "translationWords",
-    initialState : [],
+    initialState : {},
     reducers: {
         changeTranslationWords(state, action){
             return action.payload;

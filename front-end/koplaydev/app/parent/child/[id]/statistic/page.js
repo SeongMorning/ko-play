@@ -6,8 +6,11 @@ import StatisticBg from "@/app/component/background/StatisticBg";
 import CorrectAnswerRate from "./component/CorrectAnswerRate";
 import Correct from "./component/Correct";
 import Progress from "./component/Progress";
+import { useSelector } from "react-redux";
 
 export default function Statistic({ params }) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const id = params.id;
   const searchParams = useSearchParams();
   const viewIdx = searchParams.get("view");
@@ -33,7 +36,7 @@ export default function Statistic({ params }) {
         className={styles.backButton}
         left={27}
         top={20}
-        text="뒤로가기"
+        text={translationWords.backScoreBtn} 
       />
       <div className={styles.data}>
         <img className={styles.boardImg} src="/databoard.png" alt="" />

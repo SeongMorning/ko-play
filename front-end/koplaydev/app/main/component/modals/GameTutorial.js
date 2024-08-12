@@ -44,10 +44,21 @@ let propObject = [
 let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
 
 export default function GameTutorial() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const [selectedCountry, setSelectedCountry] = useState("Korea");
   const dispatch = useDispatch();
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const ref = useRef(null);
+
+  useEffect(() => {
+    gameList[0][0] = translationWords.wordRain;
+    gameList[0][1] = translationWords.flipflip;
+    gameList[0][2] = translationWords.smugogae;
+    propObject[0].text = translationWords.speak;
+    propObject[1].text = translationWords.read;
+    propObject[2].text = translationWords.listen;
+  }, [translationWords]); 
 
   useEffect(() => {
     const fetchGameList = async () => {
@@ -78,7 +89,7 @@ export default function GameTutorial() {
               ></img>
             )}
           </div>
-          <span className={styles.NormalGameTitle}>튜 토 리 얼</span>
+          <span className={styles.NormalGameTitle}>{translationWords.tutorial}</span>
           <div className={styles.headerright}>
             <img
               src="/close.png"
@@ -91,7 +102,7 @@ export default function GameTutorial() {
             ></img>
           </div>
         </div>
-        <GameSelect idx={gamePurposeIdx} selectedCountry={selectedCountry} />
+        <GameSelect idx={gamePurposeIdx} selectedCountry={selectedCountry} gamestart={translationWords.gameStart}/>
         {gamePurposeIdx === 0 ? null : (
           <motion.div
             initial={{
@@ -117,7 +128,7 @@ export default function GameTutorial() {
   );
 }
 
-const GameSelect = ({ idx, selectedCountry }) => {
+const GameSelect = ({ idx, selectedCountry , gamestart }) => {
 
   let widthList = Array(3).fill(26);
   const dispatch = useDispatch();
@@ -180,7 +191,7 @@ const GameSelect = ({ idx, selectedCountry }) => {
                         );
                       }}
                     >
-                      시작
+                      {gamestart}
                     </motion.div>
                   </div>
                 ))}
