@@ -4,9 +4,13 @@ import { useEffect, useState } from "react";
 import styles from "./Podium.module.scss";
 import fameAxios from "@/app/axios/fameAxios";
 import { useSelector } from "react-redux";
+import useSound from "@/app/utils/useSound";
+const fanfareBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/fanfareBGM.wav';
 
 // props : left, top, users[name, image, plays, level]
 export default function Podium(props) {
+  useSound(fanfareBGM, 0.8, 0);
+
   const translationWords = useSelector((state) => state.translationWords);
 
   const [users, setUsers] = useState();
@@ -64,17 +68,17 @@ export default function Podium(props) {
             <div className={`${styles.info} ${styles.info1}`}>
               1{translationWords.rank} : {users[0].student.nickname}
               <br />
-              {translationWords.eeklyGame} : {users[0].gameCount}
+              {translationWords.weeklyGame} : {users[0].gameCount}
             </div>
             <div className={`${styles.info} ${styles.info2}`}>
               2{translationWords.rank} : {users[1].student.nickname}
               <br />
-              {translationWords.eeklyGame} : {users[1].gameCount}
+              {translationWords.weeklyGame} : {users[1].gameCount}
             </div>
             <div className={`${styles.info} ${styles.info3}`}>
               3{translationWords.rank} : {users[2].student.nickname}
               <br />
-              {translationWords.eeklyGame} : {users[2].gameCount}
+              {translationWords.weeklyGame} : {users[2].gameCount}
             </div>
           </div>{" "}
         </>
