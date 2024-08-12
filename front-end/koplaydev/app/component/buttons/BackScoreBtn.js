@@ -18,15 +18,31 @@ export default function BackScoreBtn(props) {
 
   const correct = useSelector((state) => state.correct);
 
+  // 쿠키에서 특정 값을 가져오는 함수
+  const getCookieValue = function (name) {
+    const cookieArray = document.cookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+      const cookie = cookieArray[i].trim();
+      if (cookie.startsWith(name + '=')) {
+        return cookie.substring(name.length + 1);
+      }
+    }
+    return null;
+  }
+
   // 뒤로가기 기능 단순 구현
   const handleClick = () => {
-    if (props.text) {
+    const authToken = getCookieValue('Authorization');
+    if (authToken == null) {
+      dispatch({ type: 'RESET_ALL' });
+      router.push("/")
+    } else if (props.text) {
       history.go(-1);
     }
-    if(pathName ==="/mypage"){
+    if (pathName === "/mypage") {
       dispatch(changeMyPageIdx(1));
     }
-  };
+  }
 
   const es = effectSound(buttonSound, 1);
 
@@ -35,32 +51,24 @@ export default function BackScoreBtn(props) {
       className={styles.BackScoreBtn}
       onClick={async () => {
         es.play();
-        if (props.text =='로그아웃') {
-          // 쿠키에서 특정 값을 가져오는 함수
-          function getCookieValue(name) {
-            const cookieArray = document.cookie.split(';');
-            for (let i = 0; i < cookieArray.length; i++) {
-              const cookie = cookieArray[i].trim();
-              if (cookie.startsWith(name + '=')) {
-                return cookie.substring(name.length + 1);
-              }
-            }
-            return null;
-          }
+
+        if (props.text == '로그아웃') {
+          dispatch({ type: 'RESET_ALL' });
+          persistor.purge();
+
           // 쿠키에서 Authorization 토큰 가져오기
           const authToken = getCookieValue('Authorization');
           if (authToken == null) {
             router.push("/")
           }
-          persistor.purge();
 
           const response = await logoutAxios();
-          
-          if(response != null){
+
+          if (response != null) {
             //null이 아니면 성공
             router.push("/")
           }
-        }else{
+        } else {
           handleClick();
         }
       }}
@@ -76,12 +84,12 @@ export default function BackScoreBtn(props) {
           props.score
             ? {}
             : {
-                translateY: "0.5vh",
-                translateX: "-0.2vw",
-                transition: {
-                  duration: 0.1,
-                },
-              }
+              translateY: "0.5vh",
+              translateX: "-0.2vw",
+              transition: {
+                duration: 0.1,
+              },
+            }
         }
       >
         {props.score ? (
@@ -94,4 +102,5 @@ export default function BackScoreBtn(props) {
       <div className={styles.BackScoreBtnBottom} />
     </div>
   );
+
 }

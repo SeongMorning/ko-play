@@ -12,14 +12,12 @@ export default function GameStartBtn() {
   const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
   const levelList = useSelector((state) => state.level);
-
   useEffect(() => {
     const fetchGameWord = async () => {
       const data = await gameWordAxios(
         gameIdx,
-        // levelList[gameIdx - 1],
         1,
-        [10,4,9][gameIdx - 1]
+        4
       );
       if (data) {
         const changeData = () => {
@@ -35,7 +33,7 @@ export default function GameStartBtn() {
       }
     };
     fetchGameWord();
-  }, [gameIdx, levelList]);
+  }, []);
 
   useEffect(() => {
     let timer;

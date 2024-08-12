@@ -5,12 +5,10 @@ import styles from "./GameJellyBtn.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import { useRouter } from "next/navigation";
-import { changeModalIdx } from "@/redux/slices/modalSlice";
-import { changeCorrectIdx } from "@/redux/slices/correct";
-import { changeInCorrect } from "@/redux/slices/Incorrect";
 import { useEffect, useState } from "react";
-import { changeExp } from "@/redux/slices/expSlice";
+import { changeCorrectIdx } from "@/redux/slices/correct";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
 
 export default function LevelJellyBtn(props) {
   const dispatch = useDispatch();
@@ -18,7 +16,6 @@ export default function LevelJellyBtn(props) {
   const userInfo = useSelector((state) => state.studentInfo);
   const recommendLevel = userInfo.speechLevel;
   const nowLevel = useSelector((state) => state.level)[0];
-  const correctCnt = useSelector((state) => state.correct);
   let [unitScore, setUnitScore] = useState(0);
 
   useEffect(() => {
@@ -49,22 +46,15 @@ export default function LevelJellyBtn(props) {
         },
       }}
       onClick={() => {
+        dispatch(changeGamePurposeIdx(0));
+        dispatch(changeLoadingIdx(-1));
+        dispatch(changeCorrectIdx(0));
         if (props.text === "예") {
-          // dispatch(changeExp(unitScore * correctCnt));
-          // dispatch(changeInCorrect(true));
-          // dispatch(changeLoadingIdx(1));
-          router.push('/')
-        } else if (props.text === "아니요") {
-          // dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)));
-          // dispatch(changeInCorrect(false));
-          // dispatch(changeLoadingIdx(1));
           router.push('/login')
+        } else if (props.text === "아니요") {
+          router.push('/')
         } else {
-          // dispatch(changeModalIdx(0));
-          // dispatch(changeLoadingIdx(-1));
-          // dispatch(changeCorrectIdx(0));
-          // dispatch(changeGamePurposeIdx(0));
-          // router.push("/main");
+          router.push("/");
         }
       }}
     >

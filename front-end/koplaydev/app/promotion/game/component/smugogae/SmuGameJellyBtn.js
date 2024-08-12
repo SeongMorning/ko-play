@@ -26,17 +26,16 @@ export default function SmuGameJellyBtn(props) {
         },
       }}
       onClick={() => {
+        dispatch(changeGamePurposeIdx(0));
+        dispatch(changeLoadingIdx(-1));
+        dispatch(changeCorrectIdx(0));
+
         if (props.text === "예") {
           router.push("/login");
-          // dispatch(changeLoadingIdx(1));
         } else if (props.text === "아니요") {
           router.push("/");
-          // dispatch(changeLoadingIdx(1));
         } else {
-          dispatch(changeModalIdx(0));
-          dispatch(changeLoadingIdx(-1));
-          dispatch(changeCorrectIdx(0));
-          router.push("/main");
+          router.push("/");
         }
       }}
     >
