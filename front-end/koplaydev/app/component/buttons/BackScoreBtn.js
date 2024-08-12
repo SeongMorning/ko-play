@@ -12,6 +12,7 @@ const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effec
 
 // props : left, top, score, question, text
 export default function BackScoreBtn(props) {
+    
   const pathName = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
@@ -55,6 +56,19 @@ export default function BackScoreBtn(props) {
         if (props.text == '로그아웃') {
           dispatch({ type: 'RESET_ALL' });
           persistor.purge();
+
+          // useEffect(() => {
+          //   const fetchTranslations = async () => {
+          //     try {
+          //       const result = await translations("ko-KR");
+          //       dispatch(changeTranslationWords(result));
+          //     } catch (error) {
+          //       console.error("Failed to fetch translations:", error);
+          //     }
+          //   };
+        
+          //   fetchTranslations(); // 비동기 함수 호출
+          // }, [dispatch]);
 
           // 쿠키에서 Authorization 토큰 가져오기
           const authToken = getCookieValue('Authorization');

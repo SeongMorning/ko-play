@@ -43,6 +43,7 @@
 //         return soundStop;
 //     }, [src, volume, fadeoutTime]);
 // }
+"use client";
 
 import { useEffect } from 'react';
 import { Howl } from 'howler';
