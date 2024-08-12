@@ -8,7 +8,7 @@ export default function MainMenu() {
         left={"5%"}
         top={"80%"}
         idx={1001}
-        imgSrc={"/album.png"}
+        imgSrc={"/album2.png"}
         tooltip={"사진첩"}
       />
       {/* 마이페이지 */}
@@ -16,7 +16,7 @@ export default function MainMenu() {
         left={"20%"}
         top={"83%"}
         idx={1002}
-        imgSrc={"/MyPage.png"}
+        imgSrc={"/MyPage2.png"}
         tooltip={"마이페이지"}
       />
       {/* 코스튬 */}
@@ -24,7 +24,7 @@ export default function MainMenu() {
         left={"13%"}
         top={"66%"}
         idx={1003}
-        imgSrc={"/avatar.png"}
+        imgSrc={"/avatar2.png"}
         tooltip={"코스튬"}
       />
       {/* 로그아웃 */}
@@ -32,7 +32,7 @@ export default function MainMenu() {
         left={"87%"}
         top={"80%"}
         idx={-1}
-        imgSrc={"/logout.png"}
+        imgSrc={"/logout2.png"}
         tooltip={"로그아웃"}
       />
       {/* 테스트 */}
@@ -40,7 +40,7 @@ export default function MainMenu() {
         left={"72%"}
         top={"83%"}
         idx={3}
-        imgSrc={"testIcon.png"}
+        imgSrc={"settings.png"}
         tooltip={"테스트"}
       />
       {/* 튜토리얼 */}
@@ -48,7 +48,7 @@ export default function MainMenu() {
         left={"79%"}
         top={"66%"}
         idx={1004}
-        imgSrc={"/tutorial.png"}
+        imgSrc={"/tutorial2.png"}
         tooltip={"튜토리얼"}
       />
     </>
