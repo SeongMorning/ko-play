@@ -43,10 +43,6 @@ export default function RankGame() {
         });
     };
     fetchRoomId();
-
-    return ()=>{
-      dispatch(changeIsRank(false))
-    }
   }, []);
 
   useEffect(() => {
