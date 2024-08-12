@@ -24,6 +24,8 @@ import gameLeft from "./slices/gameLeftSlice";
 import roomId from "./slices/roomIdSlice";
 import webSocket from "./slices/webSocketSlice";
 import isRank from "./slices/isRankSlice";
+import currNation from "./slices/currNationSlice";
+import translationWords from "./slices/translationWords";
 
 
 const rootReducer = combineReducers({
@@ -52,6 +54,8 @@ const rootReducer = combineReducers({
   roomId : roomId.reducer,
   webSocket : webSocket.reducer,
   isRank : isRank.reducer,
+  currNation : currNation.reducer,
+  translationWords : translationWords.reducer,
 });
 
 // 전체 상태를 초기화하는 액션을 처리합니다.
