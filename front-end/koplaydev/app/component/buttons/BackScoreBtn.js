@@ -8,7 +8,7 @@ import logoutAxios from "@/app/axios/logoutAxios";
 import { persistor } from '../../../redux/reduxStore';
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 // props : left, top, score, question, text
 export default function BackScoreBtn(props) {

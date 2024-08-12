@@ -16,7 +16,7 @@ import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/s
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import effectSound from '@/app/utils/effectSound'
 
-const slowMouseClickSound = '/audios/slowMouseClickSound.mp3';
+const slowMouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/slowMouseClickSound.mp3';
 
 
 export default function Profile() {

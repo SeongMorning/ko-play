@@ -20,10 +20,7 @@ public class StudentDTO {
     private String name;
     private String nickname;
 
-    @JsonProperty("profileImg")
-//    @JsonDeserialize(using = Base64Deserializer.class)
-//    @JsonSerialize(using = Base64Serializer.class)
-    private byte[] profileImg;
+    private String profileImg;
     private String birth;
     private String schoolName;
     private int exp;
