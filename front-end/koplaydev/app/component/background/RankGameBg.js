@@ -1,10 +1,10 @@
-import styles from "./GameBg.module.scss";
+import styles from "./RankGameBg.module.scss";
 import Star from "../Star";
 import Cam from "@/app/avatar/component/Cam";
 import OpenViduItem from "@/app/utils/openvidu/OpenVidu";
 import { useSelector } from "react-redux";
 
-export default function GameBg() {
+export default function RankGameBg() {
   return (
     <>
       <Star left="10vw" top="20vh" duration="2" />
@@ -15,7 +15,6 @@ export default function GameBg() {
       <Star right="8vw" top="40vh" duration="3" />
       <img className={styles.rocket} src="/rocket-game-bg.png" />
       <img className={styles.planet} src="/planet-game-bg.png" />
-      <Cam right="2.7vh" bottom="1.3vh" width="17vw"/>
     </>
   );
 }
