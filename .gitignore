@@ -1,0 +1,12 @@
+
+*.lock
+*.lock
+*.lock
+back-end/koplaydev/.gradle/8.8/executionHistory/executionHistory.lock
+back-end/koplaydev/.gradle/8.8/fileHashes/fileHashes.lock
+back-end/koplaydev/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+back-end/koplaydev/.gradle/8.8/executionHistory/executionHistory.lock
+back-end/koplaydev/.gradle/8.8/fileHashes/fileHashes.lock
+back-end/koplaydev/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+back-end/koplaydev/src/main/resources/application-url.yml
+front-end/koplaydev/next.config.mjs
