@@ -7,50 +7,60 @@ import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { changeGraphLevel } from "@/redux/slices/graphLevel";
-import effectSound from '@/app/utils/effectSound'
+import effectSound from "@/app/utils/effectSound";
 
-const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const buttonSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3";
 
 export default function StartButton(props) {
   const router = useRouter();
   const dispatch = useDispatch();
   const es = effectSound(buttonSound, 1);
 
-  useEffect(()=>
-  {
+  useEffect(() => {
     dispatch(changeModalIdx(0));
-  },[])
+  }, []);
 
   const handleClick = () => {
     es.play();
-    if(props.text=='비회원'){
+    if (props.text == "비회원") {
       dispatch(changeModalIdx(6));
-    }else{
+    } else {
       router.push("/login"); // 로그인 페이지로 라우팅
     }
   };
   return (
-    <motion.div 
-    className={styles.startButton}
-    whileHover={{
-      scale : 1.1
-    }}>
-      <motion.div 
-      className={styles.startButtonHover} 
-      onClick={handleClick}
-      whileTap={{
-        translateY : "1vh",
-        transition : {
-          duration : 0.1
-        }
+    <motion.div
+      className={styles.startButton}
+      whileHover={{
+        scale: 1.1,
       }}
+    >
+      <motion.div
+        className={styles.startButtonHover}
+        onClick={handleClick}
+        whileTap={{
+          translateY: "1vh",
+          transition: {
+            duration: 0.1,
+          },
+        }}
       >
         <div className={styles.startButtonDot} />
         <div className={styles.startButtonDot2} />
-        <div style={{background : `${props.bg}`}} className={styles.startButtonMain} />
-        <h2 style={{color : `${props.fontColor}`}} className={styles.text}>{`${props.text}으로 시작`}</h2>
+        <div
+          style={{ background: `${props.bg}` }}
+          className={styles.startButtonMain}
+        />
+        <h2
+          style={{ color: `${props.fontColor}` }}
+          className={styles.text}
+        >{`${props.text}으로 시작`}</h2>
       </motion.div>
-      <div style={{background : `${props.shadow}`}} className={styles.startButtonShadow}></div>
+      <div
+        style={{ background: `${props.shadow}` }}
+        className={styles.startButtonShadow}
+      ></div>
     </motion.div>
   );
 }
