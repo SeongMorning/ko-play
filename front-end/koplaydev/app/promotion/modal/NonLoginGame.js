@@ -43,6 +43,15 @@ let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
 export default function NormalGame() {
   const translationWords = useSelector((state) => state.translationWords);
 
+  useEffect(() => {
+    gameList[0][0] = translationWords.wordRain;
+    gameList[0][1] = translationWords.flipflip;
+    gameList[0][2] = translationWords.smugogae;
+    propObject[0].text = translationWords.speak;
+    propObject[1].text = translationWords.read;
+    propObject[2].text = translationWords.listen;
+  }, [translationWords]); 
+
   const dispatch = useDispatch();
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const ref = useRef(null);
@@ -56,6 +65,9 @@ export default function NormalGame() {
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
 
         gameList = [[...speechGame], [...readGame], [...listenGame]];
+        gameList[0][0].gameName = translationWords.wordRain;
+        gameList[1][0].gameName = translationWords.flipflip;
+        gameList[2][0].gameName = translationWords.smugogae;
       }
       dispatch(changeSpeechLevel(1));
       dispatch(changeReadLevel(1));
@@ -79,7 +91,7 @@ export default function NormalGame() {
               ></img>
             )}
           </div>
-          <span className={styles.NormalGameTitle}>일 반 게 임</span>
+          <span className={styles.NormalGameTitle}>{translationWords.normalGame}</span>
           <div className={styles.headerright}>
             <img
               src="/close.png"
@@ -90,7 +102,7 @@ export default function NormalGame() {
             ></img>
           </div>
         </div>
-        <GameSelect idx={gamePurposeIdx} />
+        <GameSelect idx={gamePurposeIdx} gamestart = {translationWords.gamestart}/>
         {gamePurposeIdx === 0 ? null : (
           <motion.div
             className={styles.LevelJellyBtn}
@@ -198,7 +210,7 @@ const GameSelect = (props) => {
                         router.push(`/promotion/game/${data.gameIdx}`);
                       }}
                     >
-                      시작
+                      {props.gamestart}
                     </motion.div>
                   </div>
                 ))}

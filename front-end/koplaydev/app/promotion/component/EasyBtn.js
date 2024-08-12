@@ -6,11 +6,17 @@ import {
   changeReadLevel,
   changeSpeechLevel,
 } from "@/redux/slices/levelSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function EasyBtn(props) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
+  const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
@@ -22,6 +28,7 @@ export default function EasyBtn(props) {
         },
       }}
       onClick={() => {
+        es.play();
         if (gamePurposeIdx === 1 && levelList[gamePurposeIdx - 1] !== 1) {
           console.log('레벨변경은 회원가입 후 가능합니다 ~ ');
         } else if (gamePurposeIdx === 2 && levelList[gamePurposeIdx - 1] !== 1) {
@@ -54,7 +61,7 @@ export default function EasyBtn(props) {
             color: `${props.shadow}`,
           }}
         >
-          쉬움
+          {translationWords.easy}
         </span>
       </motion.div>
       <svg

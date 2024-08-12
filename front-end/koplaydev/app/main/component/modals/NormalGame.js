@@ -71,7 +71,7 @@ export default function NormalGame() {
         gameList = [[...speechGame], [...readGame], [...listenGame]];
         gameList[0][0].gameName = translationWords.wordRain;
         gameList[1][0].gameName = translationWords.flipflip;
-        gameList[2][0].gameNamex = translationWords.smugogae;
+        gameList[2][0].gameName = translationWords.smugogae;
       }
     };
     fetchGameList();
