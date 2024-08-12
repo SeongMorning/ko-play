@@ -1,6 +1,11 @@
+"use client";
+
+import { useSelector } from "react-redux";
 import MainMenuBtn from "./MainMenuBtn";
 
 export default function MainMenu() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   return (
     <>
       {/* 사진첩 */}
@@ -9,7 +14,7 @@ export default function MainMenu() {
         top={"80%"}
         idx={1001}
         imgSrc={"/album2.png"}
-        tooltip={"사진첩"}
+        tooltip={translationWords.album}
       />
       {/* 마이페이지 */}
       <MainMenuBtn
@@ -17,7 +22,7 @@ export default function MainMenu() {
         top={"83%"}
         idx={1002}
         imgSrc={"/Mypage2.png"}
-        tooltip={"마이페이지"}
+        tooltip={translationWords.myPage}
       />
       {/* 코스튬 */}
       <MainMenuBtn
@@ -25,15 +30,15 @@ export default function MainMenu() {
         top={"66%"}
         idx={1003}
         imgSrc={"/avatar2.png"}
-        tooltip={"코스튬"}
+        tooltip={translationWords.avatar}
       />
       {/* 로그아웃 */}
       <MainMenuBtn
         left={"87%"}
         top={"80%"}
-        idx={-1}
+        idx={-1}  
         imgSrc={"/logout2.png"}
-        tooltip={"로그아웃"}
+        tooltip={translationWords.logout}
       />
       {/* 테스트 */}
       <MainMenuBtn
@@ -41,7 +46,7 @@ export default function MainMenu() {
         top={"83%"}
         idx={3}
         imgSrc={"settings.png"}
-        tooltip={"테스트"}
+        tooltip={translationWords.avatarTest}
       />
       {/* 튜토리얼 */}
       <MainMenuBtn
@@ -49,7 +54,7 @@ export default function MainMenu() {
         top={"66%"}
         idx={1004}
         imgSrc={"/tutorial2.png"}
-        tooltip={"튜토리얼"}
+        tooltip={translationWords.tutorial}
       />
     </>
   );

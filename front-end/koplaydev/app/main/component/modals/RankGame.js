@@ -23,6 +23,8 @@ import {
 import { changeIsRank } from "@/redux/slices/isRankSlice";
 
 export default function RankGame() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const roomId = useSelector((state) => state.roomId);
   const dispatch = useDispatch();
   const isConnected = useSelector((state) => state.webSocket.connected);
@@ -66,11 +68,11 @@ export default function RankGame() {
     //   console.log(getWebSocketClient());
     // }
     if (isConnected && client) {
-      console.log("매치 연결됨")
+      // console.log("매치 연결됨")
       const subscription1 = client.subscribe(
         "/topic/game/match",
         (message1) => {
-          console.log("이거는 대기열에 넣는 작업이었습니다. ")
+          // console.log("이거는 대기열에 넣는 작업이었습니다. ")
           let roomId = JSON.parse(message1.body).message;
           if (roomId) {
             dispatch(changeroomId(roomId));
@@ -145,14 +147,16 @@ export default function RankGame() {
     <>
       <YellowBox width="40" height="40">
         <div className={styles.textbox}>
-          <span className={styles.text1}>친구를 찾고있어요.</span>
-          <span className={styles.text2}>잠시만 기다려주세요.</span>
+          <span className={styles.NormalGameTitle}>{translationWords.rankGame}</span>
+
+          <span className={styles.text1}>{translationWords.findFriend}</span>
+          <span className={styles.text2}>{translationWords.waitGame}</span>
           <button
             onClick={() => {
               dispatch(changeModalIdx(0));
             }}
           >
-            취소
+            {translationWords.cancel}
           </button>
         </div>
       </YellowBox>

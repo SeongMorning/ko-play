@@ -43,10 +43,21 @@ let levelList = [1, 2, 3, 4, 5];
 let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
 
 export default function NormalGame() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const dispatch = useDispatch();
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const ref = useRef(null);
   const buttonEs = effectSound(buttonSound, 1);
+
+  useEffect(() => {
+    gameList[0][0] = translationWords.wordRain;
+    gameList[0][1] = translationWords.flipflip;
+    gameList[0][2] = translationWords.smugogae;
+    propObject[0].text = translationWords.speak;
+    propObject[1].text = translationWords.read;
+    propObject[2].text = translationWords.listen;
+  }, [translationWords]); 
 
   useEffect(() => {
     const fetchGameList = async () => {
@@ -79,7 +90,7 @@ export default function NormalGame() {
               ></img>
             )}
           </div>
-          <span className={styles.NormalGameTitle}>일 반 게 임</span>
+          <span className={styles.NormalGameTitle}>{translationWords.normalGame}</span>
           <div className={styles.headerright}>
             <img
               src="/close.png"
@@ -199,7 +210,7 @@ const GameSelect = (props) => {
                         router.push(`/game/${data.gameIdx}`);
                       }}
                     >
-                      시작
+                      {/* {translationWords.gamestart} */}
                     </motion.div>
                   </div>
                 ))}

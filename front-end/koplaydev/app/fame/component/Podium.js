@@ -3,9 +3,12 @@
 import { useEffect, useState } from "react";
 import styles from "./Podium.module.scss";
 import fameAxios from "@/app/axios/fameAxios";
+import { useSelector } from "react-redux";
 
 // props : left, top, users[name, image, plays, level]
 export default function Podium(props) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const [users, setUsers] = useState();
   useEffect(() => {
     const fetchUserList = async () => {
@@ -59,19 +62,19 @@ export default function Podium(props) {
           </div>
           <div className={styles.info}>
             <div className={`${styles.info} ${styles.info1}`}>
-              1등 : {users[0].student.nickname}
+              1{translationWords.rank} : {users[0].student.nickname}
               <br />
-              주간 판 수 : {users[0].gameCount}
+              {translationWords.eeklyGame} : {users[0].gameCount}
             </div>
             <div className={`${styles.info} ${styles.info2}`}>
-              2등 : {users[1].student.nickname}
+              2{translationWords.rank} : {users[1].student.nickname}
               <br />
-              주간 판 수 : {users[1].gameCount}
+              {translationWords.eeklyGame} : {users[1].gameCount}
             </div>
             <div className={`${styles.info} ${styles.info3}`}>
-              3등 : {users[2].student.nickname}
+              3{translationWords.rank} : {users[2].student.nickname}
               <br />
-              주간 판 수 : {users[2].gameCount}
+              {translationWords.eeklyGame} : {users[2].gameCount}
             </div>
           </div>{" "}
         </>

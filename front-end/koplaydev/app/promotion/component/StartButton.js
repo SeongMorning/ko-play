@@ -4,15 +4,18 @@ import styles from "./StartButton.module.scss";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { changeGraphLevel } from "@/redux/slices/graphLevel";
 import effectSound from "@/app/utils/effectSound";
+import Loading from "@/app/loading";
 
 const buttonSound =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3";
 
 export default function StartButton(props) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const router = useRouter();
   const dispatch = useDispatch();
   const es = effectSound(buttonSound, 1);
@@ -29,6 +32,7 @@ export default function StartButton(props) {
       router.replace("/login"); // 로그인 페이지로 라우팅
     }
   };
+
   return (
     <motion.div
       className={styles.startButton}
@@ -55,7 +59,11 @@ export default function StartButton(props) {
         <h2
           style={{ color: `${props.fontColor}` }}
           className={styles.text}
-        >{`${props.text}으로 시작`}</h2>
+        >
+           {props.text === "회원"
+            ? `${translationWords.member}`
+            : `${translationWords.nonMember}`}
+          </h2>
       </motion.div>
       <div
         style={{ background: `${props.shadow}` }}

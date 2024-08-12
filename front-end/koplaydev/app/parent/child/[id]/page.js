@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import DetailpageChildProfileCard from "./component/DetailpageChildProfileCard";
 
 export default function Child({ params }) {
+    const translationWords = useSelector((state) => state.translationWords);
+
     //id로 해당 계정 정보 가져오기
     const selectProfileById = (state, id) => {
         return state.parentChilds.find(profile => profile.id === id)
@@ -18,7 +20,7 @@ export default function Child({ params }) {
     return (
         <>
             <div>
-                <BackScoreBtn className={styles.backButton} left={27} top={20} text="뒤로가기" />
+                <BackScoreBtn className={styles.backButton} left={27} top={20} text={translationWords.backScoreBtn} />
             </div>
             <div>
                 <DetailpageChildProfileCard child={profile} />

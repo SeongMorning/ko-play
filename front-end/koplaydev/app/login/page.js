@@ -7,12 +7,14 @@ import PromLoginBg from "../component/background/PromLoginBg";
 import StudentLogin from "./component/StudentLogin";
 import SelectStatus from "./component/SelectStatus";
 import ParentLogin from "./component/ParentLogin";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
 
 export default function Login() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const [selectedStatus, setSelectedStatus] = useState("");
   const handleSelectStatus = (status) => {
     setSelectedStatus(status);
@@ -25,7 +27,7 @@ export default function Login() {
 
   return (
     <>
-      <BackScoreBtn text="뒤로가기" left="1vw" top="1vh" test="뒤로가기"/>
+      <BackScoreBtn text={translationWords.backScoreBtn} left="1vw" top="1vh" test={translationWords.backScoreBtn}/>
 
       <main className={styles.main}>
         <img className={styles.logo} src="/logo.png" />
@@ -45,7 +47,7 @@ export default function Login() {
               height={""}
               bg={"#ffd6e0"}
               shadow={"#e07a93"}
-              text={"부모님"}
+              text={translationWords.parent}
               onClick={() => setSelectedStatus("부모님")}
             />
             <JellyBtn
@@ -53,7 +55,7 @@ export default function Login() {
               height={""}
               bg={"#A2D2FF"}
               shadow={"#4DA3F3"}
-              text={"학생"}
+              text={translationWords.student}
               onClick={() => setSelectedStatus("학생")}
             />
           </div>
