@@ -8,7 +8,6 @@ export default function FlipC() {
   const router = useRouter();
 
   const tutorialImages = [
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC1.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC2.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC3.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/flipflip/flipC1.png",

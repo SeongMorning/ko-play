@@ -11,13 +11,17 @@ import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import allAvatarAxios from "@/app/axios/allAvatarAxios";
 import { setAvatars } from "@/redux/slices/avatarSlice";
 import myAvatarAxios from "@/app/axios/myAvatarAxios";
-import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice"
-import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice";
+import {
+  changeListenLevel,
+  changeReadLevel,
+  changeSpeechLevel,
+} from "@/redux/slices/levelSlice";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
-import effectSound from '@/app/utils/effectSound'
+import effectSound from "@/app/utils/effectSound";
 
-const slowMouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/slowMouseClickSound.mp3';
-
+const slowMouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/slowMouseClickSound.mp3";
 
 export default function Profile() {
   const dispatch = useDispatch();
@@ -55,22 +59,24 @@ export default function Profile() {
     fetchAllAvatarInfo();
     fetchMyAvatarInfo();
 
-    dispatch(changeLoadingIdx(-1))
+    dispatch(changeLoadingIdx(-1));
+    console.log(userInfo.profileImg);
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(changeListenLevel(userInfo.listeningLevel));
     dispatch(changeSpeechLevel(userInfo.speechLevel));
     dispatch(changeReadLevel(userInfo.readingLevel));
+    console.log(userInfo.profileImg);
 
-    if(!userInfo.visited){
-      dispatch(changeModalIdx(1000))
-    }else{
-      if(modal != 2){
+    if (!userInfo.visited) {
+      dispatch(changeModalIdx(1000));
+    } else {
+      if (modal != 2) {
         dispatch(changeModalIdx(0));
       }
     }
-  }, [userInfo])
+  }, [userInfo]);
   return (
     <motion.div
       className={styles.profile}
@@ -85,8 +91,13 @@ export default function Profile() {
     >
       <div className={styles.pictureBox}>
         <img
-          src={userInfo.profileImg || "hehe.png"}
-          onError={(e) => { e.target.src = "hehe.png"; }}
+          src={
+            `${process.env.customKey}/static${userInfo.profileImg}` ||
+            "hehe.png"
+          }
+          onError={(e) => {
+            e.target.src = "hehe.png";
+          }}
         />
       </div>
 
@@ -98,7 +109,8 @@ export default function Profile() {
         <span className={styles.nickname}>{userInfo.nickname}</span>
         <span className={styles.games}>총 게임수 : 13판</span>
         <span className={styles.avatar}>
-          열린코스튬 {myAvatar.avatars.length ? myAvatar.avatars.length : 0}/{avatar.avatars.length}
+          열린코스튬 {myAvatar.avatars.length ? myAvatar.avatars.length : 0}/
+          {avatar.avatars.length}
         </span>
       </div>
     </motion.div>

@@ -86,7 +86,13 @@ public class StudentController {
 
             // 파일 저장
             Resource resource = null;
+//            String path = "src/main/resources/static/uploads/";
             String path = "src/main/resources/static/uploads/";
+//            String path = "/uploads/";
+
+//            Path filePath = Paths.get("src/main/resources/static/uploads/").resolve(filename).normalize();
+//            Resource resource = new UrlResource(filePath.toUri());
+
             Path fileRoot = null;
             String fileName = null;
             if (multipartFile != null && multipartFile.getSize() > 0) {
@@ -103,7 +109,7 @@ public class StudentController {
                 Files.createDirectories(fileRoot.getParent());
                 Files.write(fileRoot, multipartFile.getBytes());
 
-                student.setProfileImg(path + fileName);
+                student.setProfileImg("/uploads/" + fileName);
             }
 
             Student entity = studentService.updateStudentInfo(id, student);

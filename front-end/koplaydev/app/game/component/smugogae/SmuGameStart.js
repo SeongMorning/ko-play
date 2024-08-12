@@ -221,7 +221,7 @@ export default function SmuGameStart() {
               disabled={
                 currentHintIndex >= (hints[currentQuestion]?.length || 0)
               }
-              imgSrc="/nextplay.png"
+              imgSrc="/nextPlay.png"
             />
           </div>
         )}

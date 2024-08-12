@@ -8,7 +8,6 @@ export default function FlipT() {
   const router = useRouter();
 
   const tutorialImages = [
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT1.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT2.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/commonT3.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/thailand/flipflip/flipT1.png",
