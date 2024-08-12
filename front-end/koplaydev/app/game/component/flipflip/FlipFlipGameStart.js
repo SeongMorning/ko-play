@@ -12,8 +12,12 @@ import CardFrontImage from "./CardFrontImage";
 import CardFrontText from "./CardFrontText";
 import FlipFlipGameJellyBtn from "./FlipFlipGameJellyBtn";
 import YellowBox from "@/app/component/boxes/YellowBox";
+import useSound from "@/app/utils/useSound";
+
+const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
 
 export default function FlipFlipGameStart() {
+  useSound(gameBGM, 1, 0, 1);
   const [flippedIndices, setFlippedIndices] = useState([]); // 뒤집힌 카드 인덱스를 저장
   const [cardDeck, setCardDeck] = useState([]); // 카드 덱 (게임 보드)을 저장
   const [matchedCards, setMatchedCards] = useState(new Set()); // 매칭된 카드들을 저장

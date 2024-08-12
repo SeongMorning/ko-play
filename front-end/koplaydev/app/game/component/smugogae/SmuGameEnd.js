@@ -11,8 +11,16 @@ import GameJellyBtn from "@/app/game/component/GameJellyBtn";
 import ChangeNation from "@/app/avatar/component/ChangeNation";
 import RewardJellyBtn from "../RewardJellyBtn";
 import TextToSpeech from "../TextToSpeech";
+import effectSound from '@/app/utils/effectSound'
+import useEffectSound from '@/app/utils/useEffectSound'
+
+const awardSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound2.wav';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function SmuGameEnd() {
+  useEffectSound(awardSound, 1, 0, 1);
+  const es = effectSound(buttonSound, 1);
+
   const userInfo = useSelector((state) => state.studentInfo);
   const wrongList = useSelector((state) => state.wrong);
   const Incorrect = useSelector((state) => state.incorrect);
@@ -148,6 +156,7 @@ export default function SmuGameEnd() {
   }, [afterExp, beforeExp, expAnimation]);
 
   const handleRewardClick = () => {
+    es.play();
     setShowBlackScreen(true);
     setShowRewardButton(false);
     setTimeout(() => {

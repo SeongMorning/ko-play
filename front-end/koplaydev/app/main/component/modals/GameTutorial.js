@@ -15,11 +15,9 @@ import gameListAxios from "@/app/axios/gameListAxios";
 import effectSound from '@/app/utils/effectSound'
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
-const slowSlidingSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/slowSlidingSound.mp3';
 const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 const buttonEs = effectSound(buttonSound, 1);
-const slowSlidingEs = effectSound(slowSlidingSound, 1);
 const mouseClickEs = effectSound(mouseClickSound, 1);
 
 let propObject = [
@@ -121,7 +119,6 @@ export default function GameTutorial() {
 
 const GameSelect = ({ idx, selectedCountry }) => {
 
-  // slowSlidingEs.play();
   let widthList = Array(3).fill(26);
   const dispatch = useDispatch();
   const router = useRouter();

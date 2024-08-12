@@ -11,6 +11,9 @@ import incorrect, { changeInCorrect } from "@/redux/slices/Incorrect";
 import { useEffect, useState } from "react";
 import { changeExp } from "@/redux/slices/expSlice";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function FlipFlipGameJellyBtn(props) {
     const dispatch = useDispatch()
@@ -22,6 +25,7 @@ export default function FlipFlipGameJellyBtn(props) {
     const nowLevel = useSelector((state)=> state.level)[1];
     const correctCnt = useSelector((state) => state.correct)
     const FlipFlipLevel = useSelector((state) => state.level);
+    const es = effectSound(buttonSound, 1);
 
     const getQuestion = () => { 
       if(FlipFlipLevel[1] === 1 || FlipFlipLevel[1] === 2) {
@@ -63,6 +67,7 @@ export default function FlipFlipGameJellyBtn(props) {
         }
       }}
       onClick={()=>{
+        es.play();
         if(props.text === "예"){
           console.log(unitScore)
           console.log("맞은 개수")

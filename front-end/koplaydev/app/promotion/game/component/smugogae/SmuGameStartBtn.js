@@ -7,6 +7,9 @@ import gameWordAxios from "@/app/axios/gameWordAxios";
 import { changeGameWord } from "@/redux/slices/gameWordSlice";
 import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 import { changeHints } from "@/redux/slices/hintsSlice";
+import effectSound from "@/app/utils/effectSound";
+
+const countdownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/beepSound.wav";
 
 export default function SmuGameStartBtn() {
   const [countdown, setCountdown] = useState(null);
@@ -15,7 +18,8 @@ export default function SmuGameStartBtn() {
   const gameIdx = useSelector((state) => state.game);
   const levelList = useSelector((state) => state.level);
   const hintList = useSelector((state) => state.hints);
-
+  const es = effectSound(countdownSound, 1);
+  
   function convertTo3x3Grid(data) {
     const grid = [];
     for (let i = 0; i < 3; i++) {

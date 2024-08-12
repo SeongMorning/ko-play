@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 import styles from "./RankGameStartBtn.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
+import effectSound from "@/app/utils/effectSound";
+
+const countdownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/beepSound.wav";
 
 export default function RankGameStartBtn() {
   const [countdown, setCountdown] = useState(null);
@@ -10,6 +13,7 @@ export default function RankGameStartBtn() {
   const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
   const levelList = useSelector((state) => state.level);
+  const es = effectSound(countdownSound, 1);
 
   useEffect(() => {
     let timer;
@@ -25,6 +29,9 @@ export default function RankGameStartBtn() {
   }, [countdown]);
 
   const handleStartClick = () => {
+    es.play();
+    es.play();
+    es.play();
     setCountdown(3);
   };
 
