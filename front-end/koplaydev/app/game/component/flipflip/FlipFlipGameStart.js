@@ -13,11 +13,21 @@ import CardFrontText from "./CardFrontText";
 import FlipFlipGameJellyBtn from "./FlipFlipGameJellyBtn";
 import YellowBox from "@/app/component/boxes/YellowBox";
 import useSound from "@/app/utils/useSound";
+import effectSound from '@/app/utils/effectSound'
 
 const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
+const cardFlipSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/cardFlipSound.wav';
+const correctSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/correctSound.wav";
+const incorrectSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/incorrectSound.mp3";
+const modalSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/gameResultModalSound.wav";
 
 export default function FlipFlipGameStart() {
-  useSound(gameBGM, 1, 0, 1);
+  useSound(gameBGM, 0.8, 0, 1);
+  const cardFlipEs = effectSound(cardFlipSound, 1);
+  const correctEs = effectSound(correctSound, 1);
+  const incorrectEs = effectSound(incorrectSound, 1);
+  const modalEs = effectSound(modalSound, 1);
+
   const [flippedIndices, setFlippedIndices] = useState([]); // 뒤집힌 카드 인덱스를 저장
   const [cardDeck, setCardDeck] = useState([]); // 카드 덱 (게임 보드)을 저장
   const [matchedCards, setMatchedCards] = useState(new Set()); // 매칭된 카드들을 저장
@@ -196,10 +206,10 @@ export default function FlipFlipGameStart() {
           setCardStates((prev) =>
             prev.map((state, i) =>
               i === firstIdx || i === secondIdx
-                ? { ...state, isMatch: true }
-                : state
-            )
-          );
+          ? { ...state, isMatch: true }
+          : state
+        )
+      );
           setMatchedCards((prev) => {
             const newMatchedCards = new Set(prev).add(firstCard.wordIdx);
             const newCorrectCount = newMatchedCards.size;
@@ -207,6 +217,7 @@ export default function FlipFlipGameStart() {
             setCorrect(newCorrectCount);
             setIncorrect(newIncorrectCount);
             dispatch(changeCorrectIdx(newCorrectCount));
+            correctEs.play();
             if (newCorrectCount === boardSize / 2) {
               stopTimer(); // 모든 카드가 매칭되면 타이머 중지
               const score = setScore();
@@ -221,6 +232,7 @@ export default function FlipFlipGameStart() {
       } else {
         setTimeout(() => {
           setFlippedIndices([]); // 뒤집힌 카드 배열 초기화
+          incorrectEs.play();
           setCardStates((prev) =>
             prev.map((state, i) =>
               i === firstIdx || i === secondIdx
@@ -265,6 +277,7 @@ export default function FlipFlipGameStart() {
 
   // 카드 클릭 처리 함수
   const handleCardClick = (index) => {
+    cardFlipEs.play();
     if (
       canFlip &&
       !flippedIndices.includes(index) &&
