@@ -7,10 +7,14 @@ import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { changeGraphLevel } from "@/redux/slices/graphLevel";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function StartButton(props) {
   const router = useRouter();
   const dispatch = useDispatch();
+  const es = effectSound(buttonSound, 1);
 
   useEffect(()=>
   {
@@ -18,6 +22,7 @@ export default function StartButton(props) {
   },[])
 
   const handleClick = () => {
+    es.play();
     if(props.text=='비회원'){
       dispatch(changeModalIdx(6));
     }else{

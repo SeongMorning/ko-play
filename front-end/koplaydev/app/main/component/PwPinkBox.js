@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function PwPinkBox(props) {
     const userInfo = useSelector((state) => state.studentInfo);

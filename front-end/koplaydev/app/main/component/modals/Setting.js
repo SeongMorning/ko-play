@@ -12,8 +12,9 @@ import PwPinkBox from "../PwPinkBox";
 import {motion} from 'framer-motion';
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
-const mouseClickSound = '/audios/mouseClickSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
+const pencilSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound.wav';
 
 
 export default function Setting() {
@@ -21,6 +22,7 @@ export default function Setting() {
   const dispatch = useDispatch();
   const buttonEs = effectSound(buttonSound, 1);
   const mouseClickEs = effectSound(mouseClickSound, 1);
+  const pencilEs = effectSound(pencilSound, 1);
 
   // 상태 변수 선언
   const [myNickname, setMyNickname] = useState(userInfo.nickname);
@@ -175,7 +177,8 @@ export default function Setting() {
                     className={styles.modifyImg}
                     src="/modify.png"
                     onClick={() => {
-                      nickNameHandleClick()
+                      pencilEs.play();
+                      nickNameHandleClick();
                     }}
                   />
                 </WhiteBox>
@@ -188,7 +191,10 @@ export default function Setting() {
                   <img
                     className={styles.modifyImg}
                     src="/modify.png"
-                    onClick={() => schoolNameHandleClick()}
+                    onClick={() => {
+                      pencilEs.play();
+                      schoolNameHandleClick();
+                    }}
                   />
                 </WhiteBox>
                 <PwPinkBox
