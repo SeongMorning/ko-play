@@ -5,7 +5,7 @@ import styles from "./UserVideo.module.scss";
 const UserVideo = ({ streamManager }) => {
   return (
     <div>
-      {streamManager ? <OpenViduVideo streamManager={streamManager} /> : null}
+      {streamManager ? <OpenViduVideo streamManager={streamManager} avatarPath="/jamini-mask.jpg" /> : null}
     </div>
   );
 };
