@@ -195,7 +195,6 @@ const GameSelect = (props) => {
                         color: "rgba(154, 205, 50, 1)",
                       }}
                       onClick={() => {
-                        buttonEs.play();
                         dispatch(changeGameIdx(data.gameIdx))
                         router.push(`/game/${data.gameIdx}`);
                       }}
