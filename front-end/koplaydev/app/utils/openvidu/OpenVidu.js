@@ -183,7 +183,7 @@ export default function OpenViduItem() {
       {session && (
         <>
           {publisher && (
-            <div className={styles.publish}>
+            <div className={styles.publish}> 
               <UserVideo streamManager={publisher} />
             </div>
           )}
