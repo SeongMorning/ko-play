@@ -23,7 +23,7 @@ export default function FlipFlipGameEnd() {
   const beforeExp = userInfo.exp % 100;
   const afterExp = beforeExp + exp;
 
-  const [level, setLevel] = useState(Math.floor(userInfo.exp / 100));
+  const [level, setLevel] = useState(Math.floor(userInfo.exp / 100) + 1);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
@@ -89,7 +89,7 @@ export default function FlipFlipGameEnd() {
     let foreign = "wordKor";
     let modelname = "ko-KR-Neural2-C";
 
-    if (userInfo.nation === "Thailand") {
+    if (userInfo.nation === "Tailand") {
       nation = "th-TH";
       foreign = "wordThailand";
       modelname = "th-TH-Neural2-C";
