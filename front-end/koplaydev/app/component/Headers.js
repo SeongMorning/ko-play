@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import effectSound from '@/app/utils/effectSound'
 
-const mouseClickSound = '/audios/mouseClickSound.mp3';
+const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 export default function Headers() {
   const userInfo = useSelector((state) => state.studentInfo);

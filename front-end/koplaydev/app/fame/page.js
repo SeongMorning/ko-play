@@ -6,11 +6,11 @@ import BackScoreBtn from "../component/buttons/BackScoreBtn";
 import Podium from "./component/Podium";
 import useSound from "@/app/utils/useSound";
 
-const fameBGM = '/audios/fameBGM.wav';
+const fanfareBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/fanfareBGM.wav';
 
 export default async function fame() {
 
-  useSound(fameBGM, 0.8, 2000);
+  useSound(fanfareBGM, 0.8, 0);
 
   return (
     <>

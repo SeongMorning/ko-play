@@ -3,14 +3,20 @@
 import { useRouter } from "next/navigation";
 import styles from "./JellyBtn.module.scss";
 import { motion } from "framer-motion";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function JellyBtn(props) {
   const router = useRouter();
+  const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
       className={styles.JellyBtn}
       onClick={() => {
+        es.play();
+        
         if (props.onClick) {
           props.onClick();
         }
