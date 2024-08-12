@@ -13,5 +13,7 @@ public interface GalleryRepository extends JpaRepository<Gallery, Long> {
     List<Gallery> findAllByStudentAndIsDeletedFalse(Student student);
 
     Optional<Gallery> findByGalleryIdxAndStudentAndIsDeletedFalse(Long galleryIdx, Student student);
+
+    Optional<Gallery> findBySnapshot(String imageAddress);
 }
 
