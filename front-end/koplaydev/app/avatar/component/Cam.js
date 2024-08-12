@@ -7,26 +7,20 @@ import { useSelector } from "react-redux";
 
 // props : left, top, width
 const Cam = forwardRef((props, ref) => {
-  const isRank = useSelector((state) => state.isRank);
-  console.log(isRank);
   return (
-    <>
-      {isRank ? null : 
-        <div ref={ref}>
-          <Webcam
-            className={styles.webcam}
-            style={{
-              left: props.left,
-              top: props.top,
-              width: props.width,
-              height: props.height,
-              right: props.right,
-              bottom: props.bottom,
-            }}
-          />
-        </div>
-      }
-    </>
+    <div ref={ref}>
+      <Webcam
+        className={styles.webcam}
+        style={{
+          left: props.left,
+          top: props.top,
+          width: props.width,
+          height: props.height,
+          right: props.right,
+          bottom: props.bottom,
+        }}
+      />
+    </div>
   );
 });
 

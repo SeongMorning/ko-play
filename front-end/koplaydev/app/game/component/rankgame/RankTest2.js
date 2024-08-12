@@ -71,9 +71,9 @@ export default function RankTest2() {
     }
   };
 
-  const handleSaveImage = () => {
+  const handleSaveImage = async () => {
     //axios 호출
-   const res = pictureAxios(capturedImage);
+   const res = await pictureAxios(capturedImage);
    if(res){
     console.log(res);
    }
@@ -168,7 +168,6 @@ export default function RankTest2() {
         dispatch(
           changeWrong(wordObjectList.filter((data) => data.state === -1))
         );
-        dispatch(changeIsRank(false))
         setCorrect(a);
         setIncorrect(b);
         client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
@@ -345,7 +344,7 @@ export default function RankTest2() {
             animate={{
               display: "block",
               translateY: "118vh",
-              transition: { duration: 1, delay: index * 0.2 },
+              transition: { duration: 3, delay: index * 1 },
             }}
             onViewportEnter={() => changeResultList2(index)}
             onViewportLeave={() => changeResultList(index)}
