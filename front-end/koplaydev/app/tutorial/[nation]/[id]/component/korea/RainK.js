@@ -8,7 +8,6 @@ export default function RainK() {
   const router = useRouter();
 
   const tutorialImages = [
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/korea/commonK1.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/korea/commonK2.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/korea/commonK3.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/korea/wordrain/rainK1.png",
