@@ -266,14 +266,14 @@ video {
 }
 #main-video {
     position: relative;
-    width: 100%;
-    height: auto;
+    width: 70%;
+    height: 30%;
 }
 
-#openvidu-video {
-    width: 100%;
-    height: auto;
-}
+/* #openvidu-video {
+    width: 100px;
+
+} */
 
 
 

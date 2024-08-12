@@ -1404,3 +1404,5 @@ var positionBufferData = [
   170.6381378173828,
   9.381414413452148
 ];
+
+export {positionBufferData};
