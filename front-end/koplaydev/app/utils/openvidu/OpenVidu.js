@@ -128,7 +128,8 @@ export default function OpenViduItem() {
       `${APPLICATION_SERVER_URL}api/sessions`,
       { customSessionId: sessionId },
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Authorization": "Basic " + btoa("OPENVIDUAPP:koplay"),
+          "Content-Type": "application/json" },
       }
     );
     return response.data;
@@ -139,7 +140,8 @@ export default function OpenViduItem() {
       `${APPLICATION_SERVER_URL}api/sessions/${sessionId}/connections`,
       {},
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Authorization": "Basic " + btoa("OPENVIDUAPP:koplay"),
+          "Content-Type": "application/json" },
       }
     );
     return response.data;
