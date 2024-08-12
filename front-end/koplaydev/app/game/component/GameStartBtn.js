@@ -1,13 +1,17 @@
 "use client";
+import "regenerator-runtime/runtime";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 import { useState, useEffect } from "react";
 import styles from "./GameStartBtn.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import gameWordAxios from "@/app/axios/gameWordAxios";
 import { changeGameWord } from "@/redux/slices/gameWordSlice";
-import effectSound from '@/app/utils/effectSound'
+import effectSound from "@/app/utils/effectSound";
 
-const countdownSound = '/audios/countdownSound.mp3';
+const countdownSound = "/audios/countdownSound.mp3";
 
 export default function GameStartBtn() {
   const [countdown, setCountdown] = useState(null);
@@ -16,6 +20,12 @@ export default function GameStartBtn() {
   const gameIdx = useSelector((state) => state.game);
   const levelList = useSelector((state) => state.level);
   const es = effectSound(countdownSound, 1);
+
+  useEffect(() => {
+    SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
+    handleStartClick();
+    
+  }, []);
 
   useEffect(() => {
     const fetchGameWord = async () => {
@@ -59,11 +69,11 @@ export default function GameStartBtn() {
   }, [countdown]);
 
   const handleStartClick = () => {
-    setCountdown(3);
+    setCountdown(5);
   };
 
   return (
-    <div className={styles.GameStartBtn} onClick={handleStartClick}>
+    <div className={styles.GameStartBtn}>
       {!gameStarted ? (
         <>
           {countdown === null ? (
