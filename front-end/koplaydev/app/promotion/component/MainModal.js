@@ -3,7 +3,7 @@
 import styles from "./MainModal.module.scss";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import NonLoginGame from "../modal/NonLoginGame"
+import NonLoginGame from "../modal/NonLoginGame";
 
 export default function MainModal() {
   const modalNum = useSelector((state) => state.modal);
@@ -21,6 +21,7 @@ export default function MainModal() {
       className={`${styles.MainModal} ${
         isopened === "modalOpen" ? styles.modalOpen : ""
       }`}
+      style={{ display: isopened ? "flex" : "none" }}
     >
       <NonLoginGame />
     </div>
