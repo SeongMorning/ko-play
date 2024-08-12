@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 import styles from "./OpenVidu.module.scss";
 
 const APPLICATION_SERVER_URL =
-  process.env.NODE_ENV === "production" ? "" : "https://demos.openvidu.io/";
+  process.env.NODE_ENV === "production" ? "https://i11b302.p.ssafy.io/openvidu/" : "https://demos.openvidu.io/";
 
 export default function OpenViduItem() {
   //   const [mySessionId, setMySessionId] = useState("");
