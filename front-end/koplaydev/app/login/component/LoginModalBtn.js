@@ -7,11 +7,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { useRouter } from "next/navigation";
 import logoutAxios from "@/app/axios/logoutAxios";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function LoginModalBtn(props) {
   const userInfo = useSelector((state) => state.studentInfo);
   const dispatch = useDispatch();
   const router = useRouter();
+  const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
@@ -30,6 +34,7 @@ export default function LoginModalBtn(props) {
         },
       }}
       onClick={() => {
+        es.play();
         if(props.bg === "#ffb703"){
           props.setLoginModal(0);
         }else{

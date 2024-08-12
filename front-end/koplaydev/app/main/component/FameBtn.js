@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function FameBtn() {
   const [scope, animate] = useAnimate();

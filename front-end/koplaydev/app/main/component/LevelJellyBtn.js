@@ -7,7 +7,7 @@ import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/s
 import { changeGraphLevel } from "@/redux/slices/graphLevel";
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function LevelJellyBtn(props) {
   const dispatch = useDispatch();
