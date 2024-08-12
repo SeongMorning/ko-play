@@ -11,7 +11,7 @@ import gameWordAxios from "@/app/axios/gameWordAxios";
 import { changeGameWord } from "@/redux/slices/gameWordSlice";
 import effectSound from "@/app/utils/effectSound";
 
-const countdownSound = "/audios/countdownSound.mp3";
+const countdownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/beepSound.wav";
 
 export default function GameStartBtn() {
   const [countdown, setCountdown] = useState(null);
@@ -20,7 +20,7 @@ export default function GameStartBtn() {
   const gameIdx = useSelector((state) => state.game);
   const levelList = useSelector((state) => state.level);
   const es = effectSound(countdownSound, 1);
-
+  
   useEffect(() => {
     SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
     handleStartClick();
@@ -69,6 +69,7 @@ export default function GameStartBtn() {
   }, [countdown]);
 
   const handleStartClick = () => {
+    // es.play();
     setCountdown(5);
   };
 
