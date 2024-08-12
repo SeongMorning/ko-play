@@ -26,7 +26,7 @@ export default function StartButton(props) {
     if(props.text=='비회원'){
       dispatch(changeModalIdx(6));
     }else{
-      router.push("/login"); // 로그인 페이지로 라우팅
+      router.replace("/login"); // 로그인 페이지로 라우팅
     }
   };
   return (
