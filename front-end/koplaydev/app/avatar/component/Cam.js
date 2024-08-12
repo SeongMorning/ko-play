@@ -8,9 +8,10 @@ import { useSelector } from "react-redux";
 // props : left, top, width
 const Cam = forwardRef((props, ref) => {
   const isRank = useSelector((state) => state.isRank);
+  console.log(isRank);
   return (
     <>
-      {isRank ? null : (
+      {isRank ? null : 
         <div ref={ref}>
           <Webcam
             className={styles.webcam}
@@ -24,7 +25,7 @@ const Cam = forwardRef((props, ref) => {
             }}
           />
         </div>
-      )}
+      }
     </>
   );
 });

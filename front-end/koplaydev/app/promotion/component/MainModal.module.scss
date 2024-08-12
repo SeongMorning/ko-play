@@ -1,19 +1,19 @@
-.MainModal{
-    position : absolute;
-    top : 5%;
-    width: 100%;
-    height : 100%;
-    display : flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 100;
-    visibility: hidden;
-    opacity : 0;
-    transition : all 0.7s linear;
+.MainModal {
+  position: absolute;
+  top: 5%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.7s linear;
 }
 
-.modalOpen{
-    visibility: visible;
-    opacity : 1;
-    top: 0%;
+.modalOpen {
+  visibility: visible;
+  opacity: 1;
+  top: 0%;
 }
