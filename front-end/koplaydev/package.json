@@ -12,6 +12,8 @@
     "@ionic-native/screen-orientation": "^5.36.0",
     "@reduxjs/toolkit": "^1.9.7",
     "@stomp/stompjs": "^7.0.0",
+    "@tensorflow-models/facemesh": "^0.0.5",
+    "@tensorflow/tfjs": "^4.20.0",
     "axios": "^1.7.3",
     "chart.js": "^4.4.3",
     "cordova-plugin-screen-orientation": "^3.0.4",
@@ -36,6 +38,7 @@
     "socket.io-client": "^4.7.5",
     "sockjs-client": "^1.6.1",
     "styled-components": "^6.1.12",
-    "supports-color": "^8.1.1"
+    "supports-color": "^8.1.1",
+    "three": "^0.167.1"
   }
 }

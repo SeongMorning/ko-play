@@ -13,7 +13,6 @@ async function fetchData() {
 
 export default async function Home() {
   await fetchData(); // 데이터 패칭
-
   return (
     <>
       <main className={styles.main}>
