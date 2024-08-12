@@ -42,7 +42,7 @@ export default function WordRainEnd() {
         correctCnt,
         `${isRank ? 20 : 10}`,
         gameList[0],
-        exp,
+        exp
       );
     };
     postGameResult();
@@ -79,7 +79,7 @@ export default function WordRainEnd() {
     let foreign = "wordKor";
     let modelname = "ko-KR-Neural2-C";
 
-    if (userInfo.nation === "Thailand") {
+    if (userInfo.nation === "Tailand") {
       nation = "th-TH";
       foreign = "wordThailand";
       modelname = "th-TH-Neural2-C";
