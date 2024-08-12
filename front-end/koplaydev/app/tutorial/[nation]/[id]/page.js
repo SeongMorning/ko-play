@@ -1,3 +1,5 @@
+"use client"
+
 import FlipC from "./component/china/FlipC";
 import RainC from "./component/china/RainC";
 import SmuC from "./component/china/SmuC";
@@ -10,8 +12,14 @@ import SmuT from "./component/thailand/SmuT";
 import FlipV from "./component/vietnam/FlipV";
 import RainV from "./component/vietnam/RainV";
 import SmuV from "./component/vietnam/SmuV";
+import useSound from "@/app/utils/useSound";
+
+const tutorialBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/tutorialBGM.mp3';
 
 export default async function game({ params }) {
+
+  useSound(tutorialBGM, 1, 0, 0);
+
   return <TutorialSelector nationName={params.nation} gameidx={params.id} />;
 }
 

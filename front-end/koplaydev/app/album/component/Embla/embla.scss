@@ -1,7 +1,7 @@
 .embla {
   max-width: 70vw;
   margin: auto;
-  --slide-height: 24vw;
+  --slide-height: 30vw;
   --slide-spacing: 1vw;
   --slide-size: 55%;
   z-index: 20;
@@ -23,6 +23,9 @@
   min-width: 0;
   padding-left: 1vh;
   z-index: 20;
+  display: flex;
+  justify-content: center; /* 슬라이드 내의 이미지를 가운데 정렬 */
+  align-items: center;
 }
 .embla__slide__number {
   box-shadow: inset 0 0 0 0.2rem var(--detail-medium-contrast);
@@ -34,6 +37,7 @@
   justify-content: center;
   height: var(--slide-height);
   user-select: none;
+  backface-visibility: hidden;
 }
 .embla .embla__slide__img {
   width: 100%;
