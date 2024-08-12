@@ -28,9 +28,7 @@ export default function SmuGameStartBtn() {
       const data = await gameWordAxios(
         gameIdx,
         1,
-        [
-          10,4,9
-        ][gameIdx - 1]
+        9
       );
       if (data) {
         const gridData = convertTo3x3Grid(data);

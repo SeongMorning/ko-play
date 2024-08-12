@@ -60,6 +60,7 @@ export default function FlipFlipGameStart() {
     setWordObjectList(wordList);
   }, [wordList]);
 
+
   const boardSize = wordObjectList.length * 2;
 
   // 특정 범위 내에서 랜덤 숫자를 생성
@@ -351,13 +352,25 @@ export default function FlipFlipGameStart() {
                 <span className={styles.incorrect}>
                   오답 개수 : {incorrect}
                 </span>
-                <span className={styles.comment}>모든 단어를 맞혔습니다.</span>
+                <span className={styles.retry}>
+                더욱 다양한 게임은 로그인 후 가능합니다.
+                </span>
+                <span className={styles.addExp}>
+                로그인 하시겠습니까?
+                </span>
                 <div className={styles.buttons}>
-                  <div className={styles.check}>
+                  <div className={styles.Yes}>
+                    <FlipFlipGameJellyBtn
+                      bg="#FFD6E0"
+                      shadow="#E07A93"
+                      text="예"
+                    />
+                  </div>
+                  <div className={styles.No}>
                     <FlipFlipGameJellyBtn
                       bg="#A2D2FF"
                       shadow="#4DA3F2"
-                      text="확인"
+                      text="아니요"
                     />
                   </div>
                 </div>
@@ -385,10 +398,10 @@ export default function FlipFlipGameStart() {
                   오답 개수 : {incorrect}
                 </span>
                 <span className={styles.retry}>
-                  틀린 단어를 다시 학습하시겠습니까?
+                더욱 다양한 게임은 로그인 후 가능합니다.
                 </span>
                 <span className={styles.addExp}>
-                  학습 시 추가 경험치가 있습니다.
+                로그인 하시겠습니까?
                 </span>
                 <div className={styles.buttons}>
                   <div className={styles.Yes}>

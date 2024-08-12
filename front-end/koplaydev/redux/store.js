@@ -54,4 +54,12 @@ const rootReducer = combineReducers({
   isRank : isRank.reducer,
 });
 
-export default rootReducer;
+// 전체 상태를 초기화하는 액션을 처리합니다.
+const appReducer = (state, action) => {
+  if (action.type === 'RESET_ALL') {
+    state = undefined; // 상태를 초기화합니다.
+  }
+  return rootReducer(state, action);
+};
+
+export default appReducer;
