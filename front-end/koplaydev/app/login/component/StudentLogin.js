@@ -7,7 +7,7 @@ import YellowBox from "@/app/component/boxes/YellowBox";
 import LoginModalBtn from "./LoginModalBtn";
 import {motion} from 'framer-motion';
 import student from "@/app/axios/studentInfo";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import effectSound from '@/app/utils/effectSound'
@@ -15,6 +15,8 @@ import effectSound from '@/app/utils/effectSound'
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function StudentLogin() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const router = useRouter();
   const dispatch = useDispatch();
   // 각각의 입력 필드에 대한 useRef 선언
@@ -67,20 +69,20 @@ export default function StudentLogin() {
         >
           <YellowBox width="30" height="30">
             <div className={styles.textBox}>
-              <span className={styles.text1}>로그인 실패</span>
+              <span className={styles.text1}>{translationWords.loginFail}</span>
               <span className={styles.text2}>
-                아이디 및 비밀번호를 확인하세요.
+                {translationWords.loginFailInfo}
               </span>
               <div className={styles.btn}>
                 <LoginModalBtn
                   width={"30"}
                   height={"50"}
-                  bg="#ffb703"
+                  bg="#ffb703"  
                   shadow="#fb8500"
                   loginModal={loginModal}
                   setLoginModal={setLoginModal}
                 >
-                  <span>확 인</span>
+                  <span>{translationWords.check}</span>
                 </LoginModalBtn>
               </div>
             </div>
@@ -102,9 +104,9 @@ export default function StudentLogin() {
         >
           <YellowBox width="30" height="30">
             <div className={styles.textBox}>
-              <span className={styles.text3}>로그인 성공</span>
+              <span className={styles.text3}>{translationWords.loginSuccess}</span>
               <span className={styles.text2}>
-                KoPlay에 오신 것을 환영합니다.
+                {translationWords.loginSuccessInfo}
               </span>
               <div className={styles.btn}>
                 <LoginModalBtn
@@ -115,7 +117,7 @@ export default function StudentLogin() {
                   loginModal={loginModal}
                   setLoginModal={setLoginModal}
                 >
-                  <span>확 인</span>
+                  <span>{translationWords.check}</span>
                 </LoginModalBtn>
               </div>
             </div>
@@ -130,7 +132,7 @@ export default function StudentLogin() {
               type="text"
               id="username" // 고유한 ID 설정
               ref={idRef}
-              placeholder="아이디를 입력하세요"
+              placeholder={translationWords.idPlaceholder}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   handleClick();
@@ -142,7 +144,7 @@ export default function StudentLogin() {
               type="password"
               id="password" // 고유한 ID 설정
               ref={passwordRef}
-              placeholder="비밀번호를 입력하세요"
+              placeholder={translationWords.pwPlaceholder}
               onKeyDown={(event) => {
                 if (event.key === "Enter") {
                   handleClick();
@@ -152,11 +154,11 @@ export default function StudentLogin() {
             />
           </div>
           <button className={styles.loginBtn} onClick={handleClick}>
-            로그인
+            {translationWords.login}
           </button>
         </div>
         <div className={styles.infoText}>
-          아이디와 비밀번호는 부모님 계정에서 발급 가능합니다.
+        {translationWords.loginInfo}
         </div>
       </div>
     </>

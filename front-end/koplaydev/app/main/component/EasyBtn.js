@@ -11,6 +11,8 @@ import effectSound from '@/app/utils/effectSound'
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function EasyBtn(props) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
@@ -59,7 +61,7 @@ export default function EasyBtn(props) {
             color: `${props.shadow}`,
           }}
         >
-          쉬움
+          {translationWords.easy}
         </span>
       </motion.div>
       <svg

@@ -7,16 +7,26 @@ import { changeModalIdx } from "@/redux/slices/modalSlice";
 import Cam from "@/app/avatar/component/Cam";
 import MicTest from "../MicTest";
 import effectSound from "@/app/utils/effectSound";
+import { useEffect } from "react";
+
 
 let testList = ["화면 테스트", "마이크 테스트", "듣기 테스트"];
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function Test() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const testIdx = useSelector((state) => state.test);
   const dispatch = useDispatch();
 
   const es = effectSound(buttonSound, 1);
+
+  useEffect(() => {
+    testList[0] = translationWords.screenTest;
+    testList[1] = translationWords.micTest;
+    testList[2] = translationWords.audioTest;
+  }, [translationWords]);
 
   return (
     <YellowBox width={"60"} height={"80"}>

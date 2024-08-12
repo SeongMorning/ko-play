@@ -1,6 +1,11 @@
+"use client"
+
 import styles from "./BtnContainer.module.scss";
 import BlueBtn from "./BlueBtn";
+import { useSelector } from "react-redux";
 export default function BtnContainer() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   return (
     <>
       <BlueBtn
@@ -9,7 +14,7 @@ export default function BtnContainer() {
         top="70vh"
         left="55vw"
         radius="10vw"
-        text="테스트"
+        text={translationWords.avatarTest}
       />
       <BlueBtn
         width="10vw"
@@ -17,7 +22,7 @@ export default function BtnContainer() {
         top="80vh"
         left="55vw"
         radius="10vw"
-        text="모두 벗기"
+        text={translationWords.nude}
       />
       <BlueBtn
         width="17vh"
@@ -25,7 +30,7 @@ export default function BtnContainer() {
         top="70vh"
         left="66vw"
         radius="2vw"
-        text="적용하기"
+        text={translationWords.apply}
       />
     </>
   );

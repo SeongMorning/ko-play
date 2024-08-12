@@ -13,7 +13,17 @@ import ExpBar from "./ExpBar";
 let myPageList = ["최근 전적", "정답률", "경험치 변화", "레이팅"];
 
 export default function MyPageInfo() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const myPageIdx = useSelector((state) => state.myPage);
+
+  useEffect(() => {
+    myPageList[0] = translationWords.recent;
+    myPageList[1] = translationWords.correctRatio;
+    myPageList[2] = translationWords.expDiff;
+    myPageList[3] = translationWords.rating;
+  }, [translationWords,dispatch]); 
+
   return (
     <div className={styles.MyPageInfo}>
       <div className={styles.MyPagePink}>

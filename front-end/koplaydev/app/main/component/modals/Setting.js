@@ -27,6 +27,8 @@ const pencilSound2 =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound2.wav";
 
 export default function Setting() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const userInfo = useSelector((state) => state.studentInfo);
   const dispatch = useDispatch();
   const buttonEs = effectSound(buttonSound, 1);
@@ -91,11 +93,11 @@ export default function Setting() {
       {isPwChange ? (
         <YellowBox width="40" height="40">
           <div className={styles.pwChangeModal}>
-            <span className={styles.text}>비밀번호 변경 성공!!!</span>
+            <span className={styles.text}>{translationWords.passwordChangeComplete}</span>
             <span className={styles.text2}>
-              변경한 비밀번호는 다음 로그인부터 적용됩니다.
+              {translationWords.changePasswordNotification}
             </span>
-            <span className={styles.text3}>비밀번호 분실에 유의하세요.</span>
+            <span className={styles.text3}>{translationWords.warning}</span>
             <div className={styles.OKBox}>
               <PwPinkBox
                 setPwFlag={setPwFlag}
@@ -108,7 +110,7 @@ export default function Setting() {
                 setIsPwChange={setIsPwChange}
                 isPwChange={isPwChange}
               >
-                <span>확 인</span>
+                <span>{translationWords.check}</span>
               </PwPinkBox>
             </div>
           </div>
@@ -151,14 +153,14 @@ export default function Setting() {
               <>
                 <WhiteBox width="60" height="10">
                   <input
-                    placeholder="변경할 비밀번호(10글자 이상)"
+                    placeholder={translationWords.changePassword}
                     value={afterPw}
                     onChange={(e) => setAfterPw(e.target.value)}
                   />
                 </WhiteBox>
                 <WhiteBox width="60" height="10">
                   <input
-                    placeholder="비밀번호 확인"
+                    placeholder={translationWords.checkpassword}
                     value={afterPwOK}
                     onChange={(e) => setAfterPwOK(e.target.value)}
                   />
@@ -176,7 +178,7 @@ export default function Setting() {
                     setIsPwChange={setIsPwChange}
                     isPwChange={isPwChange}
                   >
-                    <span>변 경 하 기</span>
+                    <span>{translationWords.doChange}</span>
                   </PwPinkBox>
                 ) : (
                   <>
@@ -193,7 +195,7 @@ export default function Setting() {
                       setIsPwChange={setIsPwChange}
                       isPwChange={isPwChange}
                     >
-                      <span>취 소</span>
+                      <span>{translationWords.cancel}</span>
                     </PwPinkBox>
                     <span
                       style={{
@@ -202,7 +204,7 @@ export default function Setting() {
                         fontSize: "calc((3vw + 2vh)/2)",
                       }}
                     >
-                      비밀번호를 확인하세요.
+                      {translationWords.checkPasswordPleese}
                     </span>
                   </>
                 )}
@@ -213,7 +215,7 @@ export default function Setting() {
                   <input
                     value={myNickname}
                     onChange={(e) => setMyNickname(e.target.value)}
-                    placeholder="닉네임"
+                    placeholder={translationWords.nickname}
                   />
                   <img
                     className={styles.modifyImg}
@@ -228,7 +230,7 @@ export default function Setting() {
                   <input
                     value={mySchoolName}
                     onChange={(e) => setMySchoolName(e.target.value)}
-                    placeholder="학교 이름"
+                    placeholder={translationWords.schoolname}
                   />
                   <img
                     className={styles.modifyImg}
@@ -252,7 +254,7 @@ export default function Setting() {
                   setIsPwChange={setIsPwChange}
                   isPwChange={isPwChange}
                 >
-                  <span>비밀번호 재설정</span>
+                  <span>{translationWords.doChangePassword}</span>
                 </PwPinkBox>
               </>
             )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./MainIcons.module.scss";
 import { motion } from "framer-motion";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
@@ -12,6 +12,8 @@ const planetButtonSound3 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audi
 
 
 export default function MainIcons() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const dispatch = useDispatch();
   const es = effectSound(planetButtonSound3, 0.5);
 
@@ -43,7 +45,7 @@ export default function MainIcons() {
             rotate: "10deg",
           }}
         />
-        <div className={styles.normalGameText}>일반게임</div>
+        <div className={styles.normalGameText}>{translationWords.normalGame}</div>
       </div>
       <div className={styles.rankGameContainer}>
         <motion.img
@@ -60,9 +62,7 @@ export default function MainIcons() {
           }}
         />
         <div className={styles.rankGameText}>
-          랭크
-          <br />
-          게임
+        {translationWords.rankGame}
         </div>
       </div>
       <motion.img
