@@ -14,12 +14,14 @@ import TextToSpeech from "../TextToSpeech";
 import effectSound from '@/app/utils/effectSound'
 import useEffectSound from '@/app/utils/useEffectSound'
 
-const awardSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound2.wav';
+const rewardSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound.wav";
+const rewardSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound2.wav';
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function SmuGameEnd() {
-  useEffectSound(awardSound, 1, 0, 1);
+  useEffectSound(rewardSound2, 0.7, 0, 1);
   const es = effectSound(buttonSound, 1);
+
   const userInfo = useSelector((state) => state.studentInfo);
   const wrongList = useSelector((state) => state.wrong);
   const Incorrect = useSelector((state) => state.incorrect);
