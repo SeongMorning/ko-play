@@ -5,17 +5,26 @@ import styles from "./Setting.module.scss";
 import WhiteBox from "@/app/component/boxes/WhiteBox";
 import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
-import { setSchoolName, setNickname, setProfileImg } from "@/redux/slices/studentInfoSlice";
-import { useEffect, useState } from "react";
+import {
+  setSchoolName,
+  setNickname,
+  setProfileImg,
+} from "@/redux/slices/studentInfoSlice";
+import { useEffect, useState, useRef } from "react";
 import modifyStudentInfo from "../../../axios/modifyStudentInfoAxios";
+import modifyStudentInfoImg from "../../../axios/modifyStudentInfoImgAxios";
 import PwPinkBox from "../PwPinkBox";
-import { motion } from 'framer-motion';
-import effectSound from '@/app/utils/effectSound'
+import { motion } from "framer-motion";
+import effectSound from "@/app/utils/effectSound";
 
-const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
-const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
-const pencilSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound.wav';
-const pencilSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound2.wav';
+const buttonSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3";
+const mouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
+const pencilSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound.wav";
+const pencilSound2 =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound2.wav";
 
 export default function Setting() {
   const userInfo = useSelector((state) => state.studentInfo);
@@ -31,17 +40,23 @@ export default function Setting() {
   const [afterPw, setAfterPw] = useState("");
   const [afterPwOK, setAfterPwOK] = useState("");
   const [isPwChange, setIsPwChange] = useState(false);
+  const [profileImg, setProfileImgState] = useState(userInfo.profileImg);
+  const fileInputRef = useRef("");
 
   // userInfo가 변경될 경우 상태 업데이트
   useEffect(() => {
     setMyNickname(userInfo.nickname);
     setMySchoolName(userInfo.schoolName);
+    setProfileImgState(userInfo.profileImg);
   }, [userInfo]);
 
   const nickNameHandleClick = async () => {
     dispatch(setNickname(myNickname));
 
-    const response = await modifyStudentInfo({ ...userInfo, nickname: myNickname });
+    const response = await modifyStudentInfo({
+      ...userInfo,
+      nickname: myNickname,
+    });
     if (response != null) {
       console.log("변경완료");
     }
@@ -49,7 +64,10 @@ export default function Setting() {
   const schoolNameHandleClick = async () => {
     dispatch(setSchoolName(mySchoolName));
 
-    const response = await modifyStudentInfo({ ...userInfo, schoolName: mySchoolName });
+    const response = await modifyStudentInfo({
+      ...userInfo,
+      schoolName: mySchoolName,
+    });
     if (response != null) {
       console.log("변경완료");
     }
@@ -60,19 +78,18 @@ export default function Setting() {
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
-    const imagePath = await modifyStudentProfileAxios(file);
+    const imagePath = await modifyStudentInfoImg(file);
 
     // 백엔드에서 반환된 URL을 프론트엔드의 기본 URL에 맞게 조정
-    setProfileImg(`${process.env.customKey}${imagePath}`);
+    const newImageUrl = `${process.env.customKey}/static${imagePath}`;
+    dispatch(setProfileImg(newImageUrl));
+    setProfileImgState(newImageUrl);
   };
-
 
   return (
     <>
       {isPwChange ? (
-        <YellowBox
-          width="40" height="40"
-        >
+        <YellowBox width="40" height="40">
           <div className={styles.pwChangeModal}>
             <span className={styles.text}>비밀번호 변경 성공!!!</span>
             <span className={styles.text2}>
@@ -110,18 +127,22 @@ export default function Setting() {
             <div className={styles.profileBox}>
               <img
                 className={styles.profileImg}
-                src={img}
+                src={`${process.env.customKey}/static${profileImg}`}
                 onError={(e) => {
                   e.target.src = "hehe.png";
                 }}
               />
               <div>
-                <img className={styles.profileSetting} src="/settingIcon2.png" onClick={changeImgClick} />
+                <img
+                  className={styles.profileSetting}
+                  src="/settingIcon2.png"
+                  onClick={changeImgClick}
+                />
                 <input
                   type="file"
                   accept="image/*"
                   ref={fileInputRef}
-                  style={{ display: 'none' }}
+                  style={{ display: "none" }}
                   onChange={handleImageChange}
                 />
               </div>

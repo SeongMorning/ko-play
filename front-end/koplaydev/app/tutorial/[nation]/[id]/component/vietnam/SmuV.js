@@ -8,7 +8,6 @@ export default function SmuV() {
   const router = useRouter();
 
   const tutorialImages = [
-    "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/vietnam/commonV1.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/vietnam/commonV2.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/vietnam/commonV3.png",
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/vietnam/smugogae/smuV1.png",
