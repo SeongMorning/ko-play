@@ -11,7 +11,7 @@ export default function ClickedPinkBtn(props) {
   const myPageIdx = useSelector((state) => state.myPage);
   const [scope, animation] = useAnimate()
   const es = effectSound(buttonSound, 1);
-
+  console.log(props.text)
   return (
     <>
       {props.idx !== myPageIdx ? (
