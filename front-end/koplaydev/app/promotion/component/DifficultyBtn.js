@@ -2,11 +2,17 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./DifficultyBtn.module.scss";
 import { motion } from "framer-motion";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function DifficultyBtn(props) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const dispatch = useDispatch();
   const levelList = useSelector((state) => state.level);
   const gamePurposeIdx = useSelector((state) => state.gamePurpose)
+  const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
@@ -18,6 +24,8 @@ export default function DifficultyBtn(props) {
         },
       }}
       onClick={() => {
+        es.play();
+
         if (levelList[gamePurposeIdx - 1] !== 5) {
           if (gamePurposeIdx === 1) {
             console.log('레벨변경은 회원가입 후 가능합니다 ~ ');
@@ -52,8 +60,8 @@ export default function DifficultyBtn(props) {
             color: `${props.shadow}`,
           }}
         >
-          어려움
-        </span>
+          {translationWords.hard}
+          </span>
       </motion.div>
       <svg
         className={styles.DifficultyBtnBottom}

@@ -67,9 +67,11 @@ export default function NormalGame() {
         let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
         let readGame = data.filter((value) => value.gamePurposeIdx === 2);
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
-        let testGame = data.filter((value) => value.gamePurposeIdx === 4);
 
-        gameList = [[...speechGame, ...testGame], [...readGame], [...listenGame]];
+        gameList = [[...speechGame], [...readGame], [...listenGame]];
+        gameList[0][0].gameName = translationWords.wordRain;
+        gameList[1][0].gameName = translationWords.flipflip;
+        gameList[2][0].gameName = translationWords.smugogae;
       }
     };
     fetchGameList();
@@ -102,7 +104,7 @@ export default function NormalGame() {
             ></img>
           </div>
         </div>
-        <GameSelect idx={gamePurposeIdx} />
+        <GameSelect idx={gamePurposeIdx} gamestart = {translationWords.gamestart}/>
         {gamePurposeIdx === 0 ? null : (
           <motion.div
             className={styles.LevelJellyBtn}
@@ -210,7 +212,7 @@ const GameSelect = (props) => {
                         router.push(`/game/${data.gameIdx}`);
                       }}
                     >
-                      {/* {translationWords.gamestart} */}
+                      {props.gamestart}
                     </motion.div>
                   </div>
                 ))}
