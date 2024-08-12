@@ -6,13 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.Locale;
-@Controller
+import java.util.*;
+
+@RestController
 public class GlobalController {
     private static final Logger logger = LoggerFactory.getLogger(ParentController.class);
     private final MessageSource messageSource;
@@ -21,18 +19,28 @@ public class GlobalController {
     public GlobalController(MessageSource messageSource) {
         this.messageSource = messageSource;
     }
-    @RequestMapping(value = "/greeting", produces = "application/json; charset=UTF-8")
-//    @GetMapping("/greeting")
-    @ResponseBody
-    public String greeting(@RequestParam(name="lang", required=false) String lang) {
+
+    @GetMapping("/translations")
+    public Map<String, String> getAllTranslations(Locale locale) {
+//        Locale locales = new Locale("ko-KR");
+//        System.out.println(locales);
+//        System.out.println("로테일"+locale);
         // URL의 파라미터를 통해 로케일 설정
-        Locale locale = lang != null ? Locale.forLanguageTag(lang.replace("_", "-")) : Locale.getDefault();
         logger.info("locale : "+locale);
         // 로케일에 맞는 메시지 가져오기
-        String greetingMessage = messageSource.getMessage("greeting", null, locale);
-        logger.info("greetingMessage : "+greetingMessage);
-//        model.addAttribute("message", );
+        Map<String, String> translations = new HashMap<>();
+        // 메시지 파일의 모든 키를 가져옴
+        ResourceBundle bundle = ResourceBundle.getBundle("messages", locale);
+        Enumeration<String> keys = bundle.getKeys();
 
-        return greetingMessage;
+        // 각 키에 대해 해당하는 메시지를 Map에 넣음
+        while (keys.hasMoreElements()) {
+            String key = keys.nextElement();
+            String value = messageSource.getMessage(key, null, locale);
+            translations.put(key, value);
+        }
+
+        return translations;
+
     }
 }
