@@ -16,7 +16,7 @@ export default function MainMenu() {
         left={"20%"}
         top={"83%"}
         idx={1002}
-        imgSrc={"/MyPage2.png"}
+        imgSrc={"/Mypage2.png"}
         tooltip={"마이페이지"}
       />
       {/* 코스튬 */}
