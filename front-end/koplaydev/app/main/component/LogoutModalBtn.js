@@ -47,6 +47,7 @@ export default function LogoutModalBtn(props) {
           if (authToken == null) {
             throw error;
           }
+          dispatch({ type: 'RESET_ALL' });
           persistor.purge();
 
           const response = await logoutAxios();
