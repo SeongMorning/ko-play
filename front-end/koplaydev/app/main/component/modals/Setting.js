@@ -5,11 +5,11 @@ import styles from "./Setting.module.scss";
 import WhiteBox from "@/app/component/boxes/WhiteBox";
 import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
-import { setSchoolName, setNickname } from "@/redux/slices/studentInfoSlice";
+import { setSchoolName, setNickname, setProfileImg } from "@/redux/slices/studentInfoSlice";
 import { useEffect, useState } from "react";
 import modifyStudentInfo from "../../../axios/modifyStudentInfoAxios";
 import PwPinkBox from "../PwPinkBox";
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 import effectSound from '@/app/utils/effectSound'
 
 const buttonSound = '/audios/buttonSound.mp3';
@@ -39,7 +39,7 @@ export default function Setting() {
   const nickNameHandleClick = async () => {
     dispatch(setNickname(myNickname));
 
-    const response = await modifyStudentInfo({...userInfo, nickname : myNickname});
+    const response = await modifyStudentInfo({ ...userInfo, nickname: myNickname });
     if (response != null) {
       console.log("변경완료");
     }
@@ -47,17 +47,29 @@ export default function Setting() {
   const schoolNameHandleClick = async () => {
     dispatch(setSchoolName(mySchoolName));
 
-    const response = await modifyStudentInfo({...userInfo, schoolName : mySchoolName});
+    const response = await modifyStudentInfo({ ...userInfo, schoolName: mySchoolName });
     if (response != null) {
       console.log("변경완료");
     }
   };
+  const changeImgClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleImageChange = async (event) => {
+    const file = event.target.files[0];
+    const imagePath = await modifyStudentProfileAxios(file);
+
+    // 백엔드에서 반환된 URL을 프론트엔드의 기본 URL에 맞게 조정
+    setProfileImg(`${process.env.customKey}${imagePath}`);
+  };
+
 
   return (
     <>
       {isPwChange ? (
-        <YellowBox 
-        width="40" height="40"
+        <YellowBox
+          width="40" height="40"
         >
           <div className={styles.pwChangeModal}>
             <span className={styles.text}>비밀번호 변경 성공!!!</span>
@@ -96,12 +108,21 @@ export default function Setting() {
             <div className={styles.profileBox}>
               <img
                 className={styles.profileImg}
-                src={userInfo.profileImg || "/hehe.png"}
+                src={img}
                 onError={(e) => {
                   e.target.src = "hehe.png";
                 }}
               />
-              <img className={styles.profileSetting} src="/settingIcon2.png" />
+              <div>
+                <img className={styles.profileSetting} src="/settingIcon2.png" onClick={changeImgClick} />
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInputRef}
+                  style={{ display: 'none' }}
+                  onChange={handleImageChange}
+                />
+              </div>
             </div>
             {pwFlag ? (
               <>

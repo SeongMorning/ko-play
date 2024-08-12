@@ -11,11 +11,18 @@ import com.edu.koplay.service.facade.GameFacadeService;
 import com.edu.koplay.service.facade.StudentFacadeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -62,9 +69,62 @@ public class StudentController {
             return ResponseEntity.ok().body(response);
 
         } catch (Exception e) {
+            e.printStackTrace();
             ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(response);
         }
+        // 바꾸기
+        //studentService.updateStudentInfo(studentId, nickname);
+    }
+
+    @PutMapping("/info/img") //학생 개인정보 변경
+    public ResponseEntity<?> updateStudentProfileImgInfo(@RequestPart("file") MultipartFile multipartFile) {
+        //내 email 조희
+        try {
+            String id = getAuthenticationData();
+            StudentDTO student = new StudentDTO();
+
+            // 파일 저장
+            Resource resource = null;
+            String path = "src/main/resources/static/uploads/";
+            Path fileRoot = null;
+            String fileName = null;
+            if (multipartFile != null && multipartFile.getSize() > 0) {
+                fileName = multipartFile.getOriginalFilename();
+                File file = new File(path);
+//                File file = new File(resource.getFile(), fileName);
+
+                if (!file.exists()) {
+                    // mkdir() 함수와 다른 점은 상위 디렉토리가 존재하지 않을 때 그것까지 생성
+                    file.mkdirs();
+                }
+
+                fileRoot = Paths.get(path + fileName);
+                Files.createDirectories(fileRoot.getParent());
+                Files.write(fileRoot, multipartFile.getBytes());
+
+                student.setProfileImg(path + fileName);
+            }
+
+            Student entity = studentService.updateStudentInfo(id, student);
+
+            StudentDTO dto = new StudentDTO(entity);
+
+            resource = new FileSystemResource(path + fileName);
+//            return new ResponseEntity<>(resource, HttpStatus.OK);
+//
+//            //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
+//            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
+//            System.out.println(resource);
+            return ResponseEntity.ok().body("/uploads/" + fileName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+        // 바꾸기
+        //studentService.updateStudentInfo(studentId, nickname);
     }
 
     @PutMapping("/info") //학생 개인정보 변경
@@ -196,9 +256,8 @@ public class StudentController {
                 int level = ((Number) result[4]).intValue();
 
                 // Create a new DTO and add it to the list
-                GameCorrectDTO gameResultDTO = new GameCorrectDTO(date, totalQuestion, correctAnswer,gamePurpose, level);
+                GameCorrectDTO gameResultDTO = new GameCorrectDTO(date, totalQuestion, correctAnswer, gamePurpose, level);
                 res.add(gameResultDTO);
-
 
 
                 //System.out.println("gameres" + gameResultDTO.toString());
@@ -216,7 +275,7 @@ public class StudentController {
                 int accumSum = ((Number) result[2]).intValue();
 
                 // Create a new DTO and add it to the list
-                ExpDTO expDTO = new ExpDTO(date,exp, accumSum);
+                ExpDTO expDTO = new ExpDTO(date, exp, accumSum);
                 res2.add(expDTO);
 
             }
@@ -228,16 +287,15 @@ public class StudentController {
             for (Object[] result : dailySpecificRes) {
                 // Extract values based on index
 
-                Date date = dateFormat.parse((String)result[0]) ;
+                Date date = dateFormat.parse((String) result[0]);
                 int correct = ((Number) result[1]).intValue();
                 int question = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
                 int level = ((Number) result[4]).intValue();
 
 
-
                 // Create a new DTO and add it to the list
-                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(date, correct, question, gamePurpose, level );
+                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(date, correct, question, gamePurpose, level);
                 res4.add(dailySpecificDTO);
                 //System.out.println("gameres" + gameResultDTO.toString());
             }
@@ -247,7 +305,7 @@ public class StudentController {
             res3.add(res2);
             res3.add(res4);
             return ResponseEntity.ok().body(res3);
-        }catch(Exception e) {
+        } catch (Exception e) {
 //            System.out.println(e.getMessage());
             ResponseDTO<GameCorrectDTO> response = ResponseDTO.<GameCorrectDTO>builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(response);
