@@ -28,7 +28,7 @@ export default function FameBtn() {
           }}
           onClick={()=>{
             es.play();
-            router.push('/fame');
+            router.replace('/fame');
           }}
         >
           명예의 전당을 확인하세요

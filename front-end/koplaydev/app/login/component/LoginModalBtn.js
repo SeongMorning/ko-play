@@ -39,7 +39,7 @@ export default function LoginModalBtn(props) {
           props.setLoginModal(0);
         }else{
           props.setLoginModal(0);
-          router.push("/main");
+          router.replace("/main");
         }
       }}
     >
