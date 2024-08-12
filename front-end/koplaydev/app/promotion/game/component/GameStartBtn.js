@@ -14,10 +14,11 @@ export default function GameStartBtn() {
   const levelList = useSelector((state) => state.level);
   useEffect(() => {
     const fetchGameWord = async () => {
+      console.log("게임인덱스"+gameIdx)
       const data = await gameWordAxios(
         gameIdx,
         1,
-        4
+        [10,4,9][gameIdx-1]
       );
       if (data) {
         const changeData = () => {
