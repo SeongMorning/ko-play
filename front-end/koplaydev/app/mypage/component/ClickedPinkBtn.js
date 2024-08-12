@@ -2,11 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import styles from "./ClickedPinkBtn.module.scss";
 import { changeMyPageIdx } from "@/redux/slices/myPageSlice";
 import { motion, useAnimate } from "framer-motion";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function ClickedPinkBtn(props) {
   const dispatch = useDispatch();
   const myPageIdx = useSelector((state) => state.myPage);
   const [scope, animation] = useAnimate()
+  const es = effectSound(buttonSound, 1);
 
   return (
     <>
@@ -14,6 +18,7 @@ export default function ClickedPinkBtn(props) {
         <motion.div
           className={styles.ClickedPinkBtn}
           onClick={() => {
+            es.play();
             dispatch(changeMyPageIdx(props.idx));
           }}
           onHoverStart={()=>{
