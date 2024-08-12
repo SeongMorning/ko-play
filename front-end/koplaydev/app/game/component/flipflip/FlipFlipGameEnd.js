@@ -89,7 +89,7 @@ export default function FlipFlipGameEnd() {
     let foreign = "wordKor";
     let modelname = "ko-KR-Neural2-C";
 
-    if (userInfo.nation === "Thailand") {
+    if (userInfo.nation === "Tailand") {
       nation = "th-TH";
       foreign = "wordThailand";
       modelname = "th-TH-Neural2-C";
