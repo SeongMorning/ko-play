@@ -1,12 +1,9 @@
 import API from "../utils/API";
 
 export default async function pictureAxios(image) {
-  const formData = new FormData();
-  formData.append("image", image);
-
   return API.post("/s3/upload", {"image": image}, {
     headers: {
-      "Content-Type": "multipart/form-data",
+      "Content-Type" : "multipart/form-data",
     },
   })
     .then((res) => {
