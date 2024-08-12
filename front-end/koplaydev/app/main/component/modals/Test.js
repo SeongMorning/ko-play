@@ -6,10 +6,10 @@ import { changeTestIdx } from "@/redux/slices/testSlice";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import Cam from "@/app/avatar/component/Cam";
 import MicTest from "../MicTest";
-import effectSound from '@/app/utils/effectSound'
+import effectSound from "@/app/utils/effectSound";
 
 let testList = ["화면 테스트", "마이크 테스트", "듣기 테스트"];
-const buttonSound = '/audios/buttonSound.mp3';
+const buttonSound = "/audios/buttonSound.mp3";
 
 export default function Test() {
   const testIdx = useSelector((state) => state.test);
@@ -48,7 +48,11 @@ const TestSelector = (props) => {
   };
 
   if (props.idx === 1) {
-    return <Cam width="40%" />;
+    return (
+      <div className={styles.Cam}>
+        <Cam width="40%" />
+      </div>
+    );
   } else if (props.idx === 2) {
     return <MicTest />;
   } else {
@@ -56,7 +60,7 @@ const TestSelector = (props) => {
       <>
         <img
           onClick={() => speakText("테스트 소리입니다. 테스트 소리입니다.")}
-          style={{ width: "50%", cursor : "pointer" }}
+          style={{ width: "50%", cursor: "pointer" }}
           src="/listentest.png"
         ></img>
       </>
