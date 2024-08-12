@@ -15,14 +15,14 @@ import effectSound from '@/app/utils/effectSound'
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 const pencilSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound.wav';
-
+const pencilSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound2.wav';
 
 export default function Setting() {
   const userInfo = useSelector((state) => state.studentInfo);
   const dispatch = useDispatch();
   const buttonEs = effectSound(buttonSound, 1);
   const mouseClickEs = effectSound(mouseClickSound, 1);
-  const pencilEs = effectSound(pencilSound, 1);
+  const pencilEs = effectSound(pencilSound2, 1);
 
   // 상태 변수 선언
   const [myNickname, setMyNickname] = useState(userInfo.nickname);

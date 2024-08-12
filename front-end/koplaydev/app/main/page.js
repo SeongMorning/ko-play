@@ -14,7 +14,7 @@ const mainBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/backgrou
 
 export default function Main() {
 
-   useSound(mainBGM2, 1, 2000);  
+   useSound(mainBGM2, 1, 0);  
 
   return (
     <>
