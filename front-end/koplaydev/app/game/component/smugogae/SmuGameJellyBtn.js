@@ -10,11 +10,15 @@ import { changeCorrectIdx } from "@/redux/slices/correct";
 import { changeInCorrect } from "@/redux/slices/Incorrect";
 import { useEffect } from "react";
 import { changeExp } from "@/redux/slices/expSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function SmuGameJellyBtn(props) {
   const dispatch = useDispatch();
   const router = useRouter();
   const exp = useSelector((state) => state.exp);
+  const es = effectSound(buttonSound, 1);
 
   return (
     <motion.div
@@ -30,6 +34,7 @@ export default function SmuGameJellyBtn(props) {
         },
       }}
       onClick={() => {
+        es.play();
         if (props.text === "예") {
           dispatch(changeExp(exp));
           dispatch(changeInCorrect(true));

@@ -1,8 +1,13 @@
 "use client";
 import { motion } from "framer-motion";
 import styles from "./RewardJellyBtn.module.scss";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function RewardJellyBtn(props) {
+  const es = effectSound(buttonSound, 1);
+
   return (
     <motion.div
       className={styles.LevelJellyBtn}
