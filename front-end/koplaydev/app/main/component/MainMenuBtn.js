@@ -3,7 +3,7 @@
 import styles from "./MainMenuBtn.module.scss";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import axios from "axios";
 import logoutAxios from "@/app/axios/logoutAxios";
@@ -16,6 +16,8 @@ const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effec
 
 // props : left, top, bg, shadow, imgSrc
 export default function MainMenuBtn(props) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const [logoutModal, setLogoutModal] = useState(false);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -37,7 +39,7 @@ export default function MainMenuBtn(props) {
         >
           <YellowBox width="40" height="30">
             <div className={styles.textBox}>
-              <span className={styles.text}>로그아웃 하시겠습니까?</span>
+              <span className={styles.text}>{translationWords.logoutInfo}</span>
               <div className={styles.BtnBox}>
                 <LogoutModalBtn
                   width={"25"}
@@ -47,7 +49,7 @@ export default function MainMenuBtn(props) {
                   logoutModal={logoutModal}
                   setLogoutModal={setLogoutModal}
                 >
-                  <span>예</span>
+                  <span>{translationWords.yes}</span>
                 </LogoutModalBtn>
                 <LogoutModalBtn
                   width={"25"}
@@ -57,7 +59,7 @@ export default function MainMenuBtn(props) {
                   logoutModal={logoutModal}
                   setLogoutModal={setLogoutModal}
                 >
-                  <span>아니요</span>
+                  <span>{translationWords.no}</span>
                 </LogoutModalBtn>
               </div>
             </div>
@@ -105,7 +107,7 @@ export default function MainMenuBtn(props) {
           />
           <div className={styles.MainMenuBtnDot1} />
           <div className={styles.MainMenuBtnDot2} />
-          <img src={props.imgSrc} alt="Button Icon" />
+          <img src={props.imgSrc} alt="Button Icon" /> 
         </motion.div>
         <div
           style={{ backgroundColor: `${props.shadow}` }}

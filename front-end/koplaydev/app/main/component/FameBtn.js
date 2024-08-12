@@ -5,10 +5,13 @@ import styles from "./FameBtn.module.scss";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import effectSound from '@/app/utils/effectSound'
+import { useSelector } from "react-redux";
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function FameBtn() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const [scope, animate] = useAnimate();
   let array = Array(30).fill(0);
   const router = useRouter();
@@ -31,7 +34,7 @@ export default function FameBtn() {
             router.replace('/fame');
           }}
         >
-          명예의 전당을 확인하세요
+          {translationWords.fameBtn}
         </motion.span>
       </div>
       <motion.table ref={scope} className={styles.FameBtn}>

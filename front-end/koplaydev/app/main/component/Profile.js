@@ -24,6 +24,8 @@ const slowMouseClickSound =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/slowMouseClickSound.mp3";
 
 export default function Profile() {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.studentInfo);
   const avatar = useSelector((state) => state.avatar);
@@ -107,9 +109,9 @@ export default function Profile() {
           <ExpBar />
         </div>
         <span className={styles.nickname}>{userInfo.nickname}</span>
-        <span className={styles.games}>총 게임수 : 13판</span>
+        <span className={styles.games}>{translationWords.totalGame} : 13</span>
         <span className={styles.avatar}>
-          열린코스튬 {myAvatar.avatars.length ? myAvatar.avatars.length : 0}/
+          {translationWords.openAvatar} {myAvatar.avatars.length ? myAvatar.avatars.length : 0}/
           {avatar.avatars.length}
         </span>
       </div>

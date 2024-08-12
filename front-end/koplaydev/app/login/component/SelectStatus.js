@@ -2,10 +2,13 @@
 import { useState, useEffect } from "react";
 import ParentStudentBtn from "./ParentStudentBtn";
 import effectSound from '@/app/utils/effectSound'
+import { useSelector } from "react-redux";
 
 const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 export default function SelectStatus({ initialText, onSelect }) {
+  const translationWords = useSelector((state) => state.translationWords);
+
   const [selectedButton, setSelectedButton] = useState(initialText);
 
   const es = effectSound(mouseClickSound, 0.5);
@@ -17,14 +20,14 @@ export default function SelectStatus({ initialText, onSelect }) {
   return (
     <div>
       <ParentStudentBtn
-        text="부모님"
+        text={translationWords.parent}
         isSelected={selectedButton === "부모님"}
         onClick={() => {
           es.play();
           setSelectedButton("부모님")}}
       />
       <ParentStudentBtn
-        text="학생"
+        text={translationWords.student}
         isSelected={selectedButton === "학생"}
         onClick={() => {
           es.play();
