@@ -23,6 +23,7 @@ public class S3Controller {
             ResponseEntity<?> profileImage = s3ImageService.upload(image);
             return ResponseEntity.ok(profileImage);
         }catch (Exception e){
+            e.printStackTrace();
             return ResponseEntity.badRequest().body(e.getMessage());
         }
 
