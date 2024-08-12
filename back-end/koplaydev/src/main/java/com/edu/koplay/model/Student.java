@@ -46,7 +46,7 @@ public class Student {
     private Date birth;
 
     @Lob
-    private byte[] profileImg;
+    private String profileImg;
 
     private String schoolName;
 
