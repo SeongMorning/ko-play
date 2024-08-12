@@ -13,8 +13,13 @@ import { changeWrong } from "@/redux/slices/wrongList";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import useSound from "@/app/utils/useSound";
+
+const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
+const gameBGm2 = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/WordRaingameBGM.mp3";
 
 export default function WordRainStart() {
+  useSound(gameBGM, 1, 0, 1);
   const wordList = useSelector((state) => state.gameWord);
   const [wordObjectList, setWordObjectList] = useState(wordList);
 

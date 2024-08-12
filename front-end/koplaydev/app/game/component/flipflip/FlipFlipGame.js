@@ -6,6 +6,7 @@ import FlipFlipGameStart from "./FlipFlipGameStart";
 import FlipFlipGameEnd from "./FlipFlipGameEnd";
 
 export default function FlipFlipGame() {
+
   const loading = useSelector((state) => state.loading);
   if (loading === -1) {
     return <GameStartBtn />;
