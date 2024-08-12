@@ -9,13 +9,12 @@ import MainModal from "./component/MainModal";
 import Profile from "./component/Profile";
 import useSound from "@/app/utils/useSound";
 
-
-const mainBGM = '/audios/mainBGM.mp3';
-const mainBGM2 = '/audios/mainBGM2.wav';
+const mainBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/mainBGM.mp3';
+const mainBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/mainBGM2.wav';
 
 export default function Main() {
 
-   useSound(mainBGM2, 0.6, 2000);  
+   useSound(mainBGM2, 1, 2000);  
 
   return (
     <>

@@ -7,7 +7,7 @@ import studentInfo, { changeStudentInfo } from "@/redux/slices/studentInfoSlice"
 import student from "@/app/axios/studentInfo";
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function BlueBox(props) {
   const dispatch = useDispatch();

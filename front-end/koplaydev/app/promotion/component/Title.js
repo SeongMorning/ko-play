@@ -2,8 +2,14 @@
 
 import styles from "./Title.module.scss";
 import { motion } from "framer-motion";
+import useSound from "@/app/utils/useSound";
+
+const loginBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM.wav';
+const loginBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3';
 
 export default function Title() {
+  useSound(loginBGM2, 1, 2000);
+  
   let title1 = Array.from("누구나 쉽게 배우는 한글");
   let title2 = Array.from("한글로 연결되는 우리, 문화로 풍부해지는 세상");
 
@@ -26,6 +32,7 @@ export default function Title() {
       },
     },
   };
+
 
   return (
     <div className={styles.promotionTitle}>

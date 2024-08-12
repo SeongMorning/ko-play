@@ -14,9 +14,9 @@ import { changeModalIdx } from "@/redux/slices/modalSlice";
 import gameListAxios from "@/app/axios/gameListAxios";
 import effectSound from '@/app/utils/effectSound'
 
-const buttonSound = '/audios/buttonSound.mp3';
-const slowSlidingSound = '/audios/slowSlidingSound.mp3';
-const mouseClickSound = '/audios/mouseClickSound.mp3';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const slowSlidingSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/slowSlidingSound.mp3';
+const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 const buttonEs = effectSound(buttonSound, 1);
 const slowSlidingEs = effectSound(slowSlidingSound, 1);
