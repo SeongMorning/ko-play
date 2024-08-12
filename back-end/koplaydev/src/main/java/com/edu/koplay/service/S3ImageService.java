@@ -102,12 +102,14 @@ public class S3ImageService {
                             .withCannedAcl(CannedAccessControlList.PublicRead);
             amazonS3.putObject(putObjectRequest); // put image to S3
         }catch (Exception e){
+            e.printStackTrace();
             throw new Exception("Upload Error");
         }finally {
             byteArrayInputStream.close();
             is.close();
         }
         Optional<Student> byStudentId = studentRepository.findByStudentId(id);
+        System.out.println(bucketName+" "+s3FileName);
         String url = amazonS3.getUrl(bucketName, s3FileName).toString();
 
         Optional<Parent> byId = parentRepository.findById(byStudentId.get().getParent().getParentIdx());
