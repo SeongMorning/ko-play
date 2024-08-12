@@ -18,9 +18,9 @@ public class S3Controller {
 
     @PostMapping("/s3/upload")
     public ResponseEntity<?> s3Upload(@RequestPart(value = "image", required = false) MultipartFile image){
-        String profileImage = null;
+
         try{
-            profileImage = s3ImageService.upload(image);
+            ResponseEntity<?> profileImage = s3ImageService.upload(image);
             return ResponseEntity.ok(profileImage);
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());

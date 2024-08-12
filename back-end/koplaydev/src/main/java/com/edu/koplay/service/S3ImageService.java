@@ -12,15 +12,25 @@ import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLDecoder;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 import com.amazonaws.util.IOUtils;
+import com.edu.koplay.dto.GalleryDTO;
+import com.edu.koplay.dto.ResponseDTO;
+import com.edu.koplay.model.Gallery;
+import com.edu.koplay.model.Parent;
+import com.edu.koplay.model.Student;
+import com.edu.koplay.repository.GalleryRepository;
+import com.edu.koplay.repository.ParentRepository;
+import com.edu.koplay.repository.StudentRepository;
+import com.edu.koplay.service.facade.ParentFacadeService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -30,18 +40,24 @@ import org.springframework.web.multipart.MultipartFile;
 public class S3ImageService {
 
     private final AmazonS3 amazonS3;
+    private final StudentRepository studentRepository;
+    private final GalleryRepository galleryRepository;
+    private final ParentFacadeService parentFacadeService;
+    private final ParentRepository parentRepository;
+
+
 
     @Value("${cloud.aws.s3.bucketName}")
     private String bucketName;
 
-    public String upload(MultipartFile image) throws Exception {
+    public ResponseEntity<?> upload(MultipartFile image) throws Exception {
         if(image.isEmpty() || Objects.isNull(image.getOriginalFilename())){
             throw new IOException("File is empty");
         }
         return this.uploadImage(image);
     }
 
-    private String uploadImage(MultipartFile image) throws Exception {
+    private ResponseEntity<?> uploadImage(MultipartFile image) throws Exception {
         this.validateImageFileExtention(image.getOriginalFilename());
         try {
             return this.uploadImageToS3(image);
@@ -63,18 +79,20 @@ public class S3ImageService {
             throw new Exception("not allowed Extention: " + extention);
         }
     }
-
-    private String uploadImageToS3(MultipartFile image) throws Exception {
+    @Transactional
+    protected ResponseEntity<?> uploadImageToS3(MultipartFile image) throws Exception {
         String originalFilename = image.getOriginalFilename(); //원본 파일 명
-        String extention = originalFilename.substring(originalFilename.lastIndexOf(".")); //확장자 명
+        String extension = originalFilename.substring(originalFilename.lastIndexOf(".")); //확장자 명
+        String id = getAuthenticationData();
 
         String s3FileName = UUID.randomUUID().toString().substring(0, 10) + originalFilename; //변경된 파일 명
+
 
         InputStream is = image.getInputStream();
         byte[] bytes = IOUtils.toByteArray(is);
 
         ObjectMetadata metadata = new ObjectMetadata();
-        metadata.setContentType("image/" + extention);
+        metadata.setContentType("image/" + extension);
         metadata.setContentLength(bytes.length);
         ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(bytes);
 
@@ -89,14 +107,33 @@ public class S3ImageService {
             byteArrayInputStream.close();
             is.close();
         }
+        Optional<Student> byStudentId = studentRepository.findByStudentId(id);
+        String url = amazonS3.getUrl(bucketName, s3FileName).toString();
 
-        return amazonS3.getUrl(bucketName, s3FileName).toString();
+        Optional<Parent> byId = parentRepository.findById(byStudentId.get().getParent().getParentIdx());
+        Gallery gallery = Gallery.builder()
+                .student(byStudentId.get())
+                .parent(byId.get())
+                .snapshot(url)
+                .build();
+        galleryRepository.save(gallery);
+        List<Gallery> galleries = galleryRepository.findAllByStudentAndIsDeletedFalse(byStudentId.get());
+        ResponseDTO<GalleryDTO> response = ResponseDTO.<GalleryDTO>builder().data(galleries.stream()
+                .map(GalleryDTO::new)
+                .toList()).build();
+
+        return ResponseEntity.ok().body(response);
     }
-
+    @Transactional
     public void deleteImageFromS3(String imageAddress) throws Exception {
         String key = getKeyFromImageAddress(imageAddress);
         try{
             amazonS3.deleteObject(new DeleteObjectRequest(bucketName, key));
+            Optional<Gallery> gallery = galleryRepository.findBySnapshot(imageAddress);
+            if (gallery.isPresent()) {
+                Long galleryIdx = gallery.get().getGalleryIdx();
+                // galleryIdx를 사용하여 추가적인 작업 수행
+            }
         }catch (Exception e){
             throw new Exception("Delete Error");
         }
@@ -110,5 +147,10 @@ public class S3ImageService {
         }catch (MalformedURLException | UnsupportedEncodingException e){
             throw new Exception("getKeyFromImageAddress Error");
         }
+    }
+    private String getAuthenticationData() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        return authentication.getName();
     }
 }
