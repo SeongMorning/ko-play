@@ -10,6 +10,7 @@ import ParentLogin from "./component/ParentLogin";
 import { useDispatch } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
+import BackScoreBtn from "../component/buttons/BackScoreBtn";
 
 export default function Login() {
   const [selectedStatus, setSelectedStatus] = useState("");
@@ -24,8 +25,11 @@ export default function Login() {
 
   return (
     <>
+      <BackScoreBtn text="뒤로가기" left="1vw" top="1vh" test="뒤로가기"/>
+
       <main className={styles.main}>
         <img className={styles.logo} src="/logo.png" />
+
         {selectedStatus ? (
           <>
             <SelectStatus

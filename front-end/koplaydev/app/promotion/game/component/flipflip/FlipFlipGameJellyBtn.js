@@ -63,26 +63,15 @@ export default function FlipFlipGameJellyBtn(props) {
         }
       }}
       onClick={()=>{
+        dispatch(changeGamePurposeIdx(0));
+        dispatch(changeLoadingIdx(-1));
+        dispatch(changeCorrectIdx(0));
         if(props.text === "예"){
           router.push('/login')
-          // console.log(unitScore)
-          // console.log("맞은 개수")
-          // console.log(correctCnt)
-          // dispatch(changeExp(unitScore * correctCnt))
-          // dispatch(changeInCorrect(true));
-          // dispatch(changeLoadingIdx(1));
         }else if(props.text === "아니요" || props.text === "확인"){
           router.push('/')
-
-          // dispatch(changeExp(Math.round((unitScore * correctCnt) / 2)))
-          // dispatch(changeInCorrect(false));
-          // dispatch(changeLoadingIdx(1));
         }else{
-        // dispatch(changeModalIdx(0));
-        // dispatch(changeGamePurposeIdx(0));
-        // dispatch(changeLoadingIdx(-1));
-        // dispatch(changeCorrectIdx(0));
-          router.push("/");
+          router.push("/n");
         }
       }}
     >

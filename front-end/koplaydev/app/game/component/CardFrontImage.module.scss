@@ -9,13 +9,17 @@
   z-index: 20;
 
   .cardInner {
-    width: 85%;      /* 비율 유지 */
-    height: 85%;     /* 비율 유지 */
+    width: 85%;
+    height: 85%;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: fill; 
     background-color: white;
     border-radius: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
+
 
     .cardImage {
       width: 100%; /* 부모의 너비에 맞게 조절 */
