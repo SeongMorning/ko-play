@@ -29,6 +29,8 @@ import { changeExp } from "@/redux/slices/expSlice";
 import { changeInCorrect } from "@/redux/slices/Incorrect";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
+import pictureAxios from "@/app/axios/pictureAxios";
+import { changeIsRank } from "@/redux/slices/isRankSlice";
 
 export default function RankTest2() {
   const wordList = useSelector((state) => state.gameWord);
@@ -71,6 +73,10 @@ export default function RankTest2() {
 
   const handleSaveImage = () => {
     //axios 호출
+   const res = pictureAxios(capturedImage);
+   if(res){
+    console.log(res);
+   }
   };
 
   useEffect(() => {
@@ -78,6 +84,7 @@ export default function RankTest2() {
       let timer;
       if (count !== null && count > 0) {
         timer = setTimeout(() => setCount(count - 1), 1000);
+        console.log(count)
       } else if (count === 0) {
         setCount(0);
         handleCaptureClick();
@@ -161,6 +168,7 @@ export default function RankTest2() {
         dispatch(
           changeWrong(wordObjectList.filter((data) => data.state === -1))
         );
+        dispatch(changeIsRank(false))
         setCorrect(a);
         setIncorrect(b);
         client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
