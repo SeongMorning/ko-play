@@ -2,6 +2,11 @@ import { Inter } from "next/font/google";
 import "./globals.scss";
 import Headers from "./component/Headers";
 import ReduxProvider from "@/redux/provider";
+// import './utils/AR/FacePaint';
+// import './utils/AR/frontProjectionUVMap';
+// import './utils/AR/positionBufferData';
+// import './utils/AR/triangulation';
+// import './utils/AR/script';
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -58,6 +63,11 @@ export default function RootLayout({ children }) {
         <Headers />
         {children}
       </ReduxProvider>
+      {/* <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/facemesh"></script>
+      <script src="https://cdn.jsdelivr.net/npm/three@0.116.1/build/three.min.js"></script>
+      <script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+      <script src="https://unpkg.com/flickity-hash@1/hash.js"></script> */}
     </body>
   </html>
   );
