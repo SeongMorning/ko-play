@@ -42,11 +42,12 @@ export default function WordRainEnd() {
   const [showAvatar, setShowAvatar] = useState(false);
   const [ttsText, setTtsText] = useState(null);
   const [isGoMainClickable, setIsGoMainClickable] = useState(false);
-  console.log(wrongList);
+  
   useEffect(() => {
     const postGameResult = async () => {
+      console.log(gameIdx, correctCnt, isRank, gameList[0], exp);
       const res = await gameResultAxios(
-        gameIdx,
+        1,
         correctCnt,
         `${isRank ? 20 : 10}`,
         gameList[0],

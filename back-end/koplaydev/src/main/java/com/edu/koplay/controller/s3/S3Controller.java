@@ -16,7 +16,7 @@ public class S3Controller {
         this.s3ImageService = s3ImageService;
     }
 
-    @PostMapping("/upload")
+    @PostMapping(value = "/upload")
     public ResponseEntity<?> s3Upload(@RequestPart(value = "image", required = false) MultipartFile image){
 
         try{
