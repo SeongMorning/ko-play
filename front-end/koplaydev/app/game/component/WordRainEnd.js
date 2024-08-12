@@ -25,7 +25,7 @@ export default function WordRainEnd() {
   const afterExp = beforeExp + exp;
   const isRank = useSelector((state) => state.isRank);
 
-  const [level, setLevel] = useState(Math.floor(userInfo.exp / 100));
+  const [level, setLevel] = useState(Math.floor(userInfo.exp / 100) + 1);
   const [selectedCountry, setSelectedCountry] = useState(null);
   const [showLevelUp, setShowLevelUp] = useState(false);
   const [showBlackScreen, setShowBlackScreen] = useState(false);
