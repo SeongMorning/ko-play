@@ -57,7 +57,7 @@ export default function RankTest2() {
   const correctCnt = useSelector((state) => state.correct);
   let [unitScore, setUnitScore] = useState(3);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const handleCaptureClick = () => {
     if (captureRef.current) {
@@ -65,18 +65,32 @@ export default function RankTest2() {
         backgroundColor: null,
         scale: 2,
       }).then((canvas) => {
+
         const image = canvas.toDataURL("image/png");
-        setCapturedImage(image);
+
+        // 데이터 URL을 Blob이 아닌 File 객체로 변환
+        const byteString = atob(image.split(',')[1]);
+        const mimeString = image.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+
+        const file = new File([ab], 'image.png', { type: mimeString });
+
+        setCapturedImage(file);
       });
     }
   };
 
   const handleSaveImage = async () => {
     //axios 호출
-   const res = await pictureAxios(capturedImage);
-   if(res){
-    console.log(res);
-   }
+    const res = await pictureAxios(capturedImage);
+    if (res) {
+      console.log(res);
+    }
   };
 
   useEffect(() => {
@@ -315,7 +329,7 @@ export default function RankTest2() {
                         >
                           예
                         </span>
-                        <span onClick={()=>{
+                        <span onClick={() => {
                           dispatch(changeExp(unitScore * correctCnt));
                           dispatch(changeInCorrect(true));
                           dispatch(changeLoadingIdx(1));
