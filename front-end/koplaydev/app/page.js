@@ -3,6 +3,7 @@ import styles from "./page.module.scss";
 import MainModal from "./promotion/component/MainModal";
 import StartButton from "./promotion/component/StartButton";
 import Title from "./promotion/component/Title";
+import ButtonsContainer from "./promotion/component/ButtonsContainer";
 
 // app/page.js (서버 컴포넌트)
 async function fetchData() {
@@ -13,24 +14,12 @@ async function fetchData() {
 export default async function Home() {
   await fetchData(); // 데이터 패칭
 
-
   return (
     <>
       <main className={styles.main}>
         <Title />
         <img className={styles.logo} src="/logo.png" />
-        <StartButton
-          fontColor={"black"}
-          bg={"#78F860"}
-          shadow={"#23C505"}
-          text={"회원"}
-        />
-        <StartButton
-          fontColor={"white"}
-          bg={"#FF61A3"}
-          shadow={"#FF237F"}
-          text={"비회원"}
-        />
+        <ButtonsContainer />
       </main>
       <MainModal />
       <PromLoginBg />

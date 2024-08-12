@@ -74,9 +74,9 @@
   padding-right: 5%;
   cursor: pointer;
 
-  .EasyBtn{
+  .EasyBtn {
     width: 13%;
-    height : 70%;
+    height: 70%;
   }
 
   .LevelBtn {
@@ -85,40 +85,40 @@
   }
 }
 
-.gameItems{
-    display : flex;
-    width : 100%;
-    height : 100%;
-    justify-content: flex-start;
-    align-items: center;
-    gap : 3%;
-    margin-right : 3%;
-    box-sizing: border-box;
+.gameItems {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 3%;
+  margin-right: 3%;
+  box-sizing: border-box;
 }
 
 .gameItem {
-  position : relative;
+  position: relative;
   width: 30%;
   height: 70%;
   color: white;
   font-weight: bold;
   border-radius: 50%;
   display: flex;
-  background-color: #040F36;
+  background-color: #040f36;
   justify-content: center;
   align-items: center;
-  flex : 0 0 auto;
+  flex: 0 0 auto;
 
-  .gameStart{
+  .gameStart {
     display: flex;
     justify-content: center;
     align-items: center;
-    position :absolute;
-    width : 100%;
-    height : 100%;
+    position: absolute;
+    width: 100%;
+    height: 100%;
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0);
-    color : rgba(154, 205, 50, 0);
-    cursor : pointer;
+    color: rgba(154, 205, 50, 0);
+    cursor: pointer;
   }
 }
