@@ -59,6 +59,7 @@ export default function OpenViduItem() {
     });
 
     const token = await getToken();
+    console.log(token);
     mySession
       .connect(token, { clientData: myUserName })
       .then(async () => {
