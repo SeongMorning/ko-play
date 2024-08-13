@@ -88,7 +88,7 @@ export default function RankTest2() {
 
   const handleSaveImage = async () => {
     //axios 호출
-    const res = await pictureAxios(capturedImage);
+    const res = await pictureAxios(capturedImage,'image');
     if (res) {
       console.log(res);
     }

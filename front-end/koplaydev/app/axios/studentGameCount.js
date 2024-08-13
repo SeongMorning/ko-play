@@ -1,9 +1,9 @@
 import API from "../utils/API";
 
-export default async function student() {
+export default async function studentGameCount() {
   try {
-    const { data } = await API.get("/students/info");
-    return data.data[0];
+    const { data } = await API.get("/students/gameCount");
+    return data.data;
   } catch (error) {
     console.log(error);
     console.log("Error Handling");
