@@ -15,6 +15,11 @@ import RankGameJellyBtn from "./RankGameJellyBtn";
 import effectSound from '@/app/utils/effectSound'
 import useEffectSound from '@/app/utils/useEffectSound'
 
+import "regenerator-runtime/runtime";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
+
 const rewardSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound.wav";
 const rewardSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound2.wav';
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
@@ -45,6 +50,7 @@ export default function WordRainEnd() {
   const [isGoMainClickable, setIsGoMainClickable] = useState(false);
   
   useEffect(() => {
+    SpeechRecognition.stopListening();
     const postGameResult = async () => {
       console.log(gameIdx, correctCnt, isRank, gameList[0], exp);
       const res = await gameResultAxios(
