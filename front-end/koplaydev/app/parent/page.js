@@ -158,7 +158,7 @@ export default function Parent() {
         )}
       </div>
       {isInitModalOpen && (
-          <InputInitInfo onclose={closeAllModal} setChildInfo={setChildInfo} />
+          <InputInitInfo onClose={closeAllModal} setChildInfo={setChildInfo} />
       )}
 
       <motion.div
