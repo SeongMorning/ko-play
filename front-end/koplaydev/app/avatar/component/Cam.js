@@ -8,21 +8,10 @@ import FaceDetection, { initWebcamAndModel } from "@/app/utils/AR/script";
 
 // props : left, top, width
 const Cam = forwardRef((props, ref) => {
-  const webcamRef = useRef(null);
-  const handleInit = (videoElement) => {
-    initWebcamAndModel(videoElement);
-  };
-
-  useEffect(() => {
-    if (webcamRef.current) {
-      handleInit(webcamRef.current.video);
-    }
-  }, [webcamRef]);
 
   return (
     <div ref={ref}>
       <Webcam
-        ref={webcamRef}
         className={styles.webcam}
         style={{
           left: props.left,
@@ -34,9 +23,6 @@ const Cam = forwardRef((props, ref) => {
           zIndex: 1,
         }}
       />
-      {webcamRef.current && webcamRef.current.video && (
-        <FaceDetection videoElement={webcamRef.current.video} />
-      )}
     </div>
   );
 });

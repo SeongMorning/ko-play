@@ -42,10 +42,18 @@
     width : 80%;
     font-size: calc((4vw + 3vh)/2);
     font-weight: bold;
+    background: none;
+    border : none;
 
     &::placeholder{
         font-size: calc((3vw + 1vh)/2);
     }
+
+    &:focus{
+        outline: none;
+    }
+
+    
 }
 
 .text{

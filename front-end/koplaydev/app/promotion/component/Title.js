@@ -10,15 +10,18 @@ const loginBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/backgrou
 const loginBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3';
 
 export default function Title() {
-  useSound(loginBGM2, 1, 0);
+  useSound(loginBGM2, 0.6, 0);
   const translationWords = useSelector((state) => state.translationWords);
   
   let title1 = '';
   let title2 = '';
   
   useEffect(() => {
-    title1 = Array.from(translationWords.title1)
-    title2 = Array.from(translationWords.title2)
+    console.log(translationWords.title1)
+    if(translationWords.title1){
+      title1 = Array.from(translationWords.title1)
+      title2 = Array.from(translationWords.title2)
+    }
   }, [translationWords]); 
 
   const container = {

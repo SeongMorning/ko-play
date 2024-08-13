@@ -94,8 +94,7 @@ export default function Profile() {
       <div className={styles.pictureBox}>
         <img
           src={
-            `${process.env.customKey}/static${userInfo.profileImg}` ||
-            "hehe.png"
+            `${process.env.customKey}/static${userInfo.profileImg}`
           }
           onError={(e) => {
             e.target.src = "hehe.png";

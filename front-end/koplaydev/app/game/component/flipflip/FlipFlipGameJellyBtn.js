@@ -84,7 +84,7 @@ export default function FlipFlipGameJellyBtn(props) {
         dispatch(changeGamePurposeIdx(0));
         dispatch(changeLoadingIdx(-1));
         dispatch(changeCorrectIdx(0));
-          router.push("/main");
+          router.replace("/main");
         }
       }}
     >
