@@ -26,7 +26,7 @@ export default function RainK() {
     if (currentStep < tutorialImages.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      router.pureplacesh("/main");
+      router.replace("/main");
     }
   };
 
