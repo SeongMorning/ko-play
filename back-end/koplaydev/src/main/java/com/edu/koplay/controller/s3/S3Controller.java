@@ -17,10 +17,10 @@ public class S3Controller {
     }
 
     @PostMapping(value = "/upload")
-    public ResponseEntity<?> s3Upload(@RequestPart(value = "image", required = false) MultipartFile image){
+        public ResponseEntity<?> s3Upload(@RequestPart(value = "image", required = false) MultipartFile image, String folder){
 
         try{
-            ResponseEntity<?> profileImage = s3ImageService.upload(image);
+            ResponseEntity<?> profileImage = s3ImageService.upload(image, folder);
             return ResponseEntity.ok(profileImage);
         }catch (Exception e){
             e.printStackTrace();
