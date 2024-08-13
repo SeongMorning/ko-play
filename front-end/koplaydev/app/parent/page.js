@@ -98,7 +98,6 @@ export default function Parent() {
     buttonEs.play();
     setIsModalOpen(false);
     setIsInitModalOpen(false);
-    addChildProfile();
   };
 
   const closeFirstModal = () => {
@@ -179,7 +178,7 @@ export default function Parent() {
         )}
       </div>
       {isInitModalOpen && (
-          <InputInitInfo onClose={closeAllModal} setChildInfo={setChildInfo} />
+          <InputInitInfo onClose={closeAllModal} setChildInfo={setChildInfo} addChildProfile={addChildProfile} />
       )}
 
       <motion.div
