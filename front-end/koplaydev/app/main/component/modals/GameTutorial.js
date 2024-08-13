@@ -144,7 +144,7 @@ const GameSelect = ({ idx, selectedCountry , gamestart }) => {
         <motion.div
           key={index}
           className={styles.Btn}
-          style={{ cursor: `${idx === 0 ? "pointer" : ""}` }}
+          style={{ cursor: `${idx === 0 ? "url('/smile-star-hover.svg') 30 30, auto" : ""}` }}
           animate={{
             width: `${widthList[index]}%`,
             translateX: `${idx === 1 ? "6%" : idx === 3 ? "-6%" : 0}`,
