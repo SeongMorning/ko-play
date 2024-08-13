@@ -70,6 +70,7 @@ export default function RankGame() {
           let roomId = JSON.parse(message1.body).message;
           console.log("내가입장할방번호:"+roomId)
           if (roomId) {
+            clearInterval(matchInterval);
             subscription1.unsubscribe();
             dispatch(changeroomId(roomId));
 
