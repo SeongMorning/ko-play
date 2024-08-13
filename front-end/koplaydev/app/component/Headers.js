@@ -8,19 +8,16 @@ import { useDispatch, useSelector } from "react-redux";
 import effectSound from '@/app/utils/effectSound'
 import { changeTranslationWords } from "@/redux/slices/translationWords";
 import translations from "../axios/translations";
-import { changeCurrNation } from "@/redux/slices/currNationSlice";
 
 const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 export default function Headers() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.studentInfo);
-  // const currNation = useSelector((state) => state.currNation);
   const parent = useSelector((state) => state.parent);
   const [selectedNation, setSelectedNation] = useState(null);
   const pathName = usePathname();
   const exceptList = ["game", "tutorial"];
-  const translationWords = useSelector((state) => state.translationWords);
 
   useEffect(() => {
     const defaultNation = userInfo.nation || parent.nationality || "Korea";
@@ -39,7 +36,7 @@ export default function Headers() {
     };
 
     fetchTranslations(); // 비동기 함수 호출
-  }, [dispatch]);
+  }, [dispatch, pathName]); // asPath가 변경될 때마다 useEffect가 실행됩니다.
 
   const nations = [
     { name: "Korea", src: "/korea-3.png", locale: "ko-KR" },
