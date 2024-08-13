@@ -23,7 +23,7 @@ public class GameQueManageScheduler {
                 GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
                 GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
                 logger.info("roomId" + GameRoomManager.roomId);
-                GameRoomManager.roomId++;
+                GameRoomManager.roomId += 1;
                 logger.info("증가된 roomId"+GameRoomManager.roomId);
             }
         } catch (Exception e) {
