@@ -59,9 +59,13 @@ export default function OpenViduItem() {
     });
 
     const token = await getToken();
+    console.log(token);
     mySession
-      .connect(token, { clientData: myUserName })
+      .connect(token.token, { clientData: myUserName })
       .then(async () => {
+        
+        console.log('Successfully connected to the session:', mySession);
+
         const publisher = await OV.initPublisherAsync(undefined, {
           audioSource: undefined,
           videoSource: undefined,
@@ -73,28 +77,47 @@ export default function OpenViduItem() {
           mirror: false,
         });
 
+        console.log('Successfully connected to the publisher:', publisher);
+
         publisher.on("videoElementCreated", function (event) {
           const videoElement = event.element;
           videoElement["muted"] = true;
         });
 
+        console.log('mySession.publish(publisher)');
+
         mySession.publish(publisher);
 
+        console.log('const devices = await OV.getDevices();');
+
         const devices = await OV.getDevices();
+
+        console.log('const videoDevices');
         const videoDevices = devices.filter(
           (device) => device.kind === "videoinput"
         );
+
+        console.log('const currentVideoDeviceId = publisher.stream');
         const currentVideoDeviceId = publisher.stream
           .getMediaStream()
           .getVideoTracks()[0]
           .getSettings().deviceId;
+
+        console.log('const currentVideoDevice = videoDevices.find');
         const currentVideoDevice = videoDevices.find(
           (device) => device.deviceId === currentVideoDeviceId
         );
 
+        console.log('setSession(mySession);');
         setSession(mySession);
+
+        console.log('setMainStreamManager(publisher);');
         setMainStreamManager(publisher);
+
+        console.log('setPublisher(publisher);');
         setPublisher(publisher);
+
+        console.log('setCurrentVideoDevice(currentVideoDevice);');
         setCurrentVideoDevice(currentVideoDevice);
       })
       .catch((error) => {

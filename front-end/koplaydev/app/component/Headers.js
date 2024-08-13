@@ -41,10 +41,6 @@ export default function Headers() {
     fetchTranslations(); // 비동기 함수 호출
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log(translationWords)
-  }, [translationWords])
-
   const nations = [
     { name: "Korea", src: "/korea-3.png", locale: "ko-KR" },
     { name: "Thailand", src: "/thailand-parent-choice.png", locale: "th-TH" },
