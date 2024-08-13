@@ -1,6 +1,6 @@
 .MainMenuBtn {
   position: absolute;
-  cursor: pointer;
+  cursor: url("/star-cursor-hover.svg"), auto;
 
   .MainMenuBtnHover {
     width: 8vw;
