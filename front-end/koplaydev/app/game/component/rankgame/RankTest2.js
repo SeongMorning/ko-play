@@ -332,7 +332,7 @@ export default function RankTest2() {
                             dispatch(changeInCorrect(true));
                             dispatch(changeLoadingIdx(1));
                             dispatch(changeGamePurposeIdx(4));
-                            handleCloseSession;
+                            handleCloseSession();
                           }}
                         >
                           예
@@ -342,7 +342,7 @@ export default function RankTest2() {
                           dispatch(changeInCorrect(true));
                           dispatch(changeLoadingIdx(1));
                           dispatch(changeGamePurposeIdx(4));
-                          handleCloseSession;
+                          handleCloseSession();
                         }}>아니요</span>
                       </div>
                     </>
