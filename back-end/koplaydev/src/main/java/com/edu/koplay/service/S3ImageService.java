@@ -132,9 +132,12 @@ public class S3ImageService {
 
             // S3에서 기존 프로필 이미지 삭제하기
             System.out.println("이미지"+student.getProfileImg());
-            String oldS3FileName = student.getProfileImg().substring(student.getProfileImg().lastIndexOf("/") + 1);
-            System.out.println(oldS3FileName);
-            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, "profile/" + oldS3FileName));
+
+            if(student.getProfileImg() != null){
+                String oldS3FileName = student.getProfileImg().substring(student.getProfileImg().lastIndexOf("/") + 1);
+                System.out.println(oldS3FileName);
+                amazonS3.deleteObject(new DeleteObjectRequest(bucketName, "profile/" + oldS3FileName));
+            }
 
             student.setProfileImg(url);
             studentRepository.save(student);

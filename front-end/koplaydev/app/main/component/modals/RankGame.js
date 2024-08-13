@@ -65,14 +65,14 @@ export default function RankGame() {
     if (isConnected && client) {
       // console.log("매치 연결됨")
       const subscription1 = client.subscribe(
-        "/topic/game/match",
+        "/user/topic/game/match",
         (message1) => {
-          // console.log("이거는 대기열에 넣는 작업이었습니다. ")
           let roomId = JSON.parse(message1.body).message;
+          console.log("내가입장할방번호:"+roomId)
           if (roomId) {
+            subscription1.unsubscribe();
             dispatch(changeroomId(roomId));
-            //방 배정이 완료되었다면?
-            // console.log();
+
             const subscription2 = client.subscribe(
               `/topic/game/${roomId}`,
               (message2) => {
@@ -92,53 +92,58 @@ export default function RankGame() {
             );
           }
         }
-      );
-      // setInterval(()=>{client.send("/app/match", {}, userInfo.id)},1000);
-
-      return () => {
-        client.unsubscribe("/topic/game/match");
-        client.unsubscribe(`/topic/game/${roomId}`);
-        setMatch(false);
-      };
-    }
-  }, [isConnected, client]);
-  const cancelClick = () => {
-    dispatch(changeModalIdx(0));
-    const fetchCancelMatch = async () => {
-      API.delete("/games/cancel")
-        .then((res) => {
-          console.log("큐에서삭제완료");
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    };
-    fetchCancelMatch();
-  };
-  return (
-    <>
-      <YellowBox width="40" height="40">
-        <div className={styles.textbox}>
-          <span className={styles.NormalGameTitle}>
-            {translationWords.rankGame}
-          </span>
-
-          <span className={styles.text1}>{translationWords.findFriend}</span>
-          <span className={styles.text2}>{translationWords.waitGame}</span>
-          {match ? null : (
-            <div className={styles.btn}>
-              <RankGameCancelBtn
-                width="30"
-                height="100"
-                shadow="#df8ca1"
-                bg="#FFD6E0"
-              >
-                {translationWords.cancel}
-              </RankGameCancelBtn>
-            </div>
-          )}
-        </div>
-      </YellowBox>
-    </>
+      )
+        
+      ;
+  let matchInterval = setInterval(() => {
+    client.send("/app/match", {}, userInfo.id)
+  }, 2000
   );
+
+  return () => {
+    client.unsubscribe("/topic/game/match");
+    client.unsubscribe(`/topic/game/${roomId}`);
+    setMatch(false);
+  };
+}
+  }, [isConnected, client]);
+const cancelClick = () => {
+  dispatch(changeModalIdx(0));
+  const fetchCancelMatch = async () => {
+    API.delete("/games/cancel")
+      .then((res) => {
+        console.log("큐에서삭제완료");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  fetchCancelMatch();
+};
+return (
+  <>
+    <YellowBox width="40" height="40">
+      <div className={styles.textbox}>
+        <span className={styles.NormalGameTitle}>
+          {translationWords.rankGame}
+        </span>
+
+        <span className={styles.text1}>{translationWords.findFriend}</span>
+        <span className={styles.text2}>{translationWords.waitGame}</span>
+        {match ? null : (
+          <div className={styles.btn}>
+            <RankGameCancelBtn
+              width="30"
+              height="100"
+              shadow="#df8ca1"
+              bg="#FFD6E0"
+            >
+              {translationWords.cancel}
+            </RankGameCancelBtn>
+          </div>
+        )}
+      </div>
+    </YellowBox>
+  </>
+);
 }
