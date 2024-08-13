@@ -36,12 +36,17 @@ public class ParentFacadeService {
     public RecommendLevel addChild(String email, StudentLevelDTO studentDTO) {
         //이메일정보로 부모 조회하기
         Parent parent = parentService.selectParentInfoByEmail(email);
-
-        //학생, 추천레벨 초기 저장하기
-        Student student = studentService.insertStudent(parent, studentDTO);
-        return recommendationLevelService.insertRecommendLevel(parent, studentDTO, student);
-
+        try {
+            studentService.selectOneStudentByParent(parent, studentDTO.getId());
+            return null;
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            //학생, 추천레벨 초기 저장하기
+            Student student = studentService.insertStudent(parent, studentDTO);
+            return recommendationLevelService.insertRecommendLevel(parent, studentDTO, student);
+        }
     }
+
     public Parent updateParentVisited(String email) {
         Parent parent = parentService.selectParentInfoByEmail(email);
         parent.setVisited(true);
