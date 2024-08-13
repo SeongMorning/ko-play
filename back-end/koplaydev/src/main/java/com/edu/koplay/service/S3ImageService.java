@@ -85,7 +85,7 @@ public class S3ImageService {
         String extension = originalFilename.substring(originalFilename.lastIndexOf(".")); //확장자 명
         String id = getAuthenticationData();
 
-        String s3FileName = UUID.randomUUID().toString().substring(0, 10) + originalFilename; //변경된 파일 명
+        String s3FileName = "image/" + UUID.randomUUID().toString().substring(0, 10) + originalFilename; //변경된 파일 명
 
 
         InputStream is = image.getInputStream();

@@ -1,6 +1,6 @@
 server:
     url:
      front: https://i11b302.p.ssafy.io
-      # front: http://localhost:3000
+#       front: http://localhost:3000
      back: https://i11b302.p.ssafy.io/api
-      # back: http://localhost:8080
+#       back: http://localhost:8080
