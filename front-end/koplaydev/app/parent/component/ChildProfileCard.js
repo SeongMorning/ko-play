@@ -27,7 +27,7 @@ export default function ChildProfileCard({ name, birth, src, id, bgColor }) {
     };
     const handleProfileClick = () => {
         mouseClickEs.play();
-        router.push(`/parent/child/${id}`);
+        router.replace(`/parent/child/${id}`);
     };
 
     return (

@@ -31,11 +31,11 @@ export default function SmuGameJellyBtn(props) {
         dispatch(changeCorrectIdx(0));
 
         if (props.text === "예") {
-          router.push("/login");
+          router.replace("/login");
         } else if (props.text === "아니요") {
-          router.push("/");
+          router.replace("/");
         } else {
-          router.push("/");
+          router.replace("/");
         }
       }}
     >

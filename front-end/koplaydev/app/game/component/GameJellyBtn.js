@@ -67,7 +67,7 @@ export default function LevelJellyBtn(props) {
           dispatch(changeLoadingIdx(-1));
           dispatch(changeCorrectIdx(0));
           dispatch(changeGamePurposeIdx(0));
-          router.push("/main");
+          router.replace("/main");
         }
       }}
     >
