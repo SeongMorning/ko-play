@@ -1,0 +1,19 @@
+.albumContainer {
+  position: absolute;
+  width: calc(20vw + 20vh);
+  height: calc(20vw + 20vh);
+  left: 57vw;
+  top: 15vh;
+  box-sizing: border-box;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: calc(20vw + 20vh);
+    height: calc(15vw + 15vh);
+    justify-content: space-between;
+    align-items: center;
+  }
+}
