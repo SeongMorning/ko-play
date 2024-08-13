@@ -29,6 +29,7 @@ export default function Carousel() {
     const addChildProfile = ({name, birth}) => {
         const newIdx = (childProfiles.length + 1).toString();
         const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        const profileColor = randomColor;
         const newProfile = {
             idx: newIdx,
             src: "hehe.png", // 새로운 프로필 이미지
