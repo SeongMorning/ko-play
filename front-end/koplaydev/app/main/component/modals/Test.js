@@ -61,7 +61,7 @@ const TestSelector = (props) => {
   if (props.idx === 1) {
     return (
       <div className={styles.Cam}>
-        <Cam width="40%" />
+        <Cam width="40%" height="40%" />
       </div>
     );
   } else if (props.idx === 2) {
