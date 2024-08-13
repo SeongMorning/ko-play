@@ -120,12 +120,12 @@ class FaceCanvas {
       -this._halfW,
       -this._halfH,
       this._halfH,
-      1,
-      1000
+      -1000,
+      10000
     );
     this._camera.position.x = 320;
     this._camera.position.y = 240;
-    this._camera.position.z = -600;
+    this._camera.position.z = -10;
     this._camera.lookAt(320, 240, 0);
   }
 

@@ -13,6 +13,7 @@ const APPLICATION_SERVER_URL =
 export default function OpenViduItem() {
   //   const [mySessionId, setMySessionId] = useState("");
   const roomId = useSelector((state) => state.roomId);
+  window.sessionId = roomId;
   const [myUserName, setMyUserName] = useState(
     `Participant${Math.floor(Math.random() * 100)}`
   );

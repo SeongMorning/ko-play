@@ -80,7 +80,7 @@ export default function DetailpageChildProfileCard({ child }) {
                                     text={data}
                                     idx={index + 1}
                                     onClick={() =>
-                                        router.push(`parent/child/${child.id}/statistic?view=${index + 1}`)
+                                        router.replace(`parent/child/${child.id}/statistic?view=${index + 1}`)
                                     }
                                 />
                             ))}
