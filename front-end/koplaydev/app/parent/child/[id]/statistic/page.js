@@ -10,6 +10,7 @@ import useSound from "@/app/utils/useSound";
 import { useSelector } from "react-redux";
 import { OpenAiStreamUtill } from "@/app/utils/OpenAiStreamUtill";
 import { useState, useEffect } from "react";
+import Album from "./component/Album";
 
 const mypageBGM2 =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/mypageBGM2.mp3";
@@ -46,7 +47,6 @@ export default function Statistic({ params }) {
     if (statisticData) {
       let question = "";
       let selectedData = null;
-
       switch (viewIdx) {
         case "1":
           selectedData = statisticData[0]; // 레벨별 정답률 데이터
@@ -83,8 +83,8 @@ export default function Statistic({ params }) {
         return <Progress />;
       case "3":
         return <CorrectAnswerRate />;
-      case "snapshot":
-        return <div>추가예정</div>;
+      case "4":
+        return <Album id={id}/>;
       default:
         return <div>선택된 내용이 없습니다.</div>;
     }
