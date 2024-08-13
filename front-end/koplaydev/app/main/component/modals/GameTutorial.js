@@ -186,7 +186,7 @@ const GameSelect = ({ idx, selectedCountry , gamestart }) => {
                       onClick={() => {
                         mouseClickEs.play();
                         dispatch(changeGameIdx(data.gameIdx));
-                        router.push(
+                        router.replace(
                           `/tutorial/${selectedCountry}/${data.gameIdx}`
                         );
                       }}

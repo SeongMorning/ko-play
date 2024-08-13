@@ -28,7 +28,7 @@ export default function SmuK() {
     if (currentStep < tutorialImages.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
-      router.push("/main");
+      router.replace("/main");
     }
   };
 

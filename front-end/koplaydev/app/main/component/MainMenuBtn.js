@@ -75,11 +75,11 @@ export default function MainMenuBtn(props) {
           if (props.idx > 0 && props.idx <= 1000) {
             dispatch(changeModalIdx(props.idx));
           } else if (props.idx === 1001) {
-            router.push("/album");
+            router.replace("/album");
           } else if (props.idx === 1002) {
-            router.push("/mypage");
+            router.replace("/mypage");
           } else if (props.idx === 1003) {
-            router.push("/avatar");
+            router.replace("/avatar");
           } else if (props.idx === 1004) {
             dispatch(changeModalIdx(5));
           } else if (props.idx === -1) {
