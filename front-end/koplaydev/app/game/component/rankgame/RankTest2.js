@@ -24,7 +24,7 @@ import LevelJellyBtn from "@/app/game/component/GameJellyBtn";
 import RankGameJellyBtn from "../RankGameJellyBtn";
 import OpenVidu from "@/app/utils/openvidu/OpenVidu";
 import OpenViduItem from "@/app/utils/openvidu/OpenVidu";
-import { closeSession } from "@/app/utils/openvidu/sessionCheckAndDelete";
+import closeSession from "@/app/utils/openvidu/sessionCheckAndDelete";
 import Cam from "@/app/avatar/component/Cam";
 import { changeExp } from "@/redux/slices/expSlice";
 import { changeInCorrect } from "@/redux/slices/Incorrect";
