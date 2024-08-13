@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 export default function ClickedPinkBtn(props) {
   const router = useRouter();
 
-  const dispatch = useDispatch();
   const myPageIdx = useSelector((state) => state.myPage);
   const [scope, animation] = useAnimate()
 
