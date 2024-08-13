@@ -125,7 +125,7 @@ public class RankGameController {
         logger.info(roomId+"로게임단어전달합니다."+"단어: "+wordGameDataDTOS.toString());
         //게임 단어전달 2번 index
         messagingTemplate.convertAndSend("/topic/game/" + roomId, response);
-
+        logger.info(room.getClients().toString()+"방의 참여 인원입니다.");
         logger.info(roomId+"에서 게임이 시작됩니다..");
 
         //게임시작 1번 index
