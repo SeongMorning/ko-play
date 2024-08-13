@@ -52,6 +52,7 @@ export default function RankGameJellyBtn(props) {
           dispatch(changeInCorrect(true));
           dispatch(changeLoadingIdx(1));
           dispatch(changeGamePurposeIdx(4));
+          props.onClick();
         } else {
           dispatch(changeModalIdx(0));
           dispatch(changeLoadingIdx(-1));
