@@ -102,7 +102,6 @@ export default function RankGame() {
   );
 
   return () => {
-    client.unsubscribe("/topic/game/match");
     client.unsubscribe(`/topic/game/${roomId}`);
     setMatch(false);
   };
