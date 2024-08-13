@@ -22,7 +22,7 @@ public class GameRoomManager {
     public static Queue<String> waitingQueue = new ArrayDeque<>();
     //userId, roomId를 키와 벨류로 가지는 map
     public static Map<String, Long> userIdAndRoom = new HashMap<>();
-
+    public static Long roomId = 1L;
     /**
      * 플레이어를 새로운 방에 추가하거나 기존 방에 참여시킵니다.
      *
