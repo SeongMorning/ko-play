@@ -122,10 +122,10 @@ class FaceCanvas {
       this._halfH,
       1, 1000,
     );
-    this._camera.position.x = this._halfW;
-    this._camera.position.y = this._halfH;
+    this._camera.position.x = 320;
+    this._camera.position.y = 240;
     this._camera.position.z = -600;
-    this._camera.lookAt(this._halfW, this._halfH, 0);
+    this._camera.lookAt(320, 240, 0);
   }
 
   _addLights() {
@@ -135,12 +135,29 @@ class FaceCanvas {
     directionalLight.position.set(this._halfW, this._halfH * 0.5, -1000).normalize();
     this._scene.add(directionalLight);
   }
-
+// 	_addGeometry() {
+// 		this._geometry = new THREE.BufferGeometry();
+//     // const EV = FacePaint.EYE_VERTICES;
+//     // for(let i = TRIANGULATION.length - 1; i > -1; i-=3) {
+//     //   const a = TRIANGULATION[i];
+//     //   const b = TRIANGULATION[i - 1];
+//     //   const c = TRIANGULATION[i - 2];
+//     //   if(EV.indexOf(a) !== -1 ||
+//     //      EV.indexOf(b) !== -1 ||
+//     //      EV.indexOf(c) !== -1) {
+//     //     TRIANGULATION.splice(i - 2, 3);
+//     //   }
+//     // }
+// 		this._geometry.setIndex(TRIANGULATION);
+// 		this._geometry.setAttribute('position', new THREE.Float32BufferAttribute(positionBufferData, 3));
+// 		this._geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+// 		this._geometry.computeVertexNormals();
+// 	}
   _addGeometry() {
     this._geometry = new THREE.BufferGeometry();
     this._geometry.setIndex(TRIANGULATION);
     this._geometry.setAttribute(
-      "position",
+      "position", 
       new THREE.Float32BufferAttribute(positionBufferData, 3)
     );
     this._geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
