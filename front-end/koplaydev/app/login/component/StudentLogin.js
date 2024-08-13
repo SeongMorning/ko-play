@@ -13,6 +13,7 @@ import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import effectSound from '@/app/utils/effectSound'
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const keydownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/keydownSound.wav";
 
 export default function StudentLogin() {
   const translationWords = useSelector((state) => state.translationWords);
@@ -23,11 +24,12 @@ export default function StudentLogin() {
   const idRef = useRef(null);
   const passwordRef = useRef(null);
   const [loginModal, setLoginModal] = useState(0);
-  const es = effectSound(buttonSound, 1);
+  const buttonEs = effectSound(buttonSound, 1);
+  const keydownEs = effectSound(keydownSound, 1);
 
   // 버튼 클릭 시 실행되는 함수
   const handleClick = async () => {
-    es.play();
+    buttonEs.play();
     const formData = new FormData();
 
     // 입력 필드의 값을 올바르게 가져와서 FormData에 추가
@@ -134,6 +136,7 @@ export default function StudentLogin() {
               ref={idRef}
               placeholder={translationWords.idPlaceholder}
               onKeyDown={(event) => {
+                keydownEs.play();
                 if (event.key === "Enter") {
                   handleClick();
                 }
@@ -146,6 +149,7 @@ export default function StudentLogin() {
               ref={passwordRef}
               placeholder={translationWords.pwPlaceholder}
               onKeyDown={(event) => {
+                keydownEs.play();
                 if (event.key === "Enter") {
                   handleClick();
                 }

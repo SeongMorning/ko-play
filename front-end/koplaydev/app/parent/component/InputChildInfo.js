@@ -4,12 +4,18 @@ import { useSelector } from "react-redux";
 import CompleteBox from "./CompleteBox";
 import DetailBox from "./DetailBox";
 import styles from "./InputChildInfo.module.scss";
+import insertChildAxios from "@/app/axios/insertChildAxios";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function InputChildInfo({ onClose, onAllClose, childInfo, setChildInfo }) {
     const translationWords = useSelector((state) => state.translationWords);
+    const es = effectSound(buttonSound, 1);
 
     // 닫기 버튼 클릭 시 실행되는 함수
     const handleClose = () => {
+        es.play();
         // 상태 초기화
         setChildInfo({
             name: '',
@@ -22,6 +28,7 @@ export default function InputChildInfo({ onClose, onAllClose, childInfo, setChil
     };
 
     const createProfile = () => {
+        es.play();
         onClose();
     };
 
