@@ -10,7 +10,6 @@ const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effec
 export default function ClickedPinkBtn(props) {
   const router = useRouter();
 
-  const dispatch = useDispatch();
   const myPageIdx = useSelector((state) => state.myPage);
   const [scope, animation] = useAnimate()
   const es = effectSound(buttonSound, 1);

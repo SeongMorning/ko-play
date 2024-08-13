@@ -24,6 +24,8 @@ import InputInitInfo from "./component/InputInitInfo";
 import insertChildAxios from "../axios/insertChildAxios";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
 import useSound from "@/app/utils/useSound";
+import translations from "../axios/translations";
+import { changeTranslationWords } from "@/redux/slices/translationWords";
 import effectSound from '@/app/utils/effectSound'
 
 const albumBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/albumBGM.wav';
@@ -33,6 +35,8 @@ export default function Parent() {
   useSound(albumBGM, 0.8, 0);
   const es = effectSound(buttonSound, 1);
 
+  const translationWords = useSelector((state) => state.translationWords);
+  const parent = useSelector((state) => state.parent)
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInitModalOpen, setIsInitModalOpen] = useState(false);
@@ -53,6 +57,14 @@ export default function Parent() {
     }
     fetchParentInfo();
   }, [])
+
+  // useEffect(() => {
+  //   const fetchTranslations = async () =>{
+  //     dispatch(changeTranslationWords(await translations(parent.nationality)));
+  //   }
+  //   fetchTranslations();
+  // }, [parent])
+
 
   useEffect(() => {
     const fetchParentChildsInfo = async () => {
@@ -130,7 +142,7 @@ export default function Parent() {
         className={styles.backButton}
         left={27}
         top={20}
-        text="로그아웃"
+        text={translationWords.logout}
       />
       <div className={styles.carousel}>
         <Slider key="1" className={styles.slider} {...settings}>

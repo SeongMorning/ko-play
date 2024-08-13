@@ -32,6 +32,8 @@ export default function StartButton(props) {
       router.replace("/login"); // 로그인 페이지로 라우팅
     }
   };
+  const memberText = translationWords?.member || "회원으로 시작";
+  const nonMemberText = translationWords?.nonMember || "비회원으로 시작";
 
   return (
     <motion.div
@@ -61,8 +63,8 @@ export default function StartButton(props) {
           className={styles.text}
         >
            {props.text === "회원"
-            ? `${translationWords.member}`
-            : `${translationWords.nonMember}`}
+            ? memberText
+            : nonMemberText}
           </h2>
       </motion.div>
       <div
