@@ -159,6 +159,7 @@ export default function RankTest2() {
             if (correct + incorrect === 20) {
               console.log("게임종료!");
               setModal(true);
+              client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
               SpeechRecognition.stopListening();
             }
           }
