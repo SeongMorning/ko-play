@@ -93,7 +93,7 @@ export default function RankGame() {
           }
         }
       );
-      setInterval(()=>{client.send("/app/match", {}, userInfo.id)},1000);
+      // setInterval(()=>{client.send("/app/match", {}, userInfo.id)},1000);
 
       return () => {
         client.unsubscribe("/topic/game/match");
