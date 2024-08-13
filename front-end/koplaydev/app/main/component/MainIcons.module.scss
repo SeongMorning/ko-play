@@ -79,11 +79,27 @@
   transform: translate(-50%, -50%) scale(1.1);
 }
 
-.speechBubble {
+.speechBubbleContainer {
   position: absolute;
   top: 9vh;
   left: 38vw;
   width: 24vw;
   height: 15vh;
   z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 24vw;
+    height: 15vh;
+  }
+
+  .speechText {
+    position: absolute;
+    text-align: center;
+    font-size: calc(1vw + 1vh);
+    font-weight: bold;
+    width: 100%;
+  }
 }
