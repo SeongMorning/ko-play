@@ -68,7 +68,8 @@ public class RankGameController {
         GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
         //키가 있으면 방배정 된거니까 게임 시작하면 될듯
         if (gameRoom.isFull()) {
-            startGame(roomId);
+            logger.info(roomId+"번방이 다 차있어서 게임을 시작합니다");
+                startGame(roomId);
         }
     }
 
@@ -95,7 +96,9 @@ public class RankGameController {
 
     private void startGame(Long roomId) throws InterruptedException {
         GameRoom room = roomManager.getRoom(roomId);
+        logger.info("startGame 방정보를 가져왔어요");
         if (room == null) {
+            logger.info("room is null");
             return;
         }
         // 게임 참가자를 저장하고
@@ -119,8 +122,12 @@ public class RankGameController {
         ResponseDTO<Object> response = ResponseDTO.<Object>builder().index(2).data(res).build();
 //        System.out.println("!!!!!!!!"+response.getData());
         Thread.sleep(1000); // simulated delay
+        logger.info(roomId+"로게임단어전달합니다."+"단어: "+wordGameDataDTOS.toString());
         //게임 단어전달 2번 index
         messagingTemplate.convertAndSend("/topic/game/" + roomId, response);
+
+        logger.info(roomId+"에서 게임이 시작됩니다..");
+
         //게임시작 1번 index
         messagingTemplate.convertAndSend("/topic/game/" + roomId, ResponseDTO.<Object>builder().index(1).build());
     }
