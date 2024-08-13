@@ -53,11 +53,7 @@ export default function Statistic({ params }) {
       // setParentNation(parent.nationality);
       console.log(statisticData);
       let question = "";
-<<<<<<< Updated upstream
-      let selectedData = null;
-=======
 
->>>>>>> Stashed changes
       switch (viewIdx) {
         case "1":
           question = `I'll explain the data for ${JSON.stringify(
@@ -134,7 +130,7 @@ export default function Statistic({ params }) {
       case "3":
         return <CorrectAnswerRate />;
       case "4":
-        return <Album id={id}/>;
+        return <Album id={id} />;
       default:
         return <div>선택된 내용이 없습니다.</div>;
     }
