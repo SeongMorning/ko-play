@@ -16,6 +16,7 @@ import modifyStudentInfoImg from "../../../axios/modifyStudentInfoImgAxios";
 import PwPinkBox from "../PwPinkBox";
 import { motion } from "framer-motion";
 import effectSound from "@/app/utils/effectSound";
+import pictureAxios from "@/app/axios/pictureAxios";
 
 const buttonSound =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3";
@@ -83,12 +84,11 @@ export default function Setting() {
 
   const handleImageChange = async (event) => {
     const file = event.target.files[0];
-    const imagePath = await modifyStudentInfoImg(file);
-
+    const imagePath = await pictureAxios(file,'profile');
+    
     // 백엔드에서 반환된 URL을 프론트엔드의 기본 URL에 맞게 조정
-    console.log(imagePath)
-    dispatch(setProfileImg(imagePath));
-    dispatch(setProfileImgState(imagePath));
+    dispatch(setProfileImg(imagePath.profileImg));
+    dispatch(setProfileImgState(imagePath.profileImg));
   };
 
   return (
@@ -134,7 +134,7 @@ export default function Setting() {
             <div className={styles.profileBox}>
               <img
                 className={styles.profileImg}
-                src={`${process.env.customKey}/static${profileImg}`}
+                src={userInfo.profileImg}
                 onError={(e) => {
                   e.target.src = "hehe.png";
                 }}

@@ -24,7 +24,7 @@ import LevelJellyBtn from "@/app/game/component/GameJellyBtn";
 import RankGameJellyBtn from "../RankGameJellyBtn";
 import OpenVidu from "@/app/utils/openvidu/OpenVidu";
 import OpenViduItem from "@/app/utils/openvidu/OpenVidu";
-import { closeSession } from "@/app/utils/openvidu/sessionCheckAndDelete";
+import closeSession from "@/app/utils/openvidu/sessionCheckAndDelete";
 import Cam from "@/app/avatar/component/Cam";
 import { changeExp } from "@/redux/slices/expSlice";
 import { changeInCorrect } from "@/redux/slices/Incorrect";
@@ -88,7 +88,7 @@ export default function RankTest2() {
 
   const handleSaveImage = async () => {
     //axios 호출
-    const res = await pictureAxios(capturedImage);
+    const res = await pictureAxios(capturedImage,'image');
     if (res) {
       console.log(res);
     }
@@ -332,7 +332,7 @@ export default function RankTest2() {
                             dispatch(changeInCorrect(true));
                             dispatch(changeLoadingIdx(1));
                             dispatch(changeGamePurposeIdx(4));
-                            handleCloseSession;
+                            handleCloseSession();
                           }}
                         >
                           예
@@ -342,7 +342,7 @@ export default function RankTest2() {
                           dispatch(changeInCorrect(true));
                           dispatch(changeLoadingIdx(1));
                           dispatch(changeGamePurposeIdx(4));
-                          handleCloseSession;
+                          handleCloseSession();
                         }}>아니요</span>
                       </div>
                     </>

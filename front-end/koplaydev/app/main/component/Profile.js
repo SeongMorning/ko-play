@@ -5,7 +5,7 @@ import styles from "./Profile.module.scss";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { motion } from "framer-motion";
 import ExpBar from "./ExpBar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import studentInfo from "../../axios/studentInfo";
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import allAvatarAxios from "@/app/axios/allAvatarAxios";
@@ -19,6 +19,7 @@ import {
 } from "@/redux/slices/levelSlice";
 import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import effectSound from "@/app/utils/effectSound";
+import studentGameCount from "@/app/axios/studentGameCount";
 
 const slowMouseClickSound =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/slowMouseClickSound.mp3";
@@ -32,6 +33,7 @@ export default function Profile() {
   const myAvatar = useSelector((state) => state.myAvatar);
   const modal = useSelector((state) => state.modal);
   const es = effectSound(slowMouseClickSound, 0.5);
+  const [allGameCount, setAllGameCount] = useState(0);
 
   useEffect(() => {
     const fetchStudentInfo = async () => {
@@ -56,10 +58,15 @@ export default function Profile() {
         // console.log('userinfo받아오기 성공');
       }
     };
+    const allGameCountInfo = async () => {
+      const response = await studentGameCount();
+      setAllGameCount(response);
+    }
 
     fetchStudentInfo(); // 비동기 함수 호출
     fetchAllAvatarInfo();
     fetchMyAvatarInfo();
+    allGameCountInfo();
 
     dispatch(changeLoadingIdx(-1));
     console.log(userInfo.profileImg);
@@ -94,7 +101,7 @@ export default function Profile() {
       <div className={styles.pictureBox}>
         <img
           src={
-            `${process.env.customKey}/static${userInfo.profileImg}`
+            userInfo.profileImg
           }
           onError={(e) => {
             e.target.src = "hehe.png";
@@ -108,7 +115,7 @@ export default function Profile() {
           <ExpBar />
         </div>
         <span className={styles.nickname}>{userInfo.nickname}</span>
-        <span className={styles.games}>{translationWords.totalGame} : 13</span>
+        <span className={styles.games}>{translationWords.totalGame} : {allGameCount}</span>
         <span className={styles.avatar}>
           {translationWords.openAvatar} {myAvatar.avatars.length ? myAvatar.avatars.length : 0}/
           {avatar.avatars.length}

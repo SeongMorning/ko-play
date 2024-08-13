@@ -41,8 +41,6 @@ public class RankGameController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    Long roomId = 1L;
-
     @MessageMapping("/match")
     @SendTo("/topic/game/match")
     public void matchGame(String playerId) throws Exception {
@@ -51,9 +49,9 @@ public class RankGameController {
         logger.info("방배정되어있는 상태인가? "+ String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
             logger.info("방 배정이 되어있다면 해당 방에 입장시키겠어요...");
-            roomId = GameRoomManager.userIdAndRoom.get(playerId);
-            roomManager.createOrJoinRoom(roomId, playerId);
-            messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(roomId)));
+            GameRoomManager.roomId = GameRoomManager.userIdAndRoom.get(playerId);
+            roomManager.createOrJoinRoom(GameRoomManager.roomId, playerId);
+            messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(GameRoomManager.roomId)));
         }
 
     }
@@ -68,7 +66,9 @@ public class RankGameController {
         GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
         //키가 있으면 방배정 된거니까 게임 시작하면 될듯
         if (gameRoom.isFull()) {
-            startGame(roomId);
+            logger.info(roomId+"번방 인원"+gameRoom.getClients().size());
+            logger.info(roomId+"번방이 다 차있어서 게임을 시작합니다");
+                startGame(roomId);
         }
     }
 
@@ -86,16 +86,19 @@ public class RankGameController {
             String id1 = GameRoomManager.waitingQueue.poll();
             String id2 = GameRoomManager.waitingQueue.poll();
             System.out.println(id1 + id2);
-            GameRoomManager.userIdAndRoom.put(id1, roomId);
-            GameRoomManager.userIdAndRoom.put(id2, roomId);
-            logger.info("roomId" + roomId);
-            roomId++;
+            GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
+            GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
+            logger.info("roomId" + GameRoomManager.roomId);
+            GameRoomManager.roomId++;
+            logger.info("증가된 roomId"+GameRoomManager.roomId);
         }
     }
 
     private void startGame(Long roomId) throws InterruptedException {
         GameRoom room = roomManager.getRoom(roomId);
+        logger.info("startGame 방정보를 가져왔어요");
         if (room == null) {
+            logger.info("room is null");
             return;
         }
         // 게임 참가자를 저장하고
@@ -119,8 +122,12 @@ public class RankGameController {
         ResponseDTO<Object> response = ResponseDTO.<Object>builder().index(2).data(res).build();
 //        System.out.println("!!!!!!!!"+response.getData());
         Thread.sleep(1000); // simulated delay
+        logger.info(roomId+"로게임단어전달합니다."+"단어: "+wordGameDataDTOS.toString());
         //게임 단어전달 2번 index
         messagingTemplate.convertAndSend("/topic/game/" + roomId, response);
+        logger.info(room.getClients().toString()+"방의 참여 인원입니다.");
+        logger.info(roomId+"에서 게임이 시작됩니다..");
+
         //게임시작 1번 index
         messagingTemplate.convertAndSend("/topic/game/" + roomId, ResponseDTO.<Object>builder().index(1).build());
     }

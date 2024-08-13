@@ -114,20 +114,32 @@ class FaceCanvas {
     ];
   }
 
+  // _addCamera() {
+  //   this._camera = new THREE.OrthographicCamera(
+  //     this._halfW,
+  //     -this._halfW,
+  //     -this._halfH,
+  //     this._halfH,
+  //     1, 1000,
+  //   );
+  //   this._camera.position.x = 320;
+  //   this._camera.position.y = 240;
+  //   this._camera.position.z = -600;
+  //   this._camera.lookAt(320, 240, 0);
+  // }
+
   _addCamera() {
-    this._camera = new THREE.OrthographicCamera(
-      this._halfW,
-      -this._halfW,
-      -this._halfH,
-      this._halfH,
-      -1000,
-      10000
+    const aspect = window.innerWidth / window.innerHeight; // 화면 비율
+    this._camera = new THREE.PerspectiveCamera(
+      75,          // 시야각 (FOV)
+      aspect,      // 종횡비
+      0.1,         // 근거리
+      1000         // 원거리
     );
-    this._camera.position.x = 320;
-    this._camera.position.y = 240;
-    this._camera.position.z = -10;
-    this._camera.lookAt(320, 240, 0);
+    this._camera.position.set(0, 0, 500); // 카메라 위치 조정
+    this._camera.lookAt(0, 0, 0);         // 카메라가 보도록 하는 위치
   }
+  
 
   _addLights() {
     const light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.2);
@@ -136,12 +148,29 @@ class FaceCanvas {
     directionalLight.position.set(this._halfW, this._halfH * 0.5, -1000).normalize();
     this._scene.add(directionalLight);
   }
-
+// 	_addGeometry() {
+// 		this._geometry = new THREE.BufferGeometry();
+//     // const EV = FacePaint.EYE_VERTICES;
+//     // for(let i = TRIANGULATION.length - 1; i > -1; i-=3) {
+//     //   const a = TRIANGULATION[i];
+//     //   const b = TRIANGULATION[i - 1];
+//     //   const c = TRIANGULATION[i - 2];
+//     //   if(EV.indexOf(a) !== -1 ||
+//     //      EV.indexOf(b) !== -1 ||
+//     //      EV.indexOf(c) !== -1) {
+//     //     TRIANGULATION.splice(i - 2, 3);
+//     //   }
+//     // }
+// 		this._geometry.setIndex(TRIANGULATION);
+// 		this._geometry.setAttribute('position', new THREE.Float32BufferAttribute(positionBufferData, 3));
+// 		this._geometry.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+// 		this._geometry.computeVertexNormals();
+// 	}
   _addGeometry() {
     this._geometry = new THREE.BufferGeometry();
     this._geometry.setIndex(TRIANGULATION);
     this._geometry.setAttribute(
-      "position",
+      "position", 
       new THREE.Float32BufferAttribute(positionBufferData, 3)
     );
     this._geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
