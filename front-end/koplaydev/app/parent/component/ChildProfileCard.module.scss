@@ -43,8 +43,8 @@
     }
 
     .profileInput {
-        width: 10.5vw;
-        height: 10.5vw;
+        width: 15vw;
+        height: 20vh;
         border-radius: 2.7vw;
         margin: 0 auto;
         // 확인하려고 background-color 넣음
@@ -58,13 +58,13 @@
 
     .profileImg {
         width: 15vw;
-        height: auto;
+        height : 20vh;
     }
 
     .profileName {
-        font-size: 2.3vw;
+        font-size: calc((3.5vw + 3vh)/2);
         font-weight: bold;
-        letter-spacing: 1vw;
+        letter-spacing: 0.3vw;
         margin-bottom: 1vh;
         margin-left: 2vh;
         display: flex;
@@ -74,6 +74,7 @@
 
     .profileBirth {
         margin-top: 0;
+        font-size: calc((3vw + 2vh)/2);
         display: flex;
         align-items: center;
         justify-content: center;
