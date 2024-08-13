@@ -59,7 +59,7 @@
     border: none;
     padding: 10px 20px;
     border-radius: 5px;
-    cursor: pointer;
+    cursor: url("/smile-star-hover.svg") 30 30, auto;
     font-weight: bold;
 
     &:hover {
