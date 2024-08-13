@@ -29,7 +29,6 @@ const OpenViduVideo = ({ streamManager, avatarPath }) => {
           right: 0,
           left: 0,
           bottom: 0,
-          objectFit: "cover",
           borderRadius: "10px",
         }}
       />
