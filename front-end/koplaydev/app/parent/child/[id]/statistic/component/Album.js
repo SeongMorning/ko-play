@@ -1,17 +1,18 @@
 "use client";
 import { useEffect, useState } from "react";
-import style from "./embla.scss";
 import parentChaildAlbumAxios from "@/app/axios/parentChildAlbumAxios";
 import { motion } from "framer-motion";
+import Embla from "@/app/album/component/Embla/Embla";
+import EmblaCarousel from "@/app/album/component/Embla/EmblaCarousel";
+import styles from "./Album.module.scss";
 
 export default function Album(id) {
   const [slides, setSlides] = useState([]); // 앨범 데이터를 저장할 상태를 생성
+  const OPTIONS = { loop: true };
 
   useEffect(() => {
     const fetchAlbumData = async () => {
       const data = await parentChaildAlbumAxios(id.id);
-      console.log(data)
-
       if (data) {
         setSlides(data);
       }
@@ -22,15 +23,12 @@ export default function Album(id) {
 
   return (
     <>
-      <div className={style.albumContainer}>
+      <div className={styles.albumContainer}>
         {slides.length > 0 ? (
-          slides.map((slide, index) => (
-            <motion.div key={index} className={style.albumDiv}>
-              <motion.h5><img src={slide.snapshot} alt={slide.snapshot} /></motion.h5>
-              <motion.h2><p>{slide.createAt}</p></motion.h2>
-            </motion.div>
-          ))
-        ) : ('비어있음')}
+          <EmblaCarousel slides={slides} options={OPTIONS} />
+        ) : (
+          "사진이 없어요. 사진을 찍어주세요."
+        )}
       </div>
     </>
   );
