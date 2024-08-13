@@ -1,6 +1,7 @@
 package com.edu.koplay.controller.parent;
 
 import com.edu.koplay.dto.*;
+import com.edu.koplay.model.Gallery;
 import com.edu.koplay.model.Parent;
 import com.edu.koplay.model.RecommendLevel;
 import com.edu.koplay.model.Student;
@@ -185,6 +186,29 @@ public class ParentController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
+    @GetMapping("/child/{studentId}/snapshots")
+    public ResponseEntity<?> getSnapshots(@PathVariable(name = "studentId") String studentId) { //
+        try {
+            String email = getAuthenticationData();
+
+            List<Gallery> galleries = parentService.getChildGallery(email, studentId);
+
+            //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
+            ResponseDTO<GalleryDTO> response = ResponseDTO.<GalleryDTO>builder().data(galleries.stream()
+                    .map(GalleryDTO::new)
+                    .toList()).build();
+
+            return ResponseEntity.ok().body(response);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //예외 발생 시 error에 메세지를 넣어 리턴
+            ResponseDTO<GalleryDTO> response = ResponseDTO.<GalleryDTO>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+    }
+
     @PutMapping("/visit")
     public ResponseEntity<?> putVisited() {
         try {

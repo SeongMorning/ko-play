@@ -1,9 +1,11 @@
 package com.edu.koplay.service.facade;
 
 import com.edu.koplay.dto.StudentLevelDTO;
+import com.edu.koplay.model.Gallery;
 import com.edu.koplay.model.Parent;
 import com.edu.koplay.model.RecommendLevel;
 import com.edu.koplay.model.Student;
+import com.edu.koplay.service.GalleryService;
 import com.edu.koplay.service.ParentService;
 import com.edu.koplay.service.RecommendLevelService;
 import com.edu.koplay.service.StudentService;
@@ -18,11 +20,13 @@ public class ParentFacadeService {
     private ParentService parentService;
     private StudentService studentService;
     private RecommendLevelService recommendationLevelService;
+    private GalleryService galleryService;
 
-    public ParentFacadeService(ParentService parentService, StudentService studentService, RecommendLevelService recommendationLevelService) {
+    public ParentFacadeService(ParentService parentService, StudentService studentService, RecommendLevelService recommendationLevelService, GalleryService galleryService) {
         this.parentService = parentService;
         this.studentService = studentService;
         this.recommendationLevelService = recommendationLevelService;
+        this.galleryService = galleryService;
     }
 
     public void WithdrawalParent(String email) {
@@ -76,4 +80,14 @@ public class ParentFacadeService {
         Parent parent = parentService.selectParentInfoByEmail(email);
         return studentService.selectOneStudentByParent(parent, studentId);
     }
+
+    public List<Gallery> getChildGallery(String email, String studentId) {
+        //부모객체가져오기
+        Parent parent = parentService.selectParentInfoByEmail(email);
+        //학생정보가져오기
+        Student student = getChild(email,studentId);
+        //학생정보로 스냅샷 조회하기
+        return galleryService.getAllGallery(student);
+    }
+
 }
