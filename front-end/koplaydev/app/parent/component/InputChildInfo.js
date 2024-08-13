@@ -136,9 +136,7 @@ export default function InputChildInfo({
               </div>
               <div>
                 <input
-                  className={`${styles.input} ${blue1 ? styles.blue : ""} ${
-                    red1 ? styles.red : ""
-                  }`}
+                  className={`${styles.input} ${blue1 ? styles.blue : ""}`}
                   value={childInfo.name}
                   placeholder="한국 이름을 작성하세요."
                   onChange={(e) => {
@@ -166,9 +164,7 @@ export default function InputChildInfo({
               <div>
                 <input
                   placeholder="영문 소문자 및 숫자 10글자 이내"
-                  className={`${styles.input} ${blue2 ? styles.blue : ""} ${
-                    red2 ? styles.red : ""
-                  }`}
+                  className={`${styles.input} ${blue2 ? styles.blue : ""}`}
                   onChange={(e) => {
                     keydownEs.play();
                     setChildInfo((prevState) => ({
@@ -196,9 +192,7 @@ export default function InputChildInfo({
                 <input
                   placeholder="영문, 숫자 및 특수문자 20글자 이내"
                   type={click ? "password" : "text"}
-                  className={`${styles.input} ${blue3 ? styles.blue : ""} ${
-                    red3 ? styles.red : ""
-                  }`}
+                  className={`${styles.input} ${blue3 ? styles.blue : ""}`}
                   value={childInfo.pw}
                   onChange={(e) => {
                     keydownEs.play();
@@ -241,9 +235,7 @@ export default function InputChildInfo({
               <div>
                 <input
                   type="date"
-                  className={`${styles.input} ${blue4 ? styles.blue : ""} ${
-                    red4 ? styles.red : ""
-                  }`}
+                  className={`${styles.input} ${blue4 ? styles.blue : ""}`}
                   value={childInfo.birth}
                   onChange={(e) => {
                     setChildInfo((prevState) => ({
