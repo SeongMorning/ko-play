@@ -7,7 +7,7 @@ import effectSound from '@/app/utils/effectSound'
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
-export default function InputInitInfo({ onClose, setChildInfo }) {
+export default function InputInitInfo({ onClose, setChildInfo, addChildProfile }) {
     const translationWords = useSelector((state) => state.translationWords);
     const es = effectSound(buttonSound, 1);
 
@@ -103,6 +103,7 @@ export default function InputInitInfo({ onClose, setChildInfo }) {
             speakingLevel: speakingLevel,
         });
 
+        addChildProfile();
         // 모달 닫기
         onClose();
     };
