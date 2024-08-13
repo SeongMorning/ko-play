@@ -19,20 +19,24 @@ export default function CorrectAnswerRate({ childId }) {
     datasets: [],
   });
 
+  const [chartDataOther, setChartDataOther] = useState({
+    labels: [],
+    datasets: [],
+  });
+
   // 레벨별 통계 데이터를 가져와 차트 업데이트
   useEffect(() => {
     const fetchStatistics = async () => {
       try {
         // API에서 가져온 데이터 로그
         // console.log("API Response:", statisticData);
-
         if (!Array.isArray(statisticData) || statisticData.length < 3) {
           throw new Error(
             "Unexpected data structure from API. Expected an array with at least 3 elements."
           );
         }
-
         const personalData = statisticData[0]; // 데이터 배열 선택
+        const otherData = statisticData[2]; // 타인 배열 선택
         // console.log("Personal Data:", personalData);
 
         const oneWeekAgo = new Date();
@@ -40,19 +44,18 @@ export default function CorrectAnswerRate({ childId }) {
 
         // '단어비', '플립플립', '스무고개'로 필터링
         const purposeMapping = {
-          말하기: "단어비",
-          읽기: "플립플립",
-          듣기: "스무고개",
+          말하기: "말하기",
+          읽기: "읽기",
+          듣기: "듣기",
         };
 
-        // 선택된 레벨에 대한 데이터 필터링
-        const levelData = personalData.filter(
-          (item) => item.level === selectedLevel
-        );
         // console.log("Filtered Level Data:", levelData);
 
         // 최근 일주일 간의 데이터 필터링
-        const weeklyDataPersonal = levelData.filter(
+        const weeklyDataPersonal = personalData.filter(
+          (item) => new Date(item.date) >= oneWeekAgo
+        );
+        const weeklyDataOther = otherData.filter(
           (item) => new Date(item.date) >= oneWeekAgo
         );
         // console.log("Weekly Data Personal:", weeklyDataPersonal);
@@ -60,7 +63,6 @@ export default function CorrectAnswerRate({ childId }) {
         // 각 게임별 정답률 계산
         const gamePurposeAveragesPersonal = Object.keys(purposeMapping).map(
           (purpose) => {
-            const mappedPurpose = purposeMapping[purpose];
             const purposeData = weeklyDataPersonal.filter(
               (item) => item.gamePurpose === purpose
             );
@@ -81,6 +83,28 @@ export default function CorrectAnswerRate({ childId }) {
           }
         );
 
+        const gamePurposeAveragesOther = Object.keys(purposeMapping).map(
+          (purpose) => {
+            const purposeData = weeklyDataOther.filter(
+              (item) => item.gamePurpose === purpose
+            );
+            // console.log(`Purpose Data for ${purpose}:`, purposeData);
+
+            const totalCorrect = purposeData.reduce(
+              (sum, item) => sum + item.correct,
+              0
+            );
+            const totalQuestions = purposeData.reduce(
+              (sum, item) => sum + item.total,
+              0
+            );
+            // console.log(`Total Correct for ${purpose}:`, totalCorrect);
+            // console.log(`Total Questions for ${purpose}:`, totalQuestions);
+
+            return totalQuestions ? (totalCorrect / totalQuestions) * 100 : 0;
+          }
+        );
+
         // console.log("Game Purpose Averages Personal:", gamePurposeAveragesPersonal);
 
         // 차트 데이터 설정
@@ -88,11 +112,20 @@ export default function CorrectAnswerRate({ childId }) {
           labels: Object.values(purposeMapping),
           datasets: [
             {
-              label: `정답률 (레벨 ${selectedLevel})`,
+              label: `우리 아이`,
               data: gamePurposeAveragesPersonal,
               fill: false,
               borderColor: "#4CAF50",
               backgroundColor: "#4CAF50",
+              tension: 0.1,
+              hoverBorderWidth: 3,
+            },
+            {
+              label: `다른 아이들`,
+              data: gamePurposeAveragesOther,
+              fill: false,
+              borderColor: "red",
+              borderDash: [5, 5],
               tension: 0.1,
               hoverBorderWidth: 3,
             },
@@ -147,7 +180,7 @@ export default function CorrectAnswerRate({ childId }) {
               radius: 3,
             },
             line: {
-              borderWidth: 10,
+              borderWidth: 5,
             },
           },
           plugins: {
@@ -161,10 +194,9 @@ export default function CorrectAnswerRate({ childId }) {
           },
         },
       });
-
       // console.log("Chart instance created with data:", chartDataPersonal);
     }
-  }, [chartDataPersonal]);
+  }, [chartDataPersonal, chartDataOther]);
 
   useEffect(() => {
     // console.log(graphLevel)
@@ -175,20 +207,6 @@ export default function CorrectAnswerRate({ childId }) {
     <div className={styles.Main}>
       <div className={styles.graphContainer}>
         <canvas ref={graphPersonal} />
-      </div>
-      <div className={styles.levelBtn}>
-        {[1, 2, 3, 4, 5].map((data, index) => (
-          <LevelJellyBtn
-            key={index}
-            level={data}
-            bg={"#FFCC17"}
-            shadow={"#C99D00"}
-            color={"white"}
-            width={"16"}
-            height={"50"}
-            // onClick={() => handleLevelClick(data)}
-          />
-        ))}
       </div>
     </div>
   );

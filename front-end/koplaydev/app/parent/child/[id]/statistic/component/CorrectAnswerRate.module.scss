@@ -1,9 +1,9 @@
 .Main {
   position: relative;
   left: 47%;
-  top: 15vh;
+  top: 20vh;
   width: 45%;
-  height: 30%;
+  height: 35%;
   z-index: 100;
 }
 
@@ -14,14 +14,4 @@
   border-radius: 50px;
   align-items: center;
   justify-content: center;
-}
-
-.levelBtn {
-  position: absolute;
-  display: flex;
-  right: 20%;
-  width: 60%;
-  height: 35%;
-  justify-content: space-between;
-  align-items: center;
 }
