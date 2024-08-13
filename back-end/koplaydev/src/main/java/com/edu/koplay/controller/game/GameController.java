@@ -145,6 +145,29 @@ public class GameController {
 
 
     }
+
+    @DeleteMapping("/cancel")
+    private ResponseEntity<?> deleteWaitList(){
+        try{
+            String id = getAuthenticationData();
+
+            GameRoomManager.waitingQueue.size();
+            Boolean result = GameRoomManager.waitingQueue.remove(id);
+            GameRoomManager.waitingQueue.size();
+
+            ResponseDTO<Boolean> response = null;
+
+            response = ResponseDTO.<Boolean>builder().data(Collections.singletonList(result)).build();
+            return ResponseEntity.ok().body(response);
+        }catch(Exception e){
+            e.printStackTrace();
+            ResponseDTO<String> response = ResponseDTO.<String>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+
+
+    }
+
     private String getAuthenticationData() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 

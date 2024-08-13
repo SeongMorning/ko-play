@@ -55,18 +55,9 @@ export default function RankGame() {
       }));
     }
     fetchClient();
-    // return ()=>{
-    //   disconnectWebSocket();
-    //   dispatch(setConnected(false));
-    // }
   }, []);
 
   useEffect(() => {
-    // console.log(isConnected)
-    // if (isConnected) {
-    //   setClient(getWebSocketClient());
-    //   console.log(getWebSocketClient());
-    // }
     if (isConnected && client) {
       // console.log("매치 연결됨")
       const subscription1 = client.subscribe(
@@ -104,45 +95,22 @@ export default function RankGame() {
         client.unsubscribe("/topic/game/match");
         client.unsubscribe(`/topic/game/${roomId}`);
       }
-
-      // return () => {
-      //   if (client) {
-      //     client.unsubscribe("/topic/game/match");
-      //     client.unsubscribe(`/topic/game/${roomId}`);
-      //     dispatch(clearSubscriptions());
-      //   }
-      // };
-
-      // client.connect({}, (frame) => {
-      //   client.subscribe("/topic/game/match", (message1) => {
-
-      //     let roomId = JSON.parse(message1.body).message;
-
-      //     if(roomId != null && roomId != undefined && roomId != 0){
-      //       client.send("/app/join", {}, JSON.stringify({ playerId: userInfo.id, roomId: roomId }));
-
-      //       client.subscribe(`/topic/game/${roomId}`, (message2) => {
-      //         if (message2.body.startsWith("Joined")) {
-      //           console.log(message2.body);
-      //         } else if (JSON.parse(message2.body).message === "Game started") {
-      //           setTimeout(() => router.push("/game/4"), 2000);
-      //           // router.push("/game/4");
-      //         } else {
-      //           console.log(JSON.parse(message2.body).message.data);
-      //           dispatch(changeGameWord(JSON.parse(message2.body).message.data[0]));
-      //           dispatch(changegameLeft(JSON.parse(message2.body).message.data[1]));
-      //         }
-      //       })
-      //     }
-
-      //   });
-
-      //   client.send("/app/match", {},userInfo.id);
-
-      // });
     }
   }, [isConnected, client]);
+  const cancelClick = ()=>{
+    dispatch(changeModalIdx(0));
+    const fetchCancelMatch = async () => {
+      API.delete("/games/cancel")
+        .then((res) => {
+          console.log('큐에서삭제완료')
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    };
+    fetchCancelMatch();
 
+  }
   return (
     <>
       <YellowBox width="40" height="40">
@@ -153,7 +121,7 @@ export default function RankGame() {
           <span className={styles.text2}>{translationWords.waitGame}</span>
           <button
             onClick={() => {
-              dispatch(changeModalIdx(0));
+              cancelClick();
             }}
           >
             {translationWords.cancel}
