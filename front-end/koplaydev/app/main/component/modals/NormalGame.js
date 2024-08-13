@@ -164,7 +164,7 @@ const GameSelect = (props) => {
         <motion.div
           key={index}
           className={styles.Btn}
-          style={{ cursor: `${props.idx === 0 ? "pointer" : ""}` }}
+          style={{ cursor: `${props.idx === 0 ? "url('/smile-star-hover.svg') 30 30, auto" : ""}` }}
           animate={{
             width: `${widthList[index]}%`,
             translateX: `${

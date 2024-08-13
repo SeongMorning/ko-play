@@ -9,7 +9,7 @@
 .embla__viewport {
   overflow: hidden;
   z-index: 20;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
 }
 .embla__container {
   backface-visibility: hidden;
@@ -65,7 +65,7 @@
   touch-action: manipulation;
   display: inline-flex;
   text-decoration: none;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
   border: 0;
   padding: 0;
   margin: 0;
@@ -101,7 +101,7 @@
   touch-action: manipulation;
   display: inline-flex;
   text-decoration: none;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
   border: 0;
   padding: 0;
   margin: 0;

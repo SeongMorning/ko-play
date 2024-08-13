@@ -1,8 +1,6 @@
 .LogoutModalBtn {
   position: relative;
-  &:hover {
-    cursor: url("/star-cursor-hover.svg"), auto;
-  }
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
   .LogoutModalBtnTop {
     width: 100%;
     height: 100%;
