@@ -8,5 +8,23 @@ body {
   /* position: relative; */
   user-select: none;
   -webkit-user-drag: none;
+  // cursor: url('/cursors/일반_선택.cur'), auto;
 }
 
+// a, button {
+//   cursor: url('/cursors/손가락.cur'), pointer;
+// }
+
+/* 다른 요소에 대한 커서도 동일한 방식으로 지정할 수 있습니다. */
+// input, textarea {
+//   cursor: url('/cursors/텍스트_선택.cur'), text;
+// }
+
+// .waiting {
+//   cursor: url('/cursors/사용중.ani'), wait;
+// }
+
+// /* 필요한 커서를 CSS 클래스로 지정하고, React에서 적용 */
+// .custom-cursor {
+//   cursor: url('/cursors/커서_이름.cur'), auto;
+// }
