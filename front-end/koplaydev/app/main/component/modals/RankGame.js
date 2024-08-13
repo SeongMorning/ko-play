@@ -21,6 +21,7 @@ import {
   getWebSocketClient,
 } from "@/app/utils/websockectManager";
 import { changeIsRank } from "@/redux/slices/isRankSlice";
+import RankGameCancelBtn from "../RankGameCancelBtn";
 
 export default function RankGame() {
   const translationWords = useSelector((state) => state.translationWords);
@@ -32,9 +33,10 @@ export default function RankGame() {
   const [flag, setFlag] = useState(true);
   const userInfo = useSelector((state) => state.studentInfo);
   const [client, setClient] = useState(null);
+  const [match, setMatch] = useState(false);
 
   useEffect(() => {
-    dispatch(changeIsRank(true))
+    dispatch(changeIsRank(true));
     const fetchRoomId = async () => {
       API.get("/games/gameRoom")
         .then((res) => {
@@ -50,10 +52,12 @@ export default function RankGame() {
   useEffect(() => {
     const fetchClient = async () => {
       const url = `${process.env.customKey}/gs-guide-websocket`;
-      setClient(await connectWebSocket(url, () => {
-        dispatch(setConnected(true));
-      }));
-    }
+      setClient(
+        await connectWebSocket(url, () => {
+          dispatch(setConnected(true));
+        })
+      );
+    };
     fetchClient();
   }, []);
 
@@ -73,7 +77,8 @@ export default function RankGame() {
               `/topic/game/${roomId}`,
               (message2) => {
                 if (JSON.parse(message2.body).index === 1) {
-                  setTimeout(() => router.push("/game/4"), 2000);
+                  setMatch(true);
+                  setTimeout(() => router.replace("/game/4"), 2000);
                 } else if (JSON.parse(message2.body).index === 2) {
                   dispatch(changeGameWord(JSON.parse(message2.body).data[0]));
                   dispatch(changegameLeft(JSON.parse(message2.body).data[1]));
@@ -90,42 +95,48 @@ export default function RankGame() {
       );
       client.send("/app/match", {}, userInfo.id);
 
-
       return () => {
         client.unsubscribe("/topic/game/match");
         client.unsubscribe(`/topic/game/${roomId}`);
-      }
+        setMatch(false);
+      };
     }
   }, [isConnected, client]);
-  const cancelClick = ()=>{
+  const cancelClick = () => {
     dispatch(changeModalIdx(0));
     const fetchCancelMatch = async () => {
       API.delete("/games/cancel")
         .then((res) => {
-          console.log('큐에서삭제완료')
+          console.log("큐에서삭제완료");
         })
         .catch((e) => {
           console.log(e);
         });
     };
     fetchCancelMatch();
-
-  }
+  };
   return (
     <>
       <YellowBox width="40" height="40">
         <div className={styles.textbox}>
-          <span className={styles.NormalGameTitle}>{translationWords.rankGame}</span>
+          <span className={styles.NormalGameTitle}>
+            {translationWords.rankGame}
+          </span>
 
           <span className={styles.text1}>{translationWords.findFriend}</span>
           <span className={styles.text2}>{translationWords.waitGame}</span>
-          <button
-            onClick={() => {
-              cancelClick();
-            }}
-          >
-            {translationWords.cancel}
-          </button>
+          {match ? null : (
+            <div className={styles.btn}>
+              <RankGameCancelBtn
+                width="30"
+                height="100"
+                shadow="#df8ca1"
+                bg="#FFD6E0"
+              >
+                {translationWords.cancel}
+              </RankGameCancelBtn>
+            </div>
+          )}
         </div>
       </YellowBox>
     </>

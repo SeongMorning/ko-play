@@ -54,6 +54,7 @@ export default function WordRainStart() {
   useEffect(() => {
     let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
     if (CorrectWord.length === 1) {
+      correctEs.play();
       let index = wordObjectList.findIndex(
         (data) => data.wordKor === transcript
       );
@@ -83,12 +84,12 @@ export default function WordRainStart() {
 
       dispatch(changeCorrectIdx(a)); // a로 바꾸기
       if (a + b === 10) {
-        SpeechRecognition.stopListening();
         setCorrect(a);
         setIncorrect(b);
         dispatch(changeCorrectIdx(a));
         setModal(true);
         dispatch(changeWrong(wrong));
+        SpeechRecognition.stopListening();
       }
     }
   }, [wordObjectList]);

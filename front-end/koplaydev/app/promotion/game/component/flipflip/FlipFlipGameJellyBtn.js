@@ -67,11 +67,11 @@ export default function FlipFlipGameJellyBtn(props) {
         dispatch(changeLoadingIdx(-1));
         dispatch(changeCorrectIdx(0));
         if(props.text === "예"){
-          router.push('/login')
+          router.replace('/login')
         }else if(props.text === "아니요" || props.text === "확인"){
-          router.push('/')
+          router.replace('/')
         }else{
-          router.push("/n");
+          router.replace("/n");
         }
       }}
     >

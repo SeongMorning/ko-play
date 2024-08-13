@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import PinkBox from "@/app/component/boxes/PinkBox";
 import WhiteBox from "@/app/component/boxes/WhiteBox";
@@ -7,12 +7,17 @@ import styles from "./FirstVisit.module.scss";
 import BlueBox from "@/app/component/boxes/BlueBox";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import effectSound from '@/app/utils/effectSound'
+
+const keydownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/keydownSound.wav";
 
 export default function FirstVisit() {
   const translationWords = useSelector((state) => state.translationWords);
-
+  const [red, setRed] = useState(false)
   const [nickname, setNickname] = useState("");
   const [school, setSchool] = useState("");
+  const keydownEs = effectSound(keydownSound, 1);
+
   return (
     <YellowBox width={"50"} height={"50"}>
       <div className={styles.FirstSetting}>
@@ -23,27 +28,56 @@ export default function FirstVisit() {
             <input
               className={styles.input}
               type="text"
-              placeholder={translationWords.school+translationWords.schoolPlaceholder}
-              onChange={(e) => setSchool(e.target.value)}
+              placeholder={
+                translationWords.school + translationWords.schoolPlaceholder
+              }
+              onChange={(e) => 
+                {
+                  keydownEs.play();
+                  setSchool(e.target.value)
+                }}
             />
           </WhiteBox>
         </div>
         <div className={styles.Nickname}>
-          <PinkBox width={"25"} height={"100"} text={translationWords.nickname} />
-          <WhiteBox width={"65"} height={"100"}>
+          <PinkBox
+            width={"25"}
+            height={"100"}
+            text={translationWords.nickname}
+          />
+          <WhiteBox width={"65"} height={"100"} red={red}>
             <input
               className={styles.input}
               type="text"
               placeholder={translationWords.nicknamePlaceholder}
-              onChange={(e) => setNickname(e.target.value)}
+              onChange={(e) => {
+                keydownEs.play();
+                if (e.target.value.length <= 7) {
+                  setNickname(e.target.value);
+                  setRed(false); 
+                }else{
+                  setNickname(e.target.value);
+                  setRed(true); 
+                }
+              }}
             />
           </WhiteBox>
         </div>
-        {school.endsWith(translationWords.school) && nickname.length <= 6 && nickname.length >= 2 ? (
+        {school.endsWith(translationWords.school) &&
+        nickname.length <= 7 &&
+        nickname.length >= 2 ? (
           <div className={styles.OK}>
-            <BlueBox nickname = {nickname} school={school} width={"25"} height={"100"} text={translationWords.complete} />
+            <BlueBox
+              nickname={nickname}
+              school={school}
+              width={"25"}
+              height={"100"}
+              text={translationWords.complete}
+            />
           </div>
-        ) : <span className={styles.text}>{translationWords.firstVisitInfo}</span>}
+        ) : (
+          <span className={styles.text}>{translationWords.firstVisitInfo}</span>
+        )}
       </div>
     </YellowBox>
   );
