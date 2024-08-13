@@ -1,8 +1,30 @@
 "use client"; // 클라이언트 컴포넌트로 설정
 
+import { useEffect } from "react";
 import styles from "./loading.module.scss";
 import { motion } from "framer-motion";
+import { changeTranslationWords } from "@/redux/slices/translationWords";
+import { useDispatch, useSelector } from "react-redux";
 export default function Loading() {
+  const translationWords = useSelector((state) => state.translationWords);
+  const dispatch = useDispatch();
+
+    useEffect(() => {
+      if(translationWords == {}){
+      const fetchTranslations = async () => {
+        try {
+          const result = await translations("ko-KR");
+          dispatch(changeTranslationWords(result));
+        } catch (error) {
+          console.error("Failed to fetch translations:", error);
+        }
+      };
+  
+      fetchTranslations(); // 비동기 함수 호출
+    }
+    }, [dispatch]);
+  
+  
   const text = Array.from("... 로딩중 ...");
 
   const container = {
