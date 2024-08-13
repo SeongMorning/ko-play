@@ -38,6 +38,23 @@ export default function InputChildInfo({ onClose, onAllClose, childInfo, setChil
                     <img className={styles.planet} src="planet-bg.png" alt="" />
                     <img className={styles.ufo} src="ufo-bg.png" alt="" />
                     <div className={styles.inputTotal}>
+                    <div className={styles.inputContainer}>
+                            <div className={styles.detailBox}>
+                                <DetailBox text={translationWords.name} width={68} height={92} />
+                            </div>
+                            <div>
+                                <input
+                                    className={styles.input}
+                                    value={childInfo.name}
+                                    onChange={(e) => {
+                                        setChildInfo((prevState) => ({
+                                            ...prevState,
+                                            name: e.target.value,
+                                        }));
+                                    }}
+                                />
+                            </div>
+                        </div>
                         <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text={translationWords.id} width={68} height={92} /></div> <div><input
                             className={styles.input}
                             onChange={(e) => {
