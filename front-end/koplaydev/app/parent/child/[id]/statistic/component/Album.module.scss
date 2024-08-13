@@ -1,12 +1,13 @@
 .albumContainer {
   position: absolute;
-  width: 80%;
-  height: 80%;
-  left: 45%;
-  margin-top: 10%;
+  width: calc(20vw + 20vh);
+  height: calc(20vw + 20vh);
+  left: 57vw;
+  top: 15vh;
   box-sizing: border-box;
   z-index: 100;
-  justify-content: space-between;
+  display: flex;
+  justify-content: center;
   align-items: center;
 
   img {
