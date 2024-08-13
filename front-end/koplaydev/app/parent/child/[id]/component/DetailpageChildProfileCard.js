@@ -7,6 +7,10 @@ import parentChildStatisticsAxios from "@/app/axios/parentChildStatisticsAxios";
 import { changeParentChaildStatistic } from "@/redux/slices/parentChaildStatisticSlice";
 import ClickedPinkBtn from "./ClickedPinkBtn";
 import useSound from "@/app/utils/useSound";
+import effectSound from '@/app/utils/effectSound'
+
+const mouseClickSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 let myPageList = [
   "분야별/레벨별 정답률",
@@ -20,6 +24,8 @@ export default function DetailpageChildProfileCard({ child }) {
   const translationWords = useSelector((state) => state.translationWords);
 
   const dispatch = useDispatch();
+  const mouseClickEs = effectSound(mouseClickSound, 1);
+  const buttonEs = effectSound(buttonSound, 1);
 
   const [openModal, setOpenModal] = useState(false);
 
@@ -31,10 +37,12 @@ export default function DetailpageChildProfileCard({ child }) {
   }, [translationWords]); 
 
   const clickIcon = () => {
+    mouseClickEs.play();
     setOpenModal(true);
   };
 
   const closeModal = () => {
+    buttonEs.play();
     setOpenModal(false);
   };
 
@@ -75,8 +83,8 @@ export default function DetailpageChildProfileCard({ child }) {
               {myPageList.map((data, index) => (
                 <ClickedPinkBtn
                   key={index}
-                  width={"100"}
-                  height={"15"}
+                  width={"94"}
+                  height={"20"}
                   text={data}
                   id={child.id}
                   idx={index + 1}

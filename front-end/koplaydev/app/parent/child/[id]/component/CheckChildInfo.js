@@ -3,6 +3,7 @@ import styles from "./CheckChildInfo.module.scss";
 import DetailBox from "./DetailBox";
 import { useSelector } from "react-redux";
 
+
 // 자녀 정보 확인 모달
 export default function CheckChildInfo({ onClose, child }) {
     const translationWords = useSelector((state) => state.translationWords);

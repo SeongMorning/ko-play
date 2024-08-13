@@ -26,11 +26,14 @@ import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/s
 import useSound from "@/app/utils/useSound";
 import translations from "../axios/translations";
 import { changeTranslationWords } from "@/redux/slices/translationWords";
+import effectSound from '@/app/utils/effectSound'
 
 const albumBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/albumBGM.wav';
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function Parent() {
   useSound(albumBGM, 0.8, 0);
+  const es = effectSound(buttonSound, 1);
 
   const translationWords = useSelector((state) => state.translationWords);
   const parent = useSelector((state) => state.parent)
@@ -83,17 +86,20 @@ export default function Parent() {
   };
 
   const closeModal = () => {
+    es.play();
     setIsModalOpen(false);
     setIsInitModalOpen(true);
   };
 
   const closeAllModal = () => {
+    es.play();
     setIsModalOpen(false);
     setIsInitModalOpen(false);
     addChildProfile();
   };
 
   const closeFirstModal = () => {
+    es.play();
     setIsFirstModalOpen(false);
   }
 
