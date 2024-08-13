@@ -8,7 +8,11 @@ body {
   /* position: relative; */
   user-select: none;
   -webkit-user-drag: none;
-  cursor : url("/star-cursor.svg"), auto;
+  cursor : url("/star-cursor3.svg"), auto;
+
+  // &:hover{
+  //   cursor : url("/star-cursor2.svg"), auto;
+  // }
   // 
   // cursor: url('/cursors/일반_선택.cur'), auto;
 }
