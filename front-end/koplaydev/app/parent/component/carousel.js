@@ -12,7 +12,6 @@ import ChildProfileCard from "./ChildProfileCard";
 
 export default function Carousel() {
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const [childProfiles, setChildProfiles] = useState([]);
 
     const colors = [
