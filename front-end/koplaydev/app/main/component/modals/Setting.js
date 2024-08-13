@@ -25,6 +25,7 @@ const pencilSound =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound.wav";
 const pencilSound2 =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/pencilSound2.wav";
+  const keydownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/keydownSound.wav";
 
 export default function Setting() {
   const translationWords = useSelector((state) => state.translationWords);
@@ -34,6 +35,7 @@ export default function Setting() {
   const buttonEs = effectSound(buttonSound, 1);
   const mouseClickEs = effectSound(mouseClickSound, 1);
   const pencilEs = effectSound(pencilSound2, 1);
+  const keydownEs = effectSound(keydownSound, 1);
 
   // 상태 변수 선언
   const [myNickname, setMyNickname] = useState(userInfo.nickname);
@@ -223,6 +225,7 @@ export default function Setting() {
                   <input
                     value={myNickname}
                     onChange={(e) => {
+                      keydownEs.play();
                       setMyNickname(e.target.value);
                       if (e.target.value.length <= 7) {
                         setRed2(false);
@@ -246,7 +249,10 @@ export default function Setting() {
                 <WhiteBox width={"60"} height={"10"}>
                   <input
                     value={mySchoolName}
-                    onChange={(e) => setMySchoolName(e.target.value)}
+                    onChange={(e) => {
+                      keydownEs.play();
+                      setMySchoolName(e.target.value)
+                    }}
                     placeholder={translationWords.schoolname}
                   />
                   <img
