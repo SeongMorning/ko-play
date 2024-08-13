@@ -5,8 +5,12 @@ import ParentBg from "@/app/component/background/ParentBg";
 import BackScoreBtn from "@/app/component/buttons/BackScoreBtn";
 import { useSelector } from "react-redux";
 import DetailpageChildProfileCard from "./component/DetailpageChildProfileCard";
+import useSound from "@/app/utils/useSound";
+
+const albumBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/albumBGM.wav';
 
 export default function Child({ params }) {
+    useSound(albumBGM, 0.8, 0);
     const translationWords = useSelector((state) => state.translationWords);
 
     //id로 해당 계정 정보 가져오기

@@ -23,8 +23,13 @@ import { changeParentInfo } from "@/redux/slices/parentSlice";
 import InputInitInfo from "./component/InputInitInfo";
 import insertChildAxios from "../axios/insertChildAxios";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import useSound from "@/app/utils/useSound";
+
+const albumBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/albumBGM.wav';
 
 export default function Parent() {
+  useSound(albumBGM, 0.8, 0);
+
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isInitModalOpen, setIsInitModalOpen] = useState(false);
