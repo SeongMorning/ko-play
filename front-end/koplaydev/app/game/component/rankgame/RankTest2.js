@@ -310,7 +310,7 @@ export default function RankTest2() {
                 <YellowBox width="40" height="70">
                   {capturedImage ? (
                     <img
-                      src={capturedImage}
+                      src={URL.createObjectURL(capturedImage)}
                       alt="Captured"
                       className={styles.capturedImage}
                     />
