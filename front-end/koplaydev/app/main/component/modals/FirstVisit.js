@@ -7,12 +7,17 @@ import styles from "./FirstVisit.module.scss";
 import BlueBox from "@/app/component/boxes/BlueBox";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import effectSound from '@/app/utils/effectSound'
+
+const keydownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/keydownSound.wav";
 
 export default function FirstVisit() {
   const translationWords = useSelector((state) => state.translationWords);
   const [red, setRed] = useState(false)
   const [nickname, setNickname] = useState("");
   const [school, setSchool] = useState("");
+  const keydownEs = effectSound(keydownSound, 1);
+
   return (
     <YellowBox width={"50"} height={"50"}>
       <div className={styles.FirstSetting}>
@@ -26,7 +31,11 @@ export default function FirstVisit() {
               placeholder={
                 translationWords.school + translationWords.schoolPlaceholder
               }
-              onChange={(e) => setSchool(e.target.value)}
+              onChange={(e) => 
+                {
+                  keydownEs.play();
+                  setSchool(e.target.value)
+                }}
             />
           </WhiteBox>
         </div>
@@ -42,6 +51,7 @@ export default function FirstVisit() {
               type="text"
               placeholder={translationWords.nicknamePlaceholder}
               onChange={(e) => {
+                keydownEs.play();
                 if (e.target.value.length <= 7) {
                   setNickname(e.target.value);
                   setRed(false); 
