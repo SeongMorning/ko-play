@@ -8,14 +8,16 @@ import insertChildAxios from "@/app/axios/insertChildAxios";
 import effectSound from '@/app/utils/effectSound'
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const keydownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/keydownSound.wav";
 
 export default function InputChildInfo({ onClose, onAllClose, childInfo, setChildInfo }) {
     const translationWords = useSelector((state) => state.translationWords);
-    const es = effectSound(buttonSound, 1);
+    const buttonEs = effectSound(buttonSound, 1);
+    const keydownEs = effectSound(keydownSound, 1);
 
     // 닫기 버튼 클릭 시 실행되는 함수
     const handleClose = () => {
-        es.play();
+        buttonEs.play();
         // 상태 초기화
         setChildInfo({
             name: '',
@@ -28,7 +30,7 @@ export default function InputChildInfo({ onClose, onAllClose, childInfo, setChil
     };
 
     const createProfile = () => {
-        es.play();
+        buttonEs.play();
         onClose();
     };
 
@@ -54,6 +56,7 @@ export default function InputChildInfo({ onClose, onAllClose, childInfo, setChil
                                     className={styles.input}
                                     value={childInfo.name}
                                     onChange={(e) => {
+                                        keydownEs.play();
                                         setChildInfo((prevState) => ({
                                             ...prevState,
                                             name: e.target.value,
@@ -65,6 +68,7 @@ export default function InputChildInfo({ onClose, onAllClose, childInfo, setChil
                         <div className={styles.inputContainer}><div className={styles.detailBox}><DetailBox text={translationWords.id} width={68} height={92} /></div> <div><input
                             className={styles.input}
                             onChange={(e) => {
+                                keydownEs.play();
                                 setChildInfo((prevState) => ({
                                     ...prevState,
                                     id: e.target.value,
@@ -76,6 +80,7 @@ export default function InputChildInfo({ onClose, onAllClose, childInfo, setChil
                             className={styles.input}
                             value={childInfo.pw}
                             onChange={(e) => {
+                                keydownEs.play();
                                 setChildInfo((prevState) => ({
                                     ...prevState,
                                     pw: e.target.value,

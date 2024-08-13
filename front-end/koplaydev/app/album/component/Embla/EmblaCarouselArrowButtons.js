@@ -1,18 +1,24 @@
 "use client";
 import "./embla.scss";
 import React, { useCallback, useEffect, useState } from "react";
+import effectSound from '@/app/utils/effectSound'
+
+const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 export const usePrevNextButtons = (emblaApi, onButtonClick) => {
   const [prevBtnDisabled, setPrevBtnDisabled] = useState(true);
   const [nextBtnDisabled, setNextBtnDisabled] = useState(true);
+  const mouseClickEs = effectSound(mouseClickSound, 1);
 
   const onPrevButtonClick = useCallback(() => {
+    mouseClickEs.play();
     if (!emblaApi) return;
     emblaApi.scrollPrev();
     if (onButtonClick) onButtonClick(emblaApi);
   }, [emblaApi, onButtonClick]);
 
   const onNextButtonClick = useCallback(() => {
+    mouseClickEs.play();
     if (!emblaApi) return;
     emblaApi.scrollNext();
     if (onButtonClick) onButtonClick(emblaApi);
