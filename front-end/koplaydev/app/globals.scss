@@ -8,6 +8,8 @@ body {
   /* position: relative; */
   user-select: none;
   -webkit-user-drag: none;
+  cursor : url("/front-end/koplaydev/public/star-cursor.svg");
+  // 
   // cursor: url('/cursors/일반_선택.cur'), auto;
 }
 
