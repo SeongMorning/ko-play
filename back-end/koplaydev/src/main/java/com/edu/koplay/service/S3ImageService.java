@@ -112,7 +112,7 @@ public class S3ImageService {
         Optional<Student> byStudentId = studentRepository.findByStudentId(id);
         String url = amazonS3.getUrl(bucketName, s3FileName).toString();
 
-        if (folder.equals("iamge")) {
+        if (folder.equals("image")) {
             Optional<Parent> byId = parentRepository.findById(byStudentId.get().getParent().getParentIdx());
             Gallery gallery = Gallery.builder()
                     .student(byStudentId.get())
