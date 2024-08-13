@@ -76,6 +76,25 @@ public class StudentController {
         // 바꾸기
         //studentService.updateStudentInfo(studentId, nickname);
     }
+    @GetMapping("/gameCount")
+    public ResponseEntity<?> getGameCount() {
+        //내 정보 조회
+        try {
+            String id = getAuthenticationData();
+            //아이디로 정보조회 후 리턴
+            Student entity = studentService.getStudentInfo(id);
+            List<GameData> gameData = gameDataService.getStudentGameCount(entity);
+
+            //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
+            ResponseDTO<Integer> response = ResponseDTO.<Integer>builder().data(List.of(gameData.size())).build();
+            return ResponseEntity.ok().body(response);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            ResponseDTO<Integer> response = ResponseDTO.<Integer>builder().error(e.getMessage()).build();
+            return ResponseEntity.badRequest().body(response);
+        }
+    }
 
     @PutMapping("/info/img") //학생 개인정보 변경
     public ResponseEntity<?> updateStudentProfileImgInfo(@RequestPart("file") MultipartFile multipartFile) {
@@ -86,29 +105,19 @@ public class StudentController {
 
             // 파일 저장
             Resource resource = null;
-//            String path = "src/main/resources/static/uploads/";
             String path = "src/main/resources/static/uploads/";
-//            String path = "/uploads/";
-
-//            Path filePath = Paths.get("src/main/resources/static/uploads/").resolve(filename).normalize();
-//            Resource resource = new UrlResource(filePath.toUri());
 
             Path fileRoot = null;
             String fileName = null;
             if (multipartFile != null && multipartFile.getSize() > 0) {
                 fileName = multipartFile.getOriginalFilename();
                 File file = new File(path);
-//                File file = new File(resource.getFile(), fileName);
-
                 if (!file.exists()) {
-                    // mkdir() 함수와 다른 점은 상위 디렉토리가 존재하지 않을 때 그것까지 생성
                     file.mkdirs();
                 }
-
                 fileRoot = Paths.get(path + fileName);
                 Files.createDirectories(fileRoot.getParent());
                 Files.write(fileRoot, multipartFile.getBytes());
-
                 student.setProfileImg("/uploads/" + fileName);
             }
 
@@ -145,7 +154,6 @@ public class StudentController {
             //변환된 TodoDTO 리스트를 이용하여 ResponseDTO를 초기화한다.
             ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
             return ResponseEntity.ok().body(response);
-
 
         } catch (Exception e) {
             ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error(e.getMessage()).build();

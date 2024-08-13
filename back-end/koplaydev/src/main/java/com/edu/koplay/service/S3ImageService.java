@@ -17,6 +17,7 @@ import java.util.*;
 import com.amazonaws.util.IOUtils;
 import com.edu.koplay.dto.GalleryDTO;
 import com.edu.koplay.dto.ResponseDTO;
+import com.edu.koplay.dto.StudentDTO;
 import com.edu.koplay.model.Gallery;
 import com.edu.koplay.model.Parent;
 import com.edu.koplay.model.Student;
@@ -50,17 +51,17 @@ public class S3ImageService {
     @Value("${cloud.aws.s3.bucketName}")
     private String bucketName;
 
-    public ResponseEntity<?> upload(MultipartFile image) throws Exception {
-        if(image.isEmpty() || Objects.isNull(image.getOriginalFilename())){
+    public ResponseEntity<?> upload(MultipartFile image, String folder) throws Exception {
+        if(image == null || image.isEmpty() || Objects.isNull(image.getOriginalFilename())){
             throw new IOException("File is empty");
         }
-        return this.uploadImage(image);
+        return this.uploadImage(image, folder);
     }
 
-    private ResponseEntity<?> uploadImage(MultipartFile image) throws Exception {
+    private ResponseEntity<?> uploadImage(MultipartFile image, String folder) throws Exception {
         this.validateImageFileExtention(image.getOriginalFilename());
         try {
-            return this.uploadImageToS3(image);
+            return this.uploadImageToS3(image, folder);
         } catch (IOException e) {
             throw new IOException("uploadImage Exception");
         }
@@ -80,12 +81,12 @@ public class S3ImageService {
         }
     }
     @Transactional
-    protected ResponseEntity<?> uploadImageToS3(MultipartFile image) throws Exception {
+    protected ResponseEntity<?> uploadImageToS3(MultipartFile image, String folder) throws Exception {
         String originalFilename = image.getOriginalFilename(); //원본 파일 명
         String extension = originalFilename.substring(originalFilename.lastIndexOf(".")); //확장자 명
         String id = getAuthenticationData();
 
-        String s3FileName = "image/" + UUID.randomUUID().toString().substring(0, 10) + originalFilename; //변경된 파일 명
+        String s3FileName = folder + "/" + UUID.randomUUID().toString().substring(0, 10) + originalFilename; //변경된 파일 명
 
 
         InputStream is = image.getInputStream();
@@ -109,22 +110,45 @@ public class S3ImageService {
             is.close();
         }
         Optional<Student> byStudentId = studentRepository.findByStudentId(id);
-        System.out.println(bucketName+" "+s3FileName);
         String url = amazonS3.getUrl(bucketName, s3FileName).toString();
 
-        Optional<Parent> byId = parentRepository.findById(byStudentId.get().getParent().getParentIdx());
-        Gallery gallery = Gallery.builder()
-                .student(byStudentId.get())
-                .parent(byId.get())
-                .snapshot(url)
-                .build();
-        galleryRepository.save(gallery);
-        List<Gallery> galleries = galleryRepository.findAllByStudentAndIsDeletedFalse(byStudentId.get());
-        ResponseDTO<GalleryDTO> response = ResponseDTO.<GalleryDTO>builder().data(galleries.stream()
-                .map(GalleryDTO::new)
-                .toList()).build();
+        if (folder.equals("iamge")) {
+            Optional<Parent> byId = parentRepository.findById(byStudentId.get().getParent().getParentIdx());
+            Gallery gallery = Gallery.builder()
+                    .student(byStudentId.get())
+                    .parent(byId.get())
+                    .snapshot(url)
+                    .build();
+            galleryRepository.save(gallery);
 
-        return ResponseEntity.ok().body(response);
+            List<Gallery> galleries = galleryRepository.findAllByStudentAndIsDeletedFalse(byStudentId.get());
+            ResponseDTO<GalleryDTO> response = ResponseDTO.<GalleryDTO>builder().data(galleries.stream()
+                    .map(GalleryDTO::new)
+                    .toList()).build();
+
+            return ResponseEntity.ok().body(response);
+        }else if(folder.equals("profile")){
+            Student student = byStudentId.orElseThrow();
+
+            // S3에서 기존 프로필 이미지 삭제하기
+            System.out.println("이미지"+student.getProfileImg());
+            String oldS3FileName = student.getProfileImg().substring(student.getProfileImg().lastIndexOf("/") + 1);
+            System.out.println(oldS3FileName);
+            amazonS3.deleteObject(new DeleteObjectRequest(bucketName, "profile/" + oldS3FileName));
+
+            student.setProfileImg(url);
+            studentRepository.save(student);
+
+            System.out.println(student.toString());
+
+            StudentDTO dto = new StudentDTO(student);
+
+            ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().data(List.of(dto)).build();
+
+            return ResponseEntity.ok().body(response);
+        }
+        ResponseDTO<String> response = ResponseDTO.<String>builder().error("fail save file").build();
+        return ResponseEntity.badRequest().body(response);
     }
     @Transactional
     public void deleteImageFromS3(String imageAddress) throws Exception {
