@@ -22,7 +22,6 @@ export default function MyPageInfo() {
     myPageList[1] = translationWords.correctRatio;
     myPageList[2] = translationWords.expDiff;
     myPageList[3] = translationWords.rating;
-    console.log(translationWords.recent)
   }, [translationWords]); 
 
   return (
