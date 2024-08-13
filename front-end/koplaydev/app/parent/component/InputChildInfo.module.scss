@@ -96,7 +96,7 @@
     .input {
         width: 25vw;
         height: 9vh;
-        background-color: rgb(255, 255, 255);
+        // background-color: rgb(255, 255, 255);
         margin-left: -5vh;
         margin-right: 4vh;
         margin-top: 2.2%;
@@ -109,6 +109,7 @@
         line-height: 1.5;
         padding-left: 1.5vw;
         padding-right: 1.5vw;
+        transition : all 1s;
     }
 
     .detailBox {
@@ -148,4 +149,20 @@
         transform: translateX(-50%);
     }
 
+}
+.red{
+    background-color: rgb(246, 69, 69);
+}
+
+.blue{
+    background-color: skyblue;
+}
+
+
+.eye{
+    position : absolute;
+    right : 0;
+    top : 65%;
+    width : calc((3vw + 2vh)/2);
+    cursor : pointer;
 }
