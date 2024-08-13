@@ -17,8 +17,11 @@ export default function Title() {
   let title2 = '';
   
   useEffect(() => {
-    title1 = Array.from(translationWords.title1)
-    title2 = Array.from(translationWords.title2)
+    console.log(translationWords.title1)
+    if(translationWords.title1){
+      title1 = Array.from(translationWords.title1)
+      title2 = Array.from(translationWords.title2)
+    }
   }, [translationWords]); 
 
   const container = {
