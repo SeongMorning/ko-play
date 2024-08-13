@@ -83,9 +83,9 @@ export default function Setting() {
     const imagePath = await modifyStudentInfoImg(file);
 
     // 백엔드에서 반환된 URL을 프론트엔드의 기본 URL에 맞게 조정
-    const newImageUrl = `${process.env.customKey}/static${imagePath}`;
-    dispatch(setProfileImg(newImageUrl));
-    setProfileImgState(newImageUrl);
+    console.log(imagePath)
+    dispatch(setProfileImg(imagePath));
+    dispatch(setProfileImgState(imagePath));
   };
 
   return (
