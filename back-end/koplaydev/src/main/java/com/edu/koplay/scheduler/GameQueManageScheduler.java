@@ -14,7 +14,7 @@ public class GameQueManageScheduler {
     @Scheduled(cron = "*/1 * * * * ?")
     public void queManageScheduler() {
         try {
-            logger.info("스케쥴링");
+//            logger.info("스케쥴링");
             while (GameRoomManager.waitingQueue.size() >= 2) {
                 logger.info("여기 배정했어요");
                 String id1 = GameRoomManager.waitingQueue.poll();
@@ -22,7 +22,7 @@ public class GameQueManageScheduler {
                 System.out.println(id1 + id2);
                 GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
                 GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
-                logger.info("roomId" + GameRoomManager.roomId);
+                logger.info("배정한 roomId" + GameRoomManager.roomId);
                 GameRoomManager.roomId += 1;
                 logger.info("증가된 roomId"+GameRoomManager.roomId);
             }
