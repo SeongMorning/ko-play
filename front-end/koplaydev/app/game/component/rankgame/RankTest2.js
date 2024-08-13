@@ -248,6 +248,7 @@ export default function RankTest2() {
   }, []);
 
   const handleCloseSession = async () => {
+    console.log("closeSession");
     await closeSession();
   };
 
