@@ -45,7 +45,6 @@ export default function Setting() {
   const [afterPw, setAfterPw] = useState("");
   const [afterPwOK, setAfterPwOK] = useState("");
   const [isPwChange, setIsPwChange] = useState(false);
-  const [profileImg, setProfileImgState] = useState(userInfo.profileImg);
   const fileInputRef = useRef("");
   const [red2, setRed2] = useState(false);
 
@@ -53,7 +52,6 @@ export default function Setting() {
   useEffect(() => {
     setMyNickname(userInfo.nickname);
     setMySchoolName(userInfo.schoolName);
-    setProfileImgState(userInfo.profileImg);
   }, [userInfo]);
 
   const nickNameHandleClick = async () => {
@@ -88,7 +86,6 @@ export default function Setting() {
     
     // 백엔드에서 반환된 URL을 프론트엔드의 기본 URL에 맞게 조정
     dispatch(setProfileImg(imagePath.profileImg));
-    dispatch(setProfileImgState(imagePath.profileImg));
   };
 
   return (
