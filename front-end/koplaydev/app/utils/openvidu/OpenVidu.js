@@ -159,7 +159,7 @@ export default function OpenViduItem() {
             },
           }
         );
-        return response.data;
+        return sessionId;
       } else {
         throw error;
       }
