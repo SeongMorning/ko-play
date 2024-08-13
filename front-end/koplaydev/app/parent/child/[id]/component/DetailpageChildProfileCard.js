@@ -6,8 +6,10 @@ import CheckChildInfo from "./CheckChildInfo";
 import parentChildStatisticsAxios from "@/app/axios/parentChildStatisticsAxios";
 import { changeParentChaildStatistic } from "@/redux/slices/parentChaildStatisticSlice";
 import ClickedPinkBtn from "./ClickedPinkBtn";
+import useSound from "@/app/utils/useSound";
 
 export default function DetailpageChildProfileCard({ child }) {
+
   const parent = useSelector((state) => state.parent);
   const dispatch = useDispatch();
 

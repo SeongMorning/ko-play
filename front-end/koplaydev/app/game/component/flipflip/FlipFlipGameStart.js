@@ -251,6 +251,7 @@ export default function FlipFlipGameStart() {
   // 게임 종료 시 오답 목록을 Redux 상태로 디스패치
   useEffect(() => {
     if (modal === "complete" || modal === "timeout") {
+      modalEs.play();
       const wrongCards = cardDeck.filter(
         (card) => !matchedCards.has(card.wordIdx)
       );
