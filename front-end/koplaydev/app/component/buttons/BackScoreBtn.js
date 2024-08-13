@@ -96,7 +96,7 @@ export default function BackScoreBtn(props) {
       style={{
         left: props.left,
         top: props.top,
-        cursor: props.score ? "default" : "pointer",
+        cursor: props.score ? "default" : "url('/smile-star-hover.svg') 30 30, auto"
       }}
     >
       <motion.div
