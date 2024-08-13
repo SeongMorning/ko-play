@@ -65,7 +65,7 @@ async function closeSession() {
     }
 }
 
-export default sessionChckAndDelete;
+export default closeSession;
 
 // 세션 종료 함수 호출
 // closeSession();

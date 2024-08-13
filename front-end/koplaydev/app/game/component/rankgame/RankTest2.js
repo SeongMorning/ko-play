@@ -24,6 +24,7 @@ import LevelJellyBtn from "@/app/game/component/GameJellyBtn";
 import RankGameJellyBtn from "../RankGameJellyBtn";
 import OpenVidu from "@/app/utils/openvidu/OpenVidu";
 import OpenViduItem from "@/app/utils/openvidu/OpenVidu";
+import { closeSession } from "@/app/utils/openvidu/sessionChckAndDelete";
 import Cam from "@/app/avatar/component/Cam";
 import { changeExp } from "@/redux/slices/expSlice";
 import { changeInCorrect } from "@/redux/slices/Incorrect";
@@ -246,6 +247,10 @@ export default function RankTest2() {
     });
   }, []);
 
+  const handleCloseSession = async () => {
+    await closeSession();
+  };
+
   return (
     <>
       <span className={styles.InputBox}>{transcript}</span>
@@ -288,6 +293,7 @@ export default function RankTest2() {
                           bg="#A2D2FF"
                           shadow="#4DA3F2"
                           text="아니요"
+                          onClick={handleCloseSession}
                         />
                       </div>
                     </div>
@@ -325,6 +331,7 @@ export default function RankTest2() {
                             dispatch(changeInCorrect(true));
                             dispatch(changeLoadingIdx(1));
                             dispatch(changeGamePurposeIdx(4));
+                            handleCloseSession;
                           }}
                         >
                           예
@@ -334,6 +341,7 @@ export default function RankTest2() {
                           dispatch(changeInCorrect(true));
                           dispatch(changeLoadingIdx(1));
                           dispatch(changeGamePurposeIdx(4));
+                          handleCloseSession;
                         }}>아니요</span>
                       </div>
                     </>
