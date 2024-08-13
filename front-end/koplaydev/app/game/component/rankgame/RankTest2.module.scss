@@ -124,12 +124,12 @@
     gap : 10%;
 
     :nth-child(2){
-      cursor : pointer;
+      cursor: url("/smile-star-hover.svg") 30 30, auto;
       color : blue;
     }
 
     :nth-child(3){
-      cursor : pointer;
+      cursor: url("/smile-star-hover.svg") 30 30, auto;
       color : red;
     }
   }
