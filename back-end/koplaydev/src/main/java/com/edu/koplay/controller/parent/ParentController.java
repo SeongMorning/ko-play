@@ -87,6 +87,10 @@ public class ParentController {
 
             RecommendLevel savedStudentAndRecommendLevel = parentService.addChild(email, studentDTO);
 
+            if(savedStudentAndRecommendLevel == null){
+                ResponseDTO<StudentDTO> response = ResponseDTO.<StudentDTO>builder().error("이미 있는 아이디입니다.").build();
+                return ResponseEntity.badRequest().body(response);
+            }
             //entity to dto
             StudentDTO dto = new StudentDTO(savedStudentAndRecommendLevel.getStudent(), savedStudentAndRecommendLevel);
 
