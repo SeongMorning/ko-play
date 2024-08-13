@@ -41,8 +41,6 @@ public class RankGameController {
         this.messagingTemplate = messagingTemplate;
     }
 
-    Long roomId = 1L;
-
     @MessageMapping("/match")
     @SendTo("/topic/game/match")
     public void matchGame(String playerId) throws Exception {
@@ -68,6 +66,7 @@ public class RankGameController {
         GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
         //키가 있으면 방배정 된거니까 게임 시작하면 될듯
         if (gameRoom.isFull()) {
+            logger.info(roomId+"번방 인원"+gameRoom.getClients().size());
             logger.info(roomId+"번방이 다 차있어서 게임을 시작합니다");
                 startGame(roomId);
         }
@@ -87,10 +86,11 @@ public class RankGameController {
             String id1 = GameRoomManager.waitingQueue.poll();
             String id2 = GameRoomManager.waitingQueue.poll();
             System.out.println(id1 + id2);
-            GameRoomManager.userIdAndRoom.put(id1, roomId);
-            GameRoomManager.userIdAndRoom.put(id2, roomId);
-            logger.info("roomId" + roomId);
-            roomId++;
+            GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
+            GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
+            logger.info("roomId" + GameRoomManager.roomId);
+            GameRoomManager.roomId++;
+            logger.info("증가된 roomId"+GameRoomManager.roomId);
         }
     }
 
