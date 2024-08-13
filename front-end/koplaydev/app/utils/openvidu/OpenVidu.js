@@ -168,7 +168,7 @@ export default function OpenViduItem() {
 
   const createToken = async (sessionId) => {
     const response = await axios.post(
-      `${APPLICATION_SERVER_URL}api/sessions/${sessionId}/connections`,
+      `${APPLICATION_SERVER_URL}api/sessions/${sessionId}/connection`,
       {},
       {
         headers: { "Authorization": "Basic " + btoa("OPENVIDUAPP:koplay"),
