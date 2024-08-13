@@ -49,9 +49,9 @@ public class RankGameController {
         logger.info("방배정되어있는 상태인가? "+ String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
             logger.info("방 배정이 되어있다면 해당 방에 입장시키겠어요...");
-            roomId = GameRoomManager.userIdAndRoom.get(playerId);
-            roomManager.createOrJoinRoom(roomId, playerId);
-            messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(roomId)));
+            GameRoomManager.roomId = GameRoomManager.userIdAndRoom.get(playerId);
+            roomManager.createOrJoinRoom(GameRoomManager.roomId, playerId);
+            messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(GameRoomManager.roomId)));
         }
 
     }
