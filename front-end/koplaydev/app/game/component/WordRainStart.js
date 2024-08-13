@@ -14,12 +14,18 @@ import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
 import useSound from "@/app/utils/useSound";
+import effectSound from '@/app/utils/effectSound'
 
 const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
 const gameBGm2 = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/WordRaingameBGM.mp3";
+const correctSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/correctSound.wav";
+const modalSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/gameResultModalSound.wav";
 
 export default function WordRainStart() {
   useSound(gameBGM, 1, 0, 1);
+  const correctEs = effectSound(correctSound, 1);
+  const modalEs = effectSound(modalSound, 1);
+
   const wordList = useSelector((state) => state.gameWord);
   const [wordObjectList, setWordObjectList] = useState(wordList);
 
@@ -86,6 +92,12 @@ export default function WordRainStart() {
       }
     }
   }, [wordObjectList]);
+
+  useEffect(() => {
+    if (modal) {
+      modalEs.play();
+    }
+  }, [modal, modalEs]);
 
   // 시간초과시 실행되는 함수
   const changeResultList = useCallback((index) => {

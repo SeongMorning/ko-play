@@ -6,10 +6,14 @@ import StatisticBg from "@/app/component/background/StatisticBg";
 import CorrectAnswerRate from "./component/CorrectAnswerRate";
 import Correct from "./component/Correct";
 import Progress from "./component/Progress";
+import useSound from "@/app/utils/useSound";
 import { useSelector } from "react-redux";
+
+const mypageBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/mypageBGM2.mp3'
 
 export default function Statistic({ params }) {
   const translationWords = useSelector((state) => state.translationWords);
+  useSound(mypageBGM2, 1, 0, 0.9);
 
   const id = params.id;
   const searchParams = useSearchParams();

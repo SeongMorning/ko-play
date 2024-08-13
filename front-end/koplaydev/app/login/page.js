@@ -11,10 +11,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeStudentInfo } from "@/redux/slices/studentInfoSlice";
 import BackScoreBtn from "../component/buttons/BackScoreBtn";
+import useSound from "@/app/utils/useSound";
+
+const loginBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3';
 
 export default function Login() {
+  useSound(loginBGM2, 1, 0);
+  
   const translationWords = useSelector((state) => state.translationWords);
-
   const [selectedStatus, setSelectedStatus] = useState("");
   const handleSelectStatus = (status) => {
     setSelectedStatus(status);
