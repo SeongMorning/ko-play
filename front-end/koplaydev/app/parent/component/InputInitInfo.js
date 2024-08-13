@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import CompleteBox from "./CompleteBox";
 import styles from "./InputInitInfo.module.scss";
 import { useState } from "react";
+import effectSound from '@/app/utils/effectSound'
 
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
-
-export default function InputInitInfo({ onclose, setChildInfo }) {
+export default function InputInitInfo({ onClose, setChildInfo }) {
     const translationWords = useSelector((state) => state.translationWords);
+    const es = effectSound(buttonSound, 1);
 
     const [formState, setFormState] = useState({
         listening1: '',
@@ -26,6 +28,7 @@ export default function InputInitInfo({ onclose, setChildInfo }) {
 
         // 닫기 버튼 클릭 시 실행되는 함수
         const handleClose = () => {
+            es.play();
             // 상태 초기화
             setChildInfo({
                 name: '',

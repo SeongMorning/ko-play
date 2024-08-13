@@ -30,10 +30,12 @@ import effectSound from '@/app/utils/effectSound'
 
 const albumBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/albumBGM.wav';
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const mouseClickSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
 
 export default function Parent() {
   useSound(albumBGM, 0.8, 0);
-  const es = effectSound(buttonSound, 1);
+  const buttonEs = effectSound(buttonSound, 1);
+  const mouseClickEs = effectSound(mouseClickSound, 1);
 
   const translationWords = useSelector((state) => state.translationWords);
   const parent = useSelector((state) => state.parent)
@@ -82,24 +84,25 @@ export default function Parent() {
   }, [dispatch]);
 
   const openModal = () => {
+    buttonEs.play();
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
-    es.play();
+    buttonEs.play();
     setIsModalOpen(false);
     setIsInitModalOpen(true);
   };
 
   const closeAllModal = () => {
-    es.play();
+    buttonEs.play();
     setIsModalOpen(false);
     setIsInitModalOpen(false);
     addChildProfile();
   };
 
   const closeFirstModal = () => {
-    es.play();
+    buttonEs.play();
     setIsFirstModalOpen(false);
   }
 

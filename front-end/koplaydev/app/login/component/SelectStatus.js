@@ -11,7 +11,7 @@ export default function SelectStatus({ initialText, onSelect }) {
 
   const [selectedButton, setSelectedButton] = useState(initialText);
 
-  const es = effectSound(mouseClickSound, 0.5);
+  const es = effectSound(mouseClickSound, 1);
 
   useEffect(() => {
     onSelect(selectedButton);
