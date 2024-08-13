@@ -68,7 +68,7 @@ export default function LogoutModalBtn(props) {
           if (response != null) {
             //null이 아니면 성공
 
-            router.push("/");
+            router.replace("/");
           }
         } else {
           props.setLogoutModal(!props.logoutModal);

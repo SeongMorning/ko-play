@@ -44,6 +44,7 @@ export default function Setting() {
   const [isPwChange, setIsPwChange] = useState(false);
   const [profileImg, setProfileImgState] = useState(userInfo.profileImg);
   const fileInputRef = useRef("");
+  const [red2, setRed2] = useState(false);
 
   // userInfo가 변경될 경우 상태 업데이트
   useEffect(() => {
@@ -93,7 +94,9 @@ export default function Setting() {
       {isPwChange ? (
         <YellowBox width="40" height="40">
           <div className={styles.pwChangeModal}>
-            <span className={styles.text}>{translationWords.passwordChangeComplete}</span>
+            <span className={styles.text}>
+              {translationWords.passwordChangeComplete}
+            </span>
             <span className={styles.text2}>
               {translationWords.changePasswordNotification}
             </span>
@@ -153,20 +156,25 @@ export default function Setting() {
               <>
                 <WhiteBox width="60" height="10">
                   <input
+                    type="password"
                     placeholder={translationWords.changePassword}
                     value={afterPw}
-                    onChange={(e) => setAfterPw(e.target.value)}
+                    onChange={(e) => {
+                      setAfterPw(e.target.value)
+                    }
+                  }
                   />
                 </WhiteBox>
                 <WhiteBox width="60" height="10">
                   <input
+                    type="password"
                     placeholder={translationWords.checkpassword}
                     value={afterPwOK}
                     onChange={(e) => setAfterPwOK(e.target.value)}
                   />
                 </WhiteBox>
                 {/* afterPw.length >= 10 */}
-                {afterPw !== "" && afterPw === afterPwOK ? (
+                {afterPw.length <= 20 && afterPw !== "" && afterPw === afterPwOK ? (
                   <PwPinkBox
                     setPwFlag={setPwFlag}
                     pwFlag={pwFlag}
@@ -211,20 +219,29 @@ export default function Setting() {
               </>
             ) : (
               <>
-                <WhiteBox width={"60"} height={"10"}>
+                <WhiteBox width={"60"} height={"10"} red2={red2}>
                   <input
                     value={myNickname}
-                    onChange={(e) => setMyNickname(e.target.value)}
+                    onChange={(e) => {
+                      setMyNickname(e.target.value);
+                      if (e.target.value.length <= 7) {
+                        setRed2(false);
+                      } else {
+                        setRed2(true);
+                      }
+                    }}
                     placeholder={translationWords.nickname}
                   />
-                  <img
-                    className={styles.modifyImg}
-                    src="/modify.png"
-                    onClick={() => {
-                      pencilEs.play();
-                      nickNameHandleClick();
-                    }}
-                  />
+                  {red2 || myNickname.length < 2 ? null : (
+                    <img
+                      className={styles.modifyImg}
+                      src="/modify.png"
+                      onClick={() => {
+                        pencilEs.play();
+                        nickNameHandleClick();
+                      }}
+                    />
+                  )}
                 </WhiteBox>
                 <WhiteBox width={"60"} height={"10"}>
                   <input

@@ -87,7 +87,7 @@ export default function FlipFlipGameStart() {
     for (let i = 0; i < boardSize / 2; i++) {
       let randomNumber = getRandom(boardSize / 2, 0); // 최대 wordList.length개의 이미지와 텍스트 쌍
       if (randomNumberArr.indexOf(randomNumber) === -1) {
-        randomNumberArr.push(randomNumber);
+        randomNumberArr.replace(randomNumber);
       } else {
         i--;
       }
