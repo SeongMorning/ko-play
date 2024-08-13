@@ -20,7 +20,7 @@ export default function ClickedPinkBtn(props) {
           className={styles.ClickedPinkBtn}
           onClick={() => {
             es.play();
-            router.push(`/parent/child/${props.id}/statistic?view=${props.idx}`)
+            router.replace(`/parent/child/${props.id}/statistic?view=${props.idx}`)
           }}
           onHoverStart={()=>{
             animation(scope.current, {backgroundColor : "#FFA8BD"})

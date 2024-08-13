@@ -58,7 +58,7 @@ export default function RankGameJellyBtn(props) {
           dispatch(changeCorrectIdx(0));
           dispatch(changeGamePurposeIdx(0));
           dispatch(changeIsRank(false));
-          router.push("/main");
+          router.replace("/main");
         }
       }}
     >

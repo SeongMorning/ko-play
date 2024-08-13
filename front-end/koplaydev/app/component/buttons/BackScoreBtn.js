@@ -1,5 +1,5 @@
 "use client";
-import { usePathname, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import styles from "./BackScoreBtn.module.scss";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +16,9 @@ export default function BackScoreBtn(props) {
   const pathName = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
+  const params = useParams();
+  console.log(pathName)
+  console.log(params)
 
   const correct = useSelector((state) => state.correct);
 
@@ -36,12 +39,28 @@ export default function BackScoreBtn(props) {
     const authToken = getCookieValue('Authorization');
     if (authToken == null) {
       dispatch({ type: 'RESET_ALL' });
-      router.push("/")
-    } else if (props.text) {
-      history.go(-1);
+      router.replace("/")
     }
     if (pathName === "/mypage") {
       dispatch(changeMyPageIdx(1));
+    }
+
+    if(pathName === "/login"){
+      router.replace("/");
+    }else if(pathName === "/album"){
+      router.replace("/main");
+    }else if(pathName === "/mypage"){
+      router.replace("/main");
+    }else if(pathName === "/avatar"){
+      router.replace("/main");
+    }else if(pathName ==="/parent"){
+      router.replace("/");
+    }else if(pathName === `/parent/child/${params.id}`){
+      router.replace("/parent");
+    }else if(pathName.endsWith("/statistic")){
+      router.replace(`/parent/child/${params.id}`);
+    }else if(pathName === "/fame"){
+      router.replace('/main');
     }
   }
 
@@ -73,14 +92,14 @@ export default function BackScoreBtn(props) {
           // 쿠키에서 Authorization 토큰 가져오기
           const authToken = getCookieValue('Authorization');
           if (authToken == null) {
-            router.push("/")
+            router.replace("/")
           }
 
           const response = await logoutAxios();
 
           if (response != null) {
             //null이 아니면 성공
-            router.push("/")
+            router.replace("/")
           }
         } else {
           handleClick();
