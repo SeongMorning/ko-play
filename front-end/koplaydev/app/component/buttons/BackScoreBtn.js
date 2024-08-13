@@ -20,8 +20,6 @@ export default function BackScoreBtn(props) {
   const dispatch = useDispatch();
   const router = useRouter();
   const params = useParams();
-  console.log(pathName)
-  console.log(params)
 
   const correct = useSelector((state) => state.correct);
 
