@@ -207,7 +207,7 @@ const GameSelect = (props) => {
                       }}
                       onClick={() => {
                         dispatch(changeGameIdx(data.gameIdx))
-                        router.push(`/promotion/game/${data.gameIdx}`);
+                        router.replace(`/promotion/game/${data.gameIdx}`);
                       }}
                     >
                       {props.gamestart}

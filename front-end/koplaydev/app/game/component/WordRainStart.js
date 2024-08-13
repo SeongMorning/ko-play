@@ -107,7 +107,7 @@ export default function WordRainStart() {
       copy2[index].state = -1;
       setWordObjectList(copy2);
       let wrong2 = [...wrong];
-      wrong2.push(wordObjectList[index]);
+      wrong2.replace(wordObjectList[index]);
       setWrong(wrong2);
     }
   });

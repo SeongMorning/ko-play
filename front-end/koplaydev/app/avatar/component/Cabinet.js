@@ -87,7 +87,7 @@ export default function Cabinet() {
           </button>
         )}
       </div>
-      <Cam left="55vw" top="40vh" width="20vw" />
+      <Cam left="55vw" top="40vh" width="20vw" height="10vh" />
       <BtnContainer />
       <ChangeNation setSelectedCountry={setSelectedCountry} />
     </div>
