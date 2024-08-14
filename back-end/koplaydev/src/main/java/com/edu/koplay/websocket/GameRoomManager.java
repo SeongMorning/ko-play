@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 public class GameRoomManager {
     Logger logger = LoggerFactory.getLogger(getClass());
     private final ConcurrentHashMap<Long, GameRoom> rooms = new ConcurrentHashMap<>();  // 방 목록을 관리하는 ConcurrentHashMap
-    private static final AtomicLong roomIdCounter = new AtomicLong();  // 방 ID 생성기
+    public static final AtomicLong roomIdCounter = new AtomicLong();  // 방 ID 생성기
     public static long newRoomId = roomIdCounter.incrementAndGet();;
     // 대기자 명단 대기열
     public static Queue<String> waitingQueue = new ArrayDeque<>();
     //userId, roomId를 키와 벨류로 가지는 map
     public static Map<String, Long> userIdAndRoom = new HashMap<>();
-    public static Long roomId = 1L;
+//    public static Long roomId = 1L;
     /**
      * 플레이어를 새로운 방에 추가하거나 기존 방에 참여시킵니다.
      *
