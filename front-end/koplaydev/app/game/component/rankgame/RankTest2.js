@@ -122,11 +122,11 @@ export default function RankTest2() {
         console.log("언마운트됨");
         client.unsubscribe("/topic/game/match");
         client.unsubscribe(`/topic/ingame/${roomId}`);
+        disconnectWebSocket();
+        setClient(null);
+        dispatch(setConnected(false));
+        SpeechRecognition.stopListening();
       }
-      disconnectWebSocket();
-      setClient(null);
-      dispatch(setConnected(false));
-      SpeechRecognition.stopListening();
     };
   }, [client, roomId, dispatch]);
 
