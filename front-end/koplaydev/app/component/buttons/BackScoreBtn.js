@@ -40,7 +40,6 @@ export default function BackScoreBtn(props) {
   const handleClick = () => {
     const authToken = getCookieValue('Authorization');
     if (authToken == null) {
-      dispatch({ type: 'RESET_ALL' });
       router.replace("/")
     }
     if (pathName === "/mypage") {
