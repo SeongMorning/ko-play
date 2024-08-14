@@ -15,16 +15,18 @@ public class GameQueManageScheduler {
     public void queManageScheduler() {
         try {
 //            logger.info("스케쥴링");
-            while (GameRoomManager.waitingQueue.size() >= 2) {
+            if (GameRoomManager.waitingQueue.size() >= 2) {
                 logger.info("여기 배정했어요");
                 String id1 = GameRoomManager.waitingQueue.poll();
                 String id2 = GameRoomManager.waitingQueue.poll();
                 System.out.println(id1 + id2);
-                GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
-                GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
-                logger.info("배정한 roomId" + GameRoomManager.roomId);
-                GameRoomManager.roomId += 1;
-                logger.info("증가된 roomId"+GameRoomManager.roomId);
+
+                Long test = GameRoomManager.roomIdCounter.incrementAndGet() ;
+
+                GameRoomManager.userIdAndRoom.put(id1, test);
+                GameRoomManager.userIdAndRoom.put(id2, test);
+                logger.info("배정한 roomId" + test);
+//                logger.info("증가된 roomId" + test);
             }
         } catch (Exception e) {
             logger.error("Batch job failed: {}", e.getMessage(), e);

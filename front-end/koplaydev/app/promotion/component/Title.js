@@ -3,26 +3,31 @@
 import styles from "./Title.module.scss";
 import { motion } from "framer-motion";
 import useSound from "@/app/utils/useSound";
-import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import translations from "@/app/axios/translations";
+import { changeTranslationWords } from "@/redux/slices/translationWords";
+import currNation, { changeCurrNation } from "@/redux/slices/currNationSlice";
+import { Router } from "next/router";
 
 const loginBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM.wav';
 const loginBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3';
 
 export default function Title() {
+  const dispatch = useDispatch();
   useSound(loginBGM2, 0.6, 0);
   const translationWords = useSelector((state) => state.translationWords);
-  
-  let title1 = '';
-  let title2 = '';
-  
+
+  const [title1, setTitle1] = useState([]);
+  const [title2, setTitle2] = useState([]);
+
   useEffect(() => {
-    console.log(translationWords.title1)
-    if(translationWords.title1){
-      title1 = Array.from(translationWords.title1)
-      title2 = Array.from(translationWords.title2)
+    // console.log(translationWords.title1)
+    if (translationWords.title1) {
+      setTitle1(Array.from(translationWords.title1));
+      setTitle2(Array.from(translationWords.title2));
     }
-  }, [translationWords]); 
+  }, [translationWords]);
 
   const container = {
     hidden: { opacity: 1 },
