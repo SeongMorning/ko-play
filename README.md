@@ -3,11 +3,29 @@
 다문화 초등학생을 위한 한국어 교육 게이미피케이션 서비스\
 (게이미피케이션 : 게임이 아닌 애플리케이션에 애플리케이션 사용을 권장하기 위해 게임 플레이 기법을 적용하는 것)
 
-## Getting Started
+## 기술 스택 및 기타 사용 도구
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+### Frontend
+- 코어 : React.js, Next.js
+- CSS : SASS, tailwind css
+- 언어 : typescript, Javascript
 
-### Prerequisites
+### Backend
+- 프레임 워크 : Spring boot
+- 데이터 베이스 : MySQL, Redis
+- 보안 : Spring-Security, JWT
+- WebRTC : OpenVidu
+
+### Infra
+- 서버 : aws EC2
+- CI/CD 도구 : Gitlab, Jenkins, Docker, Docker-compose
+
+### 기타 사용 도구
+- 일정 관리 : Jira,Notion
+- 커뮤니케이션 : MatterMost
+- 디자인 : Figma
+
+## Prerequisites
 
 What things you need to install the software and how to install them
 
