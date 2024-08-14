@@ -1,139 +1,14 @@
-// .profileCardBg {
-//   position: absolute;
-//   top: 46.2%;
-//   left: 25.2%;
-//   transform: translate(-50%, -50%);
-//   width: 20vw;
-//   height: 51vh;
-//   z-index: 9997;
-//   background-color: rgba(252, 246, 189, 1);
-//   border-radius: 2vw;
-//   box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
-// }
-
-// .settingIcon {
-//   width: 13%;
-//   height: auto;
-//   margin-top: 2vh;
-//   margin-left: 1.2vw;
-//   display: flex;
-//   align-self: flex-start;
-// }
-
-// .profileCard {
-//   position: absolute;
-//   top: 45.5%;
-//   left: 25.5%;
-//   transform: translate(-50%, -50%);
-//   width: 20vw;
-//   height: 51vh;
-//   z-index: 9998;
-//   background-color: rgba(252, 246, 189, 1);
-//   border-radius: 2vw;
-//   box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
-
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   .profileInput {
-//     width: 80%;
-//     height: 78%;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     justify-content: center;
-//     overflow: hidden;
-//   }
-
-//   .profileImgBg {
-//     width: 73%;
-//     height: 59%;
-//     border-radius: 23%;
-//     margin-top: 5%;
-//     margin-bottom: 5%;
-//     overflow: hidden;
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//   }
-
-//   .profileImg {
-//     width: 145%;
-//     height: 110%;
-//   }
-
-//   .profileName {
-//     font-size: 2.5vw;
-//     font-weight: bold;
-//     letter-spacing: 1vw;
-//     margin-top: 4%;
-//     padding-left: 4%;
-//     text-align: center;
-//     margin-bottom: 3%;
-//   }
-// }
-
-// .inputTotal {
-//   position: absolute;
-//   top: 0;
-//   left: 15vw;
-//   width: 100%;
-//   height: 100%;
-//   display: flex;
-//   justify-content: center;
-//   padding-top: 10%;
-
-//   .MyPagePink {
-//     display: flex;
-//     flex-direction: column;
-//     justify-content: space-between;
-//     width: 50%;
-//     height: 50%;
-//   }
-// }
-
-// .detailBox {
-//   width: 17vw;
-//   height: 10vh;
-// }
-.container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; /* 화면 높이 전체를 사용 */
-  width: 100vw; /* 화면 너비 전체를 사용 */
-  background-color: #f0f0f0; /* 배경색 추가 */
-  padding: 20px; /* 원하는 만큼의 패딩 추가 */
-}
 .profileCardBg {
   position: absolute;
-  top: 50%;
-  left: 25%;
+  top: 46.2%;
+  left: 25.2%;
   transform: translate(-50%, -50%);
-  width: 22vw;
-  height: 55vh;
+  width: 20vw;
+  height: 51vh;
   z-index: 9997;
   background-color: rgba(252, 246, 189, 1);
   border-radius: 2vw;
   box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
-}
-
-.profileCard {
-  position: absolute;
-  top: 50%;
-  left: 25%;
-  transform: translate(-50%, -50%);
-  width: 22vw;
-  height: 55vh;
-  z-index: 9998;
-  background-color: rgba(252, 246, 189, 1);
-  border-radius: 2vw;
-  box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .settingIcon {
@@ -145,60 +20,185 @@
   align-self: flex-start;
 }
 
-.profileInput {
-  width: 80%;
-  height: 78%;
+.profileCard {
+  position: absolute;
+  top: 45.5%;
+  left: 25.5%;
+  transform: translate(-50%, -50%);
+  width: 20vw;
+  height: 51vh;
+  z-index: 9998;
+  background-color: rgba(252, 246, 189, 1);
+  border-radius: 2vw;
+  box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
 
-.profileImgBg {
-  width: 70%;
-  height: 55%;
-  border-radius: 50%;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .profileInput {
+    width: 80%;
+    height: 78%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
 
-.profileImg {
-  width: 150%;
-  height: 120%;
-}
+  .profileImgBg {
+    width: 73%;
+    height: 59%;
+    border-radius: 23%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.profileName {
-  font-size: 2.5vw;
-  font-weight: bold;
-  letter-spacing: 0.2vw;
-  margin-top: 4%;
-  text-align: center;
-  margin-bottom: 3%;
+  .profileImg {
+    width: 145%;
+    height: 110%;
+  }
+
+  .profileName {
+    font-size: 2.5vw;
+    font-weight: bold;
+    letter-spacing: 1vw;
+    margin-top: 4%;
+    padding-left: 4%;
+    text-align: center;
+    margin-bottom: 3%;
+  }
 }
 
 .inputTotal {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40%;
+  top: 0;
+  left: 15vw;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  padding-top: 10%;
+
+  .MyPagePink {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50%;
+    height: 50%;
+  }
 }
 
-.MyPagePink {
+.detailBox {
+  width: 17vw;
+  height: 10vh;
+}
+.container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 40%;
-  padding-top: 2vh;
-  padding-bottom: 2vh;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 화면 높이 전체를 사용 */
+  width: 100vw; /* 화면 너비 전체를 사용 */
+  background-color: #f0f0f0; /* 배경색 추가 */
+  padding: 20px; /* 원하는 만큼의 패딩 추가 */
 }
+// .profileCardBg {
+//   position: absolute;
+//   top: 50%;
+//   left: 25%;
+//   transform: translate(-50%, -50%);
+//   width: 22vw;
+//   height: 55vh;
+//   z-index: 9997;
+//   background-color: rgba(252, 246, 189, 1);
+//   border-radius: 2vw;
+//   box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+// }
+
+// .profileCard {
+//   position: absolute;
+//   top: 50%;
+//   left: 25%;
+//   transform: translate(-50%, -50%);
+//   width: 22vw;
+//   height: 55vh;
+//   z-index: 9998;
+//   background-color: rgba(252, 246, 189, 1);
+//   border-radius: 2vw;
+//   box-shadow: -0.4vw 0.5vw 0.5vw 0 rgba(0, 0, 0, 0.299);
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+// }
+
+// .settingIcon {
+//   width: 13%;
+//   height: auto;
+//   margin-top: 2vh;
+//   margin-left: 1.2vw;
+//   display: flex;
+//   align-self: flex-start;
+// }
+
+// .profileInput {
+//   width: 80%;
+//   height: 78%;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   overflow: hidden;
+// }
+
+// .profileImgBg {
+//   width: 70%;
+//   height: 55%;
+//   border-radius: 50%;
+//   margin-top: 5%;
+//   margin-bottom: 5%;
+//   overflow: hidden;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .profileImg {
+//   width: 150%;
+//   height: 120%;
+// }
+
+// .profileName {
+//   font-size: 2.5vw;
+//   font-weight: bold;
+//   letter-spacing: 0.2vw;
+//   margin-top: 4%;
+//   text-align: center;
+//   margin-bottom: 3%;
+// }
+
+// .inputTotal {
+//   position: absolute;
+//   top: 50%;
+//   left: 50%;
+//   transform: translate(-50%, -50%);
+//   width: 40%;
+//   height: 100%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .MyPagePink {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: space-between;
+//   width: 100%;
+//   height: 40%;
+//   padding-top: 2vh;
+//   padding-bottom: 2vh;
+// }
