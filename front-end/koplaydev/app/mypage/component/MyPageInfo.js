@@ -10,17 +10,18 @@ import { useEffect, useState } from "react";
 import studentStatisticsAxios from "@/app/axios/studentStatisticsAxios";
 import ExpBar from "./ExpBar";
 
-let myPageList = ["최근 전적", "정답률", "경험치 변화"];
 
 export default function MyPageInfo() {
   const translationWords = useSelector((state) => state.translationWords);
-
+  const [myPageList, setMyPageList] = useState(["최근 전적", "정답률", "경험치 변화"]);
   const myPageIdx = useSelector((state) => state.myPage);
 
   useEffect(() => {
-    myPageList[0] = translationWords.recent;
-    myPageList[1] = translationWords.correctRatio;
-    myPageList[2] = translationWords.expDiff;
+    const copy = [...myPageList];
+    copy[0] = translationWords.recent;
+    copy[1] = translationWords.correctRatio;
+    copy[2] = translationWords.expDiff;
+    setMyPageList(copy);
     // myPageList[3] = translationWords.rating;
   }, [translationWords]); 
 

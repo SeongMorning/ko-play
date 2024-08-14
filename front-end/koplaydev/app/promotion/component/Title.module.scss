@@ -3,30 +3,54 @@
   flex-direction: column;
   text-align: center;
   justify-content: center;
-  align-items: center;
-  width: 3vw;
   color: white;
-  width: 50vw;
+  width: 80vw;
+  box-sizing: border-box;
+  padding-top : 3%;
+}
+
+.garo{
+  font-size: calc((4vh + 3vw)/2);
+  font-weight : bold;
+  color : #FDD127;
+  margin-bottom : 3%;
+
+  :nth-child(7){
+    font-size: calc((5vh + 3vw)/2);
+    color : #f15bb5;
+  }
+  :nth-child(8){
+    font-size: calc((5vh + 3vw)/2);
+    color : #f15bb5;
+  }
+  :nth-child(9){
+    font-size: calc((5vh + 3vw)/2);
+    color : #f15bb5;
+  }
+  :nth-child(10){
+    font-size: calc((5vh + 3vw)/2);
+    color : #f15bb5;
+  }
 }
 
 .promotionTitle1 {
-  font-size: 4vh;
+  font-size: calc((2vh + 3vw)/2);
   font-weight: bold;
 
   :nth-child(5) {
-    font-size: 5vh;
+    font-size: calc((4vh + 3vw)/2);
     color: #fd386f;
   }
   :nth-child(6) {
-    font-size: 5vh;
+    font-size: calc((4vh + 3vw)/2);
     color: #fd386f;
   }
   :nth-child(12) {
-    font-size: 5vh;
+    font-size: calc((4vh + 3vw)/2);
     color: #20e2c9;
   }
   :nth-child(13) {
-    font-size: 5vh;
+    font-size: calc((4vh + 3vw)/2);
     color: #20e2c9;
   }
 }
