@@ -24,6 +24,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -264,13 +267,21 @@ public class StudentController {
             for (Object[] result : dailyResult) {
                 // Extract values based on index
                 Date date = (Date) result[0];
+
+                // Date를 ZonedDateTime으로 변환
+                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+                // 8시간 추가
+                ZonedDateTime newZonedDateTime = zonedDateTime.plus(8, ChronoUnit.HOURS);
+                // ZonedDateTime을 Date로 변환
+                Date newDate = Date.from(newZonedDateTime.toInstant());
+
                 int totalQuestion = ((Number) result[1]).intValue();
                 int correctAnswer = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
                 int level = ((Number) result[4]).intValue();
 
                 // Create a new DTO and add it to the list
-                GameCorrectDTO gameResultDTO = new GameCorrectDTO(date, totalQuestion, correctAnswer, gamePurpose, level);
+                GameCorrectDTO gameResultDTO = new GameCorrectDTO(newDate, totalQuestion, correctAnswer, gamePurpose, level);
                 res.add(gameResultDTO);
 
 
