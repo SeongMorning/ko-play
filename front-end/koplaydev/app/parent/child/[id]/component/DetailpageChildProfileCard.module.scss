@@ -97,6 +97,16 @@
 //   width: 17vw;
 //   height: 10vh;
 // }
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 화면 높이 전체를 사용 */
+  width: 100vw; /* 화면 너비 전체를 사용 */
+  background-color: #f0f0f0; /* 배경색 추가 */
+  padding: 20px; /* 원하는 만큼의 패딩 추가 */
+}
 .profileCardBg {
   position: absolute;
   top: 50%;
