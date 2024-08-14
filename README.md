@@ -64,11 +64,29 @@ curl -L "https://github.com/docker/compose/releases/latest/download/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
-### 2. mysql,Redis
+### 2. MySQL,Redis
+원래 MySQL,Redis,Nginx를 한 docker-compose파일로 설치했었으나, openvidu를 설치하는 과정에서 Nginx가 추가로 설치되어 MySQL과 Redis만 설치하는 방향으로 인프라 구성. 
 
-
+a. docker-compose.yml \
+[MySQL,Redis docker-compose.yml](docker-compose.yml)
 
 ### 3. Openvidu, Nginx
+
+**OpenVidu**
+
+OpenVidu는 OnPremise 환경으로 설치. \
+CERTIFICATE_TYPE=letsencrypt.로 SSL 설정을 진행.\
+구체적인 과정은 공식문서 참고 \
+https://docs.openvidu.io/en/2.30.0/deployment/ce/on-premises/
+
+**Nginx 설정**
+
+OpenVidu 공식 문서대로 설치를 진행하면 nginx가 설치됨. \
+해당 Nginx에 frontend, backend, jenkins의 리버스 프록시 설정을 추가함
+
+a. default.conf
+파일 위치는 컨테이너 내부 기준 /etc/nginx/conf.d/default.conf \
+[Nginx default.conf](InfraSettingCodes/default.conf)
 
 ### 부록 - Frontend,Backend DockerFile
 
