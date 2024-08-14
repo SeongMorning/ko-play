@@ -296,11 +296,19 @@ public class StudentController {
                 // Extract values based on index
 
                 Date date = (Date) result[0];
+
+                // Date를 ZonedDateTime으로 변환
+                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+                // 8시간 추가
+                ZonedDateTime newZonedDateTime = zonedDateTime.plus(8, ChronoUnit.HOURS);
+                // ZonedDateTime을 Date로 변환
+                Date newDate = Date.from(newZonedDateTime.toInstant());
+
                 int exp = ((Number) result[1]).intValue();
                 int accumSum = ((Number) result[2]).intValue();
 
                 // Create a new DTO and add it to the list
-                ExpDTO expDTO = new ExpDTO(date, exp, accumSum);
+                ExpDTO expDTO = new ExpDTO(newDate, exp, accumSum);
                 res2.add(expDTO);
 
             }
@@ -313,6 +321,12 @@ public class StudentController {
                 // Extract values based on index
 
                 Date date = dateFormat.parse((String) result[0]);
+                // Date를 ZonedDateTime으로 변환
+                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
+                // 8시간 추가
+                ZonedDateTime newZonedDateTime = zonedDateTime.plus(8, ChronoUnit.HOURS);
+                // ZonedDateTime을 Date로 변환
+                Date newDate = Date.from(newZonedDateTime.toInstant());
                 int correct = ((Number) result[1]).intValue();
                 int question = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
@@ -320,7 +334,7 @@ public class StudentController {
 
 
                 // Create a new DTO and add it to the list
-                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(date, correct, question, gamePurpose, level);
+                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(newDate, correct, question, gamePurpose, level);
                 res4.add(dailySpecificDTO);
                 //System.out.println("gameres" + gameResultDTO.toString());
             }
