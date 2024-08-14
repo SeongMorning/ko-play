@@ -4,11 +4,12 @@ import { useDispatch } from "react-redux";
 import styles from "./RankGameCancelBtn.module.scss";
 import { motion } from "framer-motion";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
+import API from "@/app/utils/API";
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function RankGameCancelBtn(props) {
-  
+
     const dispatch = useDispatch();
     const cancelClick = () => {
       dispatch(changeModalIdx(0));
