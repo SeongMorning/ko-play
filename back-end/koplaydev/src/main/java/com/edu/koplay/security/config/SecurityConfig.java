@@ -92,6 +92,7 @@ public class SecurityConfig {
                                         .requestMatchers("/login/oauth2/**").permitAll()
                                         .requestMatchers("/").permitAll()
                                         .requestMatchers("/login").permitAll()
+                                        .requestMatchers("/gs-guide-websocket/**").permitAll()
                                         .requestMatchers("/custom-login").permitAll()
                                         .requestMatchers("/login").permitAll()
                                         .requestMatchers("/token/**").permitAll()
