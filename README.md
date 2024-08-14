@@ -167,25 +167,40 @@ Frontend Dockerfile의 경우 docker-compose.override.yml으로 배포했고, Ba
 
 ## 환경변수 설정
 
-A step by step series of examples that tell you how to get a development env running
+### 1. Frontend
+a. frontend 설정파일 \
+[Frontend env file](front-end/koplaydev/next.config.mjs)
+### 2. Backend
+a. backend 설정파일 폴더 \
+[Backend env file](back-end/koplaydev/src/main/resources)
 
-Say what the step will be
+## 외부 서비스 정보
 
-```
-Give the example
-```
+### 1. S3
+프로젝트에서 사용하는 모든 사진과 음악은 S3에 저장을 해서 사용함. 프로젝트를 진행하면서 루트 계정을 전 팀원에게 공유할 수 없어 S3만 전 권한을 가지는 IAM 계정을 생성해 공유.
 
-And repeat
+a. aws root 계정에서 S3 서비스에 사용할 bucket 생성. \
+**⚠️ 주의사항 : 생성시 PublicAccess 차단 설정을 해제해 놓아야 함**
+- 버킷 접속 -> 권한 -> 버킷 정책이 제대로 작성되었는지 확인
 
-```
-until finished
-```
+b. S3에 S3fullAccess 권한을 가지는 IAM 계정 생성
+ - (AWS Management Console에 대한 사용자 액세스 권한 제공) 체크
+ - (IAM 사용자를 생성하고 싶음) 선택
+ - AmazonS3FullAccess 추가
 
-End with an example of getting some data out of the system or using it for a little demo
+ 과정을 무사히 완료했다면 사용자 이름과 pw, 접속 경로가 적힌 .csv파일을 받을 수 있다.
+c. 팀원이 해당 파일의 링크에 접속해 해당 파일의 id,pw를 입력하면 s3를 사용할 수 있다.
 
-## Running the tests
+troubleShooting) S3 접속시 CORS 에러가 날 수 있다. 버킷 접속->권한-> CORS 공유 탭을 편집할것
 
-Explain how to run the automated tests for this system
+### 2. 소셜 인증
+
+### 3. TTS
+
+### 4. Open API
+
+
+---
 
 ### Break down into end to end tests
 
