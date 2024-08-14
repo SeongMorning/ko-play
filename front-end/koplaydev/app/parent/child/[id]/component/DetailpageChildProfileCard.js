@@ -7,19 +7,20 @@ import parentChildStatisticsAxios from "@/app/axios/parentChildStatisticsAxios";
 import { changeParentChaildStatistic } from "@/redux/slices/parentChaildStatisticSlice";
 import ClickedPinkBtn from "./ClickedPinkBtn";
 import useSound from "@/app/utils/useSound";
-import effectSound from '@/app/utils/effectSound'
+import effectSound from "@/app/utils/effectSound";
 
-const mouseClickSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
-const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
-
-let myPageList = [
-  "분야별/레벨별 정답률",
-  "진도 현황",
-  "성취도 비교",
-  "스냅샷",
-];
+const mouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
+const buttonSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3";
 
 export default function DetailpageChildProfileCard({ child }) {
+  const [myPageList, setMyPageList] = useState([
+    "분야별/레벨별 정답률",
+    "진도 현황",
+    "성취도 비교",
+    "스냅샷",
+  ]);
   const parent = useSelector((state) => state.parent);
   const translationWords = useSelector((state) => state.translationWords);
 
@@ -30,11 +31,14 @@ export default function DetailpageChildProfileCard({ child }) {
   const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
-    myPageList[0] = translationWords.parentStatistic1;
-    myPageList[1] = translationWords.parentStatistic2;
-    myPageList[2] = translationWords.parentStatistic3;
-    myPageList[3] = translationWords.album;
-  }, [translationWords]); 
+    const copy = [...myPageList];
+    copy[0] = translationWords.parentStatistic1;
+    copy[1] = translationWords.parentStatistic2;
+    copy[2] = translationWords.parentStatistic3;
+    copy[3] = translationWords.album;
+
+    setMyPageList(copy);
+  }, [translationWords]);
 
   const clickIcon = () => {
     mouseClickEs.play();
