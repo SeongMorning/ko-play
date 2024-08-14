@@ -33,6 +33,8 @@ public class GameRoomManager {
         logger.info(clientId+" ->"+roomId);
         for (GameRoom room : rooms.values()) {  // 현재 존재하는 모든 방을 탐색
             if(room.getRoomId() == roomId){
+                if(clientId.equals(room.getClients().get(0)))
+                    continue;
                 room.addClient(clientId);
                 rooms.put(room.getRoomId(), room);
                 return room;
@@ -45,14 +47,11 @@ public class GameRoomManager {
         return newRoom;  // 생성된 방을 반환
     }
 
-    public void deleteRoom(String clientId) {
-        if(userIdAndRoom.containsKey(clientId)) {
-            Long roomId = userIdAndRoom.get(clientId);
-            //사용자와 방 매핑된거 지워주기
-            userIdAndRoom.remove(clientId);
-            if(rooms.containsKey(roomId)) {
-                rooms.remove(roomId);
-            }
+    public void deleteRoom(String roomId) {
+        //사용자와 방 매핑된거 지워주기
+        if(rooms.containsKey(roomId)) {
+            rooms.remove(roomId);
+            logger.info("rooms를 삭제합니다.");
         }
     }
 

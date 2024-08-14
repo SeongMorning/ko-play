@@ -74,9 +74,9 @@ export default function NormalGame() {
         // console.log(speechGame)
         // console.log(readGame)
         // console.log(translationWords.wordRain)
-        gameList[0][0] = speechGame.gameName;
-        gameList[1][0] = readGame.gameName;
-        gameList[2][0] = listenGame.gameName;
+        gameList[0][0] = speechGame[0].gameName;
+        gameList[1][0] = readGame[0].gameName;
+        gameList[2][0] = listenGame[0].gameName;
 
       }
       dispatch(changeSpeechLevel(1));
@@ -218,8 +218,8 @@ const GameSelect = (props) => {
                         color: "rgba(154, 205, 50, 1)",
                       }}
                       onClick={() => {
-                        dispatch(changeGameIdx(data.gameIdx))
-                        router.replace(`/promotion/game/${data.gameIdx}`);
+                        dispatch(changeGameIdx(props.idx))
+                        router.replace(`/promotion/game/${props.idx}`);
                       }}
                     >
                       {props.gamestart}
