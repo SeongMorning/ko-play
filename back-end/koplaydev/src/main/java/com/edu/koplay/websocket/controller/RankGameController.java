@@ -78,8 +78,8 @@ public class RankGameController {
     @MessageMapping("/out")
     public void outGame(String playerId) throws Exception {
         //모든것을 삭제해버려요
-        GameRoomManager.userIdAndRoom.remove(playerId);
         roomManager.deleteRoom(playerId);
+//        GameRoomManager.userIdAndRoom.remove(playerId);
     }
 
 //    public void waitGame() throws Exception {
