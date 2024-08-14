@@ -24,9 +24,10 @@ export default function Statistic({ params }) {
 
   const statisticData = useSelector((state) => state.parentChaildStatistic);
   const [aiText, setAiText] = useState(null);
-  // const [parentNation, setParentNation] = useState(parent.nationality);
+  const [parentNation, setParentNation] = useState(parent.nationality);
+
   useEffect(() => {
-    // setParentNation(parent.nationality);
+    setParentNation(parent.nationality);
   }, [parent]);
 
   const id = params.id;
@@ -34,19 +35,28 @@ export default function Statistic({ params }) {
   const viewIdx = searchParams.get("view");
 
   const getExplanation = async (question, parentNation) => {
+    try {
+      const msg = `${question} in ${parentNation} language.`;
+      const result = await OpenAiUtill.prompt(msg);
+      console.log(result);
+      return result.message.content;
+    } catch (err) {
+      console.error("Error fetching explanation:", err);
+      return "응답을 가져오는 데 문제가 발생했습니다.";
+    }
+  };
 
-    useEffect(() => {
+  useEffect(() => {
+    if (statisticData) {
+      setParentNation(parent.nationality);
+      console.log(statisticData);
+      let question = "";
 
-      if (statisticData) {
-        // setParentNation(parent.nationality);
-        console.log(statisticData);
-        let question = "";
-
-        switch (viewIdx) {
-          case "1":
-            question = `I'll explain the data for ${JSON.stringify(
-              statisticData[0]
-            )}. 
+      switch (viewIdx) {
+        case "1":
+          question = `I'll explain the data for ${JSON.stringify(
+            statisticData[0]
+          )}. 
           The date is the date the game was played. 
           The key "gamePurpose" is composed of reading, listening, and speaking. 
           The key "level" is from 1 to 5. It gets harder as you go to 5. 
@@ -54,16 +64,15 @@ export default function Statistic({ params }) {
           We're only interested in getting the data interpreted correctly. 
           Please brief the data by gamePurpose, Date and correct Ratio.Except Level in short and simple words. And suggest the direction of study.
             `;
-            if (statisticData[0].length === 0) {
-              question = null;
-            }
-            break;
-          case "2":
-            // 목적별 전체 판수.
-            // selectedData = statisticData[1]; // 진도 현황 데이터
-            question = `I'll explain the data for ${JSON.stringify(
-              statisticData[0]
-            )}. 
+          if (statisticData[0].length === 0) {
+            question = null;
+          }
+          break;
+        case "2":
+          // 목적별 전체 판수.
+          question = `I'll explain the data for ${JSON.stringify(
+            statisticData[0]
+          )}. 
           The date is the date the game was played. 
           The key "gamePurpose" is composed of reading, listening, and speaking. 
           The key "level" is from 1 to 5. It gets harder as you go to 5. 
@@ -71,14 +80,13 @@ export default function Statistic({ params }) {
           We're only interested in getting the data interpreted correctly. 
           Please brief the data by gamePurpose and Level in short and simple words. And suggest the direction of study.
             `;
-            if (statisticData[0].length === 0) {
-              question = null;
-            }
-            break;
-          case "3":
-            // 전체 유저의 목적별 정답률 correct/total
-            // selectedData = statisticData[2]; // 성취도 비교 데이터
-            question = `I'll explain two data for 
+          if (statisticData[0].length === 0) {
+            question = null;
+          }
+          break;
+        case "3":
+          // 전체 유저의 목적별 정답률 correct/total
+          question = `I'll explain two data for 
           ${JSON.stringify(statisticData[0])},
           \\n 
           this is my child's data.
@@ -100,29 +108,25 @@ export default function Statistic({ params }) {
           we don't need actual data.  
           But suggest the direction of study.
             `;
-            if (statisticData[0].length === 0) {
-              question = null;
-            }
-            break;
-          default:
-            break;
-        }
-
-        if (question) {
-          // 전체 유저의 목적별 정답률 correct/total
-          // getExplanation(selectedData, question, parentNation).then(
-          streamPrompt(question)
-          getExplanation(question, parentNation).then((explanation) => {
-            setAiText(explanation);
-          });
-        } else {
-          setAiText("아이가 아직 플레이 하지 않았습니다.");
-        }
+          if (statisticData[0].length === 0) {
+            question = null;
+          }
+          break;
+        default:
+          break;
       }
-    }, [statisticData, viewIdx, parent]);
 
+      if (question) {
+        // 전체 유저의 목적별 정답률 correct/total
+        getExplanation(question, parentNation).then((explanation) => {
+          setAiText(explanation);
+        });
+      } else {
+        setAiText("아이가 아직 플레이 하지 않았습니다.");
+      }
+    }
+  }, [statisticData, viewIdx, parent]);
 
-  }
   const renderContent = () => {
     switch (viewIdx) {
       case "1":
@@ -159,7 +163,7 @@ export default function Statistic({ params }) {
       </div>
       <StatisticBg />
     </>
-  )
+  );
 }
 
 // "use client";
