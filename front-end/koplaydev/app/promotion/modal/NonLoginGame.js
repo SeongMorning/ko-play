@@ -15,6 +15,9 @@ import gameListAxios from "@/app/axios/gameListAxios";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import { changeGameIdx } from "@/redux/slices/gameSlice";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
+import effectSound from "@/app/utils/effectSound";
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 let propObject = [
   {
@@ -42,6 +45,7 @@ let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
 
 export default function NormalGame() {
   const translationWords = useSelector((state) => state.translationWords);
+  const buttonEs = effectSound(buttonSound, 1);
 
   useEffect(() => {
     gameList[0][0] = translationWords.wordRain;
@@ -63,11 +67,17 @@ export default function NormalGame() {
         let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
         let readGame = data.filter((value) => value.gamePurposeIdx === 2);
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
-
+        // console.log(speechGame)
+        // console.log(readGame)
+        console.log(gameList)
+        // console.log(translationWords.wordRain)
         gameList = [[...speechGame], [...readGame], [...listenGame]];
+        // console.log(gameList)
         gameList[0][0].gameName = translationWords.wordRain;
         gameList[1][0].gameName = translationWords.flipflip;
         gameList[2][0].gameName = translationWords.smugogae;
+        // console.log(gameList)
+
       }
       dispatch(changeSpeechLevel(1));
       dispatch(changeReadLevel(1));
@@ -86,6 +96,7 @@ export default function NormalGame() {
               <img
                 src="/back2.png"
                 onClick={() => {
+                  buttonEs.play();
                   dispatch(changeGamePurposeIdx(0));
                 }}
               ></img>
@@ -96,6 +107,7 @@ export default function NormalGame() {
             <img
               src="/close.png"
               onClick={() => {
+                buttonEs.play();
                 dispatch(changeGamePurposeIdx(0));
                 dispatch(changeModalIdx(0));
               }}
