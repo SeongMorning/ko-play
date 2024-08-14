@@ -8,21 +8,27 @@ import FaceDetection, { initWebcamAndModel } from "@/app/utils/AR/script";
 
 // props : left, top, width
 const Cam = forwardRef((props, ref) => {
-
   return (
-    <div ref={ref}>
+    <div
+      style={{
+        position: "relative",
+        left: props.left,
+        top: props.top,
+        width: props.width,
+        height: props.height,
+        right: props.right,
+        bottom: props.bottom,
+        zIndex: 30,
+      }}
+      ref={ref}
+    >
       <Webcam
-        className={styles.webcam}
         style={{
-          left: props.left,
-          top: props.top,
-          width: props.width,
-          height: props.height,
-          right: props.right,
-          bottom: props.bottom,
-          zIndex: 1,
+          width: "100%",
+          height: "100%",
         }}
       />
+      <img className={styles.img} src="/jamini-mask.jpg" />
     </div>
   );
 });
