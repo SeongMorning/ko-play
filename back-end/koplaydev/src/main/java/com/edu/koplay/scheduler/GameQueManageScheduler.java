@@ -15,7 +15,7 @@ public class GameQueManageScheduler {
     public void queManageScheduler() {
         try {
 //            logger.info("스케쥴링");
-            while (GameRoomManager.waitingQueue.size() >= 2) {
+            if (GameRoomManager.waitingQueue.size() >= 2) {
                 logger.info("여기 배정했어요");
                 String id1 = GameRoomManager.waitingQueue.poll();
                 String id2 = GameRoomManager.waitingQueue.poll();
