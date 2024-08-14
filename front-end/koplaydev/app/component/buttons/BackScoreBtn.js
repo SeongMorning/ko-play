@@ -10,6 +10,7 @@ import effectSound from '@/app/utils/effectSound'
 import { useEffect } from "react";
 import translations from "@/app/axios/translations";
 import { changeTranslationWords } from "@/redux/slices/translationWords";
+import ChangeNation from "@/app/avatar/component/ChangeNation";
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
@@ -76,6 +77,18 @@ export default function BackScoreBtn(props) {
         if (props.text == '로그아웃') {
           dispatch({ type: 'RESET_ALL' });
           persistor.purge();
+
+            const fetchTranslations = async () => {
+              try {
+                const result = await translations("ko-KR");
+                dispatch(changeTranslationWords(result));
+                dispatch(ChangeNation(result))
+              } catch (error) {
+                console.error("Failed to fetch translations:", error);
+              }
+            };
+        
+            fetchTranslations(); // 비동기 함수 호출
 
           // 쿠키에서 Authorization 토큰 가져오기
           const authToken = getCookieValue('Authorization');
