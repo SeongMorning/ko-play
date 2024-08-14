@@ -52,8 +52,8 @@ export default function NormalGame() {
 
   useEffect(() => {
     gameList[0][0] = translationWords.wordRain;
-    gameList[0][1] = translationWords.flipflip;
-    gameList[0][2] = translationWords.smugogae;
+    gameList[1][0] = translationWords.flipflip;
+    gameList[2][0] = translationWords.smugogae;
     propObject[0].text = translationWords.speak;
     propObject[1].text = translationWords.read;
     propObject[2].text = translationWords.listen;
@@ -67,6 +67,7 @@ export default function NormalGame() {
         let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
         let readGame = data.filter((value) => value.gamePurposeIdx === 2);
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
+        console.log(speechGame);
 
         gameList = [[...speechGame], [...readGame], [...listenGame]];
         gameList[0][0].gameName = translationWords.wordRain;
