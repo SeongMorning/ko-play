@@ -30,6 +30,7 @@ public class GameRoomManager {
      * @return 참가한 GameRoom 객체
      */
     public GameRoom createOrJoinRoom(Long roomId, String clientId) {
+        logger.info(clientId+" ->"+roomId);
         for (GameRoom room : rooms.values()) {  // 현재 존재하는 모든 방을 탐색
             if(room.getRoomId() == roomId){
                 room.addClient(clientId);

@@ -114,31 +114,31 @@ class FaceCanvas {
     ];
   }
 
-  // _addCamera() {
-  //   this._camera = new THREE.OrthographicCamera(
-  //     this._halfW,
-  //     -this._halfW,
-  //     -this._halfH,
-  //     this._halfH,
-  //     1, 1000,
-  //   );
-  //   this._camera.position.x = 320;
-  //   this._camera.position.y = 240;
-  //   this._camera.position.z = -600;
-  //   this._camera.lookAt(320, 240, 0);
-  // }
-
   _addCamera() {
-    const aspect = window.innerWidth / window.innerHeight; // 화면 비율
-    this._camera = new THREE.PerspectiveCamera(
-      75,          // 시야각 (FOV)
-      aspect,      // 종횡비
-      0.1,         // 근거리
-      1000         // 원거리
+    this._camera = new THREE.OrthographicCamera(
+      this._halfW,
+      -this._halfW,
+      -this._halfH,
+      this._halfH,
+      1, 1000,
     );
-    this._camera.position.set(0, 0, 500); // 카메라 위치 조정
-    this._camera.lookAt(0, 0, 0);         // 카메라가 보도록 하는 위치
+    this._camera.position.x = this._halfW;
+    this._camera.position.y = this._halfH;
+    this._camera.position.z = -1000;
+    this._camera.lookAt(this._halfW, this._halfH, 0);
   }
+
+  // _addCamera() {
+  //   const aspect = window.innerWidth / window.innerHeight; // 화면 비율
+  //   this._camera = new THREE.PerspectiveCamera(
+  //     75,          // 시야각 (FOV)
+  //     aspect,      // 종횡비
+  //     0.1,         // 근거리
+  //     1000         // 원거리
+  //   );
+  //   this._camera.position.set(0, 0, 500); // 카메라 위치 조정
+  //   this._camera.lookAt(0, 0, 0);         // 카메라가 보도록 하는 위치
+  // }
   
 
   _addLights() {

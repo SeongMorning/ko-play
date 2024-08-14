@@ -1,6 +1,6 @@
 .playJellyBtn {
   position: absolute;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
 
   .playJellyBtnHover {
     width: 8vw;

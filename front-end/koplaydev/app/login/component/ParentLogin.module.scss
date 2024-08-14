@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   img {
-    cursor: pointer;
+    cursor: url("/smile-star-hover.svg") 30 30, auto;
     width: 25vw;
     height: 10vh;
     z-index: 30;

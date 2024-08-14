@@ -71,7 +71,7 @@ const TestSelector = (props) => {
       <>
         <img
           onClick={() => speakText("테스트 소리입니다. 테스트 소리입니다.")}
-          style={{ width: "50%", cursor: "pointer" }}
+          style={{ width: "50%", cursor: "url('/smile-star-hover.svg') 30 30, auto" }}
           src="/listentest.png"
         ></img>
       </>

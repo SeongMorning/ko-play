@@ -22,7 +22,7 @@
 
       img {
         width: 2.5vw;
-        cursor: pointer;
+        cursor: url("/smile-star-hover.svg") 30 30, auto;
       }
     }
 
@@ -35,7 +35,7 @@
 
       img {
         width: 2.5vw;
-        cursor: pointer;
+        cursor: url("/smile-star-hover.svg") 30 30, auto;
       }
     }
   }
@@ -72,7 +72,7 @@
   box-sizing: border-box;
   padding-left: 5%;
   padding-right: 5%;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
 
   .EasyBtn{
     width: 13%;
@@ -119,6 +119,6 @@
     border-radius: 50%;
     background-color: rgba(0, 0, 0, 0);
     color : rgba(154, 205, 50, 0);
-    cursor : pointer;
+    cursor: url("/smile-star-hover.svg") 30 30, auto;
   }
 }

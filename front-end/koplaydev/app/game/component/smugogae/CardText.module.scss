@@ -6,7 +6,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: "pointer";
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
 
   .cardInner {
     width: 85%;
@@ -16,7 +16,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer;
+    cursor: url("/smile-star-hover.svg") 30 30, auto;
     transition: background-color 1s ease;
 
     span {
