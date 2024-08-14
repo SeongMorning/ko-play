@@ -34,10 +34,11 @@ public interface GameDataRepository extends JpaRepository<GameData, Long> {
             "WHERE student_idx = studentIdx "+
             "GROUP BY date(created_at)  "+
             "ORDER BY date(created_at) DESC "+
+            "LIMIT 7 "+
             ") "+
             "SELECT dates, exp, cumulative_exp "+
             "FROM cumulative_exp_data "+
-            "ORDER BY dates DESC; "
+            "ORDER BY dates ASC "
             , nativeQuery = true)
     List<Object[]> getDailyExp(@Param("studentIdx") Long studentIdx);
     //List<Object[]> findTopStudents();
