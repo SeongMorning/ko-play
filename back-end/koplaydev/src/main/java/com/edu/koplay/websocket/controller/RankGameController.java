@@ -42,16 +42,17 @@ public class RankGameController {
     }
 
     @MessageMapping("/match")
-    @SendTo("/topic/game/match")
+//    @SendTo("/topic/game/match")
     public void matchGame(String playerId) throws Exception {
         //반배정 계속 할거야
-        waitGame();
+//        waitGame();
         logger.info("방배정되어있는 상태인가? "+ String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
             logger.info("방 배정이 되어있다면 해당 방에 입장시키겠어요...");
             GameRoomManager.roomId = GameRoomManager.userIdAndRoom.get(playerId);
             roomManager.createOrJoinRoom(GameRoomManager.roomId, playerId);
-            messagingTemplate.convertAndSend("/topic/game/match", new GameStartMessage(String.valueOf(GameRoomManager.roomId)));
+            logger.info("누구에게 방 배정해줄지 ->"+playerId);
+            messagingTemplate.convertAndSendToUser(playerId,"/topic/game/match", new GameStartMessage(String.valueOf(GameRoomManager.roomId)));
         }
 
     }
@@ -61,11 +62,13 @@ public class RankGameController {
     @SendTo("/topic/game")
     public void joinGame(@Payload JoinDTO joinDTO) throws Exception {
         String playerId = joinDTO.getPlayerId();
+
         Long roomId = joinDTO.getRoomId();
 
         GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
         //키가 있으면 방배정 된거니까 게임 시작하면 될듯
         if (gameRoom.isFull()) {
+            logger.info("playerId: " + playerId);
             logger.info(roomId+"번방 인원"+gameRoom.getClients().size());
             logger.info(roomId+"번방이 다 차있어서 게임을 시작합니다");
                 startGame(roomId);
@@ -78,21 +81,21 @@ public class RankGameController {
         roomManager.deleteRoom(playerId);
     }
 
-    public void waitGame() throws Exception {
-//        아이디당 룸 아이디를 배정해주는 메서드
-//        모두 배정하고 true 리턴
-        while (GameRoomManager.waitingQueue.size() >= 2) {
-            logger.info("여기 배정했어요");
-            String id1 = GameRoomManager.waitingQueue.poll();
-            String id2 = GameRoomManager.waitingQueue.poll();
-            System.out.println(id1 + id2);
-            GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
-            GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
-            logger.info("roomId" + GameRoomManager.roomId);
-            GameRoomManager.roomId++;
-            logger.info("증가된 roomId"+GameRoomManager.roomId);
-        }
-    }
+//    public void waitGame() throws Exception {
+////        아이디당 룸 아이디를 배정해주는 메서드
+////        모두 배정하고 true 리턴
+//        while (GameRoomManager.waitingQueue.size() >= 2) {
+//            logger.info("여기 배정했어요");
+//            String id1 = GameRoomManager.waitingQueue.poll();
+//            String id2 = GameRoomManager.waitingQueue.poll();
+//            System.out.println(id1 + id2);
+//            GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
+//            GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
+//            logger.info("roomId" + GameRoomManager.roomId);
+//            GameRoomManager.roomId++;
+//            logger.info("증가된 roomId"+GameRoomManager.roomId);
+//        }
+//    }
 
     private void startGame(Long roomId) throws InterruptedException {
         GameRoom room = roomManager.getRoom(roomId);

@@ -159,6 +159,7 @@ export default function RankTest2() {
             if (correct + incorrect === 20) {
               console.log("게임종료!");
               setModal(true);
+              client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
               SpeechRecognition.stopListening();
             }
           }
@@ -367,7 +368,7 @@ export default function RankTest2() {
             animate={{
               display: "block",
               translateY: "118vh",
-              transition: { duration: 3, delay: index * 1 },
+              transition: { duration: 10, delay: index * 3 },
             }}
             onViewportEnter={() => changeResultList2(index)}
             onViewportLeave={() => changeResultList(index)}

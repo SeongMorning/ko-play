@@ -1,6 +1,6 @@
 .MainMenuBtn {
   position: absolute;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
 
   .MainMenuBtnHover {
     width: 8vw;

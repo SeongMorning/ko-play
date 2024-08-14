@@ -14,7 +14,7 @@
   width: 25vw;
   height: 40vh;
   z-index: 0;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
   text-align: center;
 }
 
@@ -50,7 +50,7 @@
   width: 35vw;
   height: 65vh;
   z-index: 10;
-  cursor: pointer;
+  cursor: url("/smile-star-hover.svg") 30 30, auto;
   text-align: center;
 }
 

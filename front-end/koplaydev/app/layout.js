@@ -2,7 +2,6 @@ import { Inter } from "next/font/google";
 import "./globals.scss";
 import Headers from "./component/Headers";
 import ReduxProvider from "@/redux/provider";
-import Garo from "./component/garo";
 // import './utils/AR/FacePaint';
 // import './utils/AR/frontProjectionUVMap';
 // import './utils/AR/positionBufferData';
@@ -74,7 +73,6 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <ReduxProvider>
           <Headers />
-          <Garo />
           {children}
         </ReduxProvider>
 
