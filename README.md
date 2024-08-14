@@ -1,6 +1,7 @@
-# Project Title
+# KoPlay
 
-One Paragraph of project description goes here
+다문화 초등학생을 위한 한국어 교육 게이미피케이션 서비스\
+(게이미피케이션 : 게임이 아닌 애플리케이션에 애플리케이션 사용을 권장하기 위해 게임 플레이 기법을 적용하는 것)
 
 ## Getting Started
 
