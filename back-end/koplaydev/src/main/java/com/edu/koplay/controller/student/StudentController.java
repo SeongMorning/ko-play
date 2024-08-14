@@ -175,7 +175,7 @@ public class StudentController {
             List<StudentUsableAvatarDTO> dtos = avatars.stream()
                     .map(StudentUsableAvatarDTO::new)
                     .collect(Collectors.toList());
-            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<AvatarDTO>builder().data(dtos).build();
+            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<StudentUsableAvatarDTO>builder().data(dtos).build();
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
