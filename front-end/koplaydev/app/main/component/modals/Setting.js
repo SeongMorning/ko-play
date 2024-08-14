@@ -32,6 +32,7 @@ export default function Setting() {
   const translationWords = useSelector((state) => state.translationWords);
 
   const userInfo = useSelector((state) => state.studentInfo);
+  console.log(userInfo);
   const dispatch = useDispatch();
   const buttonEs = effectSound(buttonSound, 1);
   const mouseClickEs = effectSound(mouseClickSound, 1);
@@ -41,6 +42,8 @@ export default function Setting() {
   // 상태 변수 선언
   const [myNickname, setMyNickname] = useState(userInfo.nickname);
   const [mySchoolName, setMySchoolName] = useState(userInfo.schoolName);
+  const [isNicknameChanged, setIsNicknameChanged] = useState(false);
+  const [isSchoolNameChanged, setIsSchoolNameChanged] = useState(false);
   const [pwFlag, setPwFlag] = useState(false);
   const [afterPw, setAfterPw] = useState("");
   const [afterPwOK, setAfterPwOK] = useState("");
@@ -56,6 +59,7 @@ export default function Setting() {
 
   const nickNameHandleClick = async () => {
     dispatch(setNickname(myNickname));
+    setIsNicknameChanged(false);
 
     const response = await modifyStudentInfo({
       ...userInfo,
@@ -67,6 +71,7 @@ export default function Setting() {
   };
   const schoolNameHandleClick = async () => {
     dispatch(setSchoolName(mySchoolName));
+    setIsSchoolNameChanged(false);
 
     const response = await modifyStudentInfo({
       ...userInfo,
@@ -90,6 +95,7 @@ export default function Setting() {
 
   return (
     <>
+    {/* <span></span> */}
       {isPwChange ? (
         <YellowBox width="40" height="40">
           <div className={styles.pwChangeModal}>
@@ -153,8 +159,8 @@ export default function Setting() {
             </div>
             {pwFlag ? (
               <>
-                <WhiteBox width="60" height="10">
-                  <input
+                <WhiteBox width="65" height="10">
+                  <input 
                     type="password"
                     placeholder={translationWords.changePassword}
                     value={afterPw}
@@ -164,7 +170,7 @@ export default function Setting() {
                   }
                   />
                 </WhiteBox>
-                <WhiteBox width="60" height="10">
+                <WhiteBox width="65" height="10">
                   <input
                     type="password"
                     placeholder={translationWords.checkpassword}
@@ -177,7 +183,7 @@ export default function Setting() {
                   <PwPinkBox
                     setPwFlag={setPwFlag}
                     pwFlag={pwFlag}
-                    width={"60"}
+                    width={"65"}
                     height={"10"}
                     bg="#A1D2FF"
                     shadow="#4DA3F2"
@@ -192,7 +198,7 @@ export default function Setting() {
                     <PwPinkBox
                       setPwFlag={setPwFlag}
                       pwFlag={pwFlag}
-                      width={"60"}
+                      width={"65"}
                       height={"10"}
                       bg="#FDD127"
                       shadow="#C89F02"
@@ -208,31 +214,33 @@ export default function Setting() {
                       style={{
                         color: "red",
                         fontWeight: "bold",
-                        fontSize: "calc((3vw + 2vh)/2)",
+                        fontSize: "calc((3vw + 1vh)/2)",
+                        marginTop: "5%",
                       }}
                     >
-                      {translationWords.checkPasswordPleese}
+                      {translationWords.checkPasswordPlease}
                     </span>
                   </>
                 )}
               </>
             ) : (
               <>
-                <WhiteBox width={"60"} height={"10"} red2={red2}>
+                <WhiteBox width={"65"} height={"10"} red2={red2}>
                   <input
                     value={myNickname}
                     onChange={(e) => {
                       keydownEs.play();
                       setMyNickname(e.target.value);
+                      setIsNicknameChanged(true);
                       if (e.target.value.length <= 7) {
                         setRed2(false);
                       } else {
                         setRed2(true);
                       }
                     }}
-                    placeholder={translationWords.nickname}
+                    placeholder={translationWords.nicknameProfilePlaceholder}
                   />
-                  {red2 || myNickname.length < 2 ? null : (
+                  {red2 || myNickname.length < 2 || !isNicknameChanged ? null : (
                     <img
                       className={styles.modifyImg}
                       src="/modify.png"
@@ -243,15 +251,17 @@ export default function Setting() {
                     />
                   )}
                 </WhiteBox>
-                <WhiteBox width={"60"} height={"10"}>
+                <WhiteBox width={"65"} height={"10"}>
                   <input
                     value={mySchoolName}
                     onChange={(e) => {
                       keydownEs.play();
                       setMySchoolName(e.target.value)
+                      setIsSchoolNameChanged(true);
                     }}
                     placeholder={translationWords.schoolname}
                   />
+                  {isSchoolNameChanged && (
                   <img
                     className={styles.modifyImg}
                     src="/modify.png"
@@ -260,11 +270,16 @@ export default function Setting() {
                       schoolNameHandleClick();
                     }}
                   />
+                )}
                 </WhiteBox>
+                <div className={styles.information}>
+                  <span>바꾸고 싶은 닉네임과 학교 정보를 입력하고,</span>
+                  <span>오른쪽 버튼을 누르면 정보가 수정됩니다.</span>
+                </div>
                 <PwPinkBox
                   setPwFlag={setPwFlag}
                   pwFlag={pwFlag}
-                  width={"60"}
+                  width={"65"}
                   height={"10"}
                   bg="#FFD6E0"
                   shadow="#df8ca1"
