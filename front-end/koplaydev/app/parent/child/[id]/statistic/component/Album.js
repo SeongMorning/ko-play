@@ -27,7 +27,7 @@ export default function Album(id) {
         {slides.length > 0 ? (
           <EmblaCarousel slides={slides} options={OPTIONS} />
         ) : (
-          "사진이 없어요. 사진을 찍어주세요."
+          "아이가 사진을 한장도 찍지 않았어요. 사진은 랭크 게임을 하면 찍을 수 있어요"
         )}
       </div>
     </>
