@@ -68,7 +68,7 @@ export default function RankGame() {
         "/user/topic/game/match",
         (message1) => {
           let roomId = JSON.parse(message1.body).message;
-          console.log("내가입장할방번호:"+roomId)
+          console.log("내가입장할방번호:" + roomId)
           if (roomId) {
             clearInterval(matchInterval);
             subscription1.unsubscribe();
@@ -94,56 +94,44 @@ export default function RankGame() {
           }
         }
       )
-        
-      ;
-  let matchInterval = setInterval(() => {
-    client.send("/app/match", {}, userInfo.id)
-  }, 2000
-  );
 
-  return () => {
-    client.unsubscribe(`/topic/game/${roomId}`);
-    setMatch(false);
-  };
-}
+        ;
+      let matchInterval = setInterval(() => {
+        client.send("/app/match", {}, userInfo.id)
+      }, 2000
+      );
+
+      return () => {
+        client.unsubscribe(`/topic/game/${roomId}`);
+        setMatch(false);
+      };
+    }
   }, [isConnected, client]);
-const cancelClick = () => {
-  dispatch(changeModalIdx(0));
-  const fetchCancelMatch = async () => {
-    API.delete("/games/cancel")
-      .then((res) => {
-        console.log("큐에서삭제완료");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  fetchCancelMatch();
-};
-return (
-  <>
-    <YellowBox width="40" height="40">
-      <div className={styles.textbox}>
-        <span className={styles.NormalGameTitle}>
-          {translationWords.rankGame}
-        </span>
 
-        <span className={styles.text1}>{translationWords.findFriend}</span>
-        <span className={styles.text2}>{translationWords.waitGame}</span>
-        {match ? null : (
-          <div className={styles.btn}>
-            <RankGameCancelBtn
-              width="30"
-              height="100"
-              shadow="#df8ca1"
-              bg="#FFD6E0"
-            >
-              {translationWords.cancel}
-            </RankGameCancelBtn>
-          </div>
-        )}
-      </div>
-    </YellowBox>
-  </>
-);
+  return (
+    <>
+      <YellowBox width="40" height="40">
+        <div className={styles.textbox}>
+          <span className={styles.NormalGameTitle}>
+            {translationWords.rankGame}
+          </span>
+
+          <span className={styles.text1}>{translationWords.findFriend}</span>
+          <span className={styles.text2}>{translationWords.waitGame}</span>
+          {match ? null : (
+            <div className={styles.btn}>
+              <RankGameCancelBtn
+                width="30"
+                height="100"
+                shadow="#df8ca1"
+                bg="#FFD6E0"
+              >
+                {translationWords.cancel}
+              </RankGameCancelBtn>
+            </div>
+          )}
+        </div>
+      </YellowBox>
+    </>
+  );
 }

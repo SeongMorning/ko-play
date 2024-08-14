@@ -43,7 +43,10 @@ export default function Score(props) {
       <div className={styles.recordBox}>
         {props.score.map((data, index) => 
           <div key={index} className={styles.recordItem}>
-            <span>{data.gamePurpose}({data.level})</span>
+            <div className={styles.recordGameInfo}>
+            <span>{data.gamePurpose}</span>
+            <span>Lv. {data.level}</span>
+            </div>
             <div className={styles.recordInfo}>
                 <span>총 문제 수 : {data.totalQuestion}개, 정답 개수 : {data.correctAnswer}개</span>
                 <span>정답률 {Math.floor((data.correctAnswer / data.totalQuestion) * 100)}%</span>

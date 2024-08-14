@@ -122,11 +122,11 @@ export default function RankTest2() {
         console.log("언마운트됨");
         client.unsubscribe("/topic/game/match");
         client.unsubscribe(`/topic/ingame/${roomId}`);
+        disconnectWebSocket();
+        setClient(null);
+        dispatch(setConnected(false));
+        SpeechRecognition.stopListening();
       }
-      disconnectWebSocket();
-      setClient(null);
-      dispatch(setConnected(false));
-      SpeechRecognition.stopListening();
     };
   }, [client, roomId, dispatch]);
 
@@ -156,12 +156,12 @@ export default function RankTest2() {
 
               return updatedList;
             });
-            if (correct + incorrect === 20) {
-              console.log("게임종료!");
-              setModal(true);
-              client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
-              SpeechRecognition.stopListening();
-            }
+            // if (correct + incorrect === 20) {
+            //   console.log("게임종료!");
+            //   setModal(true);
+            //   client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
+            //   SpeechRecognition.stopListening();
+            // }
           }
         }
       );
