@@ -107,19 +107,7 @@ export default function RankGame() {
   };
 }
   }, [isConnected, client]);
-const cancelClick = () => {
-  dispatch(changeModalIdx(0));
-  const fetchCancelMatch = async () => {
-    API.delete("/games/cancel")
-      .then((res) => {
-        console.log("큐에서삭제완료");
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-  fetchCancelMatch();
-};
+
 return (
   <>
     <YellowBox width="40" height="40">
