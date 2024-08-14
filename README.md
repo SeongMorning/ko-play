@@ -148,7 +148,7 @@ a. default.conf
 파일 위치는 컨테이너 내부 기준 /etc/nginx/conf.d/default.conf \
 [default.conf](InfraSettingCodes/default.conf)
 
-**Openvidu webApp 설정** \
+**Openvidu webApp 설정** 
 
 공식 문서를 따라서 Openvidu를 설치한다면 기본적으로 프론트 엔드 역할을 하는 openvidu-app-1 컨테이너가 생긴다. EC2의 /opt/openvidu/docker-compose.override.yml 파일을 수정하면 해당 컨테이너를 내가 개발한 프론트 엔드 서버로 구성할 수 있다. \
 [docker-compose.override.yml](front-end/koplaydev/docker-compose.override.yml)
