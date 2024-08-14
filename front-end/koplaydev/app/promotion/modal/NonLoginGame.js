@@ -218,8 +218,8 @@ const GameSelect = (props) => {
                         color: "rgba(154, 205, 50, 1)",
                       }}
                       onClick={() => {
-                        dispatch(changeGameIdx(data.gameIdx))
-                        router.replace(`/promotion/game/${data.gameIdx}`);
+                        dispatch(changeGameIdx(props.idx))
+                        router.replace(`/promotion/game/${props.idx}`);
                       }}
                     >
                       {props.gamestart}
