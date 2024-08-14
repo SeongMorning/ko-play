@@ -20,10 +20,13 @@ export default function Headers() {
   // const [selectedNation, setSelectedNation] = useState(null);
   const pathName = usePathname();
   const exceptList = ["game", "tutorial"];
+  const translationWords = useSelector((state) => state.translationWords);
 
   useEffect(() => {
     const defaultNation = userInfo.nation || parent.nationality || "Korea";
+    console.log(userInfo, parent)
     dispatch(changeCurrNation(defaultNation))
+    console.log(defaultNation);
     // setSelectedNation(defaultNation);
 
   }, [userInfo.nation, parent.nationality]);
@@ -39,7 +42,7 @@ export default function Headers() {
     };
 
     fetchTranslations(); // 비동기 함수 호출
-  }, [dispatch]); // asPath가 변경될 때마다 useEffect가 실행됩니다.
+  }, []); // asPath가 변경될 때마다 useEffect가 실행됩니다.
 
   const nations = [
     { name: "Korea", src: "/korea-3.png", locale: "ko-KR" },
@@ -49,6 +52,7 @@ export default function Headers() {
   ];
 
   const handleNationClick = async (nation) => {
+    console.log(nation.name)
     dispatch(changeCurrNation(nation.name))
     // setSelectedNation(nation.name);
     // console.log(nation.locale)

@@ -22,6 +22,7 @@ export default function StartButton(props) {
 
   useEffect(() => {
     dispatch(changeModalIdx(0));
+    router.prefetch('/login');
   }, []);
 
   const handleClick = () => {
