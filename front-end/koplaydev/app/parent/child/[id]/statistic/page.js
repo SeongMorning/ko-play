@@ -27,6 +27,7 @@ export default function Statistic({ params }) {
   const [parentNation, setParentNation] = useState(parent.nationality);
 
   useEffect(() => {
+    console.log("Parent State:", parent);
     setParentNation(parent.nationality);
   }, [parent]);
 
@@ -36,9 +37,9 @@ export default function Statistic({ params }) {
 
   const getExplanation = async (question, parentNation) => {
     try {
+      console.log(parentNation);
       const msg = `${question} in ${parentNation} language.`;
       const result = await OpenAiUtill.prompt(msg);
-      console.log(result);
       return result.message.content;
     } catch (err) {
       console.error("Error fetching explanation:", err);
@@ -49,7 +50,7 @@ export default function Statistic({ params }) {
   useEffect(() => {
     if (statisticData) {
       setParentNation(parent.nationality);
-      console.log(statisticData);
+      console.log(parentNation);
       let question = "";
 
       switch (viewIdx) {
@@ -122,7 +123,7 @@ export default function Statistic({ params }) {
           setAiText(explanation);
         });
       } else {
-        setAiText("아이가 아직 플레이 하지 않았습니다.");
+        setAiText(`${params.id} 의 모습을 구경해 보세요 !`);
       }
     }
   }, [statisticData, viewIdx, parent]);
