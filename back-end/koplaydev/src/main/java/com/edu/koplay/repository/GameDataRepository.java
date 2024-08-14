@@ -18,9 +18,9 @@ public interface GameDataRepository extends JpaRepository<GameData, Long> {
 
     @Query(value = "SELECT student_idx, COUNT(*) as game_count " +
             "FROM game_data " +
+            "WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) "+
             "GROUP BY student_idx " +
             "ORDER BY game_count DESC " +
-            "AND created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) "+
             "LIMIT 3", nativeQuery = true)
     List<Object[]> findTop3StudentsWithMostGames();
 
