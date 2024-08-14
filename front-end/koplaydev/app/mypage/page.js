@@ -14,7 +14,7 @@ export default function mypage() {
   const translationWords = useSelector((state) => state.translationWords);
 
 
-  useSound(mypageBGM2, 1, 0, 0.9);
+  useSound(mypageBGM2, 0.2, 0, 0.9);
 
   return (
     <>

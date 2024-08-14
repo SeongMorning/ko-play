@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 public class GameRoomManager {
     Logger logger = LoggerFactory.getLogger(getClass());
     private final ConcurrentHashMap<Long, GameRoom> rooms = new ConcurrentHashMap<>();  // 방 목록을 관리하는 ConcurrentHashMap
-    private static final AtomicLong roomIdCounter = new AtomicLong();  // 방 ID 생성기
-    public static long newRoomId = roomIdCounter.incrementAndGet();;
+    public static final AtomicLong roomIdCounter = new AtomicLong();  // 방 ID 생성기
+//    public static long newRoomId = roomIdCounter.incrementAndGet();;
     // 대기자 명단 대기열
     public static Queue<String> waitingQueue = new ArrayDeque<>();
     //userId, roomId를 키와 벨류로 가지는 map
     public static Map<String, Long> userIdAndRoom = new HashMap<>();
-    public static Long roomId = 1L;
+//    public static Long roomId = 1L;
     /**
      * 플레이어를 새로운 방에 추가하거나 기존 방에 참여시킵니다.
      *
@@ -41,7 +41,7 @@ public class GameRoomManager {
 
         GameRoom newRoom = new GameRoom(roomId);  // 새로운 GameRoom 객체 생성
         newRoom.addClient(clientId);  // 클라이언트를 새로운 방에 추가
-        rooms.put(newRoomId, newRoom);  // 방을 맵에 추가
+        rooms.put(roomId, newRoom);  // 방을 맵에 추가
         return newRoom;  // 생성된 방을 반환
     }
 
@@ -66,9 +66,9 @@ public class GameRoomManager {
         return rooms.get(roomId);  // 방 ID로 방을 반환
     }
 
-    public long getNewRoomId() {
-        return newRoomId;
-    }
+//    public long getNewRoomId() {
+//        return newRoomId;
+//    }
     /**
      * 모든 방의 상태를 반환합니다.
      *

@@ -49,10 +49,10 @@ public class RankGameController {
         logger.info("방배정되어있는 상태인가? "+ String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
             logger.info("방 배정이 되어있다면 해당 방에 입장시키겠어요...");
-            GameRoomManager.roomId = GameRoomManager.userIdAndRoom.get(playerId);
-            roomManager.createOrJoinRoom(GameRoomManager.roomId, playerId);
+            Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
+            roomManager.createOrJoinRoom(roomId, playerId);
             logger.info("누구에게 방 배정해줄지 ->"+playerId);
-            messagingTemplate.convertAndSendToUser(playerId,"/topic/game/match", new GameStartMessage(String.valueOf(GameRoomManager.roomId)));
+            messagingTemplate.convertAndSendToUser(playerId,"/topic/game/match", new GameStartMessage(String.valueOf(roomId)));
         }
 
     }
@@ -65,7 +65,7 @@ public class RankGameController {
 
         Long roomId = joinDTO.getRoomId();
 
-        GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
+        GameRoom gameRoom = roomManager.getRoom(roomId);
         //키가 있으면 방배정 된거니까 게임 시작하면 될듯
         if (gameRoom.isFull()) {
             logger.info("playerId: " + playerId);
@@ -79,6 +79,7 @@ public class RankGameController {
     public void outGame(String playerId) throws Exception {
         //모든것을 삭제해버려요
         roomManager.deleteRoom(playerId);
+//        GameRoomManager.userIdAndRoom.remove(playerId);
     }
 
 //    public void waitGame() throws Exception {

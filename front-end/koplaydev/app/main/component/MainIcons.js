@@ -15,7 +15,6 @@ const planetButtonSound3 =
 
 export default function MainIcons() {
   const translationWords = useSelector((state) => state.translationWords);
-
   const dispatch = useDispatch();
   const es = effectSound(planetButtonSound3, 0.5);
 
