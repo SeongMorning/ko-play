@@ -7,6 +7,7 @@ import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import { useRouter } from "next/navigation";
 import { changeModalIdx } from "@/redux/slices/modalSlice";
 import { changeCorrectIdx } from "@/redux/slices/correct";
+import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 
 export default function SmuGameJellyBtn(props) {
   const dispatch = useDispatch();
