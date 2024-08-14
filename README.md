@@ -125,7 +125,7 @@ pipeline {
 ```
 
 ### 2. MySQL,Redis
-원래 MySQL,Redis,Nginx를 한 docker-compose파일로 설치했었으나, Openvidu를 설치하는 과정에서 Nginx가 추가로 설치되어 MySQL과 Redis만 설치하는 방향으로 인프라 구성. 
+원래 MySQL,Redis,Nginx,Certbot를 한 docker-compose파일로 설치했었으나, Openvidu를 설치하는 과정에서 Nginx가 추가로 설치되어 MySQL과 Redis만 설치하는 방향으로 인프라 구성. 
 
 a. docker-compose.yml \
 [MySQL,Redis 설치용 docker-compose.yml](docker-compose.yml)
