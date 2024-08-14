@@ -1,9 +1,20 @@
 "use client";
 import { useEffect } from "react";
 
-export default function TextToSpeech({ text, languageCode, modelName }) {
+export default function TextToSpeech({
+  text,
+  languageCode,
+  modelName,
+  gender,
+}) {
   useEffect(() => {
     const handleButtonClick = async () => {
+      if (!text || !languageCode || !modelName) {
+        console.error(
+          "Invalid parameters: text, languageCode, or modelName is missing."
+        );
+        return;
+      }
       const url = `https://texttospeech.googleapis.com/v1/text:synthesize?key=${process.env.GOOGLE_TEXT_TO_SPEECH_KEY}`;
       const data = {
         input: {
@@ -12,7 +23,7 @@ export default function TextToSpeech({ text, languageCode, modelName }) {
         voice: {
           languageCode: languageCode,
           name: modelName,
-          ssmlGender: "MALE",
+          ssmlGender: gender,
         },
         audioConfig: {
           audioEncoding: "MP3",
@@ -28,11 +39,18 @@ export default function TextToSpeech({ text, languageCode, modelName }) {
 
       try {
         const response = await fetch(url, otherparam);
+        if (!response.ok) {
+          const errorDetail = await response.json();
+          console.error("Google TTS API Error:", errorDetail);
+          return;
+        }
         const result = await response.json();
         const audioContent = result.audioContent;
         if (audioContent) {
           const audio = new Audio(`data:audio/mp3;base64,${audioContent}`);
           audio.play();
+        } else {
+          console.error("No audio content received.");
         }
       } catch (error) {
         console.error("Error:", error);
