@@ -118,15 +118,15 @@ export default function RankTest2() {
     setClient(websocketClient);
 
     return () => {
-      if (client) {
-        console.log("언마운트됨");
-        client.unsubscribe("/topic/game/match");
-        client.unsubscribe(`/topic/ingame/${roomId}`);
-        disconnectWebSocket();
-        setClient(null);
-        dispatch(setConnected(false));
-        SpeechRecognition.stopListening();
-      }
+      // if (client) {
+      //   console.log("언마운트됨");
+      //   client.unsubscribe("/topic/game/match");
+      //   client.unsubscribe(`/topic/ingame/${roomId}`);
+      // }
+      // disconnectWebSocket();
+      // setClient(null);
+      // dispatch(setConnected(false));
+      // SpeechRecognition.stopListening();
     };
   }, [client, roomId, dispatch]);
 
@@ -145,23 +145,17 @@ export default function RankTest2() {
               }));
               updatedList[wordIdx].state = cor ? 1 : -1;
 
-              if (cor) {
-                // setCorrect(correct + 1);
-                // dispatch(changeCorrectIdx(correct));
-              } else {
-                setWrong((prev) => [...prev, updatedList[wordIdx]]);
-                // setIncorrect(incorrect + 1);
-                dispatch(changeWrong(wrong));
-              }
+              // if (cor) {
+              //   // setCorrect(correct + 1);
+              //   // dispatch(changeCorrectIdx(correct));
+              // } else {
+              //   setWrong((prev) => [...prev, updatedList[wordIdx]]);
+              //   // setIncorrect(incorrect + 1);
+              //   dispatch(changeWrong(wrong));
+              // }        
 
               return updatedList;
             });
-            // if (correct + incorrect === 20) {
-            //   console.log("게임종료!");
-            //   setModal(true);
-            //   client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
-            //   SpeechRecognition.stopListening();
-            // }
           }
         }
       );
@@ -179,16 +173,22 @@ export default function RankTest2() {
 
       const a = wordObjectList.filter((data) => data.state === 1).length;
       const b = wordObjectList.filter((data) => data.state === -1).length;
+      console.log("a"+a+"b"+b)
       dispatch(changeCorrectIdx(a));
       if (a + b === 20) {
+        client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
         dispatch(
           changeWrong(wordObjectList.filter((data) => data.state === -1))
         );
         setCorrect(a);
         setIncorrect(b);
-        client.send("/app/out", {}, JSON.stringify({ playerId: userInfo.id }));
         console.log("게임종료!");
         setModal(true);
+
+        // subscription.unsubscribe();  
+        disconnectWebSocket();
+        setClient(null);
+        dispatch(setConnected(false));
         SpeechRecognition.stopListening();
       }
     }
