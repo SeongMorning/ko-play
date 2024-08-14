@@ -10,22 +10,14 @@ export default function BtnContainer() {
     <>
       <BlueBtn
         width="10vw"
-        height="7vh"
+        height="17vh"
         top="70vh"
         left="55vw"
-        radius="10vw"
-        text={translationWords.avatarTest}
-      />
-      <BlueBtn
-        width="10vw"
-        height="7vh"
-        top="80vh"
-        left="55vw"
-        radius="10vw"
+        radius="2vw"
         text={translationWords.nude}
       />
       <BlueBtn
-        width="17vh"
+        width="10vw"
         height="17vh"
         top="70vh"
         left="66vw"
