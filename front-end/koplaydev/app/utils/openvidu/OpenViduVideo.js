@@ -18,16 +18,6 @@ const OpenViduVideo = ({ streamManager, avatarPath }) => {
   return (
     <>
       <video className={styles.video} autoPlay={true} ref={videoRef} />;
-      <canvas
-        id="faceCanvas"
-        ref={canvasRef}
-        style={{
-          width: "17vw",
-          height: "25vh",
-          position: "relative",
-          borderRadius: "5%",
-        }}
-      />
     </>
   );
 };
