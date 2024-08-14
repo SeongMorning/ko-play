@@ -25,40 +25,9 @@ services:
     volumes:
       - redis_data:/data               # 데이터 디렉토리를 Volume에 마운트
       - ./path/to/redis:/usr/local/etc/redis
-  # Nginx 도커 배포
-  nginx:
-    image: nginx:latest
-    container_name: nginx_container
-    ports:
-      - "80:80"                        # 호스트의 80 포트를 컨테이너의 80 포트에 매핑
-      - "443:443"
-    volumes:
-      - ./nginx/conf.d:/etc/nginx/conf.d # Nginx 설정 파일을 컨테이너에 마운트 (선택 사항)
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    depends_on:
-      - mysql                          # MySQL 서비스가 먼저 시작되도록 설정
-      - redis
-        #    networks:
-        #- app-network
-  #ssl 접속용 certbot
-  certbot:
-    image: certbot/certbot
-    container_name: certbot
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    command : certonly --webroot -w /var/www/certbot --force-renewal --email jaeseung777@naver.com -d i11b302.p.ssafy.io --agree-tos
-    # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    # networks:
-    #  - app-network
 
 volumes:
   mysql_data:
     driver: local                      # Volume 드라이버 (default: local)
   redis_data:
     driver: local                      # Volume 드라이버 (default: local)
-
-    #networks:
-    # app-network:
-    #driver: bridge
