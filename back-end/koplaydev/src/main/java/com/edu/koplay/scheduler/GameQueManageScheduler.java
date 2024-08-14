@@ -20,11 +20,12 @@ public class GameQueManageScheduler {
                 String id1 = GameRoomManager.waitingQueue.poll();
                 String id2 = GameRoomManager.waitingQueue.poll();
                 System.out.println(id1 + id2);
-                GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.roomId);
-                GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.roomId);
-                logger.info("배정한 roomId" + GameRoomManager.roomId);
-                GameRoomManager.roomId += 1;
-                logger.info("증가된 roomId"+GameRoomManager.roomId);
+
+                GameRoomManager.userIdAndRoom.put(id1, GameRoomManager.newRoomId);
+                GameRoomManager.userIdAndRoom.put(id2, GameRoomManager.newRoomId);
+                logger.info("배정한 roomId" + GameRoomManager.newRoomId);
+                GameRoomManager.newRoomId = GameRoomManager.roomIdCounter.incrementAndGet() ;
+                logger.info("증가된 roomId" + GameRoomManager.newRoomId);
             }
         } catch (Exception e) {
             logger.error("Batch job failed: {}", e.getMessage(), e);
