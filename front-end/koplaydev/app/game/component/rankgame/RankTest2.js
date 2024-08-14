@@ -316,7 +316,7 @@ export default function RankTest2() {
                       className={styles.capturedImage}
                     />
                   ) : (
-                    <Cam ref={captureRef} width="100%" left="0%" top="4%" />
+                    <Cam ref={captureRef} width="100%" left="0%" top="4%" height="70%" />
                   )}
                   {count !== 0 ? (
                     <span className={styles.CamText}>
