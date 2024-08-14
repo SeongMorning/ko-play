@@ -65,7 +65,7 @@ public class RankGameController {
 
         Long roomId = joinDTO.getRoomId();
 
-        GameRoom gameRoom = roomManager.createOrJoinRoom(roomId, playerId);
+        GameRoom gameRoom = roomManager.getRoom(roomId);
         //키가 있으면 방배정 된거니까 게임 시작하면 될듯
         if (gameRoom.isFull()) {
             logger.info("playerId: " + playerId);
