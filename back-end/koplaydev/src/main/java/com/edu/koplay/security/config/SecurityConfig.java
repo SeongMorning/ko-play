@@ -8,6 +8,7 @@ import com.edu.koplay.security.oauth2.CustomUserFailureHandler;
 import com.edu.koplay.security.oauth2.CustomOAuth2SuccessHandler;
 import com.edu.koplay.security.oauth2.CustomUserSuccessHandler;
 import com.edu.koplay.security.service.CustomOAuth2UserService;
+import com.edu.koplay.security.util.ROLE;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -59,12 +60,9 @@ public class SecurityConfig {
 
                     @Override
                     public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-
                         CorsConfiguration configuration = new CorsConfiguration();
 
-
-                        configuration.setAllowedOrigins(Arrays.asList("http://192.168.31.173:3000","http://192.168.31.189:3000",serverConfig.getBack(), serverConfig.getFront(),"http://localhost:5500","http://127.0.0.1:5500", "http://localhost:3000", "http://127.0.0.1:3000"));
-
+                        configuration.setAllowedOrigins(Arrays.asList(serverConfig.getBack(), serverConfig.getFront()));
                         configuration.setAllowedMethods(Collections.singletonList("*"));
                         configuration.setAllowCredentials(true);
                         configuration.setAllowedHeaders(Collections.singletonList("*"));
@@ -89,17 +87,18 @@ public class SecurityConfig {
                         authorize ->
                                 authorize
                                         .requestMatchers("/**").permitAll()
-//                                        .requestMatchers("/swagger-ui/**").permitAll()
-//                                        .requestMatchers("/v3/**").permitAll()
-//                                        .requestMatchers("/login/oauth2/**").permitAll()
-//                                        .requestMatchers("/").permitAll()
-//                                        .requestMatchers("/custom-login").permitAll()
-//                                        .requestMatchers("/login").permitAll()
-//                                        .requestMatchers("/token/**").permitAll()
-//                                        .requestMatchers("/studentsuccess").hasRole(ROLE.STUDENT.getRoles())
-//                                        .requestMatchers("/parent/test").hasRole(ROLE.PARENT.getRoles())
-//                                        .requestMatchers("/parent/**").hasRole("PARENT")
-//                                        .requestMatchers("/student/**").hasRole("STUDENT")
+                                        .requestMatchers("/swagger-ui/**").permitAll()
+                                        .requestMatchers("/v3/**").permitAll()
+                                        .requestMatchers("/login/oauth2/**").permitAll()
+                                        .requestMatchers("/").permitAll()
+                                        .requestMatchers("/login").permitAll()
+                                        .requestMatchers("/custom-login").permitAll()
+                                        .requestMatchers("/login").permitAll()
+                                        .requestMatchers("/token/**").permitAll()
+                                        .requestMatchers("/games/**").permitAll()
+                                        .requestMatchers("/avatar/**").hasRole(ROLE.STUDENT.getRoles())
+                                        .requestMatchers("/parent/**").hasRole(ROLE.PARENT.getRoles())
+                                        .requestMatchers("/students/**").hasRole(ROLE.STUDENT.getRoles())
                                         .anyRequest().authenticated())
                 //filter 추가
                 //oauth2 인증 전에 JWT토큰을 검증할 jwtfilter 돌도록
