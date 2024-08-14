@@ -7,8 +7,8 @@
 
 ### Frontend
 - 프레임 워크 : Next.js (v14.2.5)
-- CSS : SASS, tailwind css
-- 언어 : typescript, Javascript
+- CSS : SASS
+- 언어 : Javascript
 
 ### Backend
 - 프레임 워크 : Spring boot (v3.3.2)

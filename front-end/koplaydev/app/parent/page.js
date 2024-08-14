@@ -61,7 +61,7 @@ export default function Parent() {
       const data = await parentInfoAxios();
       console.log(data);
       if (data) {
-        changeParentInfo(data)
+        dispatch(changeParentInfo(data))
         if (!data.visited) {
           setIsFirstModalOpen(true);
         }
