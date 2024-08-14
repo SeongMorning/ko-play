@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import studentStatisticsAxios from "@/app/axios/studentStatisticsAxios";
 import ExpBar from "./ExpBar";
 
-let myPageList = ["최근 전적", "정답률", "경험치 변화", "레이팅"];
+let myPageList = ["최근 전적", "정답률", "경험치 변화"];
 
 export default function MyPageInfo() {
   const translationWords = useSelector((state) => state.translationWords);
@@ -21,7 +21,7 @@ export default function MyPageInfo() {
     myPageList[0] = translationWords.recent;
     myPageList[1] = translationWords.correctRatio;
     myPageList[2] = translationWords.expDiff;
-    myPageList[3] = translationWords.rating;
+    // myPageList[3] = translationWords.rating;
   }, [translationWords]); 
 
   return (
@@ -54,6 +54,7 @@ const MyPageSelector = (props) => {
   useEffect(() => {
     const fetchstudentStatistics = async () => {
       const res = await studentStatisticsAxios(userInfo.id);
+      console.log(res);
       const today = new Date();
       
       function formatDate(date) {
@@ -109,7 +110,5 @@ const MyPageSelector = (props) => {
     return <Correct statistic={statistic}/>;
   } else if (props.idx === 3) {
     return <ExpBar expDB={expDB}/>;
-  } else {
-    return "    2차개발 드가자";
   }
 };

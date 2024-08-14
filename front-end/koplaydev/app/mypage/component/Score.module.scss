@@ -49,6 +49,13 @@
     font-size: calc((2vw + 2vh) / 2);
     position: relative;
 
+    .recordGameInfo {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
     .recordInfo {
       display: flex;
       flex-direction: column;
