@@ -8,7 +8,21 @@ import { changeModalIdx } from "@/redux/slices/modalSlice";
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function RankGameCancelBtn(props) {
+  
     const dispatch = useDispatch();
+    const cancelClick = () => {
+      dispatch(changeModalIdx(0));
+      const fetchCancelMatch = async () => {
+        API.delete("/games/cancel")
+          .then((res) => {
+            console.log("큐에서삭제완료");
+          })
+          .catch((e) => {
+            console.log(e);
+          });
+      };
+      fetchCancelMatch();
+    };
   return (
     <motion.div
       className={styles.RankGameCancelBtn}
@@ -26,7 +40,7 @@ export default function RankGameCancelBtn(props) {
         }
       }}
       onClick={()=>{
-        dispatch(changeModalIdx(0));
+        cancelClick();
       }}
     >
       <motion.div
