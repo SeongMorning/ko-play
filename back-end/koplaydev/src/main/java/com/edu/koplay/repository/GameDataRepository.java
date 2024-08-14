@@ -31,7 +31,7 @@ public interface GameDataRepository extends JpaRepository<GameData, Long> {
             "SUM(gained_exp) AS exp, "+
             "SUM(SUM(gained_exp)) OVER (ORDER BY date(created_at)) AS cumulative_exp "+
             "FROM game_data "+
-            "WHERE student_idx = studentIdx "+
+            "WHERE student_idx = :studentIdx "+
             "GROUP BY date(created_at)  "+
             "ORDER BY date(created_at) DESC "+
             "LIMIT 7 "+

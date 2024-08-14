@@ -247,18 +247,18 @@ public class StudentController {
     }
 
     @GetMapping("/mypage")
-    public ResponseEntity<?> getMyPage(@RequestParam String studentId) {
+    public ResponseEntity<?> getMyPage() {
         //통계부분 아직 구현 전
         try {
-            Student student = studentService.getStudentInfo(studentId);
-            Long studentIdx = student.getStudentIdx();
+            //Student student = studentService.getStudentInfo(studentId);
+            //Long studentIdx = student.getStudentIdx();
             String id = getAuthenticationData();
 //            System.out.println("!!!!!!!!"+id);
             Student entity = studentService.getStudentInfo(id);
             List<GameData> myGames = gameDataService.getStudentGameCount(entity);
 //            System.out.println("studentIdx"+studentIdx);
             //-- 정답률 --//
-            List<Object[]> dailyResult = gameFacadeService.findDailyResult(studentIdx);
+            List<Object[]> dailyResult = gameFacadeService.findDailyResult(entity.getStudentIdx());
             List<GameCorrectDTO> res = new ArrayList<>();
             //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
             for (Object[] result : dailyResult) {
@@ -278,7 +278,7 @@ public class StudentController {
             }
 
 
-            List<Object[]> dailyExp = gameFacadeService.getDailyExp(studentIdx);
+            List<Object[]> dailyExp = gameFacadeService.getDailyExp(entity.getStudentIdx());
             List<ExpDTO> res2 = new ArrayList<>();
             //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
             for (Object[] result : dailyExp) {
@@ -294,7 +294,7 @@ public class StudentController {
 
             }
 
-            List<Object[]> dailySpecificRes = gameFacadeService.getDailySpecific(studentIdx);
+            List<Object[]> dailySpecificRes = gameFacadeService.getDailySpecific(entity.getStudentIdx());
             List<DailySpecificDTO> res4 = new ArrayList<>();
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
             //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
