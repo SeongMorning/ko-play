@@ -56,7 +56,7 @@ export default function DetailpageChildProfileCard({ child }) {
 
   return (
     <>
-      <div>
+      <div className={styles.container}>
         <div className={styles.profileCardBg}></div>
         <div className={styles.profileCard}>
           <img
