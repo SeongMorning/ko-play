@@ -27,10 +27,7 @@ import java.text.SimpleDateFormat;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
@@ -266,14 +263,8 @@ public class StudentController {
             //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
             for (Object[] result : dailyResult) {
                 // Extract values based on index
+                TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
                 Date date = (Date) result[0];
-
-                // Date를 ZonedDateTime으로 변환
-                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-                // 8시간 추가
-                ZonedDateTime newZonedDateTime = zonedDateTime.plus(8, ChronoUnit.HOURS);
-                // ZonedDateTime을 Date로 변환
-                Date newDate = Date.from(newZonedDateTime.toInstant());
 
                 int totalQuestion = ((Number) result[1]).intValue();
                 int correctAnswer = ((Number) result[2]).intValue();
@@ -281,7 +272,7 @@ public class StudentController {
                 int level = ((Number) result[4]).intValue();
 
                 // Create a new DTO and add it to the list
-                GameCorrectDTO gameResultDTO = new GameCorrectDTO(newDate, totalQuestion, correctAnswer, gamePurpose, level);
+                GameCorrectDTO gameResultDTO = new GameCorrectDTO(date, totalQuestion, correctAnswer, gamePurpose, level);
                 res.add(gameResultDTO);
 
 
@@ -297,18 +288,12 @@ public class StudentController {
 
                 Date date = (Date) result[0];
 
-                // Date를 ZonedDateTime으로 변환
-                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-                // 8시간 추가
-                ZonedDateTime newZonedDateTime = zonedDateTime.plus(8, ChronoUnit.HOURS);
-                // ZonedDateTime을 Date로 변환
-                Date newDate = Date.from(newZonedDateTime.toInstant());
 
                 int exp = ((Number) result[1]).intValue();
                 int accumSum = ((Number) result[2]).intValue();
 
                 // Create a new DTO and add it to the list
-                ExpDTO expDTO = new ExpDTO(newDate, exp, accumSum);
+                ExpDTO expDTO = new ExpDTO(date, exp, accumSum);
                 res2.add(expDTO);
 
             }
@@ -321,12 +306,7 @@ public class StudentController {
                 // Extract values based on index
 
                 Date date = dateFormat.parse((String) result[0]);
-                // Date를 ZonedDateTime으로 변환
-                ZonedDateTime zonedDateTime = ZonedDateTime.ofInstant(date.toInstant(), ZoneId.systemDefault());
-                // 8시간 추가
-                ZonedDateTime newZonedDateTime = zonedDateTime.plus(8, ChronoUnit.HOURS);
-                // ZonedDateTime을 Date로 변환
-                Date newDate = Date.from(newZonedDateTime.toInstant());
+
                 int correct = ((Number) result[1]).intValue();
                 int question = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
@@ -334,7 +314,7 @@ public class StudentController {
 
 
                 // Create a new DTO and add it to the list
-                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(newDate, correct, question, gamePurpose, level);
+                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(date, correct, question, gamePurpose, level);
                 res4.add(dailySpecificDTO);
                 //System.out.println("gameres" + gameResultDTO.toString());
             }
@@ -345,6 +325,7 @@ public class StudentController {
             res3.add(res4);
             return ResponseEntity.ok().body(res3);
         } catch (Exception e) {
+            e.printStackTrace();
 //            System.out.println(e.getMessage());
             ResponseDTO<GameCorrectDTO> response = ResponseDTO.<GameCorrectDTO>builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(response);
