@@ -72,6 +72,9 @@ public class RankGameController {
             logger.info(roomId+"번방 인원"+gameRoom.getClients().size());
             logger.info(roomId+"번방이 다 차있어서 게임을 시작합니다");
                 startGame(roomId);
+            System.out.println("전"+GameRoomManager.userIdAndRoom.get(playerId));
+            GameRoomManager.userIdAndRoom.remove(playerId);
+            System.out.println("후"+GameRoomManager.userIdAndRoom.get(playerId));
         }
     }
 
@@ -79,7 +82,6 @@ public class RankGameController {
     public void outGame(String playerId) throws Exception {
         //모든것을 삭제해버려요
         roomManager.deleteRoom(playerId);
-//        GameRoomManager.userIdAndRoom.remove(playerId);
     }
 
 //    public void waitGame() throws Exception {
