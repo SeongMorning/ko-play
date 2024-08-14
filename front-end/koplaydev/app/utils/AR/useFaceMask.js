@@ -122,10 +122,10 @@ class FaceCanvas {
       this._halfH,
       1, 1000,
     );
-    this._camera.position.x = 320;
-    this._camera.position.y = 240;
-    this._camera.position.z = -600;
-    this._camera.lookAt(320, 240, -600);
+    this._camera.position.x = this._halfW;
+    this._camera.position.y = this._halfH;
+    this._camera.position.z = -1000;
+    this._camera.lookAt(this._halfW, this._halfH, 0);
   }
 
   // _addCamera() {
