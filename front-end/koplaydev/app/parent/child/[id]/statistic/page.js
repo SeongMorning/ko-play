@@ -23,11 +23,8 @@ export default function Statistic({ params }) {
   useSound(mypageBGM2, 1, 0, 0.9);
 
   const statisticData = useSelector((state) => state.parentChaildStatistic);
-  const [curStatistic, setCurStatistic] = useState(statisticData);
   const [aiText, setAiText] = useState(null);
   // const [parentNation, setParentNation] = useState(parent.nationality);
-  const [parentNation, setParentNation] = useState("Korea");
-
   useEffect(() => {
     // setParentNation(parent.nationality);
   }, [parent]);
@@ -57,7 +54,7 @@ export default function Statistic({ params }) {
           We're only interested in getting the data interpreted correctly. 
           Please brief the data by gamePurpose, Date and correct Ratio.Except Level in short and simple words. And suggest the direction of study.
             `;
-            if(statisticData[0].length === 0){
+            if (statisticData[0].length === 0) {
               question = null;
             }
             break;
@@ -74,7 +71,7 @@ export default function Statistic({ params }) {
           We're only interested in getting the data interpreted correctly. 
           Please brief the data by gamePurpose and Level in short and simple words. And suggest the direction of study.
             `;
-            if(statisticData[0].length === 0){
+            if (statisticData[0].length === 0) {
               question = null;
             }
             break;
@@ -103,7 +100,7 @@ export default function Statistic({ params }) {
           we don't need actual data.  
           But suggest the direction of study.
             `;
-            if(statisticData[0].length === 0){
+            if (statisticData[0].length === 0) {
               question = null;
             }
             break;
@@ -114,54 +111,55 @@ export default function Statistic({ params }) {
         if (question) {
           // 전체 유저의 목적별 정답률 correct/total
           // getExplanation(selectedData, question, parentNation).then(
-            streamPrompt(question)
+          streamPrompt(question)
           getExplanation(question, parentNation).then((explanation) => {
             setAiText(explanation);
           });
-        }else{
+        } else {
           setAiText("아이가 아직 플레이 하지 않았습니다.");
         }
       }
     }, [statisticData, viewIdx, parent]);
 
-    const renderContent = () => {
-      switch (viewIdx) {
-        case "1":
-          return <Correct />;
-        case "2":
-          return <Progress />;
-        case "3":
-          return <CorrectAnswerRate />;
-        case "4":
-          return <Album id={id} />;
-        default:
-          return <div>선택된 내용이 없습니다.</div>;
-      }
-    };
 
-    return (
-      <>
-        <BackScoreBtn
-          className={styles.backButton}
-          left={27}
-          top={20}
-          text={translationWords.backScoreBtn}
-        />
-        <div className={styles.data}>
-          <img className={styles.boardImg} src="/databoard.png" alt="" />
-          {renderContent()}
-        </div>
-        <div className={styles.characterSection}>
-          <div className={styles.bubbleContainer}>
-            <img className={styles.bubble} src="/bubble2.png" alt="" />
-            <div className={styles.aiText}>{aiText}</div>
-          </div>
-          <img className={styles.character} src="/hehe.png" alt="" />
-        </div>
-        <StatisticBg />
-      </>
-    );
   }
+  const renderContent = () => {
+    switch (viewIdx) {
+      case "1":
+        return <Correct />;
+      case "2":
+        return <Progress />;
+      case "3":
+        return <CorrectAnswerRate />;
+      case "4":
+        return <Album id={id} />;
+      default:
+        return <div>선택된 내용이 없습니다.</div>;
+    }
+  };
+
+  return (
+    <>
+      <BackScoreBtn
+        className={styles.backButton}
+        left={27}
+        top={20}
+        text={translationWords.backScoreBtn}
+      />
+      <div className={styles.data}>
+        <img className={styles.boardImg} src="/databoard.png" alt="" />
+        {renderContent()}
+      </div>
+      <div className={styles.characterSection}>
+        <div className={styles.bubbleContainer}>
+          <img className={styles.bubble} src="/bubble2.png" alt="" />
+          <div className={styles.aiText}>{aiText}</div>
+        </div>
+        <img className={styles.character} src="/hehe.png" alt="" />
+      </div>
+      <StatisticBg />
+    </>
+  )
 }
 
 // "use client";
