@@ -16,6 +16,8 @@ import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import { changeGameIdx } from "@/redux/slices/gameSlice";
 import { changeListenLevel, changeReadLevel, changeSpeechLevel } from "@/redux/slices/levelSlice";
 import effectSound from "@/app/utils/effectSound";
+import { changeTranslationWords } from "@/redux/slices/translationWords";
+import translations from "@/app/axios/translations";
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
@@ -41,19 +43,21 @@ let propObject = [
 ];
 
 let levelList = [1, 2, 3, 4, 5];
-let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
+let gameList = [["게임비"], ["뒤집기"], ["스무고개"]];
 
 export default function NormalGame() {
   const translationWords = useSelector((state) => state.translationWords);
   const buttonEs = effectSound(buttonSound, 1);
 
   useEffect(() => {
-    gameList[0][0] = translationWords.wordRain;
-    gameList[0][1] = translationWords.flipflip;
-    gameList[0][2] = translationWords.smugogae;
-    propObject[0].text = translationWords.speak;
-    propObject[1].text = translationWords.read;
-    propObject[2].text = translationWords.listen;
+    if(translationWords){
+      gameList[0][0] = translationWords.wordRain;
+      gameList[1][0] = translationWords.flipflip;
+      gameList[2][0] = translationWords.smugogae;
+      propObject[0].text = translationWords.speak;
+      propObject[1].text = translationWords.read;
+      propObject[2].text = translationWords.listen;
+    }
   }, [translationWords]); 
 
   const dispatch = useDispatch();
@@ -69,21 +73,17 @@ export default function NormalGame() {
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
         // console.log(speechGame)
         // console.log(readGame)
-        console.log(gameList)
         // console.log(translationWords.wordRain)
-        gameList = [[...speechGame], [...readGame], [...listenGame]];
-        // console.log(gameList)
-        gameList[0][0].gameName = translationWords.wordRain;
-        gameList[1][0].gameName = translationWords.flipflip;
-        gameList[2][0].gameName = translationWords.smugogae;
-        // console.log(gameList)
+        gameList[0][0] = speechGame.gameName;
+        gameList[1][0] = readGame.gameName;
+        gameList[2][0] = listenGame.gameName;
 
       }
       dispatch(changeSpeechLevel(1));
       dispatch(changeReadLevel(1));
       dispatch(changeListenLevel(1));
+      dispatch(changeTranslationWords(await translations("ko-KR")));
     };
-
     fetchGameList();
   }, []);
 
@@ -210,7 +210,7 @@ const GameSelect = (props) => {
               {props.idx !== 0 &&
                 gameList[props.idx - 1].map((data, index) => (
                   <div key={index} className={styles.gameItem}>
-                    {data.gameName}
+                    {data}
                     <motion.div
                       className={styles.gameStart}
                       whileHover={{
