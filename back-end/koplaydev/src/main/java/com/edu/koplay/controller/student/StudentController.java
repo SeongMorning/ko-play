@@ -61,6 +61,7 @@ public class StudentController {
             List<GameData> gameData = gameDataService.getStudentGameCount(entity);
             RecommendLevel recommendLevel = recommendLevelService.getStudentLevel(entity);
 
+
             StudentDTO dto = new StudentDTO(entity, recommendLevel);
             dto.setTotalGameCount(gameData.size());
 
@@ -171,10 +172,10 @@ public class StudentController {
             //내가 가지고 있는 아바타 정보 조회
             List<StudentUsableAvatar> avatars = studentService.getAvatars(id);
 
-            List<AvatarDTO> dtos = avatars.stream()
-                    .map(avatar -> new AvatarDTO(avatar.getAvatar()))
+            List<StudentUsableAvatarDTO> dtos = avatars.stream()
+                    .map(StudentUsableAvatarDTO::new)
                     .collect(Collectors.toList());
-            ResponseDTO<AvatarDTO> response = ResponseDTO.<AvatarDTO>builder().data(dtos).build();
+            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<AvatarDTO>builder().data(dtos).build();
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {

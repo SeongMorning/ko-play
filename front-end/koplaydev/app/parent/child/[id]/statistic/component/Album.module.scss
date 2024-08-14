@@ -2,7 +2,7 @@
   position: absolute;
   width: calc(20vw + 20vh);
   height: calc(20vw + 20vh);
-  left: 57vw;
+  left: 56vw;
   top: 15vh;
   box-sizing: border-box;
   z-index: 100;
@@ -15,5 +15,8 @@
     height: calc(15vw + 15vh);
     justify-content: space-between;
     align-items: center;
+  }
+  :first-child{
+    max-width:45vw;
   }
 }
