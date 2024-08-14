@@ -67,7 +67,8 @@ export default function NormalGame() {
         let speechGame = data.filter((value) => value.gamePurposeIdx === 1);
         let readGame = data.filter((value) => value.gamePurposeIdx === 2);
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
-        console.log(speechGame)
+        console.log(speechGame);
+
         gameList = [[...speechGame], [...readGame], [...listenGame]];
         gameList[0][0].gameName = translationWords.wordRain;
         gameList[1][0].gameName = translationWords.flipflip;

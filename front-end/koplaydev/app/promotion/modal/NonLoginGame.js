@@ -74,9 +74,9 @@ export default function NormalGame() {
         // console.log(speechGame)
         // console.log(readGame)
         // console.log(translationWords.wordRain)
-        gameList[0][0] = speechGame.gameName;
-        gameList[1][0] = readGame.gameName;
-        gameList[2][0] = listenGame.gameName;
+        gameList[0][0] = speechGame[0].gameName;
+        gameList[1][0] = readGame[0].gameName;
+        gameList[2][0] = listenGame[0].gameName;
 
       }
       dispatch(changeSpeechLevel(1));
