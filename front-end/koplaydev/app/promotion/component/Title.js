@@ -10,19 +10,24 @@ import { changeTranslationWords } from "@/redux/slices/translationWords";
 import currNation, { changeCurrNation } from "@/redux/slices/currNationSlice";
 import { Router } from "next/router";
 
-const loginBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM.wav';
-const loginBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3';
+const loginBGM =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM.wav";
+const loginBGM2 =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3";
 
 export default function Title() {
   useSound(loginBGM2, 0.6, 0);
   const translationWords = useSelector((state) => state.translationWords);
   const dispatch = useDispatch();
+  const [garo, setGaro] = useState(
+    Array.from("본 게임은 가로모드에 최적화 되어있습니다.")
+  );
   const [title1, setTitle1] = useState([]);
   const [title2, setTitle2] = useState([]);
 
-  useEffect(()=>{
+  useEffect(() => {
     dispatch(changeCurrNation("Korea"));
-  },[])
+  }, []);
   useEffect(() => {
     // console.log(translationWords.title1)
     if (translationWords.title1) {
@@ -51,9 +56,22 @@ export default function Title() {
     },
   };
 
-
   return (
     <div className={styles.promotionTitle}>
+      <motion.div
+        className={styles.garo}
+        animate={{
+          opacity: [0, 1, 0],
+          transition: {
+            duration: 1.5,
+            repeat : Infinity
+          },
+        }}
+      >
+        {garo.map((data, index) => (
+          <span>{data}</span>
+        ))}
+      </motion.div>
       {title1 && title1.length > 0 && (
         <motion.div
           className={styles.promotionTitle1}
