@@ -14,7 +14,7 @@
 - 프레임 워크 : Spring boot (v3.3.2)
 - 데이터 베이스 : MySQL (v8), Redis (v7.4), AWS S3
 - 보안 : Spring-Security, JWT
-- WebRTC : OpenVidu (v2.30.0)
+- WebRTC : Openvidu (v2.30.0)
 - 프록시 서버 : Nginx (v1.25.5)
 
 ### Infra
@@ -48,7 +48,7 @@ docker run -d --name jenkins --privileged \ # jenkins에서 빌드시 권한 문
 -v /usr/bin/docker-compose:/usr/bin/docker-compose \ #컨테이너 볼륨 연결
 jenkins/jenkins:lts
 ```
-b. 컨테이너 내부와 호스트 docker 소켓 연결. 미리 호스트에 docker 설치하는 과정이 필요
+b. 컨테이너 내부와 호스트 docker 소켓 연결. 이 작업 전 미리 호스트에 docker 설치하는 과정이 필요
 ```
 docker exec -it --user root jenkins /bin/bash #jenkins 컨테이너 내부 접속
 apt-get update 
@@ -64,39 +64,106 @@ curl -L "https://github.com/docker/compose/releases/latest/download/docker-compo
 chmod +x /usr/local/bin/docker-compose
 ```
 
+d. jenkins pipeline script
+```
+pipeline {
+    agent any
+    
+    environment{
+        FRONT_CONTAINER_NAME = 'frontend'
+        BACK_CONTAINER_NAME = 'backend'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout([$class: 'GitSCM',
+                          branches: [[name: '*/master']],
+                          userRemoteConfigs: [[url: 'https://lab.ssafy.com/s11-webmobile1-sub2/S11P12B302.git',
+                                               credentialsId: 'IDPW-gitlab']] // 자격 증명 ID
+                ])
+            }
+        }
+        
+        stage('Build Frontend') {
+            steps {
+                dir('front-end/koplaydev') {
+                    sh 'pwd'
+                    sh 'ls'
+                    sh 'docker build -t frontend-image .'
+                    sh 'docker-compose -f docker-compose.override.yml up -d'
+                }
+            }
+        }
+
+        stage("rm back container"){
+            steps{
+                script{
+                    def isBack = sh(script: "docker ps -a -q -f name=${BACK_CONTAINER_NAME}", returnStdout: true).trim()
+                        if(isBack){
+                            echo "Stopping and removing running container ${BACK_CONTAINER_NAME}"
+                            sh "docker stop ${BACK_CONTAINER_NAME}"
+                            sh "docker rm ${BACK_CONTAINER_NAME}"
+                        }
+                }
+            }
+        }
+        
+        stage('Build Backend') {
+            steps {
+                dir('back-end/koplaydev') {
+                    sh 'pwd'
+                    sh 'ls'
+                    sh 'docker build -t backend-image .'
+                    sh 'docker run -d --name backend -p 127.0.0.1:8080:8080 backend-image'
+                }
+            }
+        }
+    }
+}
+
+```
+
 ### 2. MySQL,Redis
-원래 MySQL,Redis,Nginx를 한 docker-compose파일로 설치했었으나, openvidu를 설치하는 과정에서 Nginx가 추가로 설치되어 MySQL과 Redis만 설치하는 방향으로 인프라 구성. 
+원래 MySQL,Redis,Nginx를 한 docker-compose파일로 설치했었으나, Openvidu를 설치하는 과정에서 Nginx가 추가로 설치되어 MySQL과 Redis만 설치하는 방향으로 인프라 구성. 
 
 a. docker-compose.yml \
-[MySQL,Redis docker-compose.yml](docker-compose.yml)
+[MySQL,Redis 설치용 docker-compose.yml](docker-compose.yml)
 
 ### 3. Openvidu, Nginx
 
-**OpenVidu**
+**Openvidu**
 
-OpenVidu는 OnPremise 환경으로 설치. \
+Openvidu는 OnPremise 환경으로 설치. \
 CERTIFICATE_TYPE=letsencrypt.로 SSL 설정을 진행.\
 구체적인 과정은 공식문서 참고 \
-https://docs.openvidu.io/en/2.30.0/deployment/ce/on-premises/
+https://docs.Openvidu.io/en/2.30.0/deployment/ce/on-premises/
 
 **Nginx 설정**
 
-OpenVidu 공식 문서대로 설치를 진행하면 nginx가 설치됨. \
+Openvidu 공식 문서대로 설치를 진행하면 Nginx가 설치됨. \
 해당 Nginx에 frontend, backend, jenkins의 리버스 프록시 설정을 추가함
 
 a. default.conf
 파일 위치는 컨테이너 내부 기준 /etc/nginx/conf.d/default.conf \
-[Nginx default.conf](InfraSettingCodes/default.conf)
+[default.conf](InfraSettingCodes/default.conf)
 
-### 부록 - Frontend,Backend DockerFile
+**Openvidu webApp 설정** \
 
-1. Frontend DockerFile
-2. Backend DockerFile
+공식 문서를 따라서 Openvidu를 설치한다면 기본적으로 프론트 엔드 역할을 하는 openvidu-app-1 컨테이너가 생긴다. EC2의 /opt/openvidu/docker-compose.override.yml 파일을 수정하면 해당 컨테이너를 내가 개발한 프론트 엔드 서버로 구성할 수 있다. \
+[docker-compose.override.yml](front-end/koplaydev/docker-compose.override.yml)
 
+**⚠️ 주의사항:** Openvidu를 설치하는 과정에서 해당 위치에 **Openvidu를 위한** docker-compose.yml파일이 생성되는데 이는 수정하지 말 것.
 
-```
-Give examples
-```
+해당 파일 : [docker-compose.yml for Openvidu](front-end/koplaydev/docker-compose.yml)
+
+### 부록 - Frontend,Backend Dockerfile
+Frontend Dockerfile의 경우 docker-compose.override.yml으로 배포했고, Backend의 경우 jenkins pipeline script에서 직접 명령어를 입력하여 도커를 올렸음. 구체적인 과정은 jenkins pipeline script를 참고할것
+
+1. Frontend Dockerfile \
+[Frontend Dockerfile](front-end/koplaydev/Dockerfile)
+2. Backend Dockerfile \
+[Backend Dockerfile](back-end/koplaydev/Dockerfile)
 
 ## 환경변수 설정
 
