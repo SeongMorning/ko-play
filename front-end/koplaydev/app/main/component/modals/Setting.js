@@ -137,7 +137,7 @@ export default function Setting() {
             <div className={styles.profileBox}>
               <img
                 className={styles.profileImg}
-                src={userInfo.profileImg}
+                src={userInfo.profileImg || 'hehe.png'} 
                 onError={(e) => {
                   e.target.src = "hehe.png";
                 }}
