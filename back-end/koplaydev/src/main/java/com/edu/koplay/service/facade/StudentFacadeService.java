@@ -52,7 +52,11 @@ public class StudentFacadeService {
         Student student = studentService.selectOneStudent(id);
 
         //받은 idx로 아바타 엔티티 가져오기
-        Avatar beforeAvatar = avatarService.selectAvatarByAvatarIdx(before);
+        Avatar beforeAvatar = null;
+        if(before != 0){
+            beforeAvatar= avatarService.selectAvatarByAvatarIdx(before);
+        }
+
         Avatar afterAvatar = null;
         //0이면 착용해제
         if(after != 0){
