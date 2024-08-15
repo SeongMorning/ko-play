@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import modifyAvatarAxios from "@/app/axios/modifyAvatarAxios";
 import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice";
 import effectSound from '@/app/utils/effectSound'
+import { changeCurrentAvatar } from "@/redux/slices/currentAvatar";
 
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
@@ -40,6 +41,7 @@ export default function BlueBtn(props) {
           console.log(myAvatars);
           const idx = myAvatars.avatars.findIndex((data) => data.currentUse === true);
           if(idx !== -1){
+            dispatch(changeCurrentAvatar(""));
             const beforeAvatarIdx = myAvatars.avatars[idx].avatar.avatarIdx;
             const data = await modifyAvatarAxios({beforeAvatarIdx : beforeAvatarIdx, afterAvatarIdx : 0})
             if(data){
