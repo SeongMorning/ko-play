@@ -4,7 +4,6 @@ import { forwardRef, useEffect, useRef } from "react";
 import styles from "./Cam.module.scss";
 import Webcam from "react-webcam"; // react-webcam import
 import { useSelector } from "react-redux";
-import FaceDetection, { initWebcamAndModel } from "@/app/utils/AR/script";
 import { usePathname } from "next/navigation";
 
 // props : left, top, width
@@ -33,7 +32,10 @@ const Cam = forwardRef((props, ref) => {
         }}
       />
       {(pathName === "/avatar" || pathName === "/game/4" ) && props.isAvatar? (
-        <img className={styles.img} src={filePath} />
+        <img className={styles.img} src={filePath} 
+        style={{
+          top : filePath.includes("Hat") ? "10%" : "30%"
+        }}/>
       ) : null}
     </div>
   );

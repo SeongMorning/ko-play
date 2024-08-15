@@ -14,9 +14,10 @@ import DifficultyBtn from "../DifficultyBtn";
 import gameListAxios from "@/app/axios/gameListAxios";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import { changeGameIdx } from "@/redux/slices/gameSlice";
-import effectSound from '@/app/utils/effectSound'
+import effectSound from "@/app/utils/effectSound";
 
-const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const buttonSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3";
 
 let propObject = [
   {
@@ -57,7 +58,7 @@ export default function NormalGame() {
     propObject[0].text = translationWords.speak;
     propObject[1].text = translationWords.read;
     propObject[2].text = translationWords.listen;
-  }, [translationWords]); 
+  }, [translationWords]);
 
   useEffect(() => {
     const fetchGameList = async () => {
@@ -93,7 +94,9 @@ export default function NormalGame() {
               ></img>
             )}
           </div>
-          <span className={styles.NormalGameTitle}>{translationWords.normalGame}</span>
+          <span className={styles.NormalGameTitle}>
+            {translationWords.normalGame}
+          </span>
           <div className={styles.headerright}>
             <img
               src="/close.png"
@@ -105,7 +108,10 @@ export default function NormalGame() {
             ></img>
           </div>
         </div>
-        <GameSelect idx={gamePurposeIdx} gamestart = {translationWords.gamestart}/>
+        <GameSelect
+          idx={gamePurposeIdx}
+          gamestart={translationWords.gamestart}
+        />
         {gamePurposeIdx === 0 ? null : (
           <motion.div
             className={styles.LevelJellyBtn}
@@ -165,7 +171,11 @@ const GameSelect = (props) => {
         <motion.div
           key={index}
           className={styles.Btn}
-          style={{ cursor: `${props.idx === 0 ? "url('/smile-star-hover.svg') 30 30, auto" : ""}` }}
+          style={{
+            cursor: `${
+              props.idx === 0 ? "url('/smile-star-hover.svg') 30 30, auto" : ""
+            }`,
+          }}
           animate={{
             width: `${widthList[index]}%`,
             translateX: `${
@@ -199,24 +209,47 @@ const GameSelect = (props) => {
               }}
             >
               {props.idx !== 0 &&
-                gameList[props.idx - 1].map((data, index) => (
-                  <div key={index} className={styles.gameItem}>
-                    {data.gameName}
-                    <motion.div
-                      className={styles.gameStart}
-                      whileHover={{
-                        backgroundColor: "rgba(0, 0, 0, 0.8)",
-                        color: "rgba(154, 205, 50, 1)",
-                      }}
-                      onClick={() => {
-                        dispatch(changeGameIdx(data.gameIdx))
-                        router.replace(`/game/${data.gameIdx}`);
-                      }}
-                    >
-                      {props.gamestart}
-                    </motion.div>
-                  </div>
+                gameList[props.idx - 1].map((data, index2) => (
+                  <>
+                    <div key={index2} className={styles.gameItem}>
+                      {data.gameName}
+                      <motion.div
+                        className={styles.gameStart}
+                        whileHover={{
+                          backgroundColor: "rgba(0, 0, 0, 0.8)",
+                          color: "rgba(154, 205, 50, 1)",
+                        }}
+                        onClick={() => {
+                          dispatch(changeGameIdx(data.gameIdx));
+                          router.replace(`/game/${data.gameIdx}`);
+                        }}
+                      >
+                        {props.gamestart}
+                      </motion.div>
+                    </div>
+                  </>
                 ))}
+              {index === 0 && (
+                <div className={styles.gameInfo}>
+                  <span>우주에서 내려오는 그림을 말해요.</span>
+                  <span>총 10개의 그림이 내려와요.</span>
+                  <span>생각보다 어려울지도.. 화이팅!</span>
+                </div>
+              )}
+              {index === 1 && (
+                <div className={styles.gameInfo}>
+                  <span>카드를 뒤집어 그림과 단어를 맞춰요.</span>
+                  <span>처음에 보여주는 카드를 잘 보세요</span>
+                  <span>쉬우면 타임어택으로 즐겨도 좋아요!</span>
+                </div>
+              )}
+              {index === 2 && (
+                <div className={styles.gameInfo}>
+                  <span>주어지는 설명을 듣고 그림을 골라요.</span>
+                  <span>설명는 총 5개이고 다시듣기도 있어요.</span>
+                  <span>한번에 맞추면 더 많은 경험치가?</span>
+                </div>
+              )}
             </motion.div>
           </GameJellyBtn>
         </motion.div>
