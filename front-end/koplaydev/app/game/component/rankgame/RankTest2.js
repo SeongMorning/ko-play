@@ -181,6 +181,21 @@ export default function RankTest2() {
             console.log("결과" + data)
             dispatch(setOtherCorrect(data[0]))
             // setOtherCorrect(data[0])
+
+            client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
+            dispatch(
+              changeWrong(wordObjectList.filter((data) => data.state === -1))
+            );
+            setCorrect(a);
+            setIncorrect(b);
+            console.log("게임종료!");
+            setModal(true);
+
+            // subscription.unsubscribe();
+            disconnectWebSocket();
+            setClient(null);
+            dispatch(setConnected(false));
+            SpeechRecognition.stopListening();
           }
         }
       );
@@ -203,20 +218,7 @@ export default function RankTest2() {
       if (a + b === 20) {
         client.send("/app/result", {}, JSON.stringify({ roomId: roomId, playerId: userInfo.id, correct: a }));
 
-        client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
-        dispatch(
-          changeWrong(wordObjectList.filter((data) => data.state === -1))
-        );
-        setCorrect(a);
-        setIncorrect(b);
-        console.log("게임종료!");
-        setModal(true);
 
-        // subscription.unsubscribe();
-        disconnectWebSocket();
-        setClient(null);
-        dispatch(setConnected(false));
-        SpeechRecognition.stopListening();
       }
     }
   }, [wordObjectList]);
