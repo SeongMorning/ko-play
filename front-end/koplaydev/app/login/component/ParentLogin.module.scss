@@ -10,4 +10,25 @@
     z-index: 30;
     margin: 3vh;
   }
+  img {
+    cursor: pointer;
+    width: 25vw;
+    margin: 3vh;
+    border-radius: 8px; /* 모서리를 둥글게 */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), /* 아래쪽 그림자 */
+                0px -2px 4px rgba(255, 255, 255, 0.3); /* 위쪽 밝은 그림자 */
+    transition: transform 0.2s, box-shadow 0.2s; /* 호버 시 애니메이션 */
+  }
+  
+  img:hover {
+    transform: translateY(-3px); /* 살짝 떠오르는 효과 */
+    box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2), /* 강한 아래쪽 그림자 */
+                0px -2px 4px rgba(255, 255, 255, 0.3); /* 위쪽 밝은 그림자 유지 */
+  }
+  
+  img:active {
+    transform: translateY(2px); /* 눌리는 효과 */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2), /* 약한 아래쪽 그림자 */
+                0px -2px 4px rgba(255, 255, 255, 0.3); /* 위쪽 밝은 그림자 유지 */
+  }
 }
