@@ -3,15 +3,18 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import styles from "./ChangeNation.module.scss";
 import effectSound from '@/app/utils/effectSound'
+import { useSelector } from "react-redux";
+import { changeCurrNation } from "@/redux/slices/currNationSlice";
 
 const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
 
 export default function ChangeNation({
-  setSelectedCountry,
   left,
   top,
   imgSize,
 }) {
+  const currNation = useSelector((state) => state.currNation);
+
   // props를 destructuring합니다.
   const nations = [
     { name: "Korea", src: "/korea-3.png" },
@@ -19,10 +22,9 @@ export default function ChangeNation({
     { name: "China", src: "/china-3.png" },
     { name: "Vietnam", src: "/vietnam-3.png" },
   ];
-  const [selectedNation, setSelectedNation] = useState(null);
+  const [selectedNation, setSelectedNation] = useState(currNation);
   const handleNationClick = (nation) => {
     setSelectedNation(nation.name);
-    setSelectedCountry(nation.name);
   };
 
   const es = effectSound(mouseClickSound, 0.7);
