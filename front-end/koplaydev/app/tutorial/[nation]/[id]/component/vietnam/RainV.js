@@ -3,10 +3,14 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import styles from "../Tutorial.module.scss";
+import { useDispatch } from "react-redux";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
+import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 
 export default function RainV() {
   const [currentStep, setCurrentStep] = useState(0);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const tutorialImages = [
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/vietnam/commonV2.png",
@@ -27,6 +31,8 @@ export default function RainV() {
     if (currentStep < tutorialImages.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
+      dispatch(changeGamePurposeIdx(0));
+      dispatch(changeModalIdx(0));
       router.replace("/main");
     }
   };

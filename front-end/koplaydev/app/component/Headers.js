@@ -16,20 +16,28 @@ export default function Headers() {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.studentInfo);
   const parent = useSelector((state) => state.parent);
-  const currNation = useSelector((state)=> state.currNation);
+  const currNation = useSelector((state) => state.currNation);
   // const [selectedNation, setSelectedNation] = useState(null);
   const pathName = usePathname();
   const exceptList = ["game", "tutorial"];
   const translationWords = useSelector((state) => state.translationWords);
 
-  useEffect(() => {
-    const defaultNation = userInfo.nation || parent.nationality || "Korea";
-    console.log(userInfo, parent)
-    dispatch(changeCurrNation(defaultNation))
-    console.log(defaultNation);
-    // setSelectedNation(defaultNation);
+  const nations = [
+    { name: "Korea", src: "/korea-3.png", locale: "ko-KR" },
+    { name: "Thailand", src: "/thailand-parent-choice.png", locale: "th-TH" },
+    { name: "China", src: "/china-3.png", locale: "zh-CN" },
+    { name: "Vietnam", src: "/vietnam-3.png", locale: "vi-VN" },
+  ];
 
-  }, [userInfo.nation, parent.nationality]);
+  useEffect(() => {
+    const fetchTranslations = async () => {
+      const defaultNation = userInfo.nation || parent.nationality || "Korea";
+      dispatch(changeCurrNation(defaultNation))
+      const index = nations.findIndex((data2) => data2.name === defaultNation)
+      dispatch(changeTranslationWords(await translations(nations[index].locale)));
+    }
+    fetchTranslations();
+  }, [userInfo, parent]);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -43,13 +51,6 @@ export default function Headers() {
 
     fetchTranslations(); // 비동기 함수 호출
   }, []); // asPath가 변경될 때마다 useEffect가 실행됩니다.
-
-  const nations = [
-    { name: "Korea", src: "/korea-3.png", locale: "ko-KR" },
-    { name: "Thailand", src: "/thailand-parent-choice.png", locale: "th-TH" },
-    { name: "China", src: "/china-3.png", locale: "zh-CN" },
-    { name: "Vietnam", src: "/vietnam-3.png", locale: "vi-VN" },
-  ];
 
   const handleNationClick = async (nation) => {
     console.log(nation.name)

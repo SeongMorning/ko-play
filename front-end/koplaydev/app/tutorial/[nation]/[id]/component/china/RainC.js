@@ -2,10 +2,14 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import styles from "../Tutorial.module.scss";
+import { useDispatch } from "react-redux";
+import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
+import { changeModalIdx } from "@/redux/slices/modalSlice";
 
 export default function RainC() {
   const [currentStep, setCurrentStep] = useState(0);
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const tutorialImages = [
     "https://ko-play.s3.ap-northeast-2.amazonaws.com/tutorial/nation/china/commonC2.png",
@@ -26,6 +30,8 @@ export default function RainC() {
     if (currentStep < tutorialImages.length - 1) {
       setCurrentStep(currentStep + 1);
     } else {
+      dispatch(changeGamePurposeIdx(0));
+      dispatch(changeModalIdx(0));
       router.replace("/main");
     }
   };
