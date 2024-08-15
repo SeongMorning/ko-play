@@ -29,7 +29,7 @@ export default function FirstVisit() {
               className={styles.input}
               type="text"
               placeholder={
-                translationWords.schoolPlaceholder
+                translationWords.school + translationWords.schoolPlaceholder
               }
               onChange={(e) => 
                 {
