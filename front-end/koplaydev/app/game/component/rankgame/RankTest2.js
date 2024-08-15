@@ -57,8 +57,9 @@ export default function RankTest2() {
   const [capturedImage, setCapturedImage] = useState(null);
   const correctCnt = useSelector((state) => state.correct);
   let [unitScore, setUnitScore] = useState(3);
+  const [otherCorrect, setOtherCorrect] = useState(0);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const handleCaptureClick = () => {
     if (captureRef.current) {
@@ -69,41 +70,41 @@ export default function RankTest2() {
         // 캡쳐된 캔버스를 가져옵니다.
         const ctx = canvas.getContext('2d');
         const { width, height } = canvas;
-  
+
         // 좌우 반전 처리
         const mirrorCanvas = document.createElement('canvas');
         mirrorCanvas.width = width;
         mirrorCanvas.height = height;
         const mirrorCtx = mirrorCanvas.getContext('2d');
-  
+
         // 좌우 반전
         mirrorCtx.save();
         mirrorCtx.translate(width, 0);
         mirrorCtx.scale(-1, 1);
         mirrorCtx.drawImage(canvas, 0, 0);
         mirrorCtx.restore();
-  
+
         // 처리된 이미지를 데이터 URL로 변환
         const mirroredImage = mirrorCanvas.toDataURL("image/png");
-  
+
         // 데이터 URL을 Blob이 아닌 File 객체로 변환
         const byteString = atob(mirroredImage.split(",")[1]);
         const mimeString = mirroredImage.split(",")[0].split(":")[1].split(";")[0];
         const ab = new ArrayBuffer(byteString.length);
         const ia = new Uint8Array(ab);
-  
+
         for (let i = 0; i < byteString.length; i++) {
           ia[i] = byteString.charCodeAt(i);
         }
-  
+
         const file = new File([ab], "image.png", { type: mimeString });
-  
+
         // 상태에 저장
         setCapturedImage(file);
       });
     }
   };
-  
+
   const handleSaveImage = async () => {
     //axios 호출
     const res = await pictureAxios(capturedImage, "image");
@@ -174,6 +175,11 @@ export default function RankTest2() {
 
               return updatedList;
             });
+            if (index === 5) {
+              //상대정답개수들어옴
+              console.log("결과" + data)
+              // setOtherCorrect(data[0])
+            }
           }
         }
       );
@@ -194,6 +200,8 @@ export default function RankTest2() {
       console.log("a" + a + "b" + b);
       dispatch(changeCorrectIdx(a));
       if (a + b === 20) {
+        client.send("/app/result", {}, JSON.stringify({ roomId: roomId, playerId: userInfo.id, correct: a }));
+
         client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
         dispatch(
           changeWrong(wordObjectList.filter((data) => data.state === -1))
@@ -286,6 +294,12 @@ export default function RankTest2() {
                 <YellowBox width="40" height="70">
                   <div className={styles.text}>
                     <span className={styles.finish}>게임종료</span>
+                    {correct > otherCorrect ?
+                      <span>이겼어요 !!!</span>
+                      : correct == otherCorrect ?
+                        <span>비겼어요</span>
+                        : <span>졌어요...</span>}
+
                     <span className={styles.correct}>
                       정답 개수 : {correct}
                     </span>
