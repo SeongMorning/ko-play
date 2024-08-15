@@ -4,7 +4,7 @@
 (게이미피케이션 : 게임이 아닌 애플리케이션에 애플리케이션 사용을 권장하기 위해 게임 플레이 기법을 적용하는 것)
 
 ## 기술 스택, 빌드 버전 및 기타 도구
-![image.png](./InfraSettingCodes/image.png)
+![image.png](InfraSettingCodes/image.png)
 ### Frontend
 - 프레임 워크 : Next.js (v14.2.5)
 - CSS : SASS
