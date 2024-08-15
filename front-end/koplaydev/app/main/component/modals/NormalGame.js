@@ -40,7 +40,7 @@ let propObject = [
 ];
 
 let levelList = [1, 2, 3, 4, 5];
-let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
+let gameList = [["게임비"], ["뒤집기"], ["스무고개"]];
 
 export default function NormalGame() {
   const translationWords = useSelector((state) => state.translationWords);
