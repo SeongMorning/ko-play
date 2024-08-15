@@ -163,9 +163,7 @@ export default function SmuGameStart() {
               <span className={styles.retry}>
                 더욱 다양한 게임은 로그인 후 가능합니다.
               </span>
-              <span className={styles.addExp}>
-                로그인 하시겠습니까?
-              </span>
+              <span className={styles.addExp}>로그인 하시겠습니까?</span>
               <div className={styles.buttons}>
                 <div className={styles.Yes}>
                   <SmuGameJellyBtn bg="#FFD6E0" shadow="#E07A93" text="예" />
@@ -217,7 +215,7 @@ export default function SmuGameStart() {
               disabled={
                 currentHintIndex >= (hints[currentQuestion]?.length || 0)
               }
-              imgSrc="/nextplay.png"
+              imgSrc="/nextPlay.png"
             />
           </div>
         )}
