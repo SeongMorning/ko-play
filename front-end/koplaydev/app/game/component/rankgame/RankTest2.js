@@ -338,7 +338,7 @@ export default function RankTest2() {
                           bg="#FFD6E0"
                           shadow="#E07A93"
                           text="예"
-                          onclick={handleCloseSession}
+                          // onclick={handleCloseSession}
                         />
                       </div>
                       <div className={styles.No}>
