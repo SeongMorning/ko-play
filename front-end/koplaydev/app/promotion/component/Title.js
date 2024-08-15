@@ -19,9 +19,7 @@ export default function Title() {
   useSound(loginBGM2, 0.6, 0);
   const translationWords = useSelector((state) => state.translationWords);
   const dispatch = useDispatch();
-  const [garo, setGaro] = useState(
-    Array.from("본 게임은 가로모드에 최적화 되어있습니다.")
-  );
+  const [garo, setGaro] = useState([]);
   const [title1, setTitle1] = useState([]);
   const [title2, setTitle2] = useState([]);
 
@@ -33,6 +31,8 @@ export default function Title() {
     if (translationWords.title1) {
       setTitle1(Array.from(translationWords.title1));
       setTitle2(Array.from(translationWords.title2));
+      setGaro(Array.from(translationWords.notification))
+
     }
   }, [translationWords]);
 
