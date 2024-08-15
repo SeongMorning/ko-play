@@ -123,3 +123,16 @@
     cursor: url("/smile-star-hover.svg") 30 30, auto;
   }
 }
+
+.gameInfo{
+  display : flex;
+  flex-direction: column;
+  font-weight: bold;
+  justify-content: center;
+  align-items: flex-start;
+  width : 80%;
+  height : 80%;
+  font-size: calc((2.7vw + 2vh)/2);
+  gap : 7%;
+  color : black;
+}
