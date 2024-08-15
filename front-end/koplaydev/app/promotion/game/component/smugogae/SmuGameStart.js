@@ -12,8 +12,12 @@ import styles from "./SmuGameStart.module.scss";
 import TalkBalloon from "@/app/component/TalkBalloon";
 import PlayJellyBtn from "./PlayJellyBtn";
 import { changeExp } from "@/redux/slices/expSlice";
+import useSound from "@/app/utils/useSound";
+
+const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
 
 export default function SmuGameStart() {
+  useSound(gameBGM, 0.1, 0, 1);
   const dispatch = useDispatch();
   const wordList = useSelector((state) => state.gameWord);
   const userInfo = useSelector((state) => state.studentInfo);

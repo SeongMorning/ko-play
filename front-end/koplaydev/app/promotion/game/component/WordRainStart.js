@@ -22,7 +22,7 @@ const correctSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effe
 const modalSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/gameResultModalSound.wav";
 
 export default function WordRainStart() {
-  useSound(gameBGM, 1, 0, 1);
+  useSound(gameBGM, 0.1, 0, 1);
   const correctEs = effectSound(correctSound, 1);
   const modalEs = effectSound(modalSound, 1);
 
