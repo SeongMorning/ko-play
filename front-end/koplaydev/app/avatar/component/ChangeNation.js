@@ -11,7 +11,8 @@ const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/e
 export default function ChangeNation({
   left,
   top,
-  imgSize
+  imgSize,
+  setSelectedCountry,
 }) {
   const currNation = useSelector((state) => state.currNation);
 
@@ -25,6 +26,7 @@ export default function ChangeNation({
   const [selectedNation, setSelectedNation] = useState(currNation);
   const handleNationClick = (nation) => {
     setSelectedNation(nation.name);
+    setSelectedCountry(nation.name)
   };
 
   const es = effectSound(mouseClickSound, 0.7);
