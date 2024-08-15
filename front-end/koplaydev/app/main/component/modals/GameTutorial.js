@@ -127,7 +127,7 @@ export default function GameTutorial() {
               left="14vw"
               top="60vh"
               imgSize="calc(3vw + 5vh)"
-              setSelectedNation={setSelectedNation}
+              setSelectedNation={handleCountryChange}
             />
           </motion.div>
         )}
