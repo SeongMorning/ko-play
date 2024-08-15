@@ -19,7 +19,7 @@ const rewardSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effe
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 export default function SmuGameEnd() {
-  useEffectSound(rewardSound2, 0.7, 0, 1);
+  useEffectSound(rewardSound2, 0.4, 0, 1);
   const es = effectSound(buttonSound, 1);
 
   const userInfo = useSelector((state) => state.studentInfo);

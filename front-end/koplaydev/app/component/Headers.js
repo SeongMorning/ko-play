@@ -107,7 +107,6 @@ import translations from "../axios/translations";
 import { changeCurrNation } from "@/redux/slices/currNationSlice";
 
 const mouseClickSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3';
-// const loginBGM2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3';
 const muteIcon = '/muteIconBlue.png';
 const muteIconBlueActive = '/muteIconBlueActive.png';
 
@@ -130,6 +129,7 @@ export default function Headers() {
   ];
 
   const [isMuted, setIsMuted] = useState(false);
+  const es = effectSound(mouseClickSound, 0.5);
 
   useEffect(() => {
     const fetchTranslations = async () => {
@@ -169,11 +169,10 @@ export default function Headers() {
   };
 
   const toggleMute = () => {
+    es.play();
     setIsMuted(!isMuted);
     Howler.mute(!isMuted);  // 전체 음소거 토글
   };
-
-  const es = effectSound(mouseClickSound, 0.5);
 
   const shouldHideHeader = exceptList.some((word) => pathName.includes(word));
 

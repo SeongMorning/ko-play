@@ -16,7 +16,7 @@ const loginBGM2 =
   "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/loginBGM2.mp3";
 
 export default function Title() {
-  useSound(loginBGM2, 0.6, 0);
+  useSound(loginBGM2, 0.2, 0);
   const translationWords = useSelector((state) => state.translationWords);
   const dispatch = useDispatch();
   const [garo, setGaro] = useState([]);
