@@ -138,7 +138,7 @@ export default function InputChildInfo({
                 <input
                   className={`${styles.input} ${blue1 ? styles.blue : ""}`}
                   value={childInfo.name}
-                  placeholder="한국 이름을 작성하세요."
+                  placeholder={translationWords.namePlaceholder}
                   onChange={(e) => {
                     keydownEs.play();
                     setChildInfo((prevState) => ({
@@ -163,7 +163,7 @@ export default function InputChildInfo({
               </div>{" "}
               <div>
                 <input
-                  placeholder="영문 소문자 및 숫자 10글자 이내"
+                  placeholder={translationWords.addIdPlaceholder}
                   className={`${styles.input} ${blue2 ? styles.blue : ""}`}
                   onChange={(e) => {
                     keydownEs.play();
@@ -190,7 +190,7 @@ export default function InputChildInfo({
               </div>
               <div>
                 <input
-                  placeholder="영문, 숫자 및 특수문자 20글자 이내"
+                  placeholder={translationWords.addPwPlaceholder}
                   type={click ? "password" : "text"}
                   className={`${styles.input} ${blue3 ? styles.blue : ""}`}
                   value={childInfo.pw}
