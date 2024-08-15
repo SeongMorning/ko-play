@@ -6,6 +6,11 @@ import ChangeNation from "./ChangeNation";
 import allAvatarAxios from "@/app/axios/allAvatarAxios";
 import myAvatarAxios from "@/app/axios/myAvatarAxios";
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import modifyAvatarAxios from "@/app/axios/modifyAvatarAxios";
+import { useDispatch } from "react-redux";
+import { changeCurrentAvatar } from "@/redux/slices/currentAvatar";
+import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice";
 
 export default function Cabinet() {
   const [allAvatars, setAllAvatars] = useState([]);
@@ -13,6 +18,9 @@ export default function Cabinet() {
   const [selectedCountry, setSelectedCountry] = useState("Korea");
   const [currentPage, setCurrentPage] = useState(1);
   const avatarsPerPage = 8; // 한 페이지에 표시할 아바타 수
+  const [isAvatar, setIsAvatar] = useState(false);
+  const [avatarFile, setAvatarFile] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchAllAvatars = async () => {
@@ -34,6 +42,11 @@ export default function Cabinet() {
     fetchMyAvatars();
   }, []);
 
+  const modifyAvatar = () => {
+    const beforeAvatarIdx = 0
+    console.log(myAvatars);
+  }
+
   const filteredAvatars = allAvatars.filter(
     (avatar) => avatar.countryName === selectedCountry
   );
@@ -45,6 +58,7 @@ export default function Cabinet() {
     indexOfFirstAvatar,
     indexOfLastAvatar
   );
+  console.log(currentAvatars);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -54,13 +68,33 @@ export default function Cabinet() {
       <div className={styles.avatarContainer}>
         {currentAvatars.map((avatar, index) => {
           const isOwned =
-            myAvatars == null
+            myAvatars === null
               ? null
               : myAvatars.some(
                   (myAvatar) => myAvatar.avatar.avatarIdx === avatar.avatarIdx
                 );
           return (
-            <img
+            <motion.img
+              whileHover={{
+                scale: isOwned ? 1.1 : 1,
+              }}
+              onClick={async ()=>{
+                if(isOwned){
+                  let idx = myAvatars.findIndex((data) => data.currentUse === true);
+                  if(idx === -1){
+                    idx = 0;
+                  }else{
+                    idx = myAvatars[idx].avatar.avatarIdx;
+                  }
+  
+                  const data = await modifyAvatarAxios({beforeAvatarIdx : idx, afterAvatarIdx : avatar.avatarIdx})
+                  if(data){
+                    dispatch(setStudentAvatars(data));
+                  }
+                  dispatch(changeCurrentAvatar(avatar.avatarFile))
+                  setIsAvatar(true);
+                }
+              }}
               key={index}
               src={avatar.avatarFile}
               alt={`Avatar ${index}`}
@@ -87,8 +121,15 @@ export default function Cabinet() {
           </button>
         )}
       </div>
-      <Cam left="55vw" top="40vh" width="20vw" height="30vh" />
-      <BtnContainer />
+      <Cam
+        left="55vw"
+        top="40vh"
+        width="20vw"
+        height="30vh"
+        isAvatar={isAvatar}
+        setIsAvatar={setIsAvatar}
+      />
+      <BtnContainer isAvatar={isAvatar} setIsAvatar={setIsAvatar} />
       <ChangeNation setSelectedCountry={setSelectedCountry} />
     </div>
   );
