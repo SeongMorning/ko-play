@@ -10,6 +10,7 @@ import { usePathname } from "next/navigation";
 // props : left, top, width
 const Cam = forwardRef((props, ref) => {
   const pathName = usePathname();
+  const filePath = useSelector((state) => state.currentAvatar)
   return (
     <div
       style={{
@@ -31,8 +32,8 @@ const Cam = forwardRef((props, ref) => {
           height: "100%",
         }}
       />
-      {pathName === "/avatar" || pathName === "/game/4" ? (
-        <img className={styles.img} src="/jamini-mask.jpg" />
+      {(pathName === "/avatar" || pathName === "/game/4" ) && props.isAvatar? (
+        <img className={styles.img} src={filePath} />
       ) : null}
     </div>
   );
