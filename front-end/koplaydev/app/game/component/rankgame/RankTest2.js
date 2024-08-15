@@ -175,11 +175,12 @@ export default function RankTest2() {
 
               return updatedList;
             });
-            if (index === 5) {
-              //상대정답개수들어옴
-              console.log("결과" + data)
-              // setOtherCorrect(data[0])
-            }
+          }
+          if (index === 5) {
+            //상대정답개수들어옴
+            console.log("결과" + data)
+            dispatch(setOtherCorrect(data[0]))
+            // setOtherCorrect(data[0])
           }
         }
       );
