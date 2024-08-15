@@ -57,7 +57,7 @@ export default function Cabinet() {
             myAvatars == null
               ? null
               : myAvatars.some(
-                  (myAvatar) => myAvatar.avatarIdx === avatar.avatarIdx
+                  (myAvatar) => myAvatar.avatar.avatarIdx === avatar.avatarIdx
                 );
           return (
             <img
