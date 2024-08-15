@@ -137,7 +137,7 @@ export default function Setting() {
             <div className={styles.profileBox}>
               <img
                 className={styles.profileImg}
-                src={userInfo.profileImg}
+                src={userInfo.profileImg || 'hehe.png'} 
                 onError={(e) => {
                   e.target.src = "hehe.png";
                 }}
@@ -273,8 +273,7 @@ export default function Setting() {
                 )}
                 </WhiteBox>
                 <div className={styles.information}>
-                  <span>바꾸고 싶은 닉네임과 학교 정보를 입력하고,</span>
-                  <span>오른쪽 버튼을 누르면 정보가 수정됩니다.</span>
+                  <span>{translationWords.changeInfo}</span>
                 </div>
                 <PwPinkBox
                   setPwFlag={setPwFlag}
