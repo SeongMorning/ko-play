@@ -53,7 +53,11 @@ public class StudentFacadeService {
 
         //받은 idx로 아바타 엔티티 가져오기
         Avatar beforeAvatar = avatarService.selectAvatarByAvatarIdx(before);
-        Avatar afterAvatar = avatarService.selectAvatarByAvatarIdx(after);
+        Avatar afterAvatar = null;
+        //0이면 착용해제
+        if(after != 0){
+            afterAvatar = avatarService.selectAvatarByAvatarIdx(after);
+        }
         //아바타 업데이트 후 사용가능한 아바타 정보 반환
         return studentUsableAvatarService.updateAvatar(student, beforeAvatar, afterAvatar);
     }

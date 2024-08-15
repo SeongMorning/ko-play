@@ -21,6 +21,7 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,9 +80,22 @@ public class RankGameController {
     }
 
     @MessageMapping("/out")
-    public void outGame(String playerId) throws Exception {
+    public void outGame(String roomId) throws Exception {
         //모든것을 삭제해버려요
-        roomManager.deleteRoom(playerId);
+        roomManager.deleteRoom(roomId);
+    }
+
+    @MessageMapping("/result")
+    public void resultGame(Long roomId, String playerId, int correct) throws Exception {
+        GameRoom myRoom = roomManager.getRoom(roomId);
+        List<String> list = myRoom.getClients();
+        for (String player : list) {
+            if(!playerId.equals(player)){
+                //내 정답개수를 상대방에게 보냄
+                ResponseDTO<Integer> response = ResponseDTO.<Integer>builder().index(5).data(Collections.singletonList(correct)).build();
+                messagingTemplate.convertAndSendToUser(player, "/topic/ingame/" + roomId, response);
+            }
+        }
     }
 
 //    public void waitGame() throws Exception {
