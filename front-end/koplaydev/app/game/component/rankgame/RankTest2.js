@@ -296,13 +296,13 @@ export default function RankTest2() {
               >
                 <YellowBox width="40" height="70">
                   <div className={styles.text}>
-                    <span className={styles.finish}>게임종료</span>
+                    <span className={styles.finish}>
                     {correct > otherCorrect ?
-                      <span>이겼어요 !!!</span>
+                      이겼어요
                       : correct == otherCorrect ?
-                        <span>비겼어요</span>
-                        : <span>졌어요...</span>}
-
+                        비겼어요
+                        : 졌어요}
+                    </span>
                     <span className={styles.correct}>
                       정답 개수 : {correct}
                     </span>
