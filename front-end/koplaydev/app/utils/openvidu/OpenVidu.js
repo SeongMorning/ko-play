@@ -70,12 +70,13 @@ export default function OpenViduItem() {
         const publisher = await OV.initPublisherAsync(undefined, {
           audioSource: undefined,
           videoSource: undefined,
-          publishAudio: true,
+          publishAudio: false,
           publishVideo: true,
           resolution: "640x480",
           frameRate: 30,
           insertMode: "APPEND",
           mirror: false,
+
         });
 
         console.log('Successfully connected to the publisher:', publisher);
