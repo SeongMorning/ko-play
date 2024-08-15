@@ -17,6 +17,7 @@ export default function FirstVisitModal({ onclose }) {
 
         // console.log(nation)
         const modifyNation = await modifyParentNationAxios(nation);
+        dispatch(changeParentInfo(modifyNation))
         const modifyVisited = await modifyParentVisitAxios();
         if(modifyVisited != null){
             changeParentInfo(modifyVisited)
