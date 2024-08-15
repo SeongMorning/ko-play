@@ -101,7 +101,7 @@ export default function Profile() {
       <div className={styles.pictureBox}>
         <img
           src={
-            userInfo.profileImg
+            userInfo.profileImg || 'hehe.png'
           }
           onError={(e) => {
             e.target.src = "hehe.png";
