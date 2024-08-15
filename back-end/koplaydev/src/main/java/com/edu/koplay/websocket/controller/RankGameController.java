@@ -48,8 +48,8 @@ public class RankGameController {
 //        waitGame();
         logger.info("방배정되어있는 상태인가? "+ String.valueOf(GameRoomManager.userIdAndRoom.containsKey(playerId)));
         if (GameRoomManager.userIdAndRoom.containsKey(playerId)) {
-            logger.info("방 배정이 되어있다면 해당 방에 입장시키겠어요...");
             Long roomId = GameRoomManager.userIdAndRoom.get(playerId);
+            logger.info("방 배정이 되어있다면"+roomId+"번방에 입장시키겠어요...");
             roomManager.createOrJoinRoom(roomId, playerId);
             logger.info("누구에게 방 배정해줄지 ->"+playerId);
             messagingTemplate.convertAndSendToUser(playerId,"/topic/game/match", new GameStartMessage(String.valueOf(roomId)));

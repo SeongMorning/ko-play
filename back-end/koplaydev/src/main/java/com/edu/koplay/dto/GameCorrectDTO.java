@@ -15,7 +15,7 @@ public class GameCorrectDTO {
     private int correctAnswer;
     private String gamePurpose;
     private int level;
-    
+
     public GameCorrectDTO(Date date, int totalQuestion, int correctAnswer, String gamePurpose, int level) {
         this.date = date;
         this.totalQuestion = totalQuestion;
@@ -25,13 +25,15 @@ public class GameCorrectDTO {
     }
 
 
-
     @Override
     public String toString() {
-        return "GameResultDTO{" +
+        return "GameCorrectDTO{" +
                 "date=" + date +
-                ", totalCorrect=" + totalQuestion +
+                ", totalQuestion=" + totalQuestion +
+                ", correctAnswer=" + correctAnswer +
                 ", gamePurpose='" + gamePurpose + '\'' +
+                ", level=" + level +
+
                 '}';
     }
 }
