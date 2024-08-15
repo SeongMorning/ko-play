@@ -77,11 +77,29 @@ export default function RankTest2() {
         backgroundColor: null,
         scale: 2,
       }).then((canvas) => {
-        const image = canvas.toDataURL("image/png");
+        // 캡쳐된 캔버스를 가져옵니다.
+        const ctx = canvas.getContext('2d');
+        const { width, height } = canvas;
+
+        // 좌우 반전 처리
+        const mirrorCanvas = document.createElement('canvas');
+        mirrorCanvas.width = width;
+        mirrorCanvas.height = height;
+        const mirrorCtx = mirrorCanvas.getContext('2d');
+
+        // 좌우 반전
+        mirrorCtx.save();
+        mirrorCtx.translate(width, 0);
+        mirrorCtx.scale(-1, 1);
+        mirrorCtx.drawImage(canvas, 0, 0);
+        mirrorCtx.restore();
+
+        // 처리된 이미지를 데이터 URL로 변환
+        const mirroredImage = mirrorCanvas.toDataURL("image/png");
 
         // 데이터 URL을 Blob이 아닌 File 객체로 변환
-        const byteString = atob(image.split(',')[1]);
-        const mimeString = image.split(',')[0].split(':')[1].split(';')[0];
+        const byteString = atob(mirroredImage.split(",")[1]);
+        const mimeString = mirroredImage.split(",")[0].split(":")[1].split(";")[0];
         const ab = new ArrayBuffer(byteString.length);
         const ia = new Uint8Array(ab);
 

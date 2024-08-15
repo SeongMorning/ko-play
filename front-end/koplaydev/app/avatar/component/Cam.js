@@ -32,7 +32,7 @@ const Cam = forwardRef((props, ref) => {
         }}
       />
       {(pathName === "/avatar" || pathName === "/game/4" ) && props.isAvatar? (
-        <img className={styles.img} src={filePath} 
+        <img className={styles.img} src={URL.createObjectURL(filePath)}
         style={{
           top : filePath.includes("Hat") ? "10%" : "30%"
         }}/>
