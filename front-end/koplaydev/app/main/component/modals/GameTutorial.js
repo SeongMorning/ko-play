@@ -78,6 +78,13 @@ export default function GameTutorial() {
     fetchGameList();
   }, []);
 
+  const [checkNation,setCheckNation] = useState(currNation);
+
+  const handleCountrySelection = (country) => {
+    // 선택된 국가를 부모 컴포넌트로 전달
+    setCheckNation(country);
+  };
+
   return (
     <YellowBox width={"70"} height={"80"}>
       <div className={styles.NormalGameMain}>
@@ -106,7 +113,7 @@ export default function GameTutorial() {
             ></img>
           </div>
         </div>
-        <GameSelect idx={gamePurposeIdx} selectedCountry={currNation} gamestart={translationWords.gameStart}/>
+        <GameSelect idx={gamePurposeIdx} selectedCountry={checkNation} gamestart={translationWords.gameStart}/>
         {gamePurposeIdx === 0 ? null : (
           <motion.div
             initial={{
@@ -123,6 +130,7 @@ export default function GameTutorial() {
               left="14vw"
               top="60vh"
               imgSize="calc(3vw + 5vh)"
+              setSelectedCountry={handleCountrySelection}
             />
           </motion.div>
         )}
