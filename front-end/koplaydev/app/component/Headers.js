@@ -199,7 +199,7 @@ export default function Headers() {
                 transition: { duration: 0.2 },
               }}
               animate={{
-                scale: currNation === nation.name ? 1.4 : 1,
+                scale: currNation === nation.name ? 1.2 : 1,
                 transition: {
                   duration: 0.3,
                 },
