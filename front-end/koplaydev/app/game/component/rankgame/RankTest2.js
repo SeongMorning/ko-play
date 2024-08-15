@@ -36,6 +36,8 @@ import useSound from "@/app/utils/useSound";
 import effectSound from '@/app/utils/effectSound'
 
 const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
+const correctSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/correctSound.wav";
+const modalSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/gameResultModalSound.wav";
 
 export default function RankTest2() {
   useSound(gameBGM, 0.1, 0, 1);
