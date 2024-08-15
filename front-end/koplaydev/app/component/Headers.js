@@ -143,7 +143,7 @@ export default function Headers() {
 
   useEffect(() => {
     const fetchTranslations = async () => {
-      const defaultNation = currNation || "Korea";
+      const defaultNation = currNation;
       const index = nations.findIndex((data2) => data2.name === defaultNation)
       dispatch(changeTranslationWords(await translations(nations[index].locale)));
     }
