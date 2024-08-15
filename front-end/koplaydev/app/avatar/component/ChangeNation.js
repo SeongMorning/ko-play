@@ -12,7 +12,7 @@ export default function ChangeNation({
   left,
   top,
   imgSize,
-  setSelectedCountry,
+  setSelectedNation,
 }) {
   // const currNation = useSelector((state) => state.currNation);
 
@@ -25,7 +25,7 @@ export default function ChangeNation({
   ];
   const handleNationClick = (nation) => {
     setSelectedNation(nation.name);
-    setSelectedCountry(nation.name)
+    setSelectedNation(nation.name)
   };
 
   const es = effectSound(mouseClickSound, 0.7);
