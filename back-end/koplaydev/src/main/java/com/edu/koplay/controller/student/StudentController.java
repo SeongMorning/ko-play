@@ -24,10 +24,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins = "*")
@@ -60,6 +60,7 @@ public class StudentController {
             Student entity = studentService.getStudentInfo(id);
             List<GameData> gameData = gameDataService.getStudentGameCount(entity);
             RecommendLevel recommendLevel = recommendLevelService.getStudentLevel(entity);
+
 
             StudentDTO dto = new StudentDTO(entity, recommendLevel);
             dto.setTotalGameCount(gameData.size());
@@ -171,10 +172,10 @@ public class StudentController {
             //내가 가지고 있는 아바타 정보 조회
             List<StudentUsableAvatar> avatars = studentService.getAvatars(id);
 
-            List<AvatarDTO> dtos = avatars.stream()
-                    .map(avatar -> new AvatarDTO(avatar.getAvatar()))
+            List<StudentUsableAvatarDTO> dtos = avatars.stream()
+                    .map(StudentUsableAvatarDTO::new)
                     .collect(Collectors.toList());
-            ResponseDTO<AvatarDTO> response = ResponseDTO.<AvatarDTO>builder().data(dtos).build();
+            ResponseDTO<StudentUsableAvatarDTO> response = ResponseDTO.<StudentUsableAvatarDTO>builder().data(dtos).build();
 
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
@@ -263,7 +264,9 @@ public class StudentController {
             //logger.info(correctGameDataGroupedByDateAndPurpose.toString());
             for (Object[] result : dailyResult) {
                 // Extract values based on index
+                TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
                 Date date = (Date) result[0];
+
                 int totalQuestion = ((Number) result[1]).intValue();
                 int correctAnswer = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
@@ -285,6 +288,8 @@ public class StudentController {
                 // Extract values based on index
 
                 Date date = (Date) result[0];
+
+
                 int exp = ((Number) result[1]).intValue();
                 int accumSum = ((Number) result[2]).intValue();
 
@@ -302,6 +307,7 @@ public class StudentController {
                 // Extract values based on index
 
                 Date date = dateFormat.parse((String) result[0]);
+
                 int correct = ((Number) result[1]).intValue();
                 int question = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
@@ -320,6 +326,7 @@ public class StudentController {
             res3.add(res4);
             return ResponseEntity.ok().body(res3);
         } catch (Exception e) {
+            e.printStackTrace();
 //            System.out.println(e.getMessage());
             ResponseDTO<GameCorrectDTO> response = ResponseDTO.<GameCorrectDTO>builder().error(e.getMessage()).build();
             return ResponseEntity.badRequest().body(response);

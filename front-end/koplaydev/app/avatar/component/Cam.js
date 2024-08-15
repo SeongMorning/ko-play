@@ -5,9 +5,11 @@ import styles from "./Cam.module.scss";
 import Webcam from "react-webcam"; // react-webcam import
 import { useSelector } from "react-redux";
 import FaceDetection, { initWebcamAndModel } from "@/app/utils/AR/script";
+import { usePathname } from "next/navigation";
 
 // props : left, top, width
 const Cam = forwardRef((props, ref) => {
+  const pathName = usePathname();
   return (
     <div
       style={{
@@ -23,12 +25,15 @@ const Cam = forwardRef((props, ref) => {
       ref={ref}
     >
       <Webcam
+        mirrored="false"
         style={{
           width: "100%",
           height: "100%",
         }}
       />
-      <img className={styles.img} src="/jamini-mask.jpg" />
+      {pathName === "/avatar" || pathName === "/game/4" ? (
+        <img className={styles.img} src="/jamini-mask.jpg" />
+      ) : null}
     </div>
   );
 });

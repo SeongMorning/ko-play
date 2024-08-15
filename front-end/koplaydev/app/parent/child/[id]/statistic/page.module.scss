@@ -53,17 +53,36 @@
     }
 
     .aiText {
+      max-height: calc(10vw + 10vh);
+      top: 4vh;
       position: relative;
       z-index: 2;
       display: flex;
-      font-size: calc(0.5vw + 0.5vh);
+      font-size: calc(1.5vw + 1.5vh);
       justify-content: center;
       align-items: center;
       width: 95%;
-      height: 100%;
-      padding: calc(1vw + 1vh);
+      height: 70%;
+      padding: calc(2vw + 2vh);
       box-sizing: border-box;
       text-align: center;
+      font-weight: bold;
+      overflow-y: auto;
+      word-wrap: break-word;
+
+      &::-webkit-scrollbar {
+        height: 0px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #c4eda7;
+        border-radius: 10px;
+        border: 3px solid #f1f1f1;
+      }
+
+      &::-webkit-scrollbar-track {
+        background-color: white;
+      }
     }
   }
 }

@@ -52,24 +52,25 @@ export default function LogoutModalBtn(props) {
           if (authToken == null) {
             throw error;
           }
-          dispatch({ type: 'RESET_ALL' });
-          persistor.purge();
-
+          
           // useEffect(() => {
-          //   const fetchTranslations = async () => {
-          //     try {
-          //       const result = await translations("ko-KR");
-          //       dispatch(changeTranslationWords(result));
-          //     } catch (error) {
+            //   const fetchTranslations = async () => {
+              //     try {
+                //       const result = await translations("ko-KR");
+                //       dispatch(changeTranslationWords(result));
+                //     } catch (error) {
           //       console.error("Failed to fetch translations:", error);
           //     }
           //   };
-        
+          
           //   fetchTranslations(); // 비동기 함수 호출
           // }, [dispatch]);
           
           const response = await logoutAxios();
-
+          
+          persistor.purge();
+          dispatch({ type: 'RESET_ALL' });
+          
           if (response != null) {
             //null이 아니면 성공
 

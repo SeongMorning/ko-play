@@ -23,13 +23,12 @@ export default function Statistic({ params }) {
   useSound(mypageBGM2, 1, 0, 0.9);
 
   const statisticData = useSelector((state) => state.parentChaildStatistic);
-  const [curStatistic, setCurStatistic] = useState(statisticData);
   const [aiText, setAiText] = useState(null);
-  // const [parentNation, setParentNation] = useState(parent.nationality);
-  const [parentNation, setParentNation] = useState("Korea");
+  const [parentNation, setParentNation] = useState(parent.nationality);
 
   useEffect(() => {
-    // setParentNation(parent.nationality);
+    console.log("Parent State:", parent);
+    setParentNation(parent.nationality);
   }, [parent]);
 
   const id = params.id;
@@ -37,19 +36,28 @@ export default function Statistic({ params }) {
   const viewIdx = searchParams.get("view");
 
   const getExplanation = async (question, parentNation) => {
+    try {
+      console.log(parentNation);
+      const msg = `${question} in ${parentNation} language.`;
+      const result = await OpenAiUtill.prompt(msg);
+      return result.message.content;
+    } catch (err) {
+      console.error("Error fetching explanation:", err);
+      return "응답을 가져오는 데 문제가 발생했습니다.";
+    }
+  };
 
-    useEffect(() => {
+  useEffect(() => {
+    if (statisticData) {
+      setParentNation(parent.nationality);
+      console.log(parentNation);
+      let question = "";
 
-      if (statisticData) {
-        // setParentNation(parent.nationality);
-        console.log(statisticData);
-        let question = "";
-
-        switch (viewIdx) {
-          case "1":
-            question = `I'll explain the data for ${JSON.stringify(
-              statisticData[0]
-            )}. 
+      switch (viewIdx) {
+        case "1":
+          question = `I'll explain the data for ${JSON.stringify(
+            statisticData[0]
+          )}. 
           The date is the date the game was played. 
           The key "gamePurpose" is composed of reading, listening, and speaking. 
           The key "level" is from 1 to 5. It gets harder as you go to 5. 
@@ -57,16 +65,15 @@ export default function Statistic({ params }) {
           We're only interested in getting the data interpreted correctly. 
           Please brief the data by gamePurpose, Date and correct Ratio.Except Level in short and simple words. And suggest the direction of study.
             `;
-            if(statisticData[0].length === 0){
-              question = null;
-            }
-            break;
-          case "2":
-            // 목적별 전체 판수.
-            // selectedData = statisticData[1]; // 진도 현황 데이터
-            question = `I'll explain the data for ${JSON.stringify(
-              statisticData[0]
-            )}. 
+          if (statisticData[0].length === 0) {
+            question = null;
+          }
+          break;
+        case "2":
+          // 목적별 전체 판수.
+          question = `I'll explain the data for ${JSON.stringify(
+            statisticData[0]
+          )}. 
           The date is the date the game was played. 
           The key "gamePurpose" is composed of reading, listening, and speaking. 
           The key "level" is from 1 to 5. It gets harder as you go to 5. 
@@ -74,14 +81,13 @@ export default function Statistic({ params }) {
           We're only interested in getting the data interpreted correctly. 
           Please brief the data by gamePurpose and Level in short and simple words. And suggest the direction of study.
             `;
-            if(statisticData[0].length === 0){
-              question = null;
-            }
-            break;
-          case "3":
-            // 전체 유저의 목적별 정답률 correct/total
-            // selectedData = statisticData[2]; // 성취도 비교 데이터
-            question = `I'll explain two data for 
+          if (statisticData[0].length === 0) {
+            question = null;
+          }
+          break;
+        case "3":
+          // 전체 유저의 목적별 정답률 correct/total
+          question = `I'll explain two data for 
           ${JSON.stringify(statisticData[0])},
           \\n 
           this is my child's data.
@@ -103,65 +109,62 @@ export default function Statistic({ params }) {
           we don't need actual data.  
           But suggest the direction of study.
             `;
-            if(statisticData[0].length === 0){
-              question = null;
-            }
-            break;
-          default:
-            break;
-        }
-
-        if (question) {
-          // 전체 유저의 목적별 정답률 correct/total
-          // getExplanation(selectedData, question, parentNation).then(
-            streamPrompt(question)
-          getExplanation(question, parentNation).then((explanation) => {
-            setAiText(explanation);
-          });
-        }else{
-          setAiText("아이가 아직 플레이 하지 않았습니다.");
-        }
-      }
-    }, [statisticData, viewIdx, parent]);
-
-    const renderContent = () => {
-      switch (viewIdx) {
-        case "1":
-          return <Correct />;
-        case "2":
-          return <Progress />;
-        case "3":
-          return <CorrectAnswerRate />;
-        case "4":
-          return <Album id={id} />;
+          if (statisticData[0].length === 0) {
+            question = null;
+          }
+          break;
         default:
-          return <div>선택된 내용이 없습니다.</div>;
+          break;
       }
-    };
 
-    return (
-      <>
-        <BackScoreBtn
-          className={styles.backButton}
-          left={27}
-          top={20}
-          text={translationWords.backScoreBtn}
-        />
-        <div className={styles.data}>
-          <img className={styles.boardImg} src="/databoard.png" alt="" />
-          {renderContent()}
+      if (question) {
+        // 전체 유저의 목적별 정답률 correct/total
+        getExplanation(question, parentNation).then((explanation) => {
+          setAiText(explanation);
+        });
+      } else {
+        setAiText(`${params.id} 의 모습을 구경해 보세요 !`);
+      }
+    }
+  }, [statisticData, viewIdx, parent]);
+
+  const renderContent = () => {
+    switch (viewIdx) {
+      case "1":
+        return <Correct />;
+      case "2":
+        return <Progress />;
+      case "3":
+        return <CorrectAnswerRate />;
+      case "4":
+        return <Album id={id} />;
+      default:
+        return <div>선택된 내용이 없습니다.</div>;
+    }
+  };
+
+  return (
+    <>
+      <BackScoreBtn
+        className={styles.backButton}
+        left={27}
+        top={20}
+        text={translationWords.backScoreBtn}
+      />
+      <div className={styles.data}>
+        <img className={styles.boardImg} src="/databoard.png" alt="" />
+        {renderContent()}
+      </div>
+      <div className={styles.characterSection}>
+        <div className={styles.bubbleContainer}>
+          <img className={styles.bubble} src="/bubble2.png" alt="" />
+          <div className={styles.aiText}>{aiText}</div>
         </div>
-        <div className={styles.characterSection}>
-          <div className={styles.bubbleContainer}>
-            <img className={styles.bubble} src="/bubble2.png" alt="" />
-            <div className={styles.aiText}>{aiText}</div>
-          </div>
-          <img className={styles.character} src="/hehe.png" alt="" />
-        </div>
-        <StatisticBg />
-      </>
-    );
-  }
+        <img className={styles.character} src="/hehe.png" alt="" />
+      </div>
+      <StatisticBg />
+    </>
+  );
 }
 
 // "use client";
