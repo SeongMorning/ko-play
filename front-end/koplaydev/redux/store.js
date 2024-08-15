@@ -26,6 +26,7 @@ import webSocket from "./slices/webSocketSlice";
 import isRank from "./slices/isRankSlice";
 import currNation from "./slices/currNationSlice";
 import translationWords from "./slices/translationWords";
+import currentAvatar from "./slices/currentAvatar";
 
 
 const rootReducer = combineReducers({
@@ -56,6 +57,7 @@ const rootReducer = combineReducers({
   isRank : isRank.reducer,
   currNation : currNation.reducer,
   translationWords : translationWords.reducer,
+  currentAvatar : currentAvatar.reducer
 });
 
 // 전체 상태를 초기화하는 액션을 처리합니다.
