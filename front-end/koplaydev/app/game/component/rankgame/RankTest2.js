@@ -176,25 +176,20 @@ export default function RankTest2() {
               return updatedList;
             });
           }
+          console.log(index)
           if (index === 5) {
             //상대정답개수들어옴
-            console.log("결과" + data)
-            dispatch(setOtherCorrect(data[0]))
+            console.log(data[0])
+            setOtherCorrect(data[0])
             // setOtherCorrect(data[0])
 
             client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
             dispatch(
               changeWrong(wordObjectList.filter((data) => data.state === -1))
             );
-            setCorrect(a);
-            setIncorrect(b);
+
             console.log("게임종료!");
             setModal(true);
-
-            // subscription.unsubscribe();
-            disconnectWebSocket();
-            setClient(null);
-            dispatch(setConnected(false));
             SpeechRecognition.stopListening();
           }
         }
@@ -216,9 +211,10 @@ export default function RankTest2() {
       console.log("a" + a + "b" + b);
       dispatch(changeCorrectIdx(a));
       if (a + b === 20) {
+        setCorrect(a);
+        setIncorrect(b);
+
         client.send("/app/result", {}, JSON.stringify({ roomId: roomId, playerId: userInfo.id, correct: a }));
-
-
       }
     }
   }, [wordObjectList]);
@@ -279,6 +275,10 @@ export default function RankTest2() {
 
   const handleCloseSession = async () => {
     console.log("closeSession");
+    // subscription.unsubscribe();
+    disconnectWebSocket();
+    setClient(null);
+    dispatch(setConnected(false));
     await closeSession();
   };
 
@@ -296,13 +296,13 @@ export default function RankTest2() {
               >
                 <YellowBox width="40" height="70">
                   <div className={styles.text}>
-                    <span className={styles.finish}>
+
                     {correct > otherCorrect ?
-                      이겼어요
+                      <span className={styles.finish}>이겼어요</span>
                       : correct == otherCorrect ?
-                        비겼어요
-                        : 졌어요}
-                    </span>
+                        <span className={styles.finish}>비겼어요</span>
+                        : <span className={styles.finish}>졌어요</span>}
+
                     <span className={styles.correct}>
                       정답 개수 : {correct}
                     </span>
@@ -322,6 +322,7 @@ export default function RankTest2() {
                           bg="#FFD6E0"
                           shadow="#E07A93"
                           text="예"
+                          onclick={handleCloseSession}
                         />
                       </div>
                       <div className={styles.No}>

@@ -1,5 +1,6 @@
 package com.edu.koplay.websocket.controller;
 
+import com.edu.koplay.dto.GameResultDTO;
 import com.edu.koplay.dto.WordDTO;
 import com.edu.koplay.dto.WordGameDataDTO;
 import com.edu.koplay.model.Word;
@@ -86,7 +87,11 @@ public class RankGameController {
     }
 
     @MessageMapping("/result")
-    public void resultGame(Long roomId, String playerId, int correct) throws Exception {
+    public void resultGame(@Payload GameResultDTO gameResultDTO) throws Exception {
+        Long roomId = gameResultDTO.getRoomId();
+        String playerId = gameResultDTO.getPlayerId();
+        int correct = gameResultDTO.getCorrect();
+
         GameRoom myRoom = roomManager.getRoom(roomId);
         List<String> list = myRoom.getClients();
         for (String player : list) {
