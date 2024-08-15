@@ -42,13 +42,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
 //            ,nativeQuery = true)
 //    List<Object[]> findTotalQuestionGameDataGroupedByDateAndPurpose(@Param("studentIdx") Long studentIdx);
 
-    @Query(value = "SELECT DATE(gd.created_at), SUM(gd.total_question), SUM(gd.correct),gp.game_purpose, gd.game_level " +
+    @Query(value = "SELECT DATE(gd.created_at), SUM(gd.total_question), SUM(gd.correct),gp.game_purpose, gd.game_level , gd.game_idx " +
             "FROM koplay.game_data gd " +
             "JOIN koplay.game g ON gd.game_idx = g.game_idx " +
             "JOIN koplay.game_purpose gp ON g.game_idx = gp.game_idx " +
             "WHERE gd.student_idx = :studentIdx "
             +"AND gd.created_at >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) " +
-            "GROUP BY DATE(gd.created_at), gp.game_purpose, gd.game_level "
+            "GROUP BY DATE(gd.created_at), gp.game_purpose, gd.game_level , gd.game_idx "
             +
             "ORDER BY DATE(gd.created_at) DESC "
             ,nativeQuery = true)
@@ -64,11 +64,11 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Object[]> findGameCountPerPurpose(@Param("studentIdx") Long studentIdx);
 
 
-    @Query(value = "SELECT DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i') AS date, gd.correct AS correct, gd.total_question AS question, gp.game_purpose, gd.game_level "+
+    @Query(value = "SELECT DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i') AS date, gd.correct AS correct, gd.total_question AS question, gp.game_purpose, gd.game_level  ,gd.game_idx "+
             "FROM koplay.game_data gd JOIN game g ON gd.game_idx = g.game_idx "+
             "JOIN koplay.game_purpose gp ON g.game_idx = gp.game_idx "+
             "where koplay.gd.student_idx = :studentIdx "+
-            "GROUP BY DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i'), gp.game_purpose, gd.game_level, gd.correct, gd.total_question "+
+            "GROUP BY DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i'), gp.game_purpose, gd.game_level, gd.correct, gd.total_question  ,gd.game_idx "+
             "ORDER BY DATE_FORMAT(gd.created_at, '%Y-%m-%d %H:%i') Desc " +
             "LIMIT 20 "
             ,nativeQuery = true)

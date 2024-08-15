@@ -57,10 +57,10 @@ export default function WordRainEnd() {
     const postGameResult = async () => {
       console.log(gameIdx, correctCnt, isRank, gameList[0], exp);
       const res = await gameResultAxios(
-        1,
+        `${isRank ? 4 : 1}`,
         correctCnt,
         `${isRank ? 20 : 10}`,
-        gameList[0],
+        `${isRank ? 5: gameList[0]}`,
         exp
       );
     };

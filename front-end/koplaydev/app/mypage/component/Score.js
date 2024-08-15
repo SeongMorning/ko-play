@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import styles from "./Score.module.scss";
 
 export default function Score(props) {
+  console.log(props)
   const [correctCnt, setCorrectCnt] = useState(0);
   const [totalCnt, setTotalCnt] = useState(0);
 
@@ -26,8 +27,7 @@ export default function Score(props) {
   useEffect(()=>{
     let correctCount = 0;
     let totalCount = 0;
-
-     props.score.forEach((data)=>{
+    props.score.forEach((data)=>{
       correctCount += data.correctAnswer;
       totalCount += data.totalQuestion;
       
@@ -45,7 +45,9 @@ export default function Score(props) {
           <div key={index} className={styles.recordItem}>
             <div className={styles.recordGameInfo}>
             <span>{data.gamePurpose}</span>
-            <span>Lv. {data.level}</span>
+            {data.rank ? <span>랭크게임</span>:
+              <span>Lv. {data.level}</span>
+            }
             </div>
             <div className={styles.recordInfo}>
                 <span>총 문제 수 : {data.totalQuestion}개, 정답 개수 : {data.correctAnswer}개</span>
