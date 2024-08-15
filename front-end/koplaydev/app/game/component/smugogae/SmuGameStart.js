@@ -13,11 +13,22 @@ import TalkBalloon from "@/app/component/TalkBalloon";
 import PlayJellyBtn from "./PlayJellyBtn";
 import { changeExp } from "@/redux/slices/expSlice";
 import useSound from "@/app/utils/useSound";
+import effectSound from "@/app/utils/effectSound";
 
 const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
+const mouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
+  const correctSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/correctSound.wav";
+  const incorrectSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/incorrectSound.mp3";
+  const modalSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/gameResultModalSound.wav";  
 
 export default function SmuGameStart() {
   useSound(gameBGM, 0.1, 0, 1);
+  const mouseClickEs = effectSound(mouseClickSound, 1);
+  const correctEs = effectSound(correctSound, 1);
+  const incorrectEs = effectSound(incorrectSound, 1);
+  const modalEs = effectSound(modalSound, 1);
+
   const dispatch = useDispatch();
   const wordList = useSelector((state) => state.gameWord);
   const userInfo = useSelector((state) => state.studentInfo);
@@ -136,6 +147,12 @@ export default function SmuGameStart() {
       dispatch(changeExp(totalExp));
     }
   };
+
+  useEffect(() => {
+    if (modal) {
+      modalEs.play();
+    }
+  }, [modal, modalEs]);
 
   return (
     <>
