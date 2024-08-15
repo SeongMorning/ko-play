@@ -11,6 +11,10 @@ import modifyAvatarAxios from "@/app/axios/modifyAvatarAxios";
 import { useDispatch } from "react-redux";
 import { changeCurrentAvatar } from "@/redux/slices/currentAvatar";
 import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice";
+import effectSound from "@/app/utils/effectSound";
+
+const mouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
 
 export default function Cabinet() {
   const [allAvatars, setAllAvatars] = useState([]);
@@ -21,6 +25,7 @@ export default function Cabinet() {
   const [isAvatar, setIsAvatar] = useState(false);
   const [avatarFile, setAvatarFile] = useState("");
   const dispatch = useDispatch();
+  const mouseClickEs = effectSound(mouseClickSound, 0.6);
 
   useEffect(() => {
     const fetchAllAvatars = async () => {
@@ -79,6 +84,7 @@ export default function Cabinet() {
                 scale: isOwned ? 1.1 : 1,
               }}
               onClick={async ()=>{
+                mouseClickEs.play();
                 if(isOwned){
                   let idx = myAvatars.findIndex((data) => data.currentUse === true);
                   if(idx === -1){

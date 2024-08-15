@@ -12,7 +12,7 @@ const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effec
 export default function BlueBtn(props) {
   const myAvatars = useSelector((state) => state.myAvatar)
   const dispatch = useDispatch();
-  const es = effectSound(buttonSound, 1);
+  const es = effectSound(buttonSound, 0.7);
 
   return (
     <>
