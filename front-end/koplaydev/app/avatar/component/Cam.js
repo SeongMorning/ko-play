@@ -31,8 +31,7 @@ const Cam = forwardRef((props, ref) => {
           height: "100%",
         }}
       />
-
-      {(pathName === "/avatar" || pathName === "/game/4" ) && filePath ? (
+      {(pathName === "/avatar" || pathName === "/game/4" ) && props.isAvatar? (
         <img className={styles.img} src={filePath} 
         style={{
           top : filePath.includes("Hat") ? "10%" : "30%"

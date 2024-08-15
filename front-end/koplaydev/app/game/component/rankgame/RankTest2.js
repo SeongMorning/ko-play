@@ -32,18 +32,8 @@ import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import pictureAxios from "@/app/axios/pictureAxios";
 import { changeIsRank } from "@/redux/slices/isRankSlice";
-import useSound from "@/app/utils/useSound";
-import effectSound from '@/app/utils/effectSound'
-
-const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
-const correctSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/correctSound.wav";
-const modalSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/gameResultModalSound.wav";
 
 export default function RankTest2() {
-  useSound(gameBGM, 0.1, 0, 1);
-  const correctEs = effectSound(correctSound, 1);
-  const modalEs = effectSound(modalSound, 1);
-
   const wordList = useSelector((state) => state.gameWord);
   const [wordObjectList, setWordObjectList] = useState(() =>
     wordList.map((word) => ({ ...word }))
@@ -67,7 +57,6 @@ export default function RankTest2() {
   const [capturedImage, setCapturedImage] = useState(null);
   const correctCnt = useSelector((state) => state.correct);
   let [unitScore, setUnitScore] = useState(3);
-  const [otherCorrect, setOtherCorrect] = useState(0);
 
   useEffect(() => { }, []);
 
@@ -77,29 +66,12 @@ export default function RankTest2() {
         backgroundColor: null,
         scale: 2,
       }).then((canvas) => {
-        // 캡쳐된 캔버스를 가져옵니다.
-        const ctx = canvas.getContext('2d');
-        const { width, height } = canvas;
 
-        // 좌우 반전 처리
-        const mirrorCanvas = document.createElement('canvas');
-        mirrorCanvas.width = width;
-        mirrorCanvas.height = height;
-        const mirrorCtx = mirrorCanvas.getContext('2d');
-
-        // 좌우 반전
-        mirrorCtx.save();
-        mirrorCtx.translate(width, 0);
-        mirrorCtx.scale(-1, 1);
-        mirrorCtx.drawImage(canvas, 0, 0);
-        mirrorCtx.restore();
-
-        // 처리된 이미지를 데이터 URL로 변환
-        const mirroredImage = mirrorCanvas.toDataURL("image/png");
+        const image = canvas.toDataURL("image/png");
 
         // 데이터 URL을 Blob이 아닌 File 객체로 변환
-        const byteString = atob(mirroredImage.split(",")[1]);
-        const mimeString = mirroredImage.split(",")[0].split(":")[1].split(";")[0];
+        const byteString = atob(image.split(',')[1]);
+        const mimeString = image.split(',')[0].split(':')[1].split(';')[0];
         const ab = new ArrayBuffer(byteString.length);
         const ia = new Uint8Array(ab);
 
@@ -107,9 +79,8 @@ export default function RankTest2() {
           ia[i] = byteString.charCodeAt(i);
         }
 
-        const file = new File([ab], "image.png", { type: mimeString });
+        const file = new File([ab], 'image.png', { type: mimeString });
 
-        // 상태에 저장
         setCapturedImage(file);
       });
     }
@@ -117,7 +88,7 @@ export default function RankTest2() {
 
   const handleSaveImage = async () => {
     //axios 호출
-    const res = await pictureAxios(capturedImage, "image");
+    const res = await pictureAxios(capturedImage,'image');
     if (res) {
       console.log(res);
     }
@@ -128,7 +99,7 @@ export default function RankTest2() {
       let timer;
       if (count !== null && count > 0) {
         timer = setTimeout(() => setCount(count - 1), 1000);
-        console.log(count);
+        console.log(count)
       } else if (count === 0) {
         setCount(0);
         handleCaptureClick();
@@ -181,26 +152,10 @@ export default function RankTest2() {
               //   setWrong((prev) => [...prev, updatedList[wordIdx]]);
               //   // setIncorrect(incorrect + 1);
               //   dispatch(changeWrong(wrong));
-              // }
+              // }        
 
               return updatedList;
             });
-          }
-          console.log(index)
-          if (index === 5) {
-            //상대정답개수들어옴
-            console.log(data[0])
-            setOtherCorrect(data[0])
-            // setOtherCorrect(data[0])
-
-            client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
-            dispatch(
-              changeWrong(wordObjectList.filter((data) => data.state === -1))
-            );
-
-            console.log("게임종료!");
-            setModal(true);
-            SpeechRecognition.stopListening();
           }
         }
       );
@@ -218,13 +173,23 @@ export default function RankTest2() {
 
       const a = wordObjectList.filter((data) => data.state === 1).length;
       const b = wordObjectList.filter((data) => data.state === -1).length;
-      console.log("a" + a + "b" + b);
+      console.log("a"+a+"b"+b)
       dispatch(changeCorrectIdx(a));
       if (a + b === 20) {
+        client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
+        dispatch(
+          changeWrong(wordObjectList.filter((data) => data.state === -1))
+        );
         setCorrect(a);
         setIncorrect(b);
+        console.log("게임종료!");
+        setModal(true);
 
-        client.send("/app/result", {}, JSON.stringify({ roomId: roomId, playerId: userInfo.id, correct: a }));
+        // subscription.unsubscribe();  
+        disconnectWebSocket();
+        setClient(null);
+        dispatch(setConnected(false));
+        SpeechRecognition.stopListening();
       }
     }
   }, [wordObjectList]);
@@ -275,12 +240,6 @@ export default function RankTest2() {
     [wordObjectList, client, roomId, userInfo.id]
   );
 
-  useEffect(() => {
-    if (modal) {
-      modalEs.play();
-    }
-  }, [modal, modalEs]);
-
   const changeResultList2 = useCallback((index) => {
     setWordObjectList((prevList) => {
       const updatedList = [...prevList].map((prev) => ({ ...prev }));
@@ -291,10 +250,6 @@ export default function RankTest2() {
 
   const handleCloseSession = async () => {
     console.log("closeSession");
-    // subscription.unsubscribe();
-    // disconnectWebSocket();
-    // setClient(null);
-    // dispatch(setConnected(false));
     await closeSession();
   };
 
@@ -312,13 +267,7 @@ export default function RankTest2() {
               >
                 <YellowBox width="40" height="70">
                   <div className={styles.text}>
-
-                    {correct > otherCorrect ?
-                      <span className={styles.finish}>이겼어요</span>
-                      : correct == otherCorrect ?
-                        <span className={styles.finish}>비겼어요</span>
-                        : <span className={styles.finish}>졌어요</span>}
-
+                    <span className={styles.finish}>게임종료</span>
                     <span className={styles.correct}>
                       정답 개수 : {correct}
                     </span>
@@ -338,7 +287,6 @@ export default function RankTest2() {
                           bg="#FFD6E0"
                           shadow="#E07A93"
                           text="예"
-                          // onclick={handleCloseSession}
                         />
                       </div>
                       <div className={styles.No}>
@@ -368,13 +316,7 @@ export default function RankTest2() {
                       className={styles.capturedImage}
                     />
                   ) : (
-                    <Cam
-                      ref={captureRef}
-                      width="100%"
-                      left="0%"
-                      top="4%"
-                      height="70%"
-                    />
+                    <Cam ref={captureRef} width="100%" left="0%" top="4%" />
                   )}
                   {count !== 0 ? (
                     <span className={styles.CamText}>
@@ -383,7 +325,7 @@ export default function RankTest2() {
                   ) : (
                     <>
                       <div className={styles.out}>
-                        <span>사진을 저장할까요?</span>
+                        <span>저장할래?</span>
                         <span
                           onClick={() => {
                             handleSaveImage();
@@ -396,17 +338,13 @@ export default function RankTest2() {
                         >
                           예
                         </span>
-                        <span
-                          onClick={() => {
-                            dispatch(changeExp(unitScore * correctCnt));
-                            dispatch(changeInCorrect(true));
-                            dispatch(changeLoadingIdx(1));
-                            dispatch(changeGamePurposeIdx(4));
-                            handleCloseSession();
-                          }}
-                        >
-                          아니요
-                        </span>
+                        <span onClick={() => {
+                          dispatch(changeExp(unitScore * correctCnt));
+                          dispatch(changeInCorrect(true));
+                          dispatch(changeLoadingIdx(1));
+                          dispatch(changeGamePurposeIdx(4));
+                          handleCloseSession();
+                        }}>아니요</span>
                       </div>
                     </>
                   )}
