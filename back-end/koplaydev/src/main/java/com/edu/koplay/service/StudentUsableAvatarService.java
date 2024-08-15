@@ -35,8 +35,11 @@ public class StudentUsableAvatarService {
         StudentUsableAvatar before = selectAvatarByAvatarIdx(student, beforeAvatar);
         before.setCurrentUse(false);
         //들어온 아바타를 false -> true
-        StudentUsableAvatar after = selectAvatarByAvatarIdx(student, afterAvatar);
-        after.setCurrentUse(true);
+        StudentUsableAvatar after = null;
+        if(afterAvatar != null){
+            after = selectAvatarByAvatarIdx(student, afterAvatar);
+            after.setCurrentUse(true);
+        }
 
         return studentUsableAvatarRepository.findAll();
     }
