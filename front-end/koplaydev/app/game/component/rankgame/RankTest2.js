@@ -181,6 +181,21 @@ export default function RankTest2() {
             console.log("결과" + data)
             dispatch(setOtherCorrect(data[0]))
             // setOtherCorrect(data[0])
+
+            client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
+            dispatch(
+              changeWrong(wordObjectList.filter((data) => data.state === -1))
+            );
+            setCorrect(a);
+            setIncorrect(b);
+            console.log("게임종료!");
+            setModal(true);
+
+            // subscription.unsubscribe();
+            disconnectWebSocket();
+            setClient(null);
+            dispatch(setConnected(false));
+            SpeechRecognition.stopListening();
           }
         }
       );
@@ -203,20 +218,7 @@ export default function RankTest2() {
       if (a + b === 20) {
         client.send("/app/result", {}, JSON.stringify({ roomId: roomId, playerId: userInfo.id, correct: a }));
 
-        client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
-        dispatch(
-          changeWrong(wordObjectList.filter((data) => data.state === -1))
-        );
-        setCorrect(a);
-        setIncorrect(b);
-        console.log("게임종료!");
-        setModal(true);
 
-        // subscription.unsubscribe();
-        disconnectWebSocket();
-        setClient(null);
-        dispatch(setConnected(false));
-        SpeechRecognition.stopListening();
       }
     }
   }, [wordObjectList]);
@@ -294,13 +296,13 @@ export default function RankTest2() {
               >
                 <YellowBox width="40" height="70">
                   <div className={styles.text}>
-                    <span className={styles.finish}>게임종료</span>
+                    <span className={styles.finish}>
                     {correct > otherCorrect ?
-                      <span>이겼어요 !!!</span>
+                      이겼어요
                       : correct == otherCorrect ?
-                        <span>비겼어요</span>
-                        : <span>졌어요...</span>}
-
+                        비겼어요
+                        : 졌어요}
+                    </span>
                     <span className={styles.correct}>
                       정답 개수 : {correct}
                     </span>
