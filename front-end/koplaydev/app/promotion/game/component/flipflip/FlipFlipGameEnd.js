@@ -56,13 +56,13 @@ export default function FlipFlipGameEnd() {
 
   useEffect(() => {
     const postGameResult = async () => {
-      const res = await gameResultAxios(
-        gameIdx,
-        correctCnt,
-        question,
-        gameList[1],
-        exp
-      );
+      // const res = await gameResultAxios(
+      //   gameIdx,
+      //   correctCnt,
+      //   question,
+      //   gameList[1],
+      //   exp
+      // );
     };
     postGameResult();
   }, []);

@@ -189,6 +189,7 @@ export default function SmuGameStart() {
       <div className={styles.gameContainer}>
         <Hint
           hint={audioHints[currentQuestion]?.[currentHintIndex]}
+          volume = {1}
           playHint={playHint}
           rate={speechSpeed}
           onEnd={() => setPlayHint(false)}

@@ -312,10 +312,12 @@ public class StudentController {
                 int question = ((Number) result[2]).intValue();
                 String gamePurpose = (String) result[3];
                 int level = ((Number) result[4]).intValue();
+                Long gameIdx = (Long) result[5];
 
+                boolean isRank = gameIdx == 4;
 
                 // Create a new DTO and add it to the list
-                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(date, correct, question, gamePurpose, level);
+                DailySpecificDTO dailySpecificDTO = new DailySpecificDTO(date, correct, question, gamePurpose, level, isRank);
                 res4.add(dailySpecificDTO);
                 //System.out.println("gameres" + gameResultDTO.toString());
             }

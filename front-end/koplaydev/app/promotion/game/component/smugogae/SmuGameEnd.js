@@ -43,13 +43,13 @@ export default function SmuGameEnd() {
 
   useEffect(() => {
     const postGameResult = async () => {
-      const res = await gameResultAxios(
-        gameIdx,
-        3 - wrongList.length,
-        3,
-        gameList[2],
-        exp
-      );
+      // const res = await gameResultAxios(
+      //   gameIdx,
+      //   3 - wrongList.length,
+      //   3,
+      //   gameList[2],
+      //   exp
+      // );
     };
 
     postGameResult();

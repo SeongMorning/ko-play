@@ -302,7 +302,7 @@ export default function SmuGameEnd() {
                   modelName={languageConfig.modelname}
                   gender={languageConfig.gender}
                 />
-                <div className={styles.ForeignWord}>
+                {languageConfig.nation == 'kr-KR' ? null : <div className={styles.ForeignWord}>
                   {data[languageConfig.foreign]}
                   <img
                     src="/WordSound.png"
@@ -310,7 +310,8 @@ export default function SmuGameEnd() {
                       speakForeignWord(data[languageConfig.foreign])
                     }
                   />
-                </div>
+                </div>}
+
               </motion.div>
             ))}
           </motion.div>
