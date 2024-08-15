@@ -58,7 +58,7 @@ export default function RankTest2() {
   const correctCnt = useSelector((state) => state.correct);
   let [unitScore, setUnitScore] = useState(3);
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   const handleCaptureClick = () => {
     if (captureRef.current) {
@@ -66,12 +66,11 @@ export default function RankTest2() {
         backgroundColor: null,
         scale: 2,
       }).then((canvas) => {
-
         const image = canvas.toDataURL("image/png");
 
         // 데이터 URL을 Blob이 아닌 File 객체로 변환
-        const byteString = atob(image.split(',')[1]);
-        const mimeString = image.split(',')[0].split(':')[1].split(';')[0];
+        const byteString = atob(image.split(",")[1]);
+        const mimeString = image.split(",")[0].split(":")[1].split(";")[0];
         const ab = new ArrayBuffer(byteString.length);
         const ia = new Uint8Array(ab);
 
@@ -79,7 +78,7 @@ export default function RankTest2() {
           ia[i] = byteString.charCodeAt(i);
         }
 
-        const file = new File([ab], 'image.png', { type: mimeString });
+        const file = new File([ab], "image.png", { type: mimeString });
 
         setCapturedImage(file);
       });
@@ -88,7 +87,7 @@ export default function RankTest2() {
 
   const handleSaveImage = async () => {
     //axios 호출
-    const res = await pictureAxios(capturedImage,'image');
+    const res = await pictureAxios(capturedImage, "image");
     if (res) {
       console.log(res);
     }
@@ -99,7 +98,7 @@ export default function RankTest2() {
       let timer;
       if (count !== null && count > 0) {
         timer = setTimeout(() => setCount(count - 1), 1000);
-        console.log(count)
+        console.log(count);
       } else if (count === 0) {
         setCount(0);
         handleCaptureClick();
@@ -152,7 +151,7 @@ export default function RankTest2() {
               //   setWrong((prev) => [...prev, updatedList[wordIdx]]);
               //   // setIncorrect(incorrect + 1);
               //   dispatch(changeWrong(wrong));
-              // }        
+              // }
 
               return updatedList;
             });
@@ -173,7 +172,7 @@ export default function RankTest2() {
 
       const a = wordObjectList.filter((data) => data.state === 1).length;
       const b = wordObjectList.filter((data) => data.state === -1).length;
-      console.log("a"+a+"b"+b)
+      console.log("a" + a + "b" + b);
       dispatch(changeCorrectIdx(a));
       if (a + b === 20) {
         client.send("/app/out", {}, JSON.stringify({ roomId: roomId }));
@@ -185,7 +184,7 @@ export default function RankTest2() {
         console.log("게임종료!");
         setModal(true);
 
-        // subscription.unsubscribe();  
+        // subscription.unsubscribe();
         disconnectWebSocket();
         setClient(null);
         dispatch(setConnected(false));
@@ -316,7 +315,13 @@ export default function RankTest2() {
                       className={styles.capturedImage}
                     />
                   ) : (
-                    <Cam ref={captureRef} width="100%" left="0%" top="4%" height="70%" />
+                    <Cam
+                      ref={captureRef}
+                      width="100%"
+                      left="0%"
+                      top="4%"
+                      height="70%"
+                    />
                   )}
                   {count !== 0 ? (
                     <span className={styles.CamText}>
@@ -325,7 +330,7 @@ export default function RankTest2() {
                   ) : (
                     <>
                       <div className={styles.out}>
-                        <span>저장할래?</span>
+                        <span>사진을 저장할까요?</span>
                         <span
                           onClick={() => {
                             handleSaveImage();
@@ -338,13 +343,17 @@ export default function RankTest2() {
                         >
                           예
                         </span>
-                        <span onClick={() => {
-                          dispatch(changeExp(unitScore * correctCnt));
-                          dispatch(changeInCorrect(true));
-                          dispatch(changeLoadingIdx(1));
-                          dispatch(changeGamePurposeIdx(4));
-                          handleCloseSession();
-                        }}>아니요</span>
+                        <span
+                          onClick={() => {
+                            dispatch(changeExp(unitScore * correctCnt));
+                            dispatch(changeInCorrect(true));
+                            dispatch(changeLoadingIdx(1));
+                            dispatch(changeGamePurposeIdx(4));
+                            handleCloseSession();
+                          }}
+                        >
+                          아니요
+                        </span>
                       </div>
                     </>
                   )}

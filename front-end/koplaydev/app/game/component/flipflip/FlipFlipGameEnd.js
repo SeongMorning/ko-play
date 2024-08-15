@@ -11,13 +11,15 @@ import ChangeNation from "@/app/avatar/component/ChangeNation";
 import FlipFlipGameJellyBtn from "./FlipFlipGameJellyBtn";
 import RewardJellyBtn from "../RewardJellyBtn";
 import TextToSpeech from "../TextToSpeech";
-import effectSound from '@/app/utils/effectSound'
-import useEffectSound from '@/app/utils/useEffectSound'
+import effectSound from "@/app/utils/effectSound";
+import useEffectSound from "@/app/utils/useEffectSound";
 
-const rewardSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound.wav";
-const rewardSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound2.wav';
-const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
-
+const rewardSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound.wav";
+const rewardSound2 =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound2.wav";
+const buttonSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3";
 
 export default function FlipFlipGameEnd() {
   useEffectSound(rewardSound2, 0.7, 0, 1);
@@ -92,28 +94,33 @@ export default function FlipFlipGameEnd() {
     nation: "kr-KR",
     foreign: "wordKor",
     modelname: "ko-KR-Neural2-C",
+    gender: "MALE",
   });
 
   useEffect(() => {
     let nation = "kr-KR";
     let foreign = "wordKor";
     let modelname = "ko-KR-Neural2-C";
+    let gender = "MALE";
 
     if (userInfo.nation === "Tailand") {
       nation = "th-TH";
       foreign = "wordThailand";
       modelname = "th-TH-Neural2-C";
+      gender = "FEMALE";
     } else if (userInfo.nation === "Vietnam") {
       nation = "vi-VN";
       foreign = "wordVietnam";
       modelname = "vi-VN-Neural2-D";
+      gender = "MALE";
     } else if (userInfo.nation === "China") {
       nation = "zh-CN";
       foreign = "wordChina";
       modelname = "zh-CN-Neural2-C";
+      gender = "MALE";
     }
 
-    setLanguageConfig({ nation, foreign, modelname });
+    setLanguageConfig({ nation, foreign, modelname, gender });
   }, [userInfo.nation]);
 
   const speakWord = (word) => {
@@ -312,6 +319,7 @@ export default function FlipFlipGameEnd() {
                   text={ttsText}
                   languageCode={languageConfig.nation}
                   modelName={languageConfig.modelname}
+                  gender={languageConfig.gender}
                 />
                 <div className={styles.ForeignWord}>
                   {data[languageConfig.foreign]}

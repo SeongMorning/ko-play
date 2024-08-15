@@ -9,17 +9,20 @@ import { OpenAiUtill } from "@/app/utils/OpenAiUtill";
 import { changeHints } from "@/redux/slices/hintsSlice";
 import effectSound from "@/app/utils/effectSound";
 
-const countdownSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/beepSound.wav";
+const countdownSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/beepSound.wav";
 
 export default function SmuGameStartBtn() {
   const [countdown, setCountdown] = useState(null);
   const [gameStarted, setGameStarted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [gameReady, setGameReady] = useState(false);
   const dispatch = useDispatch();
   const gameIdx = useSelector((state) => state.game);
   const levelList = useSelector((state) => state.level);
   const hintList = useSelector((state) => state.hints);
   const es = effectSound(countdownSound, 1);
-  
+
   function convertTo3x3Grid(data) {
     const grid = [];
     for (let i = 0; i < 3; i++) {
@@ -29,11 +32,7 @@ export default function SmuGameStartBtn() {
   }
   useEffect(() => {
     const fetchGameWord = async () => {
-      const data = await gameWordAxios(
-        gameIdx,
-        1,
-        9
-      );
+      const data = await gameWordAxios(gameIdx, 1, 9);
       if (data) {
         const gridData = convertTo3x3Grid(data);
         dispatch(changeGameWord(gridData));
@@ -100,48 +99,30 @@ export default function SmuGameStartBtn() {
             audioHints: audioHintsResponse,
           })
         );
+        setGameReady(true);
+        setLoading(false);
       }
     };
     fetchGameWord();
-  }, [gameIdx, levelList]);
+  }, [gameIdx, levelList, dispatch]);
 
   useEffect(() => {
-    let timer;
-    if (countdown !== null && countdown > 0) {
-      timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-    } else if (countdown === 0) {
-      setGameStarted(true);
-      dispatch(changeLoadingIdx(0));
-      setCountdown(null);
+    if (gameReady) {
+      dispatch(changeLoadingIdx(0)); // 준비가 완료되면 게임 시작
     }
-
-    return () => clearTimeout(timer);
-  }, [countdown]);
-
-  const handleStartClick = () => {
-    setCountdown(3);
-  };
+  }, [gameReady, dispatch]);
 
   return (
-    <div className={styles.GameStartBtn} onClick={handleStartClick}>
-      {!gameStarted ? (
+    <div className={styles.GameStartBtn}>
+      {!gameReady ? (
         <>
-          {countdown === null ? (
-            <>
-              <div className={styles.GameStartBtnTop}>시작</div>
-              <div className={styles.GameStartBtnBottom}>시작</div>
-            </>
-          ) : (
-            <>
-              <div className={styles.GameStartBtnTop}>{countdown}</div>
-              <div className={styles.GameStartBtnBottom}>{countdown}</div>
-            </>
-          )}
+          <div className={styles.GameStartBtnTop}>준비중...</div>
+          <div className={styles.GameStartBtnBottom}>준비중...</div>
         </>
       ) : (
         <>
-          <div className={styles.GameStartBtnTop}>게임 화면!</div>
-          <div className={styles.GameStartBtnBottom}>게임 화면!</div>
+          <div className={styles.GameStartBtnTop}>게임 시작!</div>
+          <div className={styles.GameStartBtnBottom}>게임 시작!</div>
         </>
       )}
     </div>

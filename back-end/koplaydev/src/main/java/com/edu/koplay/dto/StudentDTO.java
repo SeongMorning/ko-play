@@ -31,6 +31,7 @@ public class StudentDTO {
     private int totalGameCount;
     private String nation;
     private boolean visited;
+    private String currAvatar;
 
     public StudentDTO(final Student studentEntity
     ) {

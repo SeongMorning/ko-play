@@ -15,6 +15,7 @@ const nextConfig = {
     // customKey: "http://localhost:8080",
     OPEN_AI_KEY: "sk-proj-1aXEx816H7ZmZbZQv6PpT3BlbkFJDvOpDCe9zriyPOeTkkn6",
     GOOGLE_TEXT_TO_SPEECH_KEY: "AIzaSyD1B-sZqzSBPxN33TPmv2XkKUuL08_ejkI",
+    // GOOGLE_TEXT_TO_SPEECH_KEY: "AIzaSyBZMdaeeQmrb9_mHMPQxZCygFk65ek_7_c",
   },
 };
 

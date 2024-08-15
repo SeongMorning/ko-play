@@ -27,6 +27,7 @@ import useSound from "@/app/utils/useSound";
 import translations from "../axios/translations";
 import { changeTranslationWords } from "@/redux/slices/translationWords";
 import effectSound from '@/app/utils/effectSound'
+import { changeCurrNation } from "@/redux/slices/currNationSlice";
 
 const albumBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/albumBGM.wav';
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
@@ -46,14 +47,28 @@ export default function Parent() {
 
   const parentChilds = useSelector((state) => state.parentChilds);
 
+  const nations = [
+    { name: "Korea", src: "/korea-3.png", locale: "ko-KR" },
+    { name: "Thailand", src: "/thailand-parent-choice.png", locale: "th-TH" },
+    { name: "China", src: "/china-3.png", locale: "zh-CN" },
+    { name: "Vietnam", src: "/vietnam-3.png", locale: "vi-VN" },
+  ];
+
+  
+
   useEffect(() => {
     const fetchParentInfo = async () => {
       const data = await parentInfoAxios();
-
+      console.log(data);
       if (data) {
-        changeParentInfo(data)
+        dispatch(changeParentInfo(data))
         if (!data.visited) {
           setIsFirstModalOpen(true);
+        }
+        if(data.nationality){
+          const index = nations.findIndex((data2) => data2.name === data.nationality)
+          dispatch(changeCurrNation(data.nationality));
+          dispatch(changeTranslationWords(await translations(nations[index].locale)));
         }
       }
     }
