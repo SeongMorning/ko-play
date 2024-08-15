@@ -32,8 +32,11 @@ public class StudentUsableAvatarService {
 
     public List<StudentUsableAvatar> updateAvatar(Student student, Avatar beforeAvatar, Avatar afterAvatar) {
         //만약 적용버튼 누르면 기존꺼를 true -> false
-        StudentUsableAvatar before = selectAvatarByAvatarIdx(student, beforeAvatar);
-        before.setCurrentUse(false);
+        StudentUsableAvatar before = null;
+        if(beforeAvatar != null) {
+            before = selectAvatarByAvatarIdx(student, beforeAvatar);
+            before.setCurrentUse(false);
+        }
         //들어온 아바타를 false -> true
         StudentUsableAvatar after = null;
         if(afterAvatar != null){
