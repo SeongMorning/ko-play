@@ -4,11 +4,16 @@ import styles from "./BlueBtn.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import modifyAvatarAxios from "@/app/axios/modifyAvatarAxios";
 import { setStudentAvatars } from "@/redux/slices/studentAvatarSlice";
+import effectSound from '@/app/utils/effectSound'
+
+const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
 
 // props : width, height, top, left, radius, click
 export default function BlueBtn(props) {
   const myAvatars = useSelector((state) => state.myAvatar)
   const dispatch = useDispatch();
+  const es = effectSound(buttonSound, 1);
+
   return (
     <>
       <motion.div
@@ -30,6 +35,7 @@ export default function BlueBtn(props) {
           borderRadius: props.radius,
         }}
         onClick={async ()=>{
+          es.play();
           props.setIsAvatar(false);
           console.log(myAvatars);
           const idx = myAvatars.avatars.findIndex((data) => data.currentUse === true);

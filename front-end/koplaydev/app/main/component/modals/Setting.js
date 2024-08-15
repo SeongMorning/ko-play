@@ -82,6 +82,7 @@ export default function Setting() {
     }
   };
   const changeImgClick = () => {
+    mouseClickEs.play();
     fileInputRef.current.click();
   };
 
@@ -215,7 +216,7 @@ export default function Setting() {
                         color: "red",
                         fontWeight: "bold",
                         fontSize: "calc((3vw + 1vh)/2)",
-                        marginTop: "5%",
+                        marginTop: "4%",
                       }}
                     >
                       {translationWords.checkPasswordPlease}

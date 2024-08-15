@@ -2,9 +2,15 @@
 
 import styles from "./PlayJellyBtn.module.scss";
 import { motion } from "framer-motion";
+import effectSound from "@/app/utils/effectSound";
+
+const mouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
 
 // props : left, top, bg, shadow, imgSrc, onClick
 export default function PlayJellyBtn(props) {
+  const mouseClickEs = effectSound(mouseClickSound, 1);
+  
   return (
     <motion.div
       style={{ left: props.left, top: props.top }}
