@@ -60,10 +60,6 @@ export default function GameTutorial() {
     propObject[2].text = translationWords.listen;
   }, [translationWords]); 
 
-  const [selectedNation, setSelectedNation] = useState(currNation);
- const handleCountryChange = (country) => {
-    setSelectedCountry(country);
-  };
   useEffect(() => {
     const fetchGameList = async () => {
       const data = await gameListAxios();
@@ -110,7 +106,7 @@ export default function GameTutorial() {
             ></img>
           </div>
         </div>
-        <GameSelect idx={gamePurposeIdx} selectedCountry={selectedNation} gamestart={translationWords.gameStart}/>
+        <GameSelect idx={gamePurposeIdx} selectedCountry={currNation} gamestart={translationWords.gameStart}/>
         {gamePurposeIdx === 0 ? null : (
           <motion.div
             initial={{
@@ -127,7 +123,6 @@ export default function GameTutorial() {
               left="14vw"
               top="60vh"
               imgSize="calc(3vw + 5vh)"
-              setSelectedNation={handleCountryChange}
             />
           </motion.div>
         )}
