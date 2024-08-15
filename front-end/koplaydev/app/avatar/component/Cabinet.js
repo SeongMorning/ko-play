@@ -40,17 +40,20 @@ export default function Cabinet() {
       if (data) {
         setMyAvatars(data);
         console.log(data);
+        const idx = data.findIndex((avatar)=> avatar.currentUse === true)
+        if(idx === -1){
+          setIsAvatar(false)
+        }else{
+          setIsAvatar(true)
+          dispatch(changeCurrentAvatar(data[idx].avatar.avatarFile))
+        }
+        
       }
     };
 
     fetchAllAvatars();
     fetchMyAvatars();
   }, []);
-
-  const modifyAvatar = () => {
-    const beforeAvatarIdx = 0
-    console.log(myAvatars);
-  }
 
   const filteredAvatars = allAvatars.filter(
     (avatar) => avatar.countryName === selectedCountry
@@ -63,7 +66,6 @@ export default function Cabinet() {
     indexOfFirstAvatar,
     indexOfLastAvatar
   );
-  console.log(currentAvatars);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
