@@ -32,7 +32,7 @@ export default function FirstVisit() {
                 translationWords.school + translationWords.schoolPlaceholder
               }
               onChange={(e) => 
-                {
+                { 
                   keydownEs.play();
                   setSchool(e.target.value)
                 }}
