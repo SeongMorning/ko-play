@@ -32,10 +32,10 @@ export default function ChildProfileCard({ name, birth, src, id, bgColor }) {
 
     return (
         <>
-            <div className={`${styles.profileCard} ${styles.profileCardBg}`} style={color}>
+            <div className={`${styles.profileCard} ${styles.profileCardBg}`} style={color}  onClick={handleProfileClick} >
                 <img className={styles.closeButton} src="close.png" alt="close" onClick={() => handleClick(id)}/>
                 <div>
-                    <div className={styles.profileInput} onClick={handleProfileClick} >
+                    <div className={styles.profileInput}>
                         <img className={styles.profileImg} src={src || "hehe.png"} alt={name}
                             onError={(e) => { e.target.src = "hehe.png"; }}
                         />
