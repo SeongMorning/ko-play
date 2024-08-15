@@ -9,6 +9,7 @@
 - 프레임 워크 : Next.js (v14.2.5)
 - CSS : SASS
 - 언어 : Javascript
+- 라이브러리 : Framer Motion, Redux
 
 ### Backend
 - 프레임 워크 : Spring boot (v3.3.2)
