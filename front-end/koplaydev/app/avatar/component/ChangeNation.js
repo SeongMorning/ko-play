@@ -14,7 +14,7 @@ export default function ChangeNation({
   imgSize,
   setSelectedCountry,
 }) {
-  const currNation = useSelector((state) => state.currNation);
+  // const currNation = useSelector((state) => state.currNation);
 
   // props를 destructuring합니다.
   const nations = [
@@ -23,7 +23,6 @@ export default function ChangeNation({
     { name: "China", src: "/china-3.png" },
     { name: "Vietnam", src: "/vietnam-3.png" },
   ];
-  const [selectedNation, setSelectedNation] = useState(currNation);
   const handleNationClick = (nation) => {
     setSelectedNation(nation.name);
     setSelectedCountry(nation.name)
