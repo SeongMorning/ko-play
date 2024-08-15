@@ -58,7 +58,7 @@ export default function Comparison({ childId }) {
         // '단어비', '플립플립', '스무고개'로 필터링
         const purposeMapping = {
           '말하기': '단어비',
-          '읽기': '플립플립',
+          '읽기': '뒤집기',
           '듣기': '스무고개'
         };
 

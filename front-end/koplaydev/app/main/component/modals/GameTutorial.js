@@ -41,20 +41,20 @@ let propObject = [
   },
 ];
 
-let gameList = [["게임비"], ["플립플립"], ["스무고개"]];
+let gameList = [["게임비"], ["뒤집기"], ["스무고개"]];
 
 export default function GameTutorial() {
   const translationWords = useSelector((state) => state.translationWords);
+  const currNation = useSelector((state) => state.currNation);
 
-  const [selectedCountry, setSelectedCountry] = useState("Korea");
   const dispatch = useDispatch();
   const gamePurposeIdx = useSelector((state) => state.gamePurpose);
   const ref = useRef(null);
 
   useEffect(() => {
     gameList[0][0] = translationWords.wordRain;
-    gameList[0][1] = translationWords.flipflip;
-    gameList[0][2] = translationWords.smugogae;
+    gameList[1][0] = translationWords.flipflip;
+    gameList[2][0] = translationWords.smugogae;
     propObject[0].text = translationWords.speak;
     propObject[1].text = translationWords.read;
     propObject[2].text = translationWords.listen;
@@ -69,6 +69,10 @@ export default function GameTutorial() {
         let listenGame = data.filter((value) => value.gamePurposeIdx === 3);
 
         gameList = [[...speechGame], [...readGame], [...listenGame]];
+
+        gameList[0][0].gameName = translationWords.wordRain;
+        gameList[1][0].gameName = translationWords.flipflip;
+        gameList[2][0].gameName = translationWords.smugogae;
       }
     };
     fetchGameList();
@@ -102,7 +106,7 @@ export default function GameTutorial() {
             ></img>
           </div>
         </div>
-        <GameSelect idx={gamePurposeIdx} selectedCountry={selectedCountry} gamestart={translationWords.gameStart}/>
+        <GameSelect idx={gamePurposeIdx} selectedCountry={currNation} gamestart={translationWords.gameStart}/>
         {gamePurposeIdx === 0 ? null : (
           <motion.div
             initial={{
@@ -119,7 +123,6 @@ export default function GameTutorial() {
               left="14vw"
               top="60vh"
               imgSize="calc(3vw + 5vh)"
-              setSelectedCountry={setSelectedCountry}
             />
           </motion.div>
         )}
