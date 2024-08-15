@@ -292,9 +292,9 @@ export default function RankTest2() {
   const handleCloseSession = async () => {
     console.log("closeSession");
     // subscription.unsubscribe();
-    disconnectWebSocket();
-    setClient(null);
-    dispatch(setConnected(false));
+    // disconnectWebSocket();
+    // setClient(null);
+    // dispatch(setConnected(false));
     await closeSession();
   };
 
