@@ -63,7 +63,7 @@ export default function FirstVisit() {
             />
           </WhiteBox>
         </div>
-        {school.endsWith(translationWords.school) &&
+        {school.endsWith('학교') &&
         nickname.length <= 7 &&
         nickname.length >= 2 ? (
           <div className={styles.OK}>
