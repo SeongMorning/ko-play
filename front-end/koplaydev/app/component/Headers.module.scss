@@ -3,6 +3,7 @@
   right: 0;
   z-index: 11;
   height: 7vh;
+  // margin-left: 10%;
 
   img {
     position: relative;
@@ -11,4 +12,23 @@
     margin: 0.5vw;
     cursor: url("/smile-star-hover.svg") 30 30, auto;
   }
+  .muteIcon {
+    // margin-top: 1vw;
+    width: 3vw; 
+    height: 5.2vh;
+    cursor: pointer;
+    // margin-left: 1vw;
+    position: relative;
 }
+}
+
+// .muteIcon {
+//   width: 30px;
+//   height: 30px;
+//   cursor: pointer;
+//   // margin-right: 10%;
+//   // position: absolute;
+//   // top: 10px;
+//   // right: 10px;
+//   // z-index: 100;
+// }
