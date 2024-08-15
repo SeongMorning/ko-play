@@ -292,9 +292,9 @@ export default function RankTest2() {
   const handleCloseSession = async () => {
     console.log("closeSession");
     // subscription.unsubscribe();
-    disconnectWebSocket();
-    setClient(null);
-    dispatch(setConnected(false));
+    // disconnectWebSocket();
+    // setClient(null);
+    // dispatch(setConnected(false));
     await closeSession();
   };
 
@@ -338,7 +338,7 @@ export default function RankTest2() {
                           bg="#FFD6E0"
                           shadow="#E07A93"
                           text="예"
-                          onclick={handleCloseSession}
+                          // onclick={handleCloseSession}
                         />
                       </div>
                       <div className={styles.No}>
