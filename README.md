@@ -227,7 +227,7 @@ client-id, client-secret, redirect-uri, authorization_uri, token_uri, user-info-
 
 오답을 다시 읽어주는 기능 중 외국어 부분에서 사용.
 
-a. 프론트엔드 설정파일\[Frontend env file](front-end/koplaydev/next.config.mjs)
+a. 프론트엔드 설정파일[Frontend env file](front-end/koplaydev/next.config.mjs)
 GOOGLE_TEXT_TO_SPEECH_KEY에 본인의 GOOGLE API 키를 입력.
 
 ### 4. STT
@@ -247,5 +247,5 @@ useSpeechRecognition,
 
 npm install openai 을 해서 외부 라이브러리를 설치.
 
-a. 프론트엔드 설정파일\[Frontend env file](front-end/koplaydev/next.config.mjs)
+a. 프론트엔드 설정파일[Frontend env file](front-end/koplaydev/next.config.mjs)
 OPEN_AI_KEY에 본인의 OPENAI API 키를 입력.
