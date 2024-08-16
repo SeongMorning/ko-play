@@ -9,7 +9,7 @@ const fanfareBGM = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/backgr
 
 // props : left, top, users[name, image, plays, level]
 export default function Podium(props) {
-  useSound(fanfareBGM, 0.1, 0);
+  useSound(fanfareBGM, 0.3, 0);
 
   const translationWords = useSelector((state) => state.translationWords);
 
