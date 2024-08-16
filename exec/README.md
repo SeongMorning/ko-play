@@ -177,19 +177,22 @@ a. backend 설정파일 폴더 \
 ## 외부 서비스 정보
 
 ### 1. S3
+
 프로젝트에서 사용하는 모든 사진과 음악은 S3에 저장을 해서 사용함. 프로젝트를 진행하면서 루트 계정을 전 팀원에게 공유할 수 없어 S3만 전 권한을 가지는 IAM 계정을 생성해 공유.
 
 a. aws root 계정에서 S3 서비스에 사용할 bucket 생성. \
 
 **⚠️ 주의사항 : 생성시 PublicAccess 차단 설정을 해제해 놓아야 함**
+
 - 버킷 접속 -> 권한 -> 버킷 정책이 제대로 작성되었는지 확인
 
 b. S3에 S3fullAccess 권한을 가지는 IAM 계정 생성
- - (AWS Management Console에 대한 사용자 액세스 권한 제공) 체크
- - (IAM 사용자를 생성하고 싶음) 선택
- - AmazonS3FullAccess 추가
 
- 과정을 무사히 완료했다면 사용자 이름과 pw, 접속 경로가 적힌 .csv파일을 받을 수 있다.
+- (AWS Management Console에 대한 사용자 액세스 권한 제공) 체크
+- (IAM 사용자를 생성하고 싶음) 선택
+- AmazonS3FullAccess 추가
+
+과정을 무사히 완료했다면 사용자 이름과 pw, 접속 경로가 적힌 .csv파일을 받을 수 있다.
 
 c. 팀원이 해당 파일의 링크에 접속해 해당 파일의 id,pw를 입력하면 s3를 사용할 수 있다.
 
@@ -197,6 +200,34 @@ troubleShooting) S3 접속시 CORS 에러가 날 수 있다. 버킷 접속->권�
 
 ### 2. 소셜 인증
 
+부모 로그인 부분에서 사용.
+다문화 가정임을 고려하여 가장 간단한 방식을 채택하였다.
+a. 백엔드 설정파일\[Backend] env file](back-end/koplaydev/src/main/resources)
+client-id, client-secret, redirect-uri, authorization_uri, token_uri, user-info-uri 등의 auth 코드, access 토근 발급에 필요한 정보를 입력.
+
 ### 3. TTS
 
-### 4. Open API
+오답을 다시 읽어주는 기능 중 외국어 부분에서 사용.
+
+a. 프론트엔드 설정파일[Frontend env file](front-end/koplaydev/next.config.mjs)
+GOOGLE_TEXT_TO_SPEECH_KEY에 본인의 GOOGLE API 키를 입력.
+
+### 4. STT
+
+단어비 게임에서 음성인식 후 텍스트로 번역에서 사용.
+
+내장 라이브러리 사용으로 코드 상단에
+import SpeechRecognition, {
+useSpeechRecognition,
+} from "react-speech-recognition";
+
+붙여주고 사용.
+
+### 5. OpenAI API
+
+스무고개 게임의 힌트를 생성하는 부분에서 사용. 학부모의 학생 통계 정보를 외국어로 설명하는 부분에서 사용.
+
+npm install openai 을 해서 외부 라이브러리를 설치.
+
+a. 프론트엔드 설정파일[Frontend env file](front-end/koplaydev/next.config.mjs)
+OPEN_AI_KEY에 본인의 OPENAI API 키를 입력.
