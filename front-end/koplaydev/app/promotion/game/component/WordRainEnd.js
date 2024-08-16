@@ -17,10 +17,14 @@ import useEffectSound from '@/app/utils/useEffectSound'
 const rewardSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound.wav";
 const rewardSound2 = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/awardSound2.wav';
 const buttonSound = 'https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/buttonSound.mp3';
+const mouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
 
 export default function WordRainEnd() {
   useEffectSound(rewardSound2, 0.4, 0, 1);
   const es = effectSound(buttonSound, 1);
+  const mouseClickEs = effectSound(mouseClickSound, 1);
+  const rewardSoundEs = effectSound(rewardSound, 1);
 
   const userInfo = useSelector((state) => state.studentInfo);
   const wrongList = useSelector((state) => state.wrong);
@@ -168,9 +172,11 @@ export default function WordRainEnd() {
   }, [afterExp, beforeExp, expAnimation]);
 
   const handleCountrySelect = async (country) => {
+    mouseClickEs.play();
     setSelectedCountry(country);
     const newAvatarData = await newAvatarAxios(country);
     if (newAvatarData) {
+      rewardSoundEs.play();
       setNewAvatars(newAvatarData);
       setShowAvatar(true);
     }
