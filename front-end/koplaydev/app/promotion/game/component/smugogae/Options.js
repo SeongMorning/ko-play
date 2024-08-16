@@ -3,6 +3,10 @@
 import { useState, useEffect } from "react";
 import styles from "./Options.module.scss";
 import CardText from "./CardText";
+import effectSound from "@/app/utils/effectSound";
+
+const mouseClickSound =
+  "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/mouseClickSound.mp3";
 
 export default function Options({ words, onGuess, correctWord, reset }) {
   const [selectedWord, setSelectedWord] = useState(null);
@@ -12,6 +16,7 @@ export default function Options({ words, onGuess, correctWord, reset }) {
   }, [reset]);
 
   const handleCardClick = (word) => {
+    mouseClickEs.play();
     setSelectedWord(word);
     onGuess(word);
   };

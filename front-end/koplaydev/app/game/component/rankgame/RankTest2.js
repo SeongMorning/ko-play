@@ -32,8 +32,19 @@ import { changeLoadingIdx } from "@/redux/slices/loadingSlice";
 import { changeGamePurposeIdx } from "@/redux/slices/gamePurposeSlice";
 import pictureAxios from "@/app/axios/pictureAxios";
 import { changeIsRank } from "@/redux/slices/isRankSlice";
+import useSound from "@/app/utils/useSound";
+import effectSound from '@/app/utils/effectSound'
+
+const gameBGM = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/FlipFlipgameBGM.mp3";
+const gameBGm2 = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/background/WordRaingameBGM.mp3";
+const correctSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/correctSound.wav";
+const modalSound = "https://ko-play.s3.ap-northeast-2.amazonaws.com/audio/effect/gameResultModalSound.wav";
 
 export default function RankTest2() {
+  useSound(gameBGM, 0.1, 0, 1);
+  const correctEs = effectSound(correctSound, 1);
+  const modalEs = effectSound(modalSound, 1);
+
   const wordList = useSelector((state) => state.gameWord);
   const [wordObjectList, setWordObjectList] = useState(() =>
     wordList.map((word) => ({ ...word }))
@@ -197,6 +208,7 @@ export default function RankTest2() {
   useEffect(() => {
     let CorrectWord = viewWord.filter((data) => data.wordKor === transcript);
     if (CorrectWord.length === 1) {
+      correctEs.play();
       let index = wordObjectList.findIndex(
         (data) => data.wordKor === transcript
       );
@@ -239,6 +251,12 @@ export default function RankTest2() {
     },
     [wordObjectList, client, roomId, userInfo.id]
   );
+
+  useEffect(() => {
+    if (modal) {
+      modalEs.play();
+    }
+  }, [modal, modalEs]);
 
   const changeResultList2 = useCallback((index) => {
     setWordObjectList((prevList) => {
