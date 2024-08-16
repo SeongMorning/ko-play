@@ -218,6 +218,11 @@ troubleShooting) S3 접속시 CORS 에러가 날 수 있다. 버킷 접속->권�
 
 ### 2. 소셜 인증
 
+부모 로그인 부분에서 사용.
+다문화 가정임을 고려하여 가장 간단한 방식을 채택하였다.
+a. 백엔드 설정파일\[Backend] env file](back-end/koplaydev/src/main/resources)
+client-id, client-secret, redirect-uri, authorization_uri, token_uri, user-info-uri 등의 auth 코드, access 토근 발급에 필요한 정보를 입력.
+
 ### 3. TTS
 
 오답을 다시 읽어주는 기능 중 외국어 부분에서 사용.
