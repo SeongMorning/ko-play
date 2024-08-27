@@ -3,41 +3,1029 @@
 다문화 초등학생을 위한 한국어 교육 게이미피케이션 서비스\
 (게이미피케이션 : 게임이 아닌 애플리케이션에 애플리케이션 사용을 권장하기 위해 게임 플레이 기법을 적용하는 것)
 
+## 개발팀 소개
+
+| 허지영 (FULL) | 구재승 (INFRA) | 권지인 (FRONT) |
+| --- | --- | --- | 
+| <img src="https://avatars.githubusercontent.com/u/93931316?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/120040559?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/156158673?v=4" width="300" height="300"/>
+| [@jiyoung-Heo](https://github.com/jiyoung-Heo) |  [@jeonsm22](https://github.com/jeonsm22) | [@kjiin](https://github.com/kjiin) |
+
+| 서지완 (BACK) | 석재륜 (FRONT) | 전성모 (FRONT) |
+| --- | --- | --- |
+| <img src="https://avatars.githubusercontent.com/u/91694379?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/116258012?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/136889446?v=4" width="300" height="300"/>
+| [@wannaseoji](https://github.com/wannaseoji) |  [@seokjr](https://github.com/seokjr) | [@jeonsm22](https://github.com/jeonsm22) |
+
 ## 기술 스택, 빌드 버전 및 기타 도구
 ![image.png](./InfraSettingCodes/image.png)
 
 ### Frontend
 
-- 프레임 워크 : Next.js (v14.2.5)
-- CSS : SASS
-- 언어 : Javascript
-- 라이브러리 : Framer Motion, Redux
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![SASS](https://img.shields.io/badge/SASS-hotpink.svg?style=for-the-badge&logo=SASS&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) 
+![Framer](https://img.shields.io/badge/Framer-black?style=for-the-badge&logo=framer&logoColor=blue)
+![Redux](https://img.shields.io/badge/redux-%23593d88.svg?style=for-the-badge&logo=redux&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
 
 ### Backend
 
-- 프레임 워크 : Spring boot (v3.3.2)
-- 데이터 베이스 : MySQL (v8), Redis (v7.4), AWS S3
-- 보안 : Spring-Security, JWT
-- WebRTC : Openvidu (v2.30.0)
-- 프록시 서버 : Nginx (v1.25.5)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![springboot](https://img.shields.io/badge/springboot-6DB33F.svg?style=for-the-badge&logo=springboot&logoColor=white) ![springsecurity](https://img.shields.io/badge/springsecurity-6DB33F.svg?style=for-the-badge&logo=springsecurity&logoColor=white) ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens) 
+![Gradle](https://img.shields.io/badge/Gradle-02303A.svg?style=for-the-badge&logo=Gradle&logoColor=white)
+
+### Database
+
+![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
+![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
+![amazons3](https://img.shields.io/badge/amazons3-569A31.svg?style=for-the-badge&logo=amazons3&logoColor=white)
 
 ### Infra
 
-- 서버 : AWS EC2 ubuntu 20.04.6 LTS
-- CI/CD 도구 : Gitlab, Jenkins (v2.452.3), Docker (v24.0.7), Docker-compose (v1.25.0)
-
-### 빌드 버전
-
-- Node.js : 20.15.1(LTS)
-- JVM : jdk17
-- gradle : 8.8
+![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=for-the-badge&logo=nginx&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=for-the-badge&logo=gitlab&logoColor=white)
+![Jenkins](https://img.shields.io/badge/jenkins-%232C5263.svg?style=for-the-badge&logo=jenkins&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ### 기타 도구
 
-- 개발 도구 : VsCode (v1.90.2), IntelliJ (v2024.1.4)
-- 일정 관리 : Jira,Notion
-- 커뮤니케이션 : MatterMost
-- 디자인 : Figma
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white) ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJIDEA-000000.svg?style=for-the-badge&logo=intellij-idea&logoColor=white)
+![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) 
+![Notion](https://img.shields.io/badge/Notion-%23000000.svg?style=for-the-badge&logo=notion&logoColor=white)
+![MatterMost](https://img.shields.io/badge/mattermost-0058CC.svg?style=for-the-badge&logo=mattermost&logoColor=white)
+![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=for-the-badge&logo=figma&logoColor=white)
+
+### 버전
+<details>
+<summary>version</summary>
+<div markdown="1">
+
+```text
+- next.js: 14.2.5
+- Openvidu: 2.30.0
+- Spring boot: 3.3.2
+- MySQL: 8
+- Redis: 7.4
+- Nginx: 1.25.5
+- AWS EC2 Ubuntu: 20.04.6 LTS
+- Jenkins: 2.452.3
+- Docker: 24.0.7
+- Docker-compose: 1.25.0
+- Node.js: 20.15.1(LTS)
+- jdk: 17
+- gradle: 8.8
+- Visual Studio Code: 1.90.2
+- IntelliJ IDEA: 2024.1.4
+```
+</div>
+</details>
+
+### 파일 디렉토리
+<details>
+<summary>front-end</summary>
+<div markdown="1">
+
+```text
+📦front-end
+ ┣ 📂koplaydev
+ ┃ ┣ 📂.next
+ ┃ ┣ 📂app
+ ┃ ┃ ┣ 📂album
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┗ 📂Embla
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Embla.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜embla.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmblaCarousel.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜EmblaCarouselArrowButtons.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜EmblaCarouselDotButton.js
+ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┣ 📂avatar
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📜BlueBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜BlueBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜BtnContainer.js
+ ┃ ┃ ┃ ┃ ┣ 📜BtnContainer.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜Cabinet.js
+ ┃ ┃ ┃ ┃ ┣ 📜Cabinet.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜Cam.js
+ ┃ ┃ ┃ ┃ ┣ 📜Cam.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜ChangeNation.js
+ ┃ ┃ ┃ ┃ ┗ 📜ChangeNation.module.scss
+ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┣ 📂axios
+ ┃ ┃ ┃ ┣ 📜albumAxios.js
+ ┃ ┃ ┃ ┣ 📜allAvatarAxios.js
+ ┃ ┃ ┃ ┣ 📜deleteChildAxios.js
+ ┃ ┃ ┃ ┣ 📜fameAxios.js
+ ┃ ┃ ┃ ┣ 📜gameListAxios.js
+ ┃ ┃ ┃ ┣ 📜gameResultAxios.js
+ ┃ ┃ ┃ ┣ 📜gameWordAxios.js
+ ┃ ┃ ┃ ┣ 📜insertChildAxios.js
+ ┃ ┃ ┃ ┣ 📜login.js
+ ┃ ┃ ┃ ┣ 📜logoutAxios.js
+ ┃ ┃ ┃ ┣ 📜modifyAvatarAxios.js
+ ┃ ┃ ┃ ┣ 📜modifyParentNationAxios.js
+ ┃ ┃ ┃ ┣ 📜modifyParentVisitAxios.js
+ ┃ ┃ ┃ ┣ 📜modifyStudentInfoAxios.js
+ ┃ ┃ ┃ ┣ 📜modifyStudentInfoImgAxios.js
+ ┃ ┃ ┃ ┣ 📜myAvatarAxios.js
+ ┃ ┃ ┃ ┣ 📜newAvatarAxios.js
+ ┃ ┃ ┃ ┣ 📜parentChildAlbumAxios.js
+ ┃ ┃ ┃ ┣ 📜parentChildInfoAxios.js
+ ┃ ┃ ┃ ┣ 📜parentChildStatisticsAxios.js
+ ┃ ┃ ┃ ┣ 📜parentInfoAxios.js
+ ┃ ┃ ┃ ┣ 📜pictureAxios.js
+ ┃ ┃ ┃ ┣ 📜studentGameCount.js
+ ┃ ┃ ┃ ┣ 📜studentInfo.js
+ ┃ ┃ ┃ ┣ 📜studentStatisticsAxios.js
+ ┃ ┃ ┃ ┗ 📜translations.js
+ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┣ 📂background
+ ┃ ┃ ┃ ┃ ┣ 📜AlbumFameBg.js
+ ┃ ┃ ┃ ┃ ┣ 📜AlbumFameBg.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜GameBg.js
+ ┃ ┃ ┃ ┃ ┣ 📜GameBg.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MainBg.js
+ ┃ ┃ ┃ ┃ ┣ 📜MainBg.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MyPageBg.js
+ ┃ ┃ ┃ ┃ ┣ 📜MyPageBg.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜ParentBg.js
+ ┃ ┃ ┃ ┃ ┣ 📜ParentBg.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜PromLoginBg.js
+ ┃ ┃ ┃ ┃ ┣ 📜PromLoginBg.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameBg.js
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameBg.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜StatisticBg.js
+ ┃ ┃ ┃ ┃ ┗ 📜StatisticBg.module.scss
+ ┃ ┃ ┃ ┣ 📂boxes
+ ┃ ┃ ┃ ┃ ┣ 📜BlueBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜BlueBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜BlurBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜BlurBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜PinkBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜PinkBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜WhiteBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜WhiteBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜YellowBox.js
+ ┃ ┃ ┃ ┃ ┗ 📜YellowBox.module.scss
+ ┃ ┃ ┃ ┣ 📂buttons
+ ┃ ┃ ┃ ┃ ┣ 📜BackScoreBtn.js
+ ┃ ┃ ┃ ┃ ┗ 📜BackScoreBtn.module.scss
+ ┃ ┃ ┃ ┣ 📜GoogleTranslate.js
+ ┃ ┃ ┃ ┣ 📜Headers.js
+ ┃ ┃ ┃ ┣ 📜Headers.module.scss
+ ┃ ┃ ┃ ┣ 📜Star.js
+ ┃ ┃ ┃ ┣ 📜Star.module.scss
+ ┃ ┃ ┃ ┣ 📜StarBg.js
+ ┃ ┃ ┃ ┣ 📜StarBg.module.scss
+ ┃ ┃ ┃ ┣ 📜TalkBalloon.js
+ ┃ ┃ ┃ ┗ 📜TalkBalloon.module.scss
+ ┃ ┃ ┣ 📂fame
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📜Podium.js
+ ┃ ┃ ┃ ┃ ┗ 📜Podium.module.scss
+ ┃ ┃ ┃ ┗ 📜page.js
+ ┃ ┃ ┣ 📂game
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📂flipflip
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardBack.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardBack.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGame.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameEnd.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameEnd.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameStart.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜FlipFlipGameStart.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📂games
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlip.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlip.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Smugogae.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Smugogae.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordRain.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordRain.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📂rankgame
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜rankTest.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RankTest2.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜RankTest2.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📂smugogae
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardText.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardText.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Hint.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Options.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Options.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜PlayJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜PlayJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGame.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGame.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameEnd.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameEnd.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameStart.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameStart.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameStartBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜SmuGameStartBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜CardBack.js
+ ┃ ┃ ┃ ┃ ┣ 📜CardBack.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.js
+ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.js
+ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜GameStartBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜GameStartBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameStartBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameStartBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜RankWordRainGame.js
+ ┃ ┃ ┃ ┃ ┣ 📜RewardJellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜RewardJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜TextToSpeech.js
+ ┃ ┃ ┃ ┃ ┣ 📜WordRainEnd.js
+ ┃ ┃ ┃ ┃ ┣ 📜WordRainEnd.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜WordRainGame.js
+ ┃ ┃ ┃ ┃ ┣ 📜WordRainStart.js
+ ┃ ┃ ┃ ┃ ┗ 📜WordRainStart.module.scss
+ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┃ ┣ 📜loading.js
+ ┃ ┃ ┃ ┗ 📜loading.module.scss
+ ┃ ┃ ┣ 📂login
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📜JellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜JellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜LoginModalBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜LoginModalBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜ParentLogin.js
+ ┃ ┃ ┃ ┃ ┣ 📜ParentLogin.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜ParentStudentBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜ParentStudentBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜SelectStatus.js
+ ┃ ┃ ┃ ┃ ┣ 📜StudentLogin.js
+ ┃ ┃ ┃ ┃ ┗ 📜StudentLogin.module.scss
+ ┃ ┃ ┃ ┣ 📜loading.js
+ ┃ ┃ ┃ ┣ 📜loading.module.scss
+ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📂modals
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FirstVisit.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜FirstVisit.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameTutorial.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameTutorial.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜NormalGame.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜NormalGame.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RankGame.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RankGame.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Setting.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Setting.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜Test.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜Test.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜DifficultyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜DifficultyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜EasyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜EasyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜ExpBar.js
+ ┃ ┃ ┃ ┃ ┣ 📜ExpBar.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜FameBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜FameBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜LevelJellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜LevelJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜LogoutModalBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜LogoutModalBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MainIcons.js
+ ┃ ┃ ┃ ┃ ┣ 📜MainIcons.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MainMenu.js
+ ┃ ┃ ┃ ┃ ┣ 📜MainMenu.mudule.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MainMenuBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜MainMenuBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MainModal.js
+ ┃ ┃ ┃ ┃ ┣ 📜MainModal.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MicTest.js
+ ┃ ┃ ┃ ┃ ┣ 📜Profile.js
+ ┃ ┃ ┃ ┃ ┣ 📜Profile.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜PwBlueBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜PwBlueBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜PwPinkBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜PwPinkBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameCancelBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜RankGameCancelBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜WhiteTestBtn.js
+ ┃ ┃ ┃ ┃ ┗ 📜WhiteTestBtn.module.scss
+ ┃ ┃ ┃ ┗ 📜page.js
+ ┃ ┃ ┣ 📂mypage
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📜ClickedPinkBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜ClickedPinkBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜Correct.js
+ ┃ ┃ ┃ ┃ ┣ 📜Correct.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜ExpBar.js
+ ┃ ┃ ┃ ┃ ┣ 📜ExpBar.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MyPageInfo.js
+ ┃ ┃ ┃ ┃ ┣ 📜MyPageInfo.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜Score.js
+ ┃ ┃ ┃ ┃ ┣ 📜Score.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜YellowBox.js
+ ┃ ┃ ┃ ┃ ┗ 📜YellowBox.module.scss
+ ┃ ┃ ┃ ┗ 📜page.js
+ ┃ ┃ ┣ 📂parent
+ ┃ ┃ ┃ ┣ 📂child
+ ┃ ┃ ┃ ┃ ┗ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CheckChildInfo.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CheckChildInfo.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClickedPinkBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ClickedPinkBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CompleteBox.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CompleteBox.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailBox.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailBox.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailpageChildProfileCard.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DetailpageChildProfileCard.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜YellowBox.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜YellowBox.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂statistic
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Album.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Album.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Correct.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Correct.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CorrectAnswerRate.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CorrectAnswerRate.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Progress.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Progress.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Comparison.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Comparison.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LevelJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LevelJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📜AddProfileCard.js
+ ┃ ┃ ┃ ┃ ┣ 📜AddProfileCard.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜BackButton.js
+ ┃ ┃ ┃ ┃ ┣ 📜BackButton.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜carousel.js
+ ┃ ┃ ┃ ┃ ┣ 📜carousel.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜CheckChildInfo.js
+ ┃ ┃ ┃ ┃ ┣ 📜CheckChildInfo.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜ChildProfileCard.js
+ ┃ ┃ ┃ ┃ ┣ 📜ChildProfileCard.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜CompleteBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜CompleteBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜DetailBox.js
+ ┃ ┃ ┃ ┃ ┣ 📜DetailBox.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜DetailpageChildProfileCard.js
+ ┃ ┃ ┃ ┃ ┣ 📜DetailpageChildProfileCard.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜DetailpageIndex.js
+ ┃ ┃ ┃ ┃ ┣ 📜DetailpageIndex.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜FirstVisitModal.js
+ ┃ ┃ ┃ ┃ ┣ 📜FirstVisitModal.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜InputChildInfo.js
+ ┃ ┃ ┃ ┃ ┣ 📜InputChildInfo.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜InputInitInfo.js
+ ┃ ┃ ┃ ┃ ┣ 📜InputInitInfo.module.scss
+ ┃ ┃ ┃ ┃ ┗ 📜style.js
+ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┣ 📂promotion
+ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┣ 📜ButtonsContainer.js
+ ┃ ┃ ┃ ┃ ┣ 📜ButtonsContainer.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜DifficultyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜DifficultyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜EasyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜EasyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜LevelJellyBtn.js
+ ┃ ┃ ┃ ┃ ┣ 📜LevelJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜MainModal.js
+ ┃ ┃ ┃ ┃ ┣ 📜MainModal.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜StartButton.js
+ ┃ ┃ ┃ ┃ ┣ 📜StartButton.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜Title.js
+ ┃ ┃ ┃ ┃ ┗ 📜Title.module.scss
+ ┃ ┃ ┃ ┣ 📂game
+ ┃ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂flipflip
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardBack.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardBack.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGame.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameEnd.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameEnd.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlipGameStart.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜FlipFlipGameStart.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂games
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlip.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipFlip.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Smugogae.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Smugogae.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordRain.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordRain.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂smugogae
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardText.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardText.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Hint.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Options.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Options.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PlayJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PlayJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGame.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGame.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameEnd.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameEnd.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameStart.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameStart.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SmuGameStartBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SmuGameStartBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardBack.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardBack.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontImage.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜CardFrontText.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameStartBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameStartBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RankGameStartBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RankGameStartBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RankWordRainGame.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RewardJellyBtn.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜RewardJellyBtn.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜TextToSpeech.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordRainEnd.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordRainEnd.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordRainGame.js
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordRainStart.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordRainStart.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜loading.js
+ ┃ ┃ ┃ ┃ ┗ 📜loading.module.scss
+ ┃ ┃ ┃ ┗ 📂modal
+ ┃ ┃ ┃ ┃ ┣ 📜NonLoginGame.js
+ ┃ ┃ ┃ ┃ ┗ 📜NonLoginGame.module.scss
+ ┃ ┃ ┣ 📂tutorial
+ ┃ ┃ ┃ ┗ 📂[nation]
+ ┃ ┃ ┃ ┃ ┗ 📂[id]
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂component
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂china
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipC.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RainC.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SmuC.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂korea
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipK.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RainK.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SmuK.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂thailand
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipT.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RainT.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SmuT.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂vietnam
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜FlipV.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RainV.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SmuV.js
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Tutorial.module.scss
+ ┃ ┃ ┃ ┃ ┃ ┗ 📜page.js
+ ┃ ┃ ┣ 📂utils
+ ┃ ┃ ┃ ┣ 📂AR
+ ┃ ┃ ┃ ┃ ┣ 📜app.js
+ ┃ ┃ ┃ ┃ ┣ 📜FacePaint.js
+ ┃ ┃ ┃ ┃ ┣ 📜frontProjectionUVMap.js
+ ┃ ┃ ┃ ┃ ┣ 📜jamini-mask.jpg
+ ┃ ┃ ┃ ┃ ┣ 📜positionBufferData.js
+ ┃ ┃ ┃ ┃ ┣ 📜script.js
+ ┃ ┃ ┃ ┃ ┣ 📜triangulation.js
+ ┃ ┃ ┃ ┃ ┗ 📜useFaceMask.js
+ ┃ ┃ ┃ ┣ 📂openvidu
+ ┃ ┃ ┃ ┃ ┣ 📜OpenVidu.js
+ ┃ ┃ ┃ ┃ ┣ 📜OpenVidu.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜OpenViduVideo.js
+ ┃ ┃ ┃ ┃ ┣ 📜OpenViduVideo.module.scss
+ ┃ ┃ ┃ ┃ ┣ 📜sessionCheckAndDelete.js
+ ┃ ┃ ┃ ┃ ┣ 📜UserVideo.js
+ ┃ ┃ ┃ ┃ ┣ 📜UserVideo.module.scss
+ ┃ ┃ ┃ ┃ ┗ 📜useStream.js
+ ┃ ┃ ┃ ┣ 📜API.js
+ ┃ ┃ ┃ ┣ 📜effectSound.js
+ ┃ ┃ ┃ ┣ 📜globalSound.js
+ ┃ ┃ ┃ ┣ 📜OpenAiStreamUtill.js
+ ┃ ┃ ┃ ┣ 📜OpenAiUtill.js
+ ┃ ┃ ┃ ┣ 📜useEffectSound.js
+ ┃ ┃ ┃ ┣ 📜useSound.js
+ ┃ ┃ ┃ ┣ 📜useSpeechToText.js
+ ┃ ┃ ┃ ┗ 📜websockectManager.js
+ ┃ ┃ ┣ 📂websocket
+ ┃ ┃ ┃ ┗ 📜page.js
+ ┃ ┃ ┣ 📜favicon.ico
+ ┃ ┃ ┣ 📜globals.scss
+ ┃ ┃ ┣ 📜hehe.png
+ ┃ ┃ ┣ 📜hehe192.png
+ ┃ ┃ ┣ 📜hehe384.png
+ ┃ ┃ ┣ 📜layout.js
+ ┃ ┃ ┣ 📜loading.js
+ ┃ ┃ ┣ 📜loading.module.scss
+ ┃ ┃ ┣ 📜manifest.json
+ ┃ ┃ ┣ 📜maskable_icon_x192.png
+ ┃ ┃ ┣ 📜maskable_icon_x384.png
+ ┃ ┃ ┣ 📜maskable_icon_x512.png
+ ┃ ┃ ┣ 📜page.js
+ ┃ ┃ ┗ 📜page.module.scss
+ ┃ ┣ 📂node_modules
+ ┃ ┣ 📂pages
+ ┃ ┣ 📂public
+ ┃ ┃ ┣ 📂cursors
+ ┃ ┃ ┣ 📂icons
+ ┃ ┃ ┃ ┗ 📂manifest
+ ┃ ┣ 📂redux
+ ┃ ┃ ┣ 📂slices
+ ┃ ┃ ┃ ┣ 📜avatarSlice.js
+ ┃ ┃ ┃ ┣ 📜correct.js
+ ┃ ┃ ┃ ┣ 📜currentAvatar.js
+ ┃ ┃ ┃ ┣ 📜currNationSlice.js
+ ┃ ┃ ┃ ┣ 📜expSlice.js
+ ┃ ┃ ┃ ┣ 📜gameLeftSlice.js
+ ┃ ┃ ┃ ┣ 📜gamePurposeSlice.js
+ ┃ ┃ ┃ ┣ 📜gameSlice.js
+ ┃ ┃ ┃ ┣ 📜gameWordSlice.js
+ ┃ ┃ ┃ ┣ 📜graphLevel.js
+ ┃ ┃ ┃ ┣ 📜hintsSlice.js
+ ┃ ┃ ┃ ┣ 📜Incorrect.js
+ ┃ ┃ ┃ ┣ 📜isRankSlice.js
+ ┃ ┃ ┃ ┣ 📜levelSlice.js
+ ┃ ┃ ┃ ┣ 📜loadingSlice.js
+ ┃ ┃ ┃ ┣ 📜modalSlice.js
+ ┃ ┃ ┃ ┣ 📜myPageSlice.js
+ ┃ ┃ ┃ ┣ 📜parentChaildsSlice.js
+ ┃ ┃ ┃ ┣ 📜parentChaildStatisticSlice.js
+ ┃ ┃ ┃ ┣ 📜parentSlice.js
+ ┃ ┃ ┃ ┣ 📜roomIdSlice.js
+ ┃ ┃ ┃ ┣ 📜studentAvatarSlice.js
+ ┃ ┃ ┃ ┣ 📜studentInfoSlice.js
+ ┃ ┃ ┃ ┣ 📜testSlice.js
+ ┃ ┃ ┃ ┣ 📜tokenSlice.js
+ ┃ ┃ ┃ ┣ 📜translationWords.js
+ ┃ ┃ ┃ ┣ 📜webSocketSlice.js
+ ┃ ┃ ┃ ┣ 📜WordRainSlice.js
+ ┃ ┃ ┃ ┗ 📜wrongList.js
+ ┃ ┃ ┣ 📜provider.js
+ ┃ ┃ ┣ 📜reduxStore.js
+ ┃ ┃ ┗ 📜store.js
+ ┃ ┣ 📜.gitignore
+ ┃ ┣ 📜docker-compose.override.yml
+ ┃ ┣ 📜docker-compose.yml
+ ┃ ┣ 📜Dockerfile
+ ┃ ┣ 📜jsconfig.json
+ ┃ ┣ 📜next.config.mjs
+ ┃ ┣ 📜package-lock.json
+ ┃ ┣ 📜package.json
+ ┃ ┣ 📜README.md
+ ┃ ┗ 📜socket.js
+ ┗ 📜temp.temp
+```
+</div>
+</details>
+<details>
+<summary>back-end</summary>
+<div markdown="2">
+
+```text
+📦back-end
+ ┗ 📂koplaydev
+ ┃ ┣ 📂.gradle
+ ┃ ┣ 📂build
+ ┃ ┃ ┣ 📂classes
+ ┃ ┃ ┃ ┗ 📂java
+ ┃ ┃ ┃ ┃ ┗ 📂main
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂edu
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂koplay
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂batch
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BatchConfig.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂scheduler
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScheduledBatchRunner.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomItemProcessor.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomItemReader.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomItemWriter.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Top3Players.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LocaleConfig.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜S3Config.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ServerConfig.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SwaggerConfig.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂AvatarController
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AvatarController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂game
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GameController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂global
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GlobalController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂parent
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂s3
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3Controller.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂student
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StudentController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MainController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllAveragePerPurposeDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChangeAvatarDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DailySpecificDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExpDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GalleryDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameCorrectDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameCountPerPurposeDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDataDTO$GameDataDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDataDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDTO$GameDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameResultDTO$GameResultDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameResultDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PollDTO$PollDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PollDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO$ResponseDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentDTO$StudentDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentLevelDTO$StudentLevelDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentLevelDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentMypageDTO$StudentMypageDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentMypageDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatarDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordGameDataDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordRequestDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Avatar$AvatarBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Avatar.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Gallery$GalleryBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Gallery.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Game$GameBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Game.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameData$GameDataBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameData.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GamePurpose$GamePurposeBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GamePurpose.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Music$MusicBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Music.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Nation$NationBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Nation.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Parent$ParentBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Parent.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RecommendLevel$RecommendLevelBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RecommendLevel.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Student$StudentBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Student.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatar$StudentUsableAvatarBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatar.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Word$WordBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Word.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂openvidu
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Controller.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GalleryRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDataRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GamePurposeRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MusicRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NationRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RecommendLevelRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatarRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂scheduler
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GameQueManageScheduler.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂security
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisConfig.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜SecurityConfig$1.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SecurityConfig.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomOAuth2User$1.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomOAuth2User.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserDetails$1.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserDetails.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GeneratedToken$GeneratedTokenBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GeneratedToken.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleResponse.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoResponse.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OAuth2Response.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO$ResponseDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StatusResponseDto.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TokenResponseStatusDto.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂jwt
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtFilter.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜JwtUtil.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RefreshToken.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂oauth2
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomLogoutHandler.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomOAuth2SuccessHandler.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserFailureHandler.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CustomUserSuccessHandler.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RefreshTokenRepository.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomOAuth2UserService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RefreshTokenService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ROLE.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂facade
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarFacadeService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameFacadeService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentFacadeService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StudentFacadeService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GalleryService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDataService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GamePurposeService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NationService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RecommendLevelService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜S3ImageService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatarService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordService.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Const.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂websocket
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebSocketConfig.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RankGameController.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CorrectDTO$CorrectDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CorrectDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JoinDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO$ResponseDTOBuilder.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ResponseDTO.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameMessage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameResultMessage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameRoom.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameRoomManager.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameStartMessage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameState.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GameWordMessage.class
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KoplaydevApplication.class
+ ┃ ┃ ┣ 📂generated
+ ┃ ┃ ┃ ┗ 📂sources
+ ┃ ┃ ┃ ┃ ┣ 📂annotationProcessor
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂main
+ ┃ ┃ ┃ ┃ ┗ 📂headers
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂main
+ ┃ ┃ ┣ 📂resources
+ ┃ ┃ ┃ ┗ 📂main
+ ┃ ┃ ┃ ┃ ┣ 📂static
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂uploads
+ ┃ ┃ ┃ ┃ ┣ 📜application-jwt.yml
+ ┃ ┃ ┃ ┃ ┣ 📜application-oauth.yml
+ ┃ ┃ ┃ ┃ ┣ 📜application-url.yml
+ ┃ ┃ ┃ ┃ ┣ 📜application.properties
+ ┃ ┃ ┃ ┃ ┣ 📜messages_ko_KR.properties
+ ┃ ┃ ┃ ┃ ┣ 📜messages_th_TH.properties
+ ┃ ┃ ┃ ┃ ┣ 📜messages_vi_VN.properties
+ ┃ ┃ ┃ ┃ ┗ 📜messages_zh_CN.properties
+ ┃ ┃ ┗ 📂tmp
+ ┃ ┣ 📂gradle
+ ┃ ┃ ┗ 📂wrapper
+ ┃ ┃ ┃ ┗ 📜gradle-wrapper.properties
+ ┃ ┣ 📂src
+ ┃ ┃ ┣ 📂main
+ ┃ ┃ ┃ ┣ 📂java
+ ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂edu
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂koplay
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂batch
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜BatchConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂scheduler
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ScheduledBatchRunner.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomItemProcessor.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomItemReader.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomItemWriter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Top3Players.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜LocaleConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜S3Config.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ServerConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SwaggerConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂AvatarController
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜AvatarController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂game
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GameController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂global
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GlobalController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂parent
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ParentController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂s3
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜S3Controller.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂student
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StudentController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AuthController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜MainController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AllAveragePerPurposeDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ChangeAvatarDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜DailySpecificDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ExpDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GalleryDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameCorrectDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameCountPerPurposeDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDataDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameResultDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜PollDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentLevelDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentMypageDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatarDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜WordGameDataDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordRequestDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Avatar.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Gallery.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Game.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameData.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GamePurpose.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Music.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Nation.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Parent.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RecommendLevel.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜Student.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatar.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Word.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂openvidu
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Controller.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GalleryRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDataRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GamePurposeRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜MusicRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NationRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RecommendLevelRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatarRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂scheduler
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GameQueManageScheduler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂security
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RedisConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜SecurityConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomOAuth2User.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserDetails.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GeneratedToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GoogleResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜KakaoResponse.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜OAuth2Response.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ResponseDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StatusResponseDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜TokenResponseStatusDto.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂jwt
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JwtFilter.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜JwtUtil.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂model
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RefreshToken.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂oauth2
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomLogoutHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomOAuth2SuccessHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomUserFailureHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜CustomUserSuccessHandler.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂repository
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RefreshTokenRepository.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CustomOAuth2UserService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RefreshTokenService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜UserService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ROLE.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂service
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂facade
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarFacadeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameFacadeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentFacadeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜StudentFacadeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜AvatarService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GalleryService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDataService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GamePurposeService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜NationService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜ParentService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜RecommendLevelService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜S3ImageService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜StudentUsableAvatarService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WordService.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂util
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜Const.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂websocket
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂config
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜WebSocketConfig.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂controller
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜RankGameController.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📂dto
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜CorrectDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜JoinDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜ResponseDTO.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameMessage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameResultMessage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameRoom.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameRoomManager.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameStartMessage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜GameState.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜GameWordMessage.java
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KoplaydevApplication.java
+ ┃ ┃ ┃ ┗ 📂resources
+ ┃ ┃ ┃ ┃ ┣ 📂static
+ ┃ ┃ ┃ ┃ ┃ ┣ 📂images
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂uploads
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜album2.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜avatar.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜avatar2.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜bear.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜blueUfo-parent-bg.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜brownPlanet-parent-bg.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜cherial-woman-mask.jpg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜chhau-mask.jpg
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜f1af14dc-dimage.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┣ 📜rabbit.png
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜skill.png
+ ┃ ┃ ┃ ┃ ┣ 📜application-jwt.yml
+ ┃ ┃ ┃ ┃ ┣ 📜application-oauth.yml
+ ┃ ┃ ┃ ┃ ┣ 📜application-url.yml
+ ┃ ┃ ┃ ┃ ┣ 📜application.properties
+ ┃ ┃ ┃ ┃ ┣ 📜messages_ko_KR.properties
+ ┃ ┃ ┃ ┃ ┣ 📜messages_th_TH.properties
+ ┃ ┃ ┃ ┃ ┣ 📜messages_vi_VN.properties
+ ┃ ┃ ┃ ┃ ┗ 📜messages_zh_CN.properties
+ ┃ ┃ ┗ 📂test
+ ┃ ┃ ┃ ┗ 📂java
+ ┃ ┃ ┃ ┃ ┗ 📂com
+ ┃ ┃ ┃ ┃ ┃ ┗ 📂edu
+ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📂koplay
+ ┃ ┃ ┃ ┃ ┃ ┃ ┃ ┗ 📜KoplaydevApplicationTests.java
+ ┃ ┣ 📜.gitignore
+ ┃ ┣ 📜build.gradle
+ ┃ ┣ 📜Dockerfile
+ ┃ ┣ 📜gradlew
+ ┃ ┣ 📜gradlew.bat
+ ┃ ┣ 📜HELP.md
+ ┃ ┗ 📜settings.gradle
+```
+</div>
+</details>
 
 ## 빌드
 
