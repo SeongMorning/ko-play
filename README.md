@@ -7,8 +7,8 @@
 
 | 허지영 (FULL) | 구재승 (INFRA) | 권지인 (FRONT) |
 | --- | --- | --- | 
-| <img src="https://avatars.githubusercontent.com/u/93931316?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/120040559?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/156158673?v=4" width="300" height="300"/>
-| [@jiyoung-Heo](https://github.com/jiyoung-Heo) |  [@jeonsm22](https://github.com/jeonsm22) | [@kjiin](https://github.com/kjiin) |
+| <img src="https://avatars.githubusercontent.com/u/93931316?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/156158673?v=4" width="300" height="300"/>
+| [@jiyoung-Heo](https://github.com/jiyoung-Heo) |  [@jeonsm22]() | [@kjiin](https://github.com/kjiin) |
 
 | 서지완 (BACK) | 석재륜 (FRONT) | 전성모 (FRONT) |
 | --- | --- | --- |
