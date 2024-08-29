@@ -1,14 +1,14 @@
-# KoPlay
+# KoPlay- 다문화 초등학생을 위한 한국어 교육 게이미피케이션 서비스
 
-다문화 초등학생을 위한 한국어 교육 게이미피케이션 서비스\
-(게이미피케이션 : 게임이 아닌 애플리케이션에 애플리케이션 사용을 권장하기 위해 게임 플레이 기법을 적용하는 것)
+**SSAFY 11기 2학기 공통 프로젝트**
+>**개발기간: 24.07.08~24.08.16**
 
 ## 개발팀 소개
 
 | 허지영 (FULL) | 구재승 (INFRA) | 권지인 (FRONT) |
 | --- | --- | --- | 
 | <img src="https://avatars.githubusercontent.com/u/93931316?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/156158673?v=4" width="300" height="300"/>
-| [@jiyoung-Heo](https://github.com/jiyoung-Heo) |  [@jeonsm22]() | [@kjiin](https://github.com/kjiin) |
+| [@jiyoung-Heo](https://github.com/jiyoung-Heo) |  [@구재승]() | [@kjiin](https://github.com/kjiin) |
 
 | 서지완 (BACK) | 석재륜 (FRONT) | 전성모 (FRONT) |
 | --- | --- | --- |
@@ -77,7 +77,7 @@
 </div>
 </details>
 
-### 파일 디렉토리
+## 디렉토리 구조
 <details>
 <summary>front-end</summary>
 <div markdown="1">
@@ -1026,6 +1026,8 @@
 ```
 </div>
 </details>
+
+## 주요기능 📦
 
 ## 빌드
 
