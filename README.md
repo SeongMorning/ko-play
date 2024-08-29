@@ -1,3 +1,7 @@
+<div align="center">
+<img src="./front-end/koplaydev/public/logo.png" width="400" height="400"/>
+</div>
+
 # KoPlay- 다문화 초등학생을 위한 한국어 교육 게이미피케이션 서비스
 
 **SSAFY 11기 2학기 공통 프로젝트**
@@ -7,7 +11,7 @@
 
 | 허지영 (FULL) | 구재승 (INFRA) | 권지인 (FRONT) |
 | --- | --- | --- | 
-| <img src="https://avatars.githubusercontent.com/u/93931316?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/156158673?v=4" width="300" height="300"/>
+| <img src="https://avatars.githubusercontent.com/u/93931316?v=4" width="300" height="300"/>|<img src="front-end/koplaydev/public/hehe384.png" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/156158673?v=4" width="300" height="300"/>
 | [@jiyoung-Heo](https://github.com/jiyoung-Heo) |  [@구재승]() | [@kjiin](https://github.com/kjiin) |
 
 | 서지완 (BACK) | 석재륜 (FRONT) | 전성모 (FRONT) |
@@ -1027,13 +1031,91 @@
 </div>
 </details>
 
+## 화면구성 📺
+
+<details>
+<summary>Student</summary>
+<div markdown="3">
+
+| Student |
+| :---: |
+|**프로모션**|
+| ![프로모션](exec/gif/promotion.gif) |
+| **로그인** |
+| ![로그인](exec/gif/login.gif) |
+| **개인설정** |
+| ![개인설정](exec/gif/setting.gif) |
+| **테스트** |
+| ![테스트](exec/gif/test.gif) |
+| **튜토리얼** |
+| ![튜토리얼](exec/gif/tutorial.gif) |
+| **일반게임** |
+| ![일반게임](exec/gif/normalGame.gif) |
+| **단어비** |
+| ![단어비](exec/gif/wordRain.gif) |
+| **뒤집기** |
+| ![뒤집기](exec/gif/flipflip.gif) |
+| **스무고개** |
+| ![스무고개](exec/gif/smu.gif) |
+| **게임보상** |
+| ![게임보상](exec/gif/reward.gif) |
+| **오답노트** |
+| ![오답노트](exec/gif/odap.gif) |
+| **아바타** |
+| ![아바타](exec/gif/avatar.gif) |
+| **사진첩** |
+| ![사진첩](exec/gif/album.gif) |
+| **랭크게임** |
+| ![랭크게임](exec/gif/rankGame.gif) |
+| **마이페이지** |
+| ![마이페이지](exec/gif/studentMypage.gif) |
+| **로그아웃** |
+| ![로그아웃](exec/gif/logout.gif) |
+
+</div>
+</details>
+
 ## 주요기능 📦
+### ⭐️ 국제화
+- 부모의 모국어에 맞는 언어 번역 기능 제공
+- 사용자의 기호에 맞는 언어 번역 기능 제공
+
+### ⭐️ 일반게임
+- 한글 교육에 기초가 되는 세가지 분야의 게임 제공
+- 말하기-단어비: 우주에서 내려오는 그림을 말해요
+- 듣기-스무고개: 주어지는 설명을 듣고 단어를 맞춰요
+- 읽기-뒤집기: 카드를 뒤집어 단어를 맞춰요
+- 게임을 통해 경험치 획득
+- 레벨업 시 국적 별 랜덤 아바타 획득
+
+### ⭐️ 랭크게임
+- 다른 사용자와 경쟁할 수 있는 컨텐츠 제공
+- 단어비 게임을 동시성 제어를 통해 먼저 맞춘 유저에게 점수 부여
+- 게임 종료 후 기념사진 촬영 기능
+
+### ⭐️ 통계(부모, 자녀)
+- 자녀
+  경험치, 정답률, 최근전적 통계 데이터 제공
+- 부모
+  분야별/레벨별 정답률, 진도 현황, 성취도 비교 통계 데이터 제공
+  open Ai를 통해 해당 데이터를 본인의 국적에 맞는 언어로 분석 및 요약 기능
+
+### ⭐️ 아바타
+- 다문화의 문화요소를 고려하여 국가별 특징을 담은 아바타 제공 (국기, 모자, 가면 등)
+- 경쟁게임의 사진찍기 시 활용 가능
+
+### ⭐️ 사진첩
+- 경쟁게임에서 찍은 사진을 조회하는 기능
+
 
 ## 빌드
 
 설치 과정은 꼭 순서를 지켜주세요
 
 ### 1. jenkins
+<details>
+<summary> jenkins build 순서 </summary>
+<div markdown="5">
 
 a. EC2 내부에 접속해서 jenkins 직접 설치
 
@@ -1126,6 +1208,10 @@ pipeline {
 }
 
 ```
+
+
+</div>
+</details>
 
 ### 2. MySQL,Redis
 
