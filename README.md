@@ -5,6 +5,16 @@
 # KoPlay- 다문화 초등학생을 위한 한국어 교육 게이미피케이션 서비스
 
 **SSAFY 11기 2학기 공통 프로젝트**
+
+
+<details>
+<summary>시연 영상 링크</summary>
+<div markdown="0"  align="center">
+
+[![시연 영상]( https://img.youtube.com/vi/0iKKYGFNOSM/hqdefault.jpg)](https://youtu.be/0iKKYGFNOSM) 
+</div>
+</details>
+
 >**개발기간: 24.07.08~24.08.16**
 
 ## 개발팀 소개
