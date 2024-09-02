@@ -1085,6 +1085,22 @@
 </div>
 </details>
 
+<details>
+<summary>Parent</summary>
+<div markdown="3">
+
+| Parent |
+| :---: |
+|**부모로그인**|
+| ![부모로그인](exec/gif/parent_login.gif) |
+| **부모의 아이 통계페이지** |
+| ![부모의 아이 통계페이지](exec/gif/parent_statistic.gif) |
+| **아이 계정 생성** |
+| ![아이 계정 생성](exec/gif/parent_childProfile.gif) |
+
+</div>
+</details>
+
 ## 주요기능 📦
 ### ⭐️ 국제화
 - 부모의 모국어에 맞는 언어 번역 기능 제공
