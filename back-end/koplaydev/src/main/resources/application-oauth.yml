@@ -4,8 +4,8 @@ spring:
       client:
         registration:
           google:
-            client-id: 241863614128-s5smk5jfk8em3rrbgc66rj8sh9ecc5e3.apps.googleusercontent.com
-            client-secret: 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
+            client-id: 
+            client-secret: 
             redirect-uri: ${server.url.back}/login/oauth2/code/google
             authorization-grant-type: authorization_code
             scope: email, profile
@@ -16,7 +16,7 @@ spring:
               user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
 
           kakao:
-            client-id: 45a5036ad9a75c7410e31154a10c7e39
+            client-id: 
             redirect-uri: ${server.url.back}/login/oauth2/code/kakao
             client-authentication-method: client_secret_post
             authorization-grant-type: authorization_code
