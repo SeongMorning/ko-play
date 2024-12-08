@@ -27,7 +27,7 @@
 | 서지완 (BACK) | 석재륜 (FRONT) | 전성모 (FRONT) |
 | --- | --- | --- |
 | <img src="https://avatars.githubusercontent.com/u/91694379?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/116258012?v=4" width="300" height="300"/>|<img src="https://avatars.githubusercontent.com/u/136889446?v=4" width="300" height="300"/>
-| [@wannaseoji](https://github.com/wannaseoji) |  [@seokjr](https://github.com/seokjr) | [@MilleZoo](https://github.com/MilleZoo) |
+| [@wannaseoji](https://github.com/wannaseoji) |  [@seokjr](https://github.com/seokjr) | [@jeonsm22](https://github.com/jeonsm22) |
 
 ## 기술 스택, 빌드 버전 및 기타 도구
 ![image.png](./InfraSettingCodes/image.png)
